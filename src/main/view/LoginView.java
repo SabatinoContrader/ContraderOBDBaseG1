@@ -16,6 +16,7 @@ public class LoginView implements View {
 
 
     public void showOptions () {
+        System.out.println("-----Accedi con i tuoi dati----");
         System.out.println("-----LOGIN----");
         System.out.println("Nome utente:");
         nomeUtente = getInput();
