@@ -4,7 +4,7 @@ import model.Utente;
 
 public interface IController {
  
-	public void showAlets(Utente u);
+	public void showAlerts(Utente u);
 	
 	public void showCarList(Utente u);
 	

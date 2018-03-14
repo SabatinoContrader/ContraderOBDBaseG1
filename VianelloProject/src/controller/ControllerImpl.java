@@ -5,7 +5,7 @@ import model.Utente;
 public class ControllerImpl implements IController {
 
 	@Override
-	public void showAlets(Utente u) {
+	public void showAlerts(Utente u) {
 		// TODO Auto-generated method stub
 		
 	}
