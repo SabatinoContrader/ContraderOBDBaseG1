@@ -24,6 +24,6 @@ public class Azienda {
 	  private String longitudine;
 	  private String tipologia;
 	  private Date dataInserimento;
-	  private String città;
+	  private String citta;
 	  private ArrayList<Auto> listAuto;
 }
