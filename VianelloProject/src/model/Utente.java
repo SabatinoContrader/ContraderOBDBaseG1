@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -24,4 +25,5 @@ public class Utente {
 	  private Date dataRegistrazione;
 	  private int ruolo;
 	  private String telefono;
+	  private ArrayList <Auto> auto;
 }
