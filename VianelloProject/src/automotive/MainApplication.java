@@ -1,5 +1,6 @@
 package automotive;
 
+import controller.ControllerSingleton;
 import dao.ConnessioneDB;
 import dao.GestioneUtenteDAO;
 import model.Utente;
@@ -14,6 +15,9 @@ public class MainApplication {
 		
 		//Test Registrazione
 		//GestioneUtenteDAO.signUp();
+		
+		//Test Registrazione Azienda
+		//ControllerSingleton.getIstance().signUpAziende();
 		
 		String email;
 		String password;

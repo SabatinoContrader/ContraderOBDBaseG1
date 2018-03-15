@@ -1,27 +1,29 @@
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.Azienda;
 
 public class AziendaDAO{
 
-	public void setAzienda(Azienda a) {
+	public static void setAzienda(Azienda a) {
 		
-		String Query = "INSERT INTO `azienda` (`Denominazione`, `NomeReferente`, `CognomeReferente`, `Email`, `Telefono`, `Latitudine`, `Longitudine`, `Tipologia`, `DataInserimento`, `Citt√†`) VALUES (`"+a.getDenominazione()+"`, `"+a.getNomeReferente()+"`, `"+a.getCognomeReferente()+"`, `"+a.getEmail()+"`, `"+a.getTelefono()+"`, `"+a.getLatitudine()+"`, `"+a.getLongitudine()+"`, `"+a.getTipologia()+"`, `"+a.getDataInserimento()+"`, `"+a.getCitta()+"†`)";
+		String Query = "INSERT INTO `azienda` (`Denominazione`, `NomeReferente`, `CognomeReferente`, `Email`, `Telefono`, `Latitudine`, `Longitudine`, `Tipologia`, `DataInserimento`, `Citta`) VALUES ('"+a.getDenominazione()+"', '"+a.getNomeReferente()+"', '"+a.getCognomeReferente()+"', '"+a.getEmail()+"', '"+a.getTelefono()+"', ?, ?, "+a.getTipologia()+", ?, '"+a.getCitta()+"')";
 		
 		System.out.println(Query);
 		
 		PreparedStatement statement;
-		ResultSet resultSet = null;
 		
 		int inserito = 0;
 		
 		try {
 			
 			statement = ConnessioneDB.getInstance().prepareStatement(Query);
+			statement.setFloat(1, Float.parseFloat(a.getLatitudine()));
+			statement.setFloat(2, Float.parseFloat(a.getLongitudine()));
+			statement.setDate(3, (Date) a.getDataInserimento());
 			inserito = statement.executeUpdate();
 			
 		} catch (SQLException e) {
