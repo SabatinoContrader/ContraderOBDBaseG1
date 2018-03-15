@@ -8,7 +8,7 @@ import model.Azienda;
 
 public class AziendaDAO{
 
-	void setAzienda(Azienda a) {
+	public void setAzienda(Azienda a) {
 		
 		String Query = "INSERT INTO `azienda` (`Denominazione`, `NomeReferente`, `CognomeReferente`, `Email`, `Telefono`, `Latitudine`, `Longitudine`, `Tipologia`, `DataInserimento`, `Citt√†`) VALUES (`"+a.getDenominazione()+"`, `"+a.getNomeReferente()+"`, `"+a.getCognomeReferente()+"`, `"+a.getEmail()+"`, `"+a.getTelefono()+"`, `"+a.getLatitudine()+"`, `"+a.getLongitudine()+"`, `"+a.getTipologia()+"`, `"+a.getDataInserimento()+"`, `"+a.getCitta()+"†`)";
 		

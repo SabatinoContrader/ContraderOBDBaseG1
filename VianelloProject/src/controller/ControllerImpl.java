@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
+
+import dao.AziendaDAO;
 import dao.CarDAO;
 public class ControllerImpl implements IController {
 
@@ -101,7 +103,7 @@ public class ControllerImpl implements IController {
     	
     	Azienda a = new Azienda(denominazione, nomeReferente, cognomeReferente, email, telefono, latitudine, longitudine, tipologia, dataInserimento, citta, null);
 
-    	//AziendaDAO.
+    	
     }
 
     @Override
