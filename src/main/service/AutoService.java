@@ -3,7 +3,9 @@ package main.service;
 import main.dao.AutoDAO;
 import main.model.Auto;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AutoService {
 
@@ -27,6 +29,10 @@ public class AutoService {
 
     public boolean resetAuto (int cod_Dispositivo) {
         return this.autoDAO.resetAuto(cod_Dispositivo);
+    }
+
+    public HashMap findAuto (int cod_Dispositivo) {
+        return this.autoDAO.findAuto(cod_Dispositivo);
     }
 }
 

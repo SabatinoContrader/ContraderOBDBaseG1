@@ -2,13 +2,13 @@ package main.view;
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.Auto;
+import main.model.Dati_dispositivo;
 import main.service.AutoService;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class AutoView implements View {
 
@@ -40,6 +40,7 @@ public class AutoView implements View {
 
             case "insert":
                 Scanner scanner = new Scanner(System.in);
+                System.out.println("");
                 System.out.println("Inserisci i dati dell'auto:");
                 System.out.println("Codice del dispositivo associato:");
                 int cod_Dispositivo = Integer.parseInt(getInput());
@@ -73,6 +74,7 @@ public class AutoView implements View {
 
             case "update":
                  scanner = new Scanner(System.in);
+                System.out.println("");
                 System.out.println("Inserisci il codice del dispositivo associato all'auto da modificare:");
                 cod_Dispositivo = Integer.parseInt(getInput());
                 System.out.println("Targa");
@@ -105,6 +107,7 @@ public class AutoView implements View {
 
             case "reset":
                 scanner = new Scanner(System.in);
+                System.out.println("");
                 System.out.println("Inserisci il codice del dispositivo da resettare:");
                 cod_Dispositivo = Integer.parseInt(getInput());
                 System.out.println("Verrà cancellata l'auto ad esso associata e tutti i dati relativi");
@@ -113,10 +116,31 @@ public class AutoView implements View {
 
             case "find":
                 scanner = new Scanner(System.in);
-                System.out.println("Inserisci il codice del dispositivo da resettare:");
+                System.out.println("");
+                System.out.println("Inserisci il codice dell'auto da ricercare:");
                 cod_Dispositivo = Integer.parseInt(getInput());
-                System.out.println("Verrà cancellata l'auto ad esso associata e tutti i dati relativi");
-                autoService.resetAuto(cod_Dispositivo);
+                System.out.println("");
+                HashMap autoDati = new HashMap(autoService.findAuto(cod_Dispositivo));
+                Auto auto = (Auto) autoDati.get("Auto");
+                List<Dati_dispositivo> dati = (List<Dati_dispositivo>) autoDati.get("Dati");
+                System.out.println("Codice dispositivo: " + auto.getCod_Dispositivo());
+                System.out.println("Targa: " + auto.getTarga());
+                System.out.println("Num. telaio: " + auto.getTelaio());
+                System.out.println("Modello: " + auto.getCasa_Costruttrice() + " " + auto.getModello());
+                System.out.println("Alimentazione: " + auto.getAlimentazione());
+                System.out.println("Cambio: " + auto.getCambio());
+                System.out.println("Ultima revisione: " + auto.getRevisione());
+                System.out.println("Ultimo tagliando: " + auto.getTagliando_Data() + " a " + auto.getTagliando_Km() + " km");
+                System.out.println("");
+
+                System.out.println("Dati del dispositivo:");
+                System.out.println("    Data      Km       Liv. olio     Cod. Errore");
+                Iterator i = dati.iterator();
+                while(i.hasNext())
+                {
+                    Dati_dispositivo dato = (Dati_dispositivo) i.next();
+                    System.out.println("  " + dato.getData() + "    " + dato.getKm() + "         " + dato.getLivello_olio() + "           "  + dato.getCodice_Errore());
+                }
                 break;
         }
     }
