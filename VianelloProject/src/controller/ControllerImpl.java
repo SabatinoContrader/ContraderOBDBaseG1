@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import dao.AlertsDAO;
+import dao.AziendaDAO;
 import dao.CarDAO;
 import dao.GestioneUtenteDAO;
 import model.Auto;
@@ -100,7 +101,7 @@ public class ControllerImpl implements IController {
     	
     	Azienda a = new Azienda(denominazione, nomeReferente, cognomeReferente, email, telefono, latitudine, longitudine, tipologia, dataInserimento, citta, null);
 
-    	
+    	AziendaDAO.setAzienda(a);
     }
 
     @Override
