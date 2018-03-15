@@ -1,8 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `db` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `db`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: db
+-- Host: 127.0.0.1    Database: db
 -- ------------------------------------------------------
 -- Server version	5.5.54-log
 
@@ -157,9 +155,9 @@ CREATE TABLE `azienda` (
   `Longitudine` float DEFAULT NULL,
   `Tipologia` int(1) NOT NULL COMMENT '0 = Autofficina\n1 = Casa Locataria',
   `DataInserimento` date DEFAULT NULL,
-  `Città` varchar(128) DEFAULT NULL,
+  `Citta` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +166,7 @@ CREATE TABLE `azienda` (
 
 LOCK TABLES `azienda` WRITE;
 /*!40000 ALTER TABLE `azienda` DISABLE KEYS */;
-INSERT INTO `azienda` VALUES (1,'Azienda di Prova','Referente azienda','cognome ref azienda','igoe@email.it','5435345',453535,43535300,0,'2018-02-12','Napoli');
+INSERT INTO `azienda` VALUES (1,'Azienda di Prova','Referente azienda','cognome ref azienda','igoe@email.it','5435345',453535,43535300,0,'2018-02-12','Napoli'),(2,'dasdasd','dasda','adasda','dasdas','213123',312312,32131200,0,'2018-02-12','Napoli'),(3,'dasda','gew','fwe','wfs','3424',5342,524,0,NULL,NULL),(4,'dasda','gew','fwe','wfs','3424',5342,524,0,NULL,NULL),(5,'shas','dasd','gad','fdsgfsg','432423',343423,4324,20,'2018-03-15',NULL),(6,'safsd','FSAHDS','fdsf','fdsgs','5452345',54352,5435,0,'2018-03-15','432'),(7,'Contrader','Saba','tino','sab@tino.it','5321432',312685,4124,0,'2018-03-15','Benevento'),(8,'dysag','dtyasfd','das','dfsahgdva','263713',62351,537142,0,'2018-03-15','sdhagvj');
 /*!40000 ALTER TABLE `azienda` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -451,7 +449,7 @@ CREATE TABLE `utente` (
   PRIMARY KEY (`ID`),
   KEY `utente_azienda_fk_idx` (`IdAzienda`),
   CONSTRAINT `utente_azienda_fk` FOREIGN KEY (`IdAzienda`) REFERENCES `azienda` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -460,7 +458,7 @@ CREATE TABLE `utente` (
 
 LOCK TABLES `utente` WRITE;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
-INSERT INTO `utente` VALUES (1,'dfgh','dasdasd','pippo','paperino',0,1,'2018-03-14',0,'4536728370'),(2,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(3,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(4,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(5,'Lorenzo','Vitale','lv@contrader.it','password',0,1,'2018-02-10',1,'33813419');
+INSERT INTO `utente` VALUES (1,'dfgh','dasdasd','pippo','paperino',0,1,'2018-03-14',0,'4536728370'),(2,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(3,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(4,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(5,'Lorenzo','Vitale','lv@contrader.it','password',0,1,'2018-02-10',1,'33813419'),(6,'dsa','dasda','dasdas','dasdas',0,1,'2018-02-10',0,'65372183'),(7,'Antonio','Vianello','av@email.it','password',0,1,'2018-03-15',0,'456789213');
 /*!40000 ALTER TABLE `utente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -473,4 +471,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-15  9:28:18
+-- Dump completed on 2018-03-15 17:09:39
