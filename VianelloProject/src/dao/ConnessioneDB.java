@@ -26,7 +26,7 @@ public class ConnessioneDB {
 				conn = (Connection) DriverManager.getConnection("jdbc:mysql://"+indirizzoIp+":"+porta+"/"+nomeDB+"", username, password);
 				
 				if(conn!=null) {
-					System.out.println("Connessione al DB avvenuta con SUCCESSO!");
+					System.out.println("Connessione al DB AVVENUTA!");
 				}
 				
 				istanze ++;
