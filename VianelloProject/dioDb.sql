@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `db` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `db`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: db
+-- Host: localhost    Database: db
 -- ------------------------------------------------------
 -- Server version	5.5.54-log
 
@@ -71,7 +71,7 @@ CREATE TABLE `auto` (
   `TipologiaAuto` varchar(64) DEFAULT NULL COMMENT 'Utilitaria, Station Wagon, ecc.',
   `DaNoleggio` int(1) NOT NULL COMMENT '1 = Adibita al Noleggio\n0 = Privata',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `auto` (
 
 LOCK TABLES `auto` WRITE;
 /*!40000 ALTER TABLE `auto` DISABLE KEYS */;
-INSERT INTO `auto` VALUES (1,'dsa','dasd','dasda','dasda',321,3213,'2018-12-03','2018-12-03','2018-12-03','2018-12-03','0',0),(2,'asda','das','adsa','dasda',663,546,'2018-12-03','2018-12-03','2018-12-03','2018-12-03','0',0);
+INSERT INTO `auto` VALUES (1,'Fiat','Panda','AN823PA','83N8gnn89g83',321,3213,'2018-12-03','2018-12-03','2018-12-03','2018-12-03','0',0),(2,'asda','das','adsa','dasda',663,546,'2018-12-03','2018-12-03','2018-12-03','2018-12-03','0',0),(3,'Alfa-Romeo','147','RU834MP','8n8err3rb',899,79414,'2018-12-03','2018-12-03','2018-12-03','2018-12-03','0',1),(4,'Seat','Ibiza','eu384bn','N8ut93t8',839,973,'2018-12-03','2018-12-03','2018-12-03','2018-12-03','0',1);
 /*!40000 ALTER TABLE `auto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,6 +107,7 @@ CREATE TABLE `auto_azienda` (
 
 LOCK TABLES `auto_azienda` WRITE;
 /*!40000 ALTER TABLE `auto_azienda` DISABLE KEYS */;
+INSERT INTO `auto_azienda` VALUES (1,3),(1,4);
 /*!40000 ALTER TABLE `auto_azienda` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +135,7 @@ CREATE TABLE `auto_utente` (
 
 LOCK TABLES `auto_utente` WRITE;
 /*!40000 ALTER TABLE `auto_utente` DISABLE KEYS */;
-INSERT INTO `auto_utente` VALUES (1,1,435),(1,2,432);
+INSERT INTO `auto_utente` VALUES (1,1,435),(5,2,432);
 /*!40000 ALTER TABLE `auto_utente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +168,7 @@ CREATE TABLE `azienda` (
 
 LOCK TABLES `azienda` WRITE;
 /*!40000 ALTER TABLE `azienda` DISABLE KEYS */;
-INSERT INTO `azienda` VALUES (1,'dsad','fsdada','dsada','dasd','5435345',453535,43535300,0,'2018-02-12',NULL);
+INSERT INTO `azienda` VALUES (1,'Azienda di Prova','Referente azienda','cognome ref azienda','igoe@email.it','5435345',453535,43535300,0,'2018-02-12','Napoli');
 /*!40000 ALTER TABLE `azienda` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +183,7 @@ CREATE TABLE `dati_telemetria` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Dati` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,6 +192,7 @@ CREATE TABLE `dati_telemetria` (
 
 LOCK TABLES `dati_telemetria` WRITE;
 /*!40000 ALTER TABLE `dati_telemetria` DISABLE KEYS */;
+INSERT INTO `dati_telemetria` VALUES (1,'Dati telemetria auto');
 /*!40000 ALTER TABLE `dati_telemetria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,13 +210,11 @@ CREATE TABLE `dispositivo` (
   `DataInstallazione` date DEFAULT NULL,
   `IdAzienda` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `dispositivo_codice_fk_idx` (`Codice`),
   KEY `dispositivo_auto_fk_idx` (`IdAuto`),
   KEY `dispositivo_azienda_fk_idx` (`IdAzienda`),
-  CONSTRAINT `dispositivo_codice_fk` FOREIGN KEY (`Codice`) REFERENCES `tipologia_guasto` (`Codice`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `dispositivo_auto_fk` FOREIGN KEY (`IdAuto`) REFERENCES `auto` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `dispositivo_azienda_fk` FOREIGN KEY (`IdAzienda`) REFERENCES `azienda` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,6 +223,7 @@ CREATE TABLE `dispositivo` (
 
 LOCK TABLES `dispositivo` WRITE;
 /*!40000 ALTER TABLE `dispositivo` DISABLE KEYS */;
+INSERT INTO `dispositivo` VALUES (1,'00001',4,'2018-03-13',1),(2,'00002',3,'2018-03-10',1),(3,'00003',NULL,NULL,1),(4,'00004',NULL,NULL,1),(5,'00005',NULL,NULL,1),(6,'00006',NULL,NULL,1),(7,'00007',NULL,NULL,1),(8,'00008',NULL,NULL,1);
 /*!40000 ALTER TABLE `dispositivo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,7 +247,7 @@ CREATE TABLE `guasto` (
   CONSTRAINT `guasto_CODICE_FK` FOREIGN KEY (`Codice`) REFERENCES `tipologia_guasto` (`Codice`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `guasto_IDTEL_FK` FOREIGN KEY (`IdTelemetria`) REFERENCES `dati_telemetria` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `guasto_DISPOS_FK` FOREIGN KEY (`IdDispositivo`) REFERENCES `dispositivo` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -255,6 +256,7 @@ CREATE TABLE `guasto` (
 
 LOCK TABLES `guasto` WRITE;
 /*!40000 ALTER TABLE `guasto` DISABLE KEYS */;
+INSERT INTO `guasto` VALUES (1,'a0001',1,'2018-03-15 00:00:00',1);
 /*!40000 ALTER TABLE `guasto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,6 +426,7 @@ CREATE TABLE `tipologia_guasto` (
 
 LOCK TABLES `tipologia_guasto` WRITE;
 /*!40000 ALTER TABLE `tipologia_guasto` DISABLE KEYS */;
+INSERT INTO `tipologia_guasto` VALUES ('a0001','Guasto tipo 1'),('a0002','Guasto tipo 2'),('a0003','macchina da buttare'),('a0004','Grosso problema');
 /*!40000 ALTER TABLE `tipologia_guasto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -448,7 +451,7 @@ CREATE TABLE `utente` (
   PRIMARY KEY (`ID`),
   KEY `utente_azienda_fk_idx` (`IdAzienda`),
   CONSTRAINT `utente_azienda_fk` FOREIGN KEY (`IdAzienda`) REFERENCES `azienda` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -457,7 +460,7 @@ CREATE TABLE `utente` (
 
 LOCK TABLES `utente` WRITE;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
-INSERT INTO `utente` VALUES (1,'dfgh','dasdasd','pippo','paperino',0,1,'2018-03-14',0,'4536728370'),(2,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(3,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(4,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213');
+INSERT INTO `utente` VALUES (1,'dfgh','dasdasd','pippo','paperino',0,1,'2018-03-14',0,'4536728370'),(2,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(3,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(4,'dgavsjd','dasdasd','dasdasd','dasda',0,NULL,'2018-03-14',0,'4678213'),(5,'Lorenzo','Vitale','lv@contrader.it','password',0,1,'2018-02-10',1,'33813419');
 /*!40000 ALTER TABLE `utente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -470,4 +473,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-14 17:28:23
+-- Dump completed on 2018-03-15  9:28:18
