@@ -1,8 +1,13 @@
 package view;
 
+import java.sql.Date;
 import java.util.Scanner;
 import controller.ControllerImpl;
 import model.Utente;
+import dao.CarDAO;
+
+import static dao.CarDAO.insertAutoUtente;
+import static dao.CarDAO.removeAuto;
 
 public class HomeView {
 
@@ -10,9 +15,14 @@ public class HomeView {
 	public static void runHomeView (Utente user){
 
 
-		/*ControllerImpl ci = new ControllerImpl();
-		ci.showCarList(user);
+	/*	ControllerImpl ci = new ControllerImpl();
+		ci.
 */
+	/*	Date date = new Date(System.currentTimeMillis());
+		System.out.println(date);
+	insertAutoUtente(1,0,"fiat","panda","aia","aioghiue",8391,8409, date,date,date,date,0,0);
+*/
+	//removeAuto(10);
 		switch(user.getRuolo()){
 		case 1:
 			//System.out.println("CIAO UTENTE DIMMERDA DI MERDA");
