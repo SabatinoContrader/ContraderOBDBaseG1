@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
-
+import dao.CarDAO;
 public class ControllerImpl implements IController {
 
     @Override
@@ -75,7 +75,19 @@ public class ControllerImpl implements IController {
 
     private static void showAutoAzienda(int idAzienda) {
 
-        Connection conn = ConnessioneDB.getInstance();
+        List<Auto> a =  CarDAO.getListAutoAzienda(idAzienda);
+
+        for(int i = 0; i < a.size(); i ++) {
+            System.out.println("------------------------------------");
+            System.out.println("ID: " + a.get(i).getID());
+            System.out.println("Marca: " + a.get(i).getMarca());
+            System.out.println("Modello: " + a.get(i).getModello());
+            System.out.println("Targa: " +  a.get(i).getTarga());
+            System.out.println("Numero Telaio: " + a.get(i).getNumeroTelaio());
+
+        }
+
+     /*   Connection conn = ConnessioneDB.getInstance();
 
         String QUERY = "select a.* from auto a,auto_azienda az  where az.IdAzienda = ? and az.IdAuto=a.ID ";
 
@@ -107,6 +119,6 @@ public class ControllerImpl implements IController {
             ConnessioneDB.closeConnection();
         }
 
-
+*/
     }
 }

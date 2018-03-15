@@ -9,12 +9,10 @@ public class HomeView {
 
 	public static void runHomeView (Utente user){
 
-		/*
-		TEST SHOW CARLIST
-		ControllerImpl ci = new ControllerImpl();
-		ci.showCarList(user);
-		*/
 
+		/*ControllerImpl ci = new ControllerImpl();
+		ci.showCarList(user);
+*/
 		switch(user.getRuolo()){
 		case 1:
 			//System.out.println("CIAO UTENTE DIMMERDA DI MERDA");
