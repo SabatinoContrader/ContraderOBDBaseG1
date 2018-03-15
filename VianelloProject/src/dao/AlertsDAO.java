@@ -8,6 +8,7 @@ import com.mysql.jdbc.Connection;
 import model.Utente;
 import utility.Utility;
 
+
 public class AlertsDAO {
 
 	Connection conn = ConnessioneDB.getInstance();
@@ -17,7 +18,8 @@ public class AlertsDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String QUERY = null;
-	
+
+
 
 		//lista auto driver
 		if(u.getRuolo() == 0){
@@ -35,7 +37,7 @@ public class AlertsDAO {
 					System.out.println("ATTENZIONE HAI DELLE AUTO CON GUASTI:");
 
 					while (rs.next()) {
-						
+
 
 						System.out.println("//////////////////////");
 						System.out.println("Data: "+rs.getDate("Data"));
@@ -67,33 +69,31 @@ public class AlertsDAO {
 				ps.setInt(1, u.getID());
 				rs = ps.executeQuery();
 
+					if(rs.isBeforeFirst()){
+						System.out.println("ELENCO AUTO CON GUASTI:");
 
-				if(rs.isBeforeFirst()){
-					System.out.println("ELENCO AUTO CON GUASTI:");
+						while (rs.next()) {
 
-					while (rs.next()) {
-
-						System.out.println("//////////////////////");
-						System.out.println("Data: "+rs.getDate("Data"));
-						System.out.println("Id guasto: " +rs.getInt("ID"));
-						System.out.println("Codice Guasto: "+rs.getString("Codice"));
-						System.out.println("Descrizione guasto: "+rs.getString("Descrizione"));
-						System.out.println("Id Telemtria: "+rs.getInt("IdTelemetria"));
-						System.out.println("Id dispositivo: "+rs.getInt("IdDispositivo"));
-						System.out.println("Marca auto: "+rs.getString("Marca"));
-						System.out.println("Modello auto: "+rs.getString("Modello"));
-						System.out.println("Numero targa: "+rs.getString("Targa"));
-						System.out.println("Numero Telaio: "+rs.getString("NumeroTelaio"));
-						System.out.println("//////////////////////");
-						System.out.println();
+							System.out.println("//////////////////////");
+							System.out.println("Data: "+rs.getDate("Data"));
+							System.out.println("Id guasto: " +rs.getInt("ID"));
+							System.out.println("Codice Guasto: "+rs.getString("Codice"));
+							System.out.println("Descrizione guasto: "+rs.getString("Descrizione"));
+							System.out.println("Id Telemtria: "+rs.getInt("IdTelemetria"));
+							System.out.println("Id dispositivo: "+rs.getInt("IdDispositivo"));
+							System.out.println("Marca auto: "+rs.getString("Marca"));
+							System.out.println("Modello auto: "+rs.getString("Modello"));
+							System.out.println("Numero targa: "+rs.getString("Targa"));
+							System.out.println("Numero Telaio: "+rs.getString("NumeroTelaio"));
+							System.out.println("//////////////////////");
+							System.out.println();
+						}
 					}
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}finally{
+					Utility.closeConnection(rs,ps,conn,true);
 				}
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}finally{
-				Utility.closeConnection(rs,ps,conn,true);
 			}
 		}
-
 	}
-}

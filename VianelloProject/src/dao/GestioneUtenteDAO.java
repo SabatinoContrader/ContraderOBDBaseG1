@@ -5,11 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
 
 import com.mysql.jdbc.Connection;
 
 import model.Auto;
 import model.Utente;
+import utility.Utility;
 
 public class GestioneUtenteDAO {
 
@@ -85,4 +87,57 @@ public static Utente logIn(String email, String password) {
 		return utente;
 		
 	}
+
+
+public static void signUp() {
+	
+	String email, password, nome, cognome, telefono;  
+	int idAzienda;
+	Date dataRegistrazione;
+	
+	System.out.println("[Registrazione Utente]: Inserisci i campi");
+	System.out.println("---------------------------");
+	
+	System.out.println();
+	
+	System.out.println("Nome:");
+	nome = Utility.getInput();
+	System.out.println("Cognome:");
+	cognome = Utility.getInput();
+	System.out.println("Telefono:");
+	telefono = Utility.getInput();
+	System.out.println("Email:");
+	email = Utility.getInput();
+	System.out.println("Password:");
+	password = Utility.getInput();
+	System.out.println("Id Azienda:");
+	idAzienda = Integer.parseInt(Utility.getInput());
+	
+	dataRegistrazione = new Date(System.currentTimeMillis());
+	
+	String Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `IdAzienda`, `DataRegistrazione`, `Telefono`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', "+ idAzienda +", ?, '"+ telefono +"')";
+	
+	//System.out.println(Query);
+	
+	PreparedStatement statement;
+	ResultSet resultSet = null;
+	
+	int registrato = 0;
+	
+	try {
+		
+		statement = ConnessioneDB.getInstance().prepareStatement(Query);
+		statement.setDate(1, dataRegistrazione);
+		registrato = statement.executeUpdate();
+		
+	} catch (SQLException e) {
+		System.out.println("Errore di Registrazione su DB!");
+		//e.printStackTrace();
+	}
+	
+	if(registrato > 0) System.out.println("Registrazione Avvenuta con SUCCESSO!");
+	else System.out.println("Registrazione FALLITA!");
+	
+}
+
 }

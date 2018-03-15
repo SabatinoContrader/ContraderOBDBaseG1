@@ -1,14 +1,18 @@
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mysql.jdbc.Connection;
 
 import model.Auto;
+
+
 
 public class CarDAO {
 
@@ -50,7 +54,7 @@ public class CarDAO {
         catch (SQLException e) {
             System.out.println("Errore di Recupero Lista Auto Azienda!");
         }
-
+        ConnessioneDB.closeConnection();
 
         return lista;
     }
@@ -95,7 +99,211 @@ public class CarDAO {
             System.out.println("Errore di Recupero Lista Auto Azienda!");
         }
 
-
+        ConnessioneDB.closeConnection();
         return lista;
     }
+
+
+    // INSERT AUTO PER INSERIRE AUTO IN TABELLA AUTO ED ASSEGNARLA AD UN UTENTE
+    public static void insertAutoUtente(int idUtente,int MaxKmNoleggio,String marca, String modello, String targa, String numeroTelaio, int kmAttuali,
+                                        int kmInizioNoleggio, Date scadenzaRevisione,Date scadenzaTagliando, Date scadenzaBollo, Date scadenzaAssicurazione, int tipologiaAuto, int daNoleggio) {
+
+        Connection conn = ConnessioneDB.getInstance();
+        PreparedStatement statement;
+        ResultSet resultSet = null;
+        int insertOk;
+        String QUERY = "INSERT INTO auto (ID,Marca,Modello,Targa,NumeroTelaio,KmAttuali,KmInizioNoleggio,ScadenzaRevisione,ScadenzaTagliando,ScadenzaBollo,ScadenzaAssicurazione,TipologiaAuto,DaNoleggio)VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?)";
+        try{
+
+            statement = conn.prepareStatement(QUERY,Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, marca);
+            statement.setString(2, modello);
+            statement.setString(3, targa);
+            statement.setString(4, numeroTelaio);
+            statement.setInt(5, kmAttuali);
+            statement.setInt(6, kmInizioNoleggio);
+            statement.setDate(7, scadenzaRevisione);
+            statement.setDate(8, scadenzaTagliando);
+            statement.setDate(9, scadenzaBollo);
+            statement.setDate(10, scadenzaAssicurazione);
+            statement.setInt(11, tipologiaAuto);
+            statement.setInt(12, daNoleggio);
+            insertOk= statement.executeUpdate();
+            if(insertOk>0){
+
+                int autoIncKeyFromApi = -1;
+
+                resultSet = statement.getGeneratedKeys();
+
+                if (resultSet.next()) {
+                    autoIncKeyFromApi = resultSet.getInt(1);
+
+                    String QUERYCROSS="INSERT INTO auto_utente (IdUtente,IdAuto,MaxKmNoleggio) VALUES(?,?,?)";
+                    try {
+
+                        statement = conn.prepareStatement(QUERYCROSS);
+                        statement.setInt(1,idUtente );
+                        statement.setInt(2,autoIncKeyFromApi );
+                        statement.setInt(3,MaxKmNoleggio );
+                        insertOk= statement.executeUpdate();
+                        if(insertOk>0){
+                            System.out.println("Auto inserita correttamente");
+                        }else{
+                            System.out.println("Errore nell'inserimento auto");
+                        }
+                    }catch(SQLException e){
+                        System.out.println(e);
+                    }
+
+                } else {
+
+                    // throw an exception from here
+                }
+
+//                System.out.println("Key returned from getGeneratedKeys():"                        + autoIncKeyFromApi);
+
+
+            }
+            else System.out.println("Errore nell'inserimento auto");
+
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        ConnessioneDB.closeConnection();
+
+    }
+
+    //INSERT AUTO AZIENDA
+    public static void insertAutoAzienda(int idAzienda,String marca, String modello, String targa, String numeroTelaio, int kmAttuali,
+                                        int kmInizioNoleggio, Date scadenzaRevisione,Date scadenzaTagliando, Date scadenzaBollo, Date scadenzaAssicurazione, int tipologiaAuto, int daNoleggio) {
+
+        Connection conn = ConnessioneDB.getInstance();
+        PreparedStatement statement;
+        ResultSet resultSet = null;
+        int insertOk;
+        String QUERY = "INSERT INTO auto (ID,Marca,Modello,Targa,NumeroTelaio,KmAttuali,KmInizioNoleggio,ScadenzaRevisione,ScadenzaTagliando,ScadenzaBollo,ScadenzaAssicurazione,TipologiaAuto,DaNoleggio)VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?)";
+        try{
+
+            statement = conn.prepareStatement(QUERY,Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, marca);
+            statement.setString(2, modello);
+            statement.setString(3, targa);
+            statement.setString(4, numeroTelaio);
+            statement.setInt(5, kmAttuali);
+            statement.setInt(6, kmInizioNoleggio);
+            statement.setDate(7, scadenzaRevisione);
+            statement.setDate(8, scadenzaTagliando);
+            statement.setDate(9, scadenzaBollo);
+            statement.setDate(10, scadenzaAssicurazione);
+            statement.setInt(11, tipologiaAuto);
+            statement.setInt(12, daNoleggio);
+            insertOk= statement.executeUpdate();
+            if(insertOk>0){
+
+                int autoIncKeyFromApi = -1;
+
+                resultSet = statement.getGeneratedKeys();
+
+                if (resultSet.next()) {
+                    autoIncKeyFromApi = resultSet.getInt(1);
+
+                    String QUERYCROSS="INSERT INTO auto_azienda (IdAzienda,IdAuto) VALUES(?,?)";
+                    try {
+
+                        statement = conn.prepareStatement(QUERYCROSS);
+                        statement.setInt(1,idAzienda );
+                        statement.setInt(2,autoIncKeyFromApi );
+
+                        insertOk= statement.executeUpdate();
+                        if(insertOk>0){
+                            System.out.println("Auto inserita correttamente");
+                        }else{
+                            System.out.println("Errore nell'inserimento auto");
+                        }
+                    }catch(SQLException e){
+                        System.out.println(e);
+                    }
+
+                } else {
+
+                    // throw an exception from here
+                }
+
+//                System.out.println("Key returned from getGeneratedKeys():"                        + autoIncKeyFromApi);
+
+
+            }
+            else System.out.println("Errore nell'inserimento auto");
+
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        ConnessioneDB.closeConnection();
+
+    }
+
+
+    //RIMUOVI AUTO CON RIMOZIONE CROSS REFERENCE E UPDATE DISPOSITIVO
+    public static void removeAuto(int idAuto) {
+
+        Connection conn = ConnessioneDB.getInstance();
+        PreparedStatement statement;
+        ResultSet resultSet = null;
+        int insertOk;
+        String QUERY = "DELETE FROM auto_azienda WHERE IdAuto=?";
+
+        try{
+
+            statement = conn.prepareStatement(QUERY);
+            statement.setInt(1, idAuto);
+            statement.executeUpdate();
+
+            try {
+                String QUERYCROSS = "DELETE FROM auto_utente WHERE IdAuto=?";
+
+                statement = conn.prepareStatement(QUERYCROSS);
+                statement.setInt(1, idAuto);
+
+
+                statement.executeUpdate();
+            }catch(SQLException e){
+                System.out.println("1: "+e);
+            }
+                  try{
+            String QUERYCROSS3="UPDATE dispositivo SET IdAuto=NULL WHERE IdAuto=?";
+
+
+            statement = conn.prepareStatement(QUERYCROSS3);
+            statement.setInt(1, idAuto);
+            statement.executeUpdate();
+                  }catch(SQLException e){
+                      System.out.println("2: "+e);
+                  }
+                  try {
+                      String QUERYCROSS2 = "DELETE FROM auto WHERE ID=?";
+
+
+                      statement = conn.prepareStatement(QUERYCROSS2);
+                      statement.setInt(1, idAuto);
+                     int res= statement.executeUpdate();
+                     if(res==0){System.out.println("Auto non presente");}else{
+                         System.out.println("Auto eliminata correttamente");
+                     }
+
+                     }catch(SQLException e){
+            System.out.println("3: "+e);
+        }
+
+
+    }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        ConnessioneDB.closeConnection();
+
+    }
+
+
 }

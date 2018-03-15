@@ -10,9 +10,9 @@ public interface IController {
 	
 	public void showAllDevice(Utente u);
 	
-	public void signUpAziende(Utente u);
+	public void signUpAziende();
 	
-	public void signUpUser(Utente u);
+	public void signUpUser();
 	
 } 
  

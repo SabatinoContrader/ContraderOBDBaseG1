@@ -11,6 +11,10 @@ public class MainApplication {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
+		
+		//Test Registrazione
+		//GestioneUtenteDAO.signUp();
+		
 		String email;
 		String password;
 		

@@ -1,6 +1,8 @@
 package view;
 
+
 import model.Utente;
+
 
 public class HomeView {
 
@@ -8,6 +10,7 @@ public class HomeView {
 		
 		VistaCliente vc = new VistaCliente();
 		VistaGarageAdmin vg = new VistaGarageAdmin();
+
 
 		switch(user.getRuolo()){
 		case 1:
