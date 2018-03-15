@@ -17,7 +17,6 @@ public class HomeView implements View {
         }
     }
 
-
     public void showOptions() {
         switch (role)
         {
@@ -38,6 +37,9 @@ public class HomeView implements View {
                 System.out.println("-------MENU OFFICINA-------");
                 System.out.println("");
                 System.out.println("1) Inserisci auto");
+                System.out.println("2) Modifica auto");
+                System.out.println("3) Reset dispositivo");
+                System.out.println("4) Cerca auto");
                 System.out.println("9) Logout");
                 this.choice = Integer.parseInt(getInput());
                 break;
@@ -81,12 +83,36 @@ public class HomeView implements View {
                         MainDispatcher.getInstance().callAction("Login", "doControl", null);
                         break;
                 }
-            /*case "officina":
+            case "officina":
                 switch (choice)
                 {
                     case 1:
                         Request request = new Request();
                         String mode = "insert";
+                        request.put("mode", mode);
+                        request.put("role", role);
+                        MainDispatcher.getInstance().callAction("Auto", "doControl", request);
+                        break;
+
+                    case 2:
+                        request = new Request();
+                        mode = "update";
+                        request.put("mode", mode);
+                        request.put("role", role);
+                        MainDispatcher.getInstance().callAction("Auto", "doControl", request);
+                        break;
+
+                    case 3:
+                        request = new Request();
+                        mode = "reset";
+                        request.put("mode", mode);
+                        request.put("role", role);
+                        MainDispatcher.getInstance().callAction("Auto", "doControl", request);
+                        break;
+
+                    case 4:
+                        request = new Request();
+                        mode = "find";
                         request.put("mode", mode);
                         request.put("role", role);
                         MainDispatcher.getInstance().callAction("Auto", "doControl", request);
@@ -118,7 +144,7 @@ public class HomeView implements View {
 
                     default:
                         MainDispatcher.getInstance().callAction("Home", "doControl", null);
-                }*/
+                }
         }
     }
 
@@ -127,6 +153,5 @@ public class HomeView implements View {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
-
 
 }

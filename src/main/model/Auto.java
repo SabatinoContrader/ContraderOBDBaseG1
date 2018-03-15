@@ -15,12 +15,12 @@ public class Auto {
     private String cambio;
     private int driver;
     private int proprietario;
-    private Date revisione;
-    private Date tagliando_Data;
+    private String revisione;
+    private String tagliando_Data;
     private int tagliando_Km;
 
 
-    public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, int driver, int proprietario, Date revisione, Date tagliando_Data, int tagliando_Km) {
+    public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, int driver, int proprietario, String revisione, String tagliando_Data, int tagliando_Km) {
         this.cod_Dispositivo = cod_Dispositivo;
         this.targa = targa;
         this.telaio = telaio;
@@ -115,19 +115,19 @@ public class Auto {
         this.proprietario = proprietario;
     }
 
-    public Date getRevisione() {
+    public String getRevisione() {
         return revisione;
     }
 
-    public void setRevisione(Date revisione) {
+    public void setRevisione(String revisione) {
         this.revisione = revisione;
     }
 
-    public Date getTagliando_Data() {
+    public String getTagliando_Data() {
         return tagliando_Data;
     }
 
-    public void setTagliando_Data(Date tagliando_Data) {
+    public void setTagliando_Data(String tagliando_Data) {
         this.tagliando_Data = tagliando_Data;
     }
 
