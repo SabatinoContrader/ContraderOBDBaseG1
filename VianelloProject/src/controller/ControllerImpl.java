@@ -12,6 +12,7 @@ import dao.GestioneUtenteDAO;
 import model.Auto;
 import model.Azienda;
 import model.Utente;
+import utility.NotifierWorker;
 import utility.Utility;
 public class ControllerImpl implements IController {
 
@@ -20,7 +21,14 @@ public class ControllerImpl implements IController {
     @Override
     public void showAlerts(Utente u) {
         // TODO Auto-generated method stub
+    	
+//    	//Prova con Thread che rimane in ascolto di Alert
+//    	NotifierWorker worker = new NotifierWorker(u);
+//    	worker.run();
+    	
     	aDAO.getUserAlertsGuasti(u);
+    	
+    	
     }
 
     @Override

@@ -9,6 +9,8 @@ import view.HomeView;
 
 public class MainApplication {
 
+	public static boolean exit;
+	
 	private static String email;
 	private static String password;
 	
@@ -34,7 +36,7 @@ public class MainApplication {
 		//for(int i = 0; i < o.getAuto().size(); i ++) System.out.println(o.getAuto().get(i).getID());
 	
 		
-		boolean exit = false;
+		exit = false;
 		
 		HomeView.runHomeView(o);
 		
