@@ -2,14 +2,20 @@ package controller;
 
 import com.mysql.jdbc.Connection;
 import dao.ConnessioneDB;
+import dao.GestioneUtenteDAO;
 import model.Utente;
+import utility.Utility;
 import model.Auto;
+import model.Azienda;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
+
+import dao.AziendaDAO;
 import dao.CarDAO;
 public class ControllerImpl implements IController {
 
@@ -62,15 +68,49 @@ public class ControllerImpl implements IController {
     }
 
     @Override
-    public void signUpAziende(Utente u) {
-        // TODO Auto-generated method stub
+    public void signUpAziende() {
+    	
+    	String denominazione, nomeReferente, cognomeReferente, email, telefono, citta, latitudine, longitudine, tipologia;
+    	Date dataInserimento;
+    	
+    	System.out.println("[Registrazione Azienda]: Inserisci i campi");
+    	System.out.println("---------------------------");
+    	
+    	System.out.println();
+    	
+    	System.out.println("Denominazione:");
+    	denominazione = Utility.getInput();
+    	System.out.println("Nome Referente:");
+    	nomeReferente = Utility.getInput();
+    	System.out.println("Cognome Referente:");
+    	cognomeReferente = Utility.getInput();
+    	System.out.println("Telefono:");
+    	telefono = Utility.getInput();
+    	System.out.println("Email:");
+    	email = Utility.getInput();
+    	System.out.println("Città della Sede:");
+    	citta = Utility.getInput();
+    	
+    	System.out.println("Inserisci Latitudine:");
+    	latitudine = Utility.getInput();
+    	System.out.println("Inserisci Longitudine:");
+    	longitudine = Utility.getInput();
+    	
+    	System.out.println("Tipologia (0 = Officina, 1 = Casa Locataria) :");
+    	tipologia = Utility.getInput();
+    	
+    	dataInserimento = new Date(System.currentTimeMillis());
+    	
+    	Azienda a = new Azienda(denominazione, nomeReferente, cognomeReferente, email, telefono, latitudine, longitudine, tipologia, dataInserimento, citta, null);
 
+    	
     }
 
     @Override
-    public void signUpUser(Utente u) {
+    public void signUpUser() {
         // TODO Auto-generated method stub
 
+    	GestioneUtenteDAO.signUp();
     }
 
     private static void showAutoAzienda(int idAzienda) {
@@ -86,40 +126,6 @@ public class ControllerImpl implements IController {
             System.out.println("Numero Telaio: " + a.get(i).getNumeroTelaio());
 
         }
-
-     /*   Connection conn = ConnessioneDB.getInstance();
-
-        String QUERY = "select a.* from auto a,auto_azienda az  where az.IdAzienda = ? and az.IdAuto=a.ID ";
-
-
-        PreparedStatement statement;
-
-        ResultSet resultSet = null;
-        try {
-            statement = conn.prepareStatement(QUERY);
-            statement.setInt(1, idAzienda);
-
-            resultSet = statement.executeQuery();
-
-            if (resultSet.isBeforeFirst()) {
-                System.out.println("Auto dell'azienda a cui Ã¨ associato l'utente");
-            }
-
-            while (resultSet.next()) {
-                System.out.println("------------------------------------");
-                System.out.println("ID: " + resultSet.getInt("ID"));
-                System.out.println("Marca: " + resultSet.getString("Marca"));
-                System.out.println("Modello: " + resultSet.getString("Modello"));
-                System.out.println("Targa: " + resultSet.getString("Targa"));
-                System.out.println("Numero Telaio: " + resultSet.getString("NumeroTelaio"));
-
-            }
-        } catch (SQLException e) {
-            System.out.println("Errore di Querying!");
-            ConnessioneDB.closeConnection();
-        }
-
-*/
     }
 
 
