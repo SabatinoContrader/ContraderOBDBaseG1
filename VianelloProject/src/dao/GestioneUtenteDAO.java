@@ -112,14 +112,12 @@ public static void signUp() {
 	password = Utility.getInput();
 	System.out.println("Id Azienda:");
 	idAzienda = Integer.parseInt(Utility.getInput());
-	System.out.println("Data di Registrazione:");
+	
 	dataRegistrazione = new Date(System.currentTimeMillis());
 	
 	String Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `IdAzienda`, `DataRegistrazione`, `Telefono`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', "+ idAzienda +", ?, '"+ telefono +"')";
 	
-	
-	
-	System.out.println(Query);
+	//System.out.println(Query);
 	
 	PreparedStatement statement;
 	ResultSet resultSet = null;
