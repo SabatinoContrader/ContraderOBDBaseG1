@@ -9,28 +9,30 @@ import java.util.Scanner;
 public class HomeView implements View {
 
     private int choice;
-    private String ruolo;
+    private String role;
 
     public void showResults(Request request) {
-        ruolo = request.get("ruolo").toString();
+        if (request!=null) {
+            role = request.get("role").toString();
+        }
     }
 
 
     public void showOptions() {
-        switch (ruolo)
+        switch (role)
         {
             case "owner":
-                System.out.println("Benvenuto in ContraderFramework");
+                System.out.println("Benvenuto in ContraderOBDBase");
                 System.out.println("");
                 System.out.println("");
                 System.out.println("-------MENU OWNER-------");
                 System.out.println("1) Aggiungi officina");
-                System.out.println("9) Logout");
+                System.out.println("2) Logout");
                 this.choice = Integer.parseInt(getInput());
                 break;
 
             case "officina":
-                System.out.println("Benvenuto in ContraderFramework");
+                System.out.println("Benvenuto in ContraderOBDBase");
                 System.out.println("");
                 System.out.println("");
                 System.out.println("-------MENU OFFICINA-------");
@@ -41,7 +43,7 @@ public class HomeView implements View {
                 break;
 
             case "azienda":
-                System.out.println("Benvenuto in ContraderFramework");
+                System.out.println("Benvenuto in ContraderOBDBase");
                 System.out.println("");
                 System.out.println("");
                 System.out.println("-------MENU AZIENDA-------");
@@ -51,7 +53,7 @@ public class HomeView implements View {
                 break;
 
             case "driver":
-                System.out.println("Benvenuto in ContraderFramework");
+                System.out.println("Benvenuto in ContraderOBDBase");
                 System.out.println("");
                 System.out.println("");
                 System.out.println("-------MENU DRIVER-------");
@@ -64,28 +66,29 @@ public class HomeView implements View {
     }
 
     public void submit() {
-        switch (ruolo)
+        switch (role)
         {
             case "owner":
                 switch (choice)
                 {
                     case 1:
-                        MainDispatcher.getInstance().callAction("", "doControl", null);
+                        Request request= new Request();
+                        request.put("choice",choice);
+                        request.put("role", role);
+                        MainDispatcher.getInstance().callAction("Officina", "doControl", request);
                         break;
-                    case 9:
+                    case 2:
                         MainDispatcher.getInstance().callAction("Login", "doControl", null);
                         break;
-
-                    default:
-                        MainDispatcher.getInstance().callAction("Home", "doControl", null);
                 }
-            case "officina":
+            /*case "officina":
                 switch (choice)
                 {
                     case 1:
                         Request request = new Request();
                         String mode = "insert";
                         request.put("mode", mode);
+                        request.put("role", role);
                         MainDispatcher.getInstance().callAction("Auto", "doControl", request);
                         break;
 
@@ -115,7 +118,7 @@ public class HomeView implements View {
 
                     default:
                         MainDispatcher.getInstance().callAction("Home", "doControl", null);
-                }
+                }*/
         }
     }
 

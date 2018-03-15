@@ -147,28 +147,6 @@ INSERT INTO `città` VALUES ('Benevento',82100,'BN','CAMPANIA'),('Modena',41121,
 UNLOCK TABLES;
 
 --
--- Table structure for table `data`
---
-
-DROP TABLE IF EXISTS `data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `data` (
-  `data` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `data`
---
-
-LOCK TABLES `data` WRITE;
-/*!40000 ALTER TABLE `data` DISABLE KEYS */;
-INSERT INTO `data` VALUES ('2012-06-15');
-/*!40000 ALTER TABLE `data` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `dati_dispositivo`
 --
 
