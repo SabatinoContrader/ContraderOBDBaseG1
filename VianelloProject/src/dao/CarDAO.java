@@ -55,6 +55,7 @@ public class CarDAO {
     }
 
 
+    //Ottengo lista delle Auto di un Utente che non sono io
     public static List<Auto> getListAutoUtente(int IdUtente){
         Connection conn = ConnessioneDB.getInstance();
         PreparedStatement statement;
