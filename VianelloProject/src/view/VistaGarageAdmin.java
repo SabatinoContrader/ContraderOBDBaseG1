@@ -24,8 +24,7 @@ public class VistaGarageAdmin {
             case "2":
                 showCarList(user);
                 break;
-            case "3":System.out
-                    .println("bravo sei tornato indiet");
+            case "3":System.out.println("bravo sei tornato indietro");
                 HomeView.runHomeView(user);
 
         }

@@ -52,9 +52,10 @@ public class AlertsDAO {
 				}
 			} catch (Exception e) {
 				throw new RuntimeException(e);
-			}finally{
-				Utility.closeConnection(rs,ps,conn,true);
 			}
+			/*finally{
+				Utility.closeConnection(rs,ps,conn,true);
+			}*/
 		} 
 		if(u.getRuolo()==1){
 			// ALERTS DELLE AUTO CON GUASTI RELATIVI ALL AZIENDA.
