@@ -2,13 +2,11 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import com.mysql.jdbc.Connection;
 
-import model.Auto;
 import model.Utente;
-import utilities.Utility;
+import utility.Utility;
 
 public class AlertsDAO {
 
@@ -16,58 +14,86 @@ public class AlertsDAO {
 
 
 	public void getUserAlertsGuasti(Utente u){
-
-		
-		//lista auto driver
-		if(u.getRuolo() == 0){
-			ArrayList<Auto> listAutoUser = (ArrayList<Auto>) u.getAuto();
-			
-			//Amministratore - Utente che vuole i gusati della lista delle auto dell'azienda di cui fa parte
-			
-			//voglio la lista auto
-			
-			//ottengo la lista dal metodo di loris
-			
-			//Funzione: ingrasso = listaAuto --> output a video = i guasti (solo quello che può visualizzare)
-		
-		
-		} else {
-			
-			//Cliste normale che vuole visualizzare i guuasti delle auto collegate
-			
-			//ho la lista auto in Utente
-			
-			//voglio i guasti
-			
-			//Funzione: ingrasso = listaAuto --> output a video = i guasti (solo quello che può visualizzare)
-		}
-		
-		
-		
-		
-		
-		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		String QUERY = null;
+	
 
-		String QUERY = "Select g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio "
-				+ "from guasto g, auto a, dispositivo d,auto_utente au  "+
-				" where g.IdDispositivo = d.ID and d.IdAuto=a.ID"+ 
-				" and au.IdUtente = ? and au.IdAuto = a.ID";
-		
-		try {
-			ps = conn.prepareStatement(QUERY);
-			ps.setInt(1, u.getID());
-			rs = ps.executeQuery();
+		//lista auto driver
+		if(u.getRuolo() == 0){
 
-			while (rs.next()) {
-				System.out.println(" " +rs.getInt("ID"));
+			QUERY = "Select g.Codice, g.Data, a.Marca, a.Modello, a.Targa, a.NumeroTelaio"
+					+" from db.guasto g, db.auto a, db.dispositivo d,db.auto_utente au, db.utente u"
+					+" where g.IdDispositivo = d.ID and d.IdAuto=a.ID and u.ID = au.IdUtente"
+					+" and au.IdAuto = a.ID and u.ID =?";
+			try {
+				ps = conn.prepareStatement(QUERY);
+				ps.setInt(1, u.getID());
+				rs = ps.executeQuery();
 
+				if(rs.isBeforeFirst()){
+					System.out.println("ATTENZIONE HAI DELLE AUTO CON GUASTI:");
+
+					while (rs.next()) {
+						
+
+						System.out.println("//////////////////////");
+						System.out.println("Data: "+rs.getDate("Data"));
+						System.out.println("Codice Guasto: "+rs.getString("Codice"));
+						System.out.println("Marca auto: "+rs.getString("Marca"));
+						System.out.println("Modello auto: "+rs.getString("Modello"));
+						System.out.println("Numero targa: "+rs.getString("Targa"));
+						System.out.println("Numero Telaio: "+rs.getString("NumeroTelaio"));
+						System.out.println("//////////////////////");
+						System.out.println();
+					}
+				}
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}finally{
+				Utility.closeConnection(rs,ps,conn,true);
 			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}finally{
-			Utility.closeConnection(rs,ps,conn,true);
+		} 
+		if(u.getRuolo()==1){
+			// ALERTS DELLE AUTO CON GUASTI RELATIVI ALL AZIENDA.
+
+			QUERY = "Select g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio, tg.Descrizione"+
+					" from db.guasto g, db.auto a, db.dispositivo d,db.auto_azienda au, db.utente u,db.tipologia_guasto tg"+
+					" where g.IdDispositivo = d.ID and d.IdAuto=a.ID and u.IdAzienda = au.IdAzienda "+
+					" and tg.Codice= g.Codice and au.IdAuto = a.ID and u.ID = ?";
+
+			try {
+				ps = conn.prepareStatement(QUERY);
+				ps.setInt(1, u.getID());
+				rs = ps.executeQuery();
+
+
+				if(rs.isBeforeFirst()){
+					System.out.println("ELENCO AUTO CON GUASTI:");
+
+					while (rs.next()) {
+
+						System.out.println("//////////////////////");
+						System.out.println("Data: "+rs.getDate("Data"));
+						System.out.println("Id guasto: " +rs.getInt("ID"));
+						System.out.println("Codice Guasto: "+rs.getString("Codice"));
+						System.out.println("Descrizione guasto: "+rs.getString("Descrizione"));
+						System.out.println("Id Telemtria: "+rs.getInt("IdTelemetria"));
+						System.out.println("Id dispositivo: "+rs.getInt("IdDispositivo"));
+						System.out.println("Marca auto: "+rs.getString("Marca"));
+						System.out.println("Modello auto: "+rs.getString("Modello"));
+						System.out.println("Numero targa: "+rs.getString("Targa"));
+						System.out.println("Numero Telaio: "+rs.getString("NumeroTelaio"));
+						System.out.println("//////////////////////");
+						System.out.println();
+					}
+				}
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}finally{
+				Utility.closeConnection(rs,ps,conn,true);
+			}
 		}
+
 	}
 }

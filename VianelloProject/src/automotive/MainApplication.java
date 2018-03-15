@@ -1,17 +1,7 @@
 package automotive;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.mysql.jdbc.Connection;
-
 import dao.ConnessioneDB;
 import dao.GestioneUtenteDAO;
-import model.Auto;
 import model.Utente;
 import utility.Utility;
 import view.HomeView;

@@ -1,22 +1,20 @@
 package controller;
 
-import com.mysql.jdbc.Connection;
-import dao.ConnessioneDB;
-import model.Utente;
-import model.Auto;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
+
+import dao.AlertsDAO;
 import dao.CarDAO;
+import model.Auto;
+import model.Utente;
 public class ControllerImpl implements IController {
 
+	private AlertsDAO aDAO = new AlertsDAO();
+	
     @Override
     public void showAlerts(Utente u) {
         // TODO Auto-generated method stub
-
+    	aDAO.getUserAlertsGuasti(u);
     }
 
     @Override

@@ -1,14 +1,14 @@
 package dao;
 
-import com.mysql.jdbc.Connection;
-import model.Auto;
-import model.Utente;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mysql.jdbc.Connection;
+
+import model.Auto;
 
 public class CarDAO {
 
@@ -18,7 +18,8 @@ public class CarDAO {
         ResultSet resultSet = null;
         List<Auto> lista = new ArrayList<>();
         String QUERY ="select a.* from auto a,auto_azienda az  where az.IdAzienda = ? and az.IdAuto=a.ID ";
-
+        
+        
         try {
             statement = conn.prepareStatement(QUERY);
             statement.setInt(1, IdAzienda);
