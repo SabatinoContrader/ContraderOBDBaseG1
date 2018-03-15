@@ -27,6 +27,7 @@ public class ControllerImpl implements IController {
     public void showCarList(Utente u) {
         // TODO Auto-generated method stub
         List<Auto> listauto = u.getAuto();
+
         if (listauto.size() > 0) {
             System.out.println("Auto dell'utente");
         }
@@ -45,17 +46,43 @@ public class ControllerImpl implements IController {
         }
 
         System.out.println("Cosa vuoi fare?");
-        System.out.println("1)  Modifica Auto");
-        System.out.println("2)  Visualizza dettagli Auto");
+        System.out.println("1)  Torna indietro");
+        System.out.println("2)  Modifica Auto");
+        System.out.println("3)  Visualizza dettagli Auto");
         if (u.getRuolo() == 1) {
-            System.out.println("3)  Assegna dispositivo ad auto");
-            System.out.println("4)  Visualizza storico riparazioni auto");
-            System.out.println("5)  Torna indietro");
-        } else
-            System.out.println("3)  Torna indietro");
+            System.out.println("4)  Assegna dispositivo ad auto");
+            System.out.println("5)  Visualizza storico riparazioni auto");
+
+        }
+
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
-        //System.out.println(option);
+        switch (option) {
+            case "1":
+                //gobasck
+                break;
+            case "2":
+                System.out.println("Inserisci ID dell'auto da modificare: ");
+                String op = scanner.nextLine();
+                makeUpdateAuto(Integer.parseInt(op),listauto);
+
+                break;
+            case "3":
+//                showAutoDetail(idAuto);
+                break;
+            case "4":
+                if(u.getRuolo()==1){
+                    //             assignDeviceToAuto();
+                }
+
+                break;
+            case "5":
+                if(u.getRuolo()==1) {
+                    //visualizza storico riparaizone
+                }
+               break;
+
+        }
 
     }
 
@@ -86,7 +113,7 @@ public class ControllerImpl implements IController {
     	telefono = Utility.getInput();
     	System.out.println("Email:");
     	email = Utility.getInput();
-    	System.out.println("Città della Sede:");
+    	System.out.println("Citt&agrave; della Sede:");
     	citta = Utility.getInput();
     	
     	System.out.println("Inserisci Latitudine:");
@@ -109,6 +136,93 @@ public class ControllerImpl implements IController {
         // TODO Auto-generated method stub
 
     	GestioneUtenteDAO.signUp();
+    }
+
+    public static void makeUpdateAuto(int idAuto,List<Auto> auto){
+        String oldmarca="",oldmodello="",oldtarga="",oldtelaio="",tipologia="",s="";
+        Date d=new Date(System.currentTimeMillis());
+        Date oldrevisione=d,oldtagliando=d,oldbollo=d,oldassicurazione=d;
+        int oldkmattuali=0,oldkminizionoleggio=0,danoleggio=0;
+        for(int i=0;i<auto.size();i++){
+            if(idAuto==auto.get(i).getID()){
+                oldmarca=auto.get(i).getMarca();
+                oldmodello=auto.get(i).getModello();
+                oldtarga=auto.get(i).getTarga();
+                oldtelaio=auto.get(i).getNumeroTelaio();
+                oldrevisione=auto.get(i).getScadenzaRevisione();
+                oldtagliando=auto.get(i).getScadenzaTagliando();
+                oldbollo=auto.get(i).getScadenzaBollo();
+                oldassicurazione=auto.get(i).getScadenzaAssicurazione();
+                oldkmattuali=auto.get(i).getKmAttuali();
+                oldkminizionoleggio=auto.get(i).getKmInizioNoleggio();
+                danoleggio=auto.get(i).getDaNoleggio();
+                tipologia=auto.get(i).getTipologiaAuto();
+                i=auto.size();
+
+            }
+
+        }
+
+        System.out.println("Vuoi modificare la marca? y/n");
+        s=Utility.getInput();
+if(s.equals("y")) {
+    System.out.println("Inserisci la nuova marca");
+oldmarca = Utility.getInput();
+}
+        System.out.println("Vuoi modificare il modello? y/n");
+        s=Utility.getInput();
+        if(s.equals("y")) {
+            System.out.println("Inserisci il nuovo modello");
+            oldmodello = Utility.getInput();
+        }
+
+        System.out.println("Vuoi modificare la targa? y/n");
+        s=Utility.getInput();
+        if(s.equals("y")) {
+            System.out.println("Inserisci la nuova targa");
+            oldtarga = Utility.getInput();
+        }
+
+        System.out.println("Vuoi modificare il numero telaio? y/n");
+        s=Utility.getInput();
+        if(s.equals("y")) {
+            System.out.println("Inserisci il nuovo telaio");
+            oldtelaio = Utility.getInput();
+        }
+        System.out.println("Vuoi modificare i km attuali? y/n");
+        s=Utility.getInput();
+        if(s.equals("y")) {
+            System.out.println("Inserisci i nuovi km");
+            oldkmattuali = Integer.parseInt(Utility.getInput());
+        }
+
+        System.out.println("Vuoi modificare i km di inizio noleggio? y/n");
+        s=Utility.getInput();
+        if(s.equals("y")) {
+            System.out.println("Inserisci i nuovi km di inizio noleggio");
+            oldkminizionoleggio = Integer.parseInt(Utility.getInput());
+        }
+
+
+        System.out.println("Vuoi modificare se Ã¨ da noleggio? y/n");
+        s=Utility.getInput();
+        if(s.equals("y")) {
+            System.out.println("E' da noleggio? y/n");
+            if(Utility.getInput().equals("y"))
+            danoleggio = 1;
+            else if(Utility.getInput().equals("n")) danoleggio = 0;
+
+        }
+
+        System.out.println("Vuoi modificare la tipologia? y/n");
+        s=Utility.getInput();
+        if(s.equals("y")) {
+            System.out.println("Inserisci la nuova tipologia");
+            tipologia = Utility.getInput();
+        }
+
+        CarDAO.updateAuto( idAuto, oldmarca, oldmodello,  oldtarga,  oldtelaio,  oldkmattuali,
+                oldkminizionoleggio, oldrevisione, oldtagliando, oldbollo, oldassicurazione, tipologia, danoleggio);
     }
 
     private static void showAutoAzienda(int idAzienda) {

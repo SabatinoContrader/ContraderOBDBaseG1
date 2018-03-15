@@ -29,10 +29,10 @@ public class CarDAO {
             statement.setInt(1, IdAzienda);
             resultSet = statement.executeQuery();
 
-         /*   if (resultSet.isBeforeFirst()) {
-                System.out.println("Auto dell'azienda con Id "+IdAzienda);
+           if (resultSet.isBeforeFirst()) {
+                System.out.println("\nAuto dell'azienda");
             }
-*/
+
 
             while(resultSet.next()) {
 
@@ -106,7 +106,7 @@ public class CarDAO {
 
     // INSERT AUTO PER INSERIRE AUTO IN TABELLA AUTO ED ASSEGNARLA AD UN UTENTE
     public static void insertAutoUtente(int idUtente,int MaxKmNoleggio,String marca, String modello, String targa, String numeroTelaio, int kmAttuali,
-                                        int kmInizioNoleggio, Date scadenzaRevisione,Date scadenzaTagliando, Date scadenzaBollo, Date scadenzaAssicurazione, int tipologiaAuto, int daNoleggio) {
+                                        int kmInizioNoleggio, Date scadenzaRevisione,Date scadenzaTagliando, Date scadenzaBollo, Date scadenzaAssicurazione, String tipologiaAuto, int daNoleggio) {
 
         Connection conn = ConnessioneDB.getInstance();
         PreparedStatement statement;
@@ -126,7 +126,7 @@ public class CarDAO {
             statement.setDate(8, scadenzaTagliando);
             statement.setDate(9, scadenzaBollo);
             statement.setDate(10, scadenzaAssicurazione);
-            statement.setInt(11, tipologiaAuto);
+            statement.setString(11, tipologiaAuto);
             statement.setInt(12, daNoleggio);
             insertOk= statement.executeUpdate();
             if(insertOk>0){
@@ -176,7 +176,7 @@ public class CarDAO {
 
     //INSERT AUTO AZIENDA
     public static void insertAutoAzienda(int idAzienda,String marca, String modello, String targa, String numeroTelaio, int kmAttuali,
-                                        int kmInizioNoleggio, Date scadenzaRevisione,Date scadenzaTagliando, Date scadenzaBollo, Date scadenzaAssicurazione, int tipologiaAuto, int daNoleggio) {
+                                        int kmInizioNoleggio, Date scadenzaRevisione,Date scadenzaTagliando, Date scadenzaBollo, Date scadenzaAssicurazione, String tipologiaAuto, int daNoleggio) {
 
         Connection conn = ConnessioneDB.getInstance();
         PreparedStatement statement;
@@ -196,7 +196,7 @@ public class CarDAO {
             statement.setDate(8, scadenzaTagliando);
             statement.setDate(9, scadenzaBollo);
             statement.setDate(10, scadenzaAssicurazione);
-            statement.setInt(11, tipologiaAuto);
+            statement.setString(11, tipologiaAuto);
             statement.setInt(12, daNoleggio);
             insertOk= statement.executeUpdate();
             if(insertOk>0){
@@ -244,6 +244,81 @@ public class CarDAO {
 
     }
 
+// AGGIORNAMENTO AUTO
+public static void updateAuto(int idAuto,String marca, String modello, String targa, String numeroTelaio, int kmAttuali,
+                                     int kmInizioNoleggio, Date scadenzaRevisione,Date scadenzaTagliando, Date scadenzaBollo, Date scadenzaAssicurazione, String tipologiaAuto, int daNoleggio) {
+
+    Connection conn = ConnessioneDB.getInstance();
+    PreparedStatement statement;
+    ResultSet resultSet = null;
+    int insertOk;
+    String QUERY = "UPDATE auto SET Marca=?,Modello=?,Targa=?,NumeroTelaio=?,KmAttuali=?,KmInizioNoleggio=?,ScadenzaRevisione=?,ScadenzaTagliando=?,ScadenzaAssicurazione=?,ScadenzaBollo=?,TipologiaAuto=?,DaNoleggio=? WHERE ID=?";
+    try{
+
+        System.out.println(QUERY);
+
+        statement = conn.prepareStatement(QUERY);
+
+
+
+        statement.setString(1, marca);
+        statement.setString(2, modello);
+        statement.setString(3, targa);
+        statement.setString(4, numeroTelaio);
+        statement.setInt(5, kmAttuali);
+        statement.setInt(6, kmInizioNoleggio);
+        statement.setDate(7, scadenzaRevisione);
+        statement.setDate(8, scadenzaTagliando);
+        statement.setDate(9, scadenzaBollo);
+        statement.setDate(10, scadenzaAssicurazione);
+        statement.setString(11, tipologiaAuto);
+        statement.setInt(12, daNoleggio);
+        statement.setInt(13, idAuto);
+        insertOk= statement.executeUpdate();
+      /*  if(insertOk>0){
+
+            int autoIncKeyFromApi = -1;
+
+            resultSet = statement.getGeneratedKeys();
+
+            if (resultSet.next()) {
+                autoIncKeyFromApi = resultSet.getInt(1);
+
+                String QUERYCROSS="INSERT INTO auto_azienda (IdAzienda,IdAuto) VALUES(?,?)";
+                try {
+
+                    statement = conn.prepareStatement(QUERYCROSS);
+                    statement.setInt(1,idAzienda );
+                    statement.setInt(2,autoIncKeyFromApi );
+
+                    insertOk= statement.executeUpdate();
+                    if(insertOk>0){
+                        System.out.println("Auto inserita correttamente");
+                    }else{
+                        System.out.println("Errore nell'inserimento auto");
+                    }
+                }catch(SQLException e){
+                    System.out.println(e);
+                }
+
+            } else {
+
+                // throw an exception from here
+            }
+
+//                System.out.println("Key returned from getGeneratedKeys():"                        + autoIncKeyFromApi);
+
+
+        }
+        else System.out.println("Errore nell'inserimento auto");*/
+
+    }catch(SQLException e){
+        System.out.println(e);
+    }
+
+
+
+}
 
     //RIMUOVI AUTO CON RIMOZIONE CROSS REFERENCE E UPDATE DISPOSITIVO
     public static void removeAuto(int idAuto) {
