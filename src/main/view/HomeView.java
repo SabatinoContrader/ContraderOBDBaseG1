@@ -50,7 +50,9 @@ public class HomeView implements View {
                 System.out.println("");
                 System.out.println("-------MENU AZIENDA-------");
                 System.out.println("");
-                System.out.println("9) Logout");
+                System.out.println("1) Inserire Driver");
+                System.out.println("2) Lista auto assegnate per Driver");
+                System.out.println("3) Logout");
                 this.choice = Integer.parseInt(getInput());
                 break;
 
@@ -128,13 +130,28 @@ public class HomeView implements View {
             case "azienda":
                 switch (choice)
                 {
-                    case 9:
+
+                    case 1:
+                        Request request= new Request();
+                        request.put("choice",choice);
+                        request.put("role", role);
+                        MainDispatcher.getInstance().callAction("Driver", "doControl", request);
+                        break;
+
+                    case 2:
+                        MainDispatcher.getInstance().callAction("Login", "doControl", null);
+                        break;
+
+
+                    case 3:
                         MainDispatcher.getInstance().callAction("Login", "doControl", null);
                         break;
 
                     default:
                         MainDispatcher.getInstance().callAction("Home", "doControl", null);
                 }
+
+
             case "driver":
                 switch (choice)
                 {
