@@ -2,6 +2,7 @@ package controller;
 
 import com.mysql.jdbc.Connection;
 import dao.ConnessioneDB;
+import dao.GestioneUtenteDAO;
 import model.Utente;
 import model.Auto;
 
@@ -62,15 +63,16 @@ public class ControllerImpl implements IController {
     }
 
     @Override
-    public void signUpAziende(Utente u) {
+    public void signUpAziende() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void signUpUser(Utente u) {
+    public void signUpUser() {
         // TODO Auto-generated method stub
 
+    	GestioneUtenteDAO.signUp();
     }
 
     private static void showAutoAzienda(int idAzienda) {
