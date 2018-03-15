@@ -11,7 +11,7 @@ import com.mysql.jdbc.Connection;
 import model.Auto;
 import model.Utente;
 
-public class LogInDAO {
+public class GestioneUtenteDAO {
 
 public static Utente logIn(String email, String password) {
 		

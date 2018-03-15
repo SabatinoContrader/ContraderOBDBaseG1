@@ -10,7 +10,7 @@ import java.util.List;
 import com.mysql.jdbc.Connection;
 
 import dao.ConnessioneDB;
-import dao.LogInDAO;
+import dao.GestioneUtenteDAO;
 import model.Auto;
 import model.Utente;
 import utility.Utility;
@@ -43,7 +43,7 @@ public class MainApplication {
 			
 			System.out.println("Accesso in Corso...");
 			
-			 o =  LogInDAO.logIn(email, password);
+			 o =  GestioneUtenteDAO.logIn(email, password);
 			
 		}
 		
