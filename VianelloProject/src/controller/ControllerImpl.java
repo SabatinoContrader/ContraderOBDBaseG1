@@ -88,39 +88,5 @@ public class ControllerImpl implements IController {
             System.out.println("Numero Telaio: " + a.get(i).getNumeroTelaio());
 
         }
-
-     /*   Connection conn = ConnessioneDB.getInstance();
-
-        String QUERY = "select a.* from auto a,auto_azienda az  where az.IdAzienda = ? and az.IdAuto=a.ID ";
-
-
-        PreparedStatement statement;
-
-        ResultSet resultSet = null;
-        try {
-            statement = conn.prepareStatement(QUERY);
-            statement.setInt(1, idAzienda);
-
-            resultSet = statement.executeQuery();
-
-            if (resultSet.isBeforeFirst()) {
-                System.out.println("Auto dell'azienda a cui è associato l'utente");
-            }
-
-            while (resultSet.next()) {
-                System.out.println("------------------------------------");
-                System.out.println("ID: " + resultSet.getInt("ID"));
-                System.out.println("Marca: " + resultSet.getString("Marca"));
-                System.out.println("Modello: " + resultSet.getString("Modello"));
-                System.out.println("Targa: " + resultSet.getString("Targa"));
-                System.out.println("Numero Telaio: " + resultSet.getString("NumeroTelaio"));
-
-            }
-        } catch (SQLException e) {
-            System.out.println("Errore di Querying!");
-            ConnessioneDB.closeConnection();
-        }
-
-*/
     }
 }
