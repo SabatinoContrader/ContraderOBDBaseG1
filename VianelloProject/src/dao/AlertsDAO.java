@@ -25,7 +25,7 @@ public class AlertsDAO {
 		if(u.getRuolo() == 0){
 
 			QUERY = "Select g.Codice, g.Data, a.Marca, a.Modello, a.Targa, a.NumeroTelaio"
-					+" from db.guasto g, db.auto a, db.dispositivo d,db.auto_utente au, db.utente u"
+					+" from guasto g, auto a, dispositivo d,auto_utente au, utente u"
 					+" where g.IdDispositivo = d.ID and d.IdAuto=a.ID and u.ID = au.IdUtente"
 					+" and au.IdAuto = a.ID and u.ID =?";
 			try {
@@ -60,7 +60,7 @@ public class AlertsDAO {
 			// ALERTS DELLE AUTO CON GUASTI RELATIVI ALL AZIENDA.
 
 			QUERY = "Select g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio, tg.Descrizione"+
-					" from db.guasto g, db.auto a, db.dispositivo d,db.auto_azienda au, db.utente u,db.tipologia_guasto tg"+
+					" from guasto g, auto a, dispositivo d,auto_azienda au, utente u,tipologia_guasto tg"+
 					" where g.IdDispositivo = d.ID and d.IdAuto=a.ID and u.IdAzienda = au.IdAzienda "+
 					" and tg.Codice= g.Codice and au.IdAuto = a.ID and u.ID = ?";
 
