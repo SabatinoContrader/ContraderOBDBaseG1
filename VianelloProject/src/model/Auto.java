@@ -1,12 +1,12 @@
 package model;
 
-import java.util.Date;
+import java.sql.Date;
 
 
 public class Auto {
 	  
 	  public Auto(int iD, String marca, String modello, String targa, String numeroTelaio, int kmAttuali,
-			int kmInizioNoleggio, Date scadenzaRevisione, Date sadenzaTagliando, Date scadenzaAssicurazione,
+			int kmInizioNoleggio, Date scadenzaRevisione, Date scadenzaTagliando, Date scadenzaAssicurazione,
 			Date scadenzaBollo, String tipologiaAuto, int daNoleggio) {
 		ID = iD;
 		this.marca = marca;
@@ -16,7 +16,7 @@ public class Auto {
 		this.kmAttuali = kmAttuali;
 		this.kmInizioNoleggio = kmInizioNoleggio;
 		this.scadenzaRevisione = scadenzaRevisione;
-		this.sadenzaTagliando = sadenzaTagliando;
+		this.scadenzaTagliando = scadenzaTagliando;
 		this.scadenzaAssicurazione = scadenzaAssicurazione;
 		this.scadenzaBollo = scadenzaBollo;
 		this.tipologiaAuto = tipologiaAuto;
@@ -32,7 +32,7 @@ public class Auto {
 	  private int kmAttuali;
 	  private int kmInizioNoleggio;
 	  private Date scadenzaRevisione;
-	  private Date sadenzaTagliando;
+	  private Date scadenzaTagliando;
 	  private Date scadenzaAssicurazione;
 	  private Date scadenzaBollo;
 	  private String tipologiaAuto;
@@ -87,11 +87,11 @@ public class Auto {
 	public void setScadenzaRevisione(Date scadenzaRevisione) {
 		this.scadenzaRevisione = scadenzaRevisione;
 	}
-	public Date getSadenzaTagliando() {
-		return sadenzaTagliando;
+	public Date getScadenzaTagliando() {
+		return scadenzaTagliando;
 	}
-	public void setSadenzaTagliando(Date sadenzaTagliando) {
-		this.sadenzaTagliando = sadenzaTagliando;
+	public void setScadenzaTagliando(Date scadenzaTagliando) {
+		this.scadenzaTagliando = scadenzaTagliando;
 	}
 	public Date getScadenzaAssicurazione() {
 		return scadenzaAssicurazione;
