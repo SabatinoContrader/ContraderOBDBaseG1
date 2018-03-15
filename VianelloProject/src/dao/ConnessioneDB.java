@@ -8,11 +8,11 @@ import com.mysql.jdbc.Connection;
 
 public class ConnessioneDB {
 	
-	public static String indirizzoIp = "127.0.0.1";
+	public static String indirizzoIp = "sql2.freemysqlhosting.net";
 	public static int porta = 3306;
-	public static String nomeDB = "db";
-	public static String username = "root";
-	public static String password = "root";
+	public static String nomeDB = "sql2226824";
+	public static String username = "sql2226824";
+	public static String password = "kR2%yA7!";
 
 	private static Connection conn = null;
 	
