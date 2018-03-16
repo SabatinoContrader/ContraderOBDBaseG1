@@ -1,5 +1,8 @@
 package automotive;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import controller.ControllerSingleton;
 import dao.ConnessioneDB;
 import dao.GestioneUtenteDAO;
@@ -28,7 +31,7 @@ public class MainApplication {
 		
 			
 		System.out.println("Benvenuto...\n");
-		
+			
 		logIn();
 		
 		//Test showAllDevices
