@@ -182,4 +182,77 @@ public static List<Utente> getListUtenti(int idAzienda){
 
 
 }
+	public static int updateUtente(Utente u) {
+
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		int insertOk=0;
+		String QUERY = "UPDATE utente SET Nome=?,Cognome=?,Email=?,Password=?,Stato=?,IdAzienda=?,DataRegistrazione=?,Ruolo=?,Telefono=? WHERE ID=?";
+
+		try{
+
+
+
+			statement = conn.prepareStatement(QUERY);
+
+
+
+			statement.setString(1, u.getNome());
+			statement.setString(2, u.getCognome());
+			statement.setString(3, u.getEmail());
+			statement.setString(4, u.getPassword());
+			statement.setInt(5, u.getStato());
+			statement.setInt(6, u.getIdAzienda());
+			statement.setDate(7, u.getDataRegistrazione());
+			statement.setInt(8, u.getRuolo());
+			statement.setString(9, u.getTelefono());
+			statement.setInt(10, u.getID());
+			insertOk= statement.executeUpdate();
+
+
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+
+
+return insertOk;
+	}
+
+	public static void removeUtente(int idUtente) {
+
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		int insertOk;
+		String QUERY = "DELETE FROM auto_utente WHERE IdUtente=?";
+
+		try{
+
+			statement = conn.prepareStatement(QUERY);
+			statement.setInt(1, idUtente);
+			statement.executeUpdate();
+
+			try {
+				String QUERYCROSS = "DELETE FROM utente WHERE ID=?";
+
+				statement = conn.prepareStatement(QUERYCROSS);
+				statement.setInt(1, idUtente);
+
+
+				statement.executeUpdate();
+				System.out.println("Utente rimosso correttamente");
+			}catch(SQLException e){
+				System.out.println(e);
+			}
+
+
+
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+
+
+	}
+
 }

@@ -2,6 +2,8 @@ package controller;
 
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +26,7 @@ public class ControllerImpl implements IController {
     private AlertsDAO aDAO = new AlertsDAO();
     private GestioneUtenteDAO guDAO = new GestioneUtenteDAO();
     private CarDAO cDAO = new CarDAO();
-
+    private DispositivoDAO dDAO = new DispositivoDAO();
     @Override
     public void showAlerts(Utente u) {
         // TODO Auto-generated method stub
@@ -47,7 +49,7 @@ public class ControllerImpl implements IController {
 
         if (listutente.size() > 0) {
             System.out.println("Lista Utenti");
-        } else System.out.println("Non &egrave; presente nessun utente");
+        } else System.out.println("Non e' presente nessun utente");
         for (int i = 0; i < listutente.size(); i++) {
             System.out.println("------------------------------------");
             System.out.println("ID: " + listutente.get(i).getID());
@@ -77,7 +79,7 @@ public class ControllerImpl implements IController {
                 lauto = cDAO.getListAutoUtente(iutente);
                 if (lauto.size() > 0) {
                     System.out.println("Lista Auto Utente");
-                } else System.out.println("Non &egrave; presente alcun'auto associata all'utente ");
+                } else System.out.println("Non e' presente alcun'auto associata all'utente ");
                 for (int i = 0; i < lauto.size(); i++) {
                     System.out.println("------------------------------------");
                     System.out.println("ID: " + lauto.get(i).getID());
@@ -85,6 +87,11 @@ public class ControllerImpl implements IController {
                     System.out.println("Modello: " + lauto.get(i).getModello());
                     System.out.println("Targa: " + lauto.get(i).getTarga());
                     System.out.println("Numero Telaio: " + lauto.get(i).getNumeroTelaio());
+                    String dispositivo = dDAO.getDispositivo(lauto.get(i).getID());
+
+                    if(!(dispositivo).equals("no")){
+                        System.out.println("Dispositivo associato: "+ dispositivo);
+                    };
 
                 }
                 System.out.println("\nCosa vuoi fare?");
@@ -105,7 +112,30 @@ public class ControllerImpl implements IController {
 
                         break;
                     case "3":
+// CASE ASSOCIATE DEVICE TO AUTO
+                        List<Dispositivo> dlist = dDAO.showAllDevices(idAzienda);
+                        if (dlist.size() == 0) {
+                            System.out.println("Non &egrave; presente alcun dispositivo");
+                        }
+                        int displiberi=0;
+                        for (int i = 0; i < dlist.size(); i++) {
+                            if(dlist.get(i).getIdAuto()==0) {
+                                System.out.println("------------------------------------");
+                                System.out.println("ID: " + dlist.get(i).getId());
+                                System.out.println("Codice: " + dlist.get(i).getCodice());
 
+                                displiberi++;
+                            }
+
+                        }
+                        if(displiberi>0) {
+                            System.out.println("\nINSERISCI ID DISPOSTIVO");
+                            int iddisp= Integer.parseInt(Utility.getInput());
+                            System.out.println("\nINSERISCI ID AUTO");
+                            int idauto= Integer.parseInt(Utility.getInput());
+                        dDAO.setDispositivoAuto(iddisp,idauto);
+                        }
+                        else System.out.println("\nNON HAI DISPOSITIVI DISPONIBILI");
                         break;
                     case "4":
                         goBack(u);
@@ -118,12 +148,14 @@ public class ControllerImpl implements IController {
             case "2":
                 // CASE FOR USER UPDATE
                 System.out.println("Inserisci ID dell'utente da modificare: ");
-                String op = scanner.nextLine();
-                //  makeUpdateAuto(Integer.parseInt(op),listauto);
-
+                String op = Utility.getInput();
+                makeUpdateUtente(Integer.parseInt(op), listutente);
                 break;
             case "3":
                 //CASE REMOVE USER
+                System.out.println("Inserisci ID dell'utente da rimuovere: ");
+
+                guDAO.removeUtente(Integer.parseInt(Utility.getInput()));
                 break;
             case "4":
                 //CASE REGISTER NEW USER
@@ -154,20 +186,28 @@ public class ControllerImpl implements IController {
             System.out.println("Modello: " + listauto.get(i).getModello());
             System.out.println("Targa: " + listauto.get(i).getTarga());
             System.out.println("Numero Telaio: " + listauto.get(i).getNumeroTelaio());
+            String dispositivo = dDAO.getDispositivo(listauto.get(i).getID());
+
+            if(!(dispositivo).equals("no")){
+                System.out.println("Dispositivo associato: "+ dispositivo);
+            };
+
         }
 
         // Check Ruolo - if 0 non amministratore, 1 Amministratore Azienda
         if (u.getRuolo() == 1) {
             showAutoAzienda(u.getIdAzienda());
+            showAutoAziendaClienti(u.getIdAzienda());
         }
 
-        System.out.println("Cosa vuoi fare?");
+        System.out.println("\nCosa vuoi fare?");
         System.out.println("1)  Torna indietro");
         System.out.println("2)  Modifica Auto");
         System.out.println("3)  Visualizza dettagli Auto");
         if (u.getRuolo() == 1) {
             System.out.println("4)  Assegna dispositivo ad auto");
-            System.out.println("5)  Visualizza storico riparazioni auto");
+            System.out.println("5)  Visualizza Dispositivi");
+       //     System.out.println("5)  Visualizza storico riparazioni auto");
 
         }
 
@@ -184,17 +224,59 @@ public class ControllerImpl implements IController {
 
                 break;
             case "3":
-//                showAutoDetail(idAuto);
+                System.out.println("Inserisci ID dell'auto di cui vuoi vedere i dettagli: ");
+
+                showAutoDetail(Integer.parseInt(scanner.nextLine()));
                 break;
             case "4":
                 if (u.getRuolo() == 1) {
-                    //             assignDeviceToAuto();
+                    List<Dispositivo> dlist = dDAO.showAllDevices(u.getIdAzienda());
+                    if (dlist.size() == 0) {
+                        System.out.println("Non &egrave; presente alcun dispositivo");
+                    }
+                    int displiberi=0;
+                    for (int i = 0; i < dlist.size(); i++) {
+                        if(dlist.get(i).getIdAuto()==0) {
+                            System.out.println("------------------------------------");
+                            System.out.println("ID: " + dlist.get(i).getId());
+                            System.out.println("Codice: " + dlist.get(i).getCodice());
+
+                            displiberi++;
+                        }
+
+                    }
+                    if(displiberi>0) {
+                        System.out.println("\nINSERISCI ID DISPOSTIVO");
+                        int iddisp= Integer.parseInt(Utility.getInput());
+                        System.out.println("\nINSERISCI ID AUTO");
+                        int idauto= Integer.parseInt(Utility.getInput());
+                        dDAO.setDispositivoAuto(iddisp,idauto);
+                    }
+                    else System.out.println("\nNON HAI DISPOSITIVI DISPONIBILI");
+
                 }
 
                 break;
             case "5":
                 if (u.getRuolo() == 1) {
-                    //visualizza storico riparaizone
+                    //visualizza dispositivi
+                    List<Dispositivo> newlistdispositivo=dDAO.showAllDevices(u.getIdAzienda());
+                    if (newlistdispositivo.size() > 0) {
+                        System.out.println("Lista dispositivi");
+                    }
+                    for (int i = 0; i < newlistdispositivo.size(); i++) {
+                        System.out.println("------------------------------------");
+                        System.out.println("ID: " + newlistdispositivo.get(i).getId());
+                        System.out.println("Codice: " + newlistdispositivo.get(i).getCodice());
+                        if(newlistdispositivo.get(i).getIdAuto()>0)
+                        System.out.println("ID Auto: " + newlistdispositivo.get(i).getIdAuto());
+                        else System.out.println("ID Auto: Ancora non è installato su nessuna auto");
+                       /* if(newlistdispositivo.get(i).getDataInstallazione())
+                        System.out.println("Data Installazione: " + newlistdispositivo.get(i).getDataInstallazione());
+                        */
+
+
+                    }
                 }
                 break;
 
@@ -341,7 +423,79 @@ public class ControllerImpl implements IController {
 
     }
 
-    private static void showAutoAzienda(int idAzienda) {
+    public  void makeUpdateUtente(int idUtente, List<Utente> utente) {
+        String s = "";
+        int res=0;
+      /*  String oldmarca="",oldmodello="",oldtarga="",oldtelaio="",tipologia="",s="";
+        Date d=new Date(System.currentTimeMillis());
+        Date oldrevisione=d,oldtagliando=d,oldbollo=d,oldassicurazione=d;
+        int oldkmattuali=0,oldkminizionoleggio=0,danoleggio=0;*/
+        for (int i = 0; i < utente.size(); i++) {
+            if (idUtente == utente.get(i).getID()) {
+                System.out.println("Vuoi modificare il nome? y/n");
+                s = Utility.getInput();
+                if (s.equals("y")) {
+                    System.out.println("Inserisci il nuovo nome");
+                    utente.get(i).setNome(Utility.getInput());
+                }
+                System.out.println("Vuoi modificare il cognome? y/n");
+                s = Utility.getInput();
+                if (s.equals("y")) {
+                    System.out.println("Inserisci il nuovo cognome");
+                    utente.get(i).setCognome(Utility.getInput());
+                }
+
+                System.out.println("Vuoi modificare l'email? y/n");
+                s = Utility.getInput();
+                if (s.equals("y")) {
+                    System.out.println("Inserisci la nuova email");
+                    utente.get(i).setEmail(Utility.getInput());
+                }
+
+                System.out.println("Vuoi modificare la password? y/n");
+                s = Utility.getInput();
+                if (s.equals("y")) {
+                    System.out.println("Inserisci la nuova password");
+                    utente.get(i).setPassword(Utility.getInput());
+                }
+                System.out.println("Vuoi modificare lo stato? y/n");
+                s = Utility.getInput();
+                if (s.equals("y")) {
+                    System.out.println("Inserisci il nuovo stato: 0 - non bloccato, 1 - utente bloccato");
+                    utente.get(i).setStato(Integer.parseInt(Utility.getInput()));
+                }
+/*
+                System.out.println("Vuoi modificare il ruolo y/n");
+                s = Utility.getInput();
+                if (s.equals("y")) {
+                    System.out.println("Inserisci i nuovi km di inizio noleggio");
+                    utente.get(i).setKmInizioNoleggio(Integer.parseInt(Utility.getInput()));
+                }
+*/
+
+                System.out.println("Vuoi modificare il telefono? y/n");
+                s = Utility.getInput();
+                if (s.equals("y")) {
+                    System.out.println("Inserisci il nuovo telefono");
+                    utente.get(i).setTelefono(Utility.getInput());
+                }
+
+
+
+
+               res= guDAO.updateUtente(utente.get(i));
+                if(res>0)System.out.println("Utente aggiornato correttamente\n");
+                i = utente.size();
+            }
+
+        }
+
+
+    }
+
+    private  void showAutoAzienda(int idAzienda) {
+
+
 
         List<Auto> a = CarDAO.getListAutoAzienda(idAzienda);
 
@@ -352,9 +506,37 @@ public class ControllerImpl implements IController {
             System.out.println("Modello: " + a.get(i).getModello());
             System.out.println("Targa: " + a.get(i).getTarga());
             System.out.println("Numero Telaio: " + a.get(i).getNumeroTelaio());
+            String dispositivo = dDAO.getDispositivo(a.get(i).getID());
+
+            if(!(dispositivo).equals("no")){
+                System.out.println("Dispositivo associato: "+ dispositivo);
+            };
 
         }
     }
+
+    private  void showAutoAziendaClienti(int idAzienda) {
+
+
+
+        List<Auto> a = CarDAO.getListAutoAziendaClienti(idAzienda);
+
+        for (int i = 0; i < a.size(); i++) {
+            System.out.println("------------------------------------");
+            System.out.println("ID: " + a.get(i).getID());
+            System.out.println("Marca: " + a.get(i).getMarca());
+            System.out.println("Modello: " + a.get(i).getModello());
+            System.out.println("Targa: " + a.get(i).getTarga());
+            System.out.println("Numero Telaio: " + a.get(i).getNumeroTelaio());
+            String dispositivo = dDAO.getDispositivo(a.get(i).getID());
+
+            if(!(dispositivo).equals("no")){
+                System.out.println("Dispositivo associato: "+ dispositivo);
+            };
+
+        }
+    }
+
 
     private static void inserisciAutoUtente(int idutente) {
         String marca = "", modello = "", targa = "", numeroTelaio = "", tipologia = "";
@@ -386,6 +568,34 @@ public class ControllerImpl implements IController {
 
         CarDAO.insertAutoUtente(idutente, maxKmNoleggio, marca, modello, targa, numeroTelaio, kmAttuali,
                 kmInizioNoleggio, scadenzaRevisione, scadenzaTagliando, scadenzaBollo, scadenzaAssicurazione, tipologia, daNoleggio);
+    }
+
+    private void showAutoDetail(int idAuto) {
+        ResultSet resultSet = cDAO.getAutoDetail(idAuto);
+        try {
+            while (resultSet.next()) {
+                System.out.println("AUTO: "+resultSet.getString("Marca")+" "+resultSet.getString("Modello"));
+                System.out.println("TARGA: "+resultSet.getString("Targa"));
+                System.out.println("TELAIO: "+resultSet.getString("NumeroTelaio"));
+                System.out.println("KM ATTUALI: "+resultSet.getInt("KmAttuali"));
+                if(resultSet.getInt("DaNoleggio")==1)
+                    System.out.println("KM INIZIO NOLEGGIO: "+resultSet.getString("KmInizioNoleggio"));
+                System.out.println("SCADENZA REVISIONE: "+resultSet.getDate("ScadenzaRevisione"));
+                System.out.println("SCADENZA TAGLIANDO: "+resultSet.getDate("ScadenzaTagliando"));
+                System.out.println("SCADENZA ASSICURAZIONE: "+resultSet.getDate("ScadenzaAssicurazione"));
+                System.out.println("SCADENZA BOLLO: "+resultSet.getDate("ScadenzaBollo"));
+                System.out.println("CLIENTE: "+resultSet.getString("Nome")+" "+resultSet.getString("Cognome"));
+                System.out.println("EMAIL: "+resultSet.getString("Email"));
+                System.out.println("TELEFONO : "+resultSet.getString("Telefono"));
+
+                //System.out.println("Trovate Auto Associate!");
+
+
+
+            }
+        } catch (SQLException e) {
+     System.out.println(e);
+        }
     }
 
     private static void goBack(Utente u){
