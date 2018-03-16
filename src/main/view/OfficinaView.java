@@ -2,7 +2,9 @@ package main.view;
 
 import main.MainDispatcher;
 import main.controller.Request;
+import main.model.Login;
 import main.model.Officina;
+import main.service.LoginService;
 import main.service.OfficinaService;
 import java.util.Scanner;
 
@@ -11,10 +13,12 @@ public class OfficinaView implements View {
 
     private OfficinaService officinaService;
     private String mode;
+    private LoginService loginService;
     private String role;
 
     public OfficinaView(){
         this.officinaService = new OfficinaService();
+        this.loginService = new LoginService();
     }
 
     @Override
@@ -30,8 +34,11 @@ public class OfficinaView implements View {
             System.out.println("Indirizzo:");
             String Indirizzo = getInput();
             System.out.println("Città:");
-            String Nome_Città = getInput();
-            officinaService.insertOfficina(new Officina(Nome_Officina, Indirizzo, Nome_Città));
+            String Città = getInput();
+            int id=officinaService.insertOfficina(new Officina(Nome_Officina, Indirizzo, Città));
+            String access = "O_00"+id;
+            loginService.InsertLogin(new Login(access, access, 2, id));
+
         }
         @Override
         public String getInput() {

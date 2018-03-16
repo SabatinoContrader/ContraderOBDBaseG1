@@ -3,12 +3,12 @@ package main.model;
 public class Officina {
     private String Nome_Officina;
     private String Indirizzo;
-    private String Nome_Città;
+    private String Città;
 
-    public Officina (String Nome_Officina, String Indirizzo, String Nome_Città){
+    public Officina (String Nome_Officina, String Indirizzo, String Città){
         this.Nome_Officina = Nome_Officina;
         this.Indirizzo = Indirizzo;
-        this.Nome_Città = Nome_Città;
+        this.Città = Città;
     }
 
     public String getNome_Officina() {
@@ -27,12 +27,12 @@ public class Officina {
         this.Indirizzo = indirizzo;
     }
 
-    public String getNome_Città() {
-        return Nome_Città;
+    public String getCittà() {
+        return Città;
     }
 
-    public void setNome_Città(String nome_Città) {
-        this.Nome_Città = nome_Città;
+    public void setCittà(String nome_Città) {
+        this.Città = Città;
     }
 
     @Override
@@ -45,14 +45,14 @@ public class Officina {
         if (Nome_Officina != null ? !Nome_Officina.equals(officina.Nome_Officina) : officina.Nome_Officina != null)
             return false;
         if (Indirizzo != null ? !Indirizzo.equals(officina.Indirizzo) : officina.Indirizzo != null) return false;
-        return Nome_Città != null ? Nome_Città.equals(officina.Nome_Città) : officina.Nome_Città == null;
+        return Città != null ? Città.equals(officina.Città) : officina.Città == null;
     }
 
     @Override
     public int hashCode() {
         int result = Nome_Officina != null ? Nome_Officina.hashCode() : 0;
         result = 31 * result + (Indirizzo != null ? Indirizzo.hashCode() : 0);
-        result = 31 * result + (Nome_Città != null ? Nome_Città.hashCode() : 0);
+        result = 31 * result + (Città != null ? Città.hashCode() : 0);
         return result;
     }
 
@@ -61,7 +61,7 @@ public class Officina {
         return "Officina{" +
                 "Nome_Officina='" + Nome_Officina + '\'' +
                 ", Indirizzo='" + Indirizzo + '\'' +
-                ", Nome_Città='" + Nome_Città + '\'' +
+                ", Nome_Città='" + Città + '\'' +
                 '}';
     }
 }

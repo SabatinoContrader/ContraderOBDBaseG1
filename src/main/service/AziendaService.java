@@ -11,7 +11,7 @@ public class AziendaService {
         this.aziendaDAO = new AziendaDAO();
     }
 
-    public boolean insertAzienda (Azienda azienda) {
+    public int insertAzienda (Azienda azienda) {
         return this.aziendaDAO.insertAzienda(azienda);
     }
 }

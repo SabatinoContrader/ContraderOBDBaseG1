@@ -3,23 +3,26 @@ package main.view;
 import main.MainDispatcher;
 import main.controller.Request;
 import main.model.Azienda;
+import main.model.Login;
 import main.service.AziendaService;
+import main.service.LoginService;
 
 import java.util.Scanner;
 
 public class AziendaView implements View {
 
     private AziendaService aziendaService;
+    private LoginService loginService;
+    private String role;
 
     public AziendaView () {
         this.aziendaService = new AziendaService();
+        this.loginService = new LoginService();
     }
 
     @Override
     public void showResults(Request request) {
-
-
-
+        role=(String)request.get("role");
     }
 
     @Override
@@ -30,14 +33,11 @@ public class AziendaView implements View {
         System.out.println("Nome Azienda:");
         String nomeAzienda = getInput();
         System.out.println("Città:");
-        String nomeCittà = getInput();
-        aziendaService.insertAzienda(new Azienda(nomeAzienda, nomeCittà));
-
-
+        String Città = getInput();
+        int id=aziendaService.insertAzienda(new Azienda(nomeAzienda, Città));
+        String access = "A_00"+id;
+        loginService.InsertLogin(new Login(access, access, 3, id));
     }
-
-
-
 
     @Override
     public String getInput() {
@@ -47,6 +47,8 @@ public class AziendaView implements View {
 
     @Override
     public void submit() {
-        MainDispatcher.getInstance().callAction("Home", "doControl", null);
+        Request request = new Request();
+        request.put("role",role);
+        MainDispatcher.getInstance().callAction("Home", "doControl", request);
     }
 }

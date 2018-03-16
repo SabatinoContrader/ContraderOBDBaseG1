@@ -26,7 +26,8 @@ public class HomeView implements View {
                 System.out.println("");
                 System.out.println("-------MENU OWNER-------");
                 System.out.println("1) Aggiungi officina");
-                System.out.println("2) Logout");
+                System.out.println("2) Aggiungi azienda");
+                System.out.println("3) Logout");
                 this.choice = Integer.parseInt(getInput());
                 break;
 
@@ -40,7 +41,7 @@ public class HomeView implements View {
                 System.out.println("2) Modifica auto");
                 System.out.println("3) Reset dispositivo");
                 System.out.println("4) Cerca auto");
-                System.out.println("9) Logout");
+                System.out.println("5) Logout");
                 this.choice = Integer.parseInt(getInput());
                 break;
 
@@ -75,13 +76,19 @@ public class HomeView implements View {
             case "owner":
                 switch (choice)
                 {
-                    case 1:
+                    case 1:{
                         Request request= new Request();
                         request.put("choice",choice);
                         request.put("role", role);
                         MainDispatcher.getInstance().callAction("Officina", "doControl", request);
-                        break;
-                    case 2:
+                        break;}
+                    case 2:{
+                        Request request= new Request();
+                        request.put("choice",choice);
+                        request.put("role", role);
+                        MainDispatcher.getInstance().callAction("Azienda", "doControl", request);
+                        break;}
+                    case 3:
                         MainDispatcher.getInstance().callAction("Login", "doControl", null);
                         break;
                 }
@@ -120,7 +127,7 @@ public class HomeView implements View {
                         MainDispatcher.getInstance().callAction("Auto", "doControl", request);
                         break;
 
-                    case 9:
+                    case 5:
                         MainDispatcher.getInstance().callAction("Login", "doControl", null);
                         break;
 

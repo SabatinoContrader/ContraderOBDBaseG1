@@ -2,13 +2,13 @@ package main.model;
 
 public class Azienda {
     String nomeAzienda;
-    String nomeCittà;
+    String Città;
 
     public Azienda(){}
 
-    public Azienda(String nomeAzienda, String nomeCittà){
+    public Azienda(String nomeAzienda, String Città){
         this.nomeAzienda = nomeAzienda;
-        this.nomeCittà = nomeCittà;
+        this.Città = Città;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class Azienda {
 
         Azienda azienda = (Azienda) o;
 
-        if (!azienda.nomeCittà.equals(nomeCittà)) return false;
+        if (!azienda.Città.equals(Città)) return false;
         if (!azienda.nomeAzienda.equals(nomeAzienda)) return false;
         return true;
     }
@@ -27,28 +27,28 @@ public class Azienda {
     public int hashCode() {
         int result;
         result = nomeAzienda != null ? nomeAzienda.hashCode() : 0;
-        result = 31 * result + (nomeCittà != null ? nomeCittà.hashCode() : 0);
+        result = 31 * result + (Città != null ? Città.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "Nome Azienda: " + nomeAzienda + "\nNome città: " +nomeCittà +"\n";
+        return "Nome Azienda: " + nomeAzienda + "\nNome città: " +Città +"\n";
     }
 
     public void setNomeAzienda(String nomeAzienda) {
         this.nomeAzienda = nomeAzienda;
     }
 
-    public void setNomeCittà(String nomeCittà) {
-        this.nomeCittà = nomeCittà;
+    public void setCittà(String Città) {
+        this.Città = Città;
     }
 
     public String getNomeAzienda() {
         return nomeAzienda;
     }
 
-    public String getNomeCittà() {
-        return nomeCittà;
+    public String getCittà() {
+        return Città;
     }
 }
