@@ -54,7 +54,7 @@ public class CarDAO {
         catch (SQLException e) {
             System.out.println("Errore di Recupero Lista Auto Azienda!");
         }
-        ConnessioneDB.closeConnection();
+
 
         return lista;
     }
@@ -99,7 +99,6 @@ public class CarDAO {
             System.out.println("Errore di Recupero Lista Auto Azienda!");
         }
 
-        ConnessioneDB.closeConnection();
         return lista;
     }
 
@@ -170,7 +169,6 @@ public class CarDAO {
             System.out.println(e);
         }
 
-        ConnessioneDB.closeConnection();
 
     }
 
@@ -240,13 +238,11 @@ public class CarDAO {
             System.out.println(e);
         }
 
-        ConnessioneDB.closeConnection();
 
     }
 
 // AGGIORNAMENTO AUTO
-public static void updateAuto(int idAuto,String marca, String modello, String targa, String numeroTelaio, int kmAttuali,
-                                     int kmInizioNoleggio, Date scadenzaRevisione,Date scadenzaTagliando, Date scadenzaBollo, Date scadenzaAssicurazione, String tipologiaAuto, int daNoleggio) {
+public static void updateAuto(Auto a) {
 
     Connection conn = ConnessioneDB.getInstance();
     PreparedStatement statement;
@@ -255,25 +251,25 @@ public static void updateAuto(int idAuto,String marca, String modello, String ta
     String QUERY = "UPDATE auto SET Marca=?,Modello=?,Targa=?,NumeroTelaio=?,KmAttuali=?,KmInizioNoleggio=?,ScadenzaRevisione=?,ScadenzaTagliando=?,ScadenzaAssicurazione=?,ScadenzaBollo=?,TipologiaAuto=?,DaNoleggio=? WHERE ID=?";
     try{
 
-        System.out.println(QUERY);
+
 
         statement = conn.prepareStatement(QUERY);
 
 
 
-        statement.setString(1, marca);
-        statement.setString(2, modello);
-        statement.setString(3, targa);
-        statement.setString(4, numeroTelaio);
-        statement.setInt(5, kmAttuali);
-        statement.setInt(6, kmInizioNoleggio);
-        statement.setDate(7, scadenzaRevisione);
-        statement.setDate(8, scadenzaTagliando);
-        statement.setDate(9, scadenzaBollo);
-        statement.setDate(10, scadenzaAssicurazione);
-        statement.setString(11, tipologiaAuto);
-        statement.setInt(12, daNoleggio);
-        statement.setInt(13, idAuto);
+        statement.setString(1, a.getMarca());
+        statement.setString(2, a.getModello());
+        statement.setString(3, a.getTarga());
+        statement.setString(4, a.getNumeroTelaio());
+        statement.setInt(5, a.getKmAttuali());
+        statement.setInt(6, a.getKmInizioNoleggio());
+        statement.setDate(7, a.getScadenzaRevisione());
+        statement.setDate(8, a.getScadenzaTagliando());
+        statement.setDate(9, a.getScadenzaBollo());
+        statement.setDate(10, a.getScadenzaAssicurazione());
+        statement.setString(11, a.getTipologiaAuto());
+        statement.setInt(12, a.getDaNoleggio());
+        statement.setInt(13, a.getID());
         insertOk= statement.executeUpdate();
       /*  if(insertOk>0){
 

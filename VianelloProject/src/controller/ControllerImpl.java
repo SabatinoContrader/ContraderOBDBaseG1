@@ -139,90 +139,81 @@ public class ControllerImpl implements IController {
     }
 
     public static void makeUpdateAuto(int idAuto,List<Auto> auto){
-        String oldmarca="",oldmodello="",oldtarga="",oldtelaio="",tipologia="",s="";
+        String s="";
+      /*  String oldmarca="",oldmodello="",oldtarga="",oldtelaio="",tipologia="",s="";
         Date d=new Date(System.currentTimeMillis());
         Date oldrevisione=d,oldtagliando=d,oldbollo=d,oldassicurazione=d;
-        int oldkmattuali=0,oldkminizionoleggio=0,danoleggio=0;
+        int oldkmattuali=0,oldkminizionoleggio=0,danoleggio=0;*/
         for(int i=0;i<auto.size();i++){
             if(idAuto==auto.get(i).getID()){
-                oldmarca=auto.get(i).getMarca();
-                oldmodello=auto.get(i).getModello();
-                oldtarga=auto.get(i).getTarga();
-                oldtelaio=auto.get(i).getNumeroTelaio();
-                oldrevisione=auto.get(i).getScadenzaRevisione();
-                oldtagliando=auto.get(i).getScadenzaTagliando();
-                oldbollo=auto.get(i).getScadenzaBollo();
-                oldassicurazione=auto.get(i).getScadenzaAssicurazione();
-                oldkmattuali=auto.get(i).getKmAttuali();
-                oldkminizionoleggio=auto.get(i).getKmInizioNoleggio();
-                danoleggio=auto.get(i).getDaNoleggio();
-                tipologia=auto.get(i).getTipologiaAuto();
-                i=auto.size();
+                System.out.println("Vuoi modificare la marca? y/n");
+                s=Utility.getInput();
+                if(s.equals("y")) {
+                    System.out.println("Inserisci la nuova marca");
+                    auto.get(i).setMarca(Utility.getInput());
+                }
+                System.out.println("Vuoi modificare il modello? y/n");
+                s=Utility.getInput();
+                if(s.equals("y")) {
+                    System.out.println("Inserisci il nuovo modello");
+                    auto.get(i).setModello(Utility.getInput());
+                }
 
+                System.out.println("Vuoi modificare la targa? y/n");
+                s=Utility.getInput();
+                if(s.equals("y")) {
+                    System.out.println("Inserisci la nuova targa");
+                    auto.get(i).setTarga(Utility.getInput());
+                }
+
+                System.out.println("Vuoi modificare il numero telaio? y/n");
+                s=Utility.getInput();
+                if(s.equals("y")) {
+                    System.out.println("Inserisci il nuovo telaio");
+                    auto.get(i).setNumeroTelaio(Utility.getInput());
+                }
+                System.out.println("Vuoi modificare i km attuali? y/n");
+                s=Utility.getInput();
+                if(s.equals("y")) {
+                    System.out.println("Inserisci i nuovi km");
+                    auto.get(i).setKmAttuali(Integer.parseInt(Utility.getInput()));
+                }
+
+                System.out.println("Vuoi modificare i km di inizio noleggio? y/n");
+                s=Utility.getInput();
+                if(s.equals("y")) {
+                    System.out.println("Inserisci i nuovi km di inizio noleggio");
+                    auto.get(i).setKmInizioNoleggio(Integer.parseInt(Utility.getInput()));
+                }
+
+
+                System.out.println("Vuoi modificare se è da noleggio? y/n");
+                s=Utility.getInput();
+                if(s.equals("y")) {
+                    System.out.println("E' da noleggio? y/n");
+                    if(Utility.getInput().equals("y"))
+                        auto.get(i).setDaNoleggio(1);
+                    else if(Utility.getInput().equals("n")) auto.get(i).setDaNoleggio(0);
+
+                }
+
+                System.out.println("Vuoi modificare la tipologia? y/n");
+                s=Utility.getInput();
+                if(s.equals("y")) {
+                    System.out.println("Inserisci la nuova tipologia");
+                    auto.get(i).setTipologiaAuto(Utility.getInput());
+                }
+
+
+
+                CarDAO.updateAuto( auto.get(i));
+                i=auto.size();
             }
 
         }
 
-        System.out.println("Vuoi modificare la marca? y/n");
-        s=Utility.getInput();
-if(s.equals("y")) {
-    System.out.println("Inserisci la nuova marca");
-oldmarca = Utility.getInput();
-}
-        System.out.println("Vuoi modificare il modello? y/n");
-        s=Utility.getInput();
-        if(s.equals("y")) {
-            System.out.println("Inserisci il nuovo modello");
-            oldmodello = Utility.getInput();
-        }
-
-        System.out.println("Vuoi modificare la targa? y/n");
-        s=Utility.getInput();
-        if(s.equals("y")) {
-            System.out.println("Inserisci la nuova targa");
-            oldtarga = Utility.getInput();
-        }
-
-        System.out.println("Vuoi modificare il numero telaio? y/n");
-        s=Utility.getInput();
-        if(s.equals("y")) {
-            System.out.println("Inserisci il nuovo telaio");
-            oldtelaio = Utility.getInput();
-        }
-        System.out.println("Vuoi modificare i km attuali? y/n");
-        s=Utility.getInput();
-        if(s.equals("y")) {
-            System.out.println("Inserisci i nuovi km");
-            oldkmattuali = Integer.parseInt(Utility.getInput());
-        }
-
-        System.out.println("Vuoi modificare i km di inizio noleggio? y/n");
-        s=Utility.getInput();
-        if(s.equals("y")) {
-            System.out.println("Inserisci i nuovi km di inizio noleggio");
-            oldkminizionoleggio = Integer.parseInt(Utility.getInput());
-        }
 
 
-        System.out.println("Vuoi modificare se è da noleggio? y/n");
-        s=Utility.getInput();
-        if(s.equals("y")) {
-            System.out.println("E' da noleggio? y/n");
-            if(Utility.getInput().equals("y"))
-            danoleggio = 1;
-            else if(Utility.getInput().equals("n")) danoleggio = 0;
-
-        }
-
-        System.out.println("Vuoi modificare la tipologia? y/n");
-        s=Utility.getInput();
-        if(s.equals("y")) {
-            System.out.println("Inserisci la nuova tipologia");
-            tipologia = Utility.getInput();
-        }
-
-        CarDAO.updateAuto( idAuto, oldmarca, oldmodello,  oldtarga,  oldtelaio,  oldkmattuali,
-                oldkminizionoleggio, oldrevisione, oldtagliando, oldbollo, oldassicurazione, tipologia, danoleggio);
     }
 
     private static void showAutoAzienda(int idAzienda) {
