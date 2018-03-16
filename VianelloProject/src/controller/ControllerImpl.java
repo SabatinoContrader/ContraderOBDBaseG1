@@ -8,9 +8,11 @@ import java.util.Scanner;
 import dao.AlertsDAO;
 import dao.AziendaDAO;
 import dao.CarDAO;
+import dao.DispositivoDAO;
 import dao.GestioneUtenteDAO;
 import model.Auto;
 import model.Azienda;
+import model.Dispositivo;
 import model.Utente;
 import utility.NotifierWorker;
 import utility.Utility;
@@ -202,7 +204,16 @@ public class ControllerImpl implements IController {
 
     @Override
     public void showAllDevice(Utente u) {
-        // TODO Auto-generated method stub
+        
+    	List<Dispositivo> listaDispositivi = DispositivoDAO.showAllDevices(u.getIdAzienda());
+    	
+    	if(listaDispositivi.size() != 0) System.out.println("Elenco di Dispositivi dell'Azienda:\n");
+
+    	for(int i = 0; i < listaDispositivi.size(); i ++) {
+
+    		System.out.println("ID: "+listaDispositivi.get(i).getId()+"	Codice: "+listaDispositivi.get(i).getCodice()+"	Id Auto: "+listaDispositivi.get(i).getIdAuto()+"	Id Azienda: "+listaDispositivi.get(i).getIdAzienda()+"	Data di Installazione: "+listaDispositivi.get(i).getDataInstallazione());
+
+    	}
 
     }
 
