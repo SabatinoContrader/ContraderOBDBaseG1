@@ -8,6 +8,7 @@ import java.util.Scanner;
 import dao.AlertsDAO;
 import dao.AziendaDAO;
 import dao.CarDAO;
+import dao.DispositivoDAO;
 import dao.GestioneUtenteDAO;
 import model.Auto;
 import model.Azienda;
@@ -96,7 +97,8 @@ public class ControllerImpl implements IController {
 
     @Override
     public void showAllDevice(Utente u) {
-        // TODO Auto-generated method stub
+        
+    	DispositivoDAO.showAllDevices(u.getIdAzienda());
 
     }
 

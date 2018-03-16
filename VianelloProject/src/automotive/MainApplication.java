@@ -31,6 +31,8 @@ public class MainApplication {
 		
 		logIn();
 		
+		//Test showAllDevices
+		//ControllerSingleton.getIstance().showAllDevice(o);
 		
 		//Prova per vedere se escono gli ID delle auto associate
 		//for(int i = 0; i < o.getAuto().size(); i ++) System.out.println(o.getAuto().get(i).getID());
