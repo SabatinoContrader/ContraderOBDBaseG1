@@ -9,6 +9,5 @@ public class AutoController implements Controller {
     public void doControl(Request request) {
 
         MainDispatcher.getInstance().callView("Auto", request);
-
     }
 }

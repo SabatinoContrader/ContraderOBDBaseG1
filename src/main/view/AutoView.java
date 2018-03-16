@@ -10,11 +10,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+
 public class AutoView implements View {
 
     private AutoService autoService;
     private String mode;
     private String role;
+    private String id_azienda;
 
   public AutoView() {
       this.autoService = new AutoService();
@@ -141,6 +143,73 @@ public class AutoView implements View {
                     Dati_dispositivo dato = (Dati_dispositivo) i.next();
                     System.out.println("  " + dato.getData() + "    " + dato.getKm() + "         " + dato.getLivello_olio() + "           "  + dato.getCodice_Errore());
                 }
+                break;
+
+            case "listauto":
+                scanner = new Scanner(System.in);
+                System.out.println("");
+                System.out.println("Stai per vedere la lista delle auto con driver:");
+
+                List<Auto> listAuto = autoService.getAllAuto();
+                for(Auto automo : listAuto){
+                    System.out.print(automo.getCambio()+ " ");
+                    System.out.print(automo.getAlimentazione()+" ");
+                    System.out.print(automo.getCasa_Costruttrice()+" ");
+                    System.out.print(automo.getModello()+" ");
+                    System.out.print(automo.getRevisione()+" ");
+                    System.out.println();
+                }
+
+
+            case "assegna_auto_driver":
+                scanner = new Scanner(System.in);
+                System.out.println("");
+                System.out.println("Inserire la Id del Driver");
+                int IdDriver = Integer.valueOf(getInput());
+                System.out.println("Inserire la Id della Auto");
+                int IdDAuto = Integer.valueOf(getInput());
+                autoService.updateAutoDriver(IdDAuto, IdDriver);
+                break;
+
+            case "lista_errori_non_risolti":
+
+                scanner = new Scanner(System.in);
+                System.out.println("");
+                System.out.println("Stai per vedere la lista degli errori non risolti:");
+
+                HashMap<Dati_dispositivo, Auto> mappaErrori = autoService.findAutoWithError();
+                Set set = mappaErrori.entrySet();
+                Iterator iterator = set.iterator();
+                while (iterator.hasNext()){
+                    Map.Entry mentry = (Map.Entry)iterator.next();
+
+                    Dati_dispositivo dati_dispositivo =  (Dati_dispositivo) mentry.getKey();
+                    Auto auto_1 = (Auto)mentry.getValue();
+                    System.out.print("");
+                    System.out.print("Cod_Dispositivo: "+dati_dispositivo.getCod_Dispositivo()+";");
+                    System.out.print(" ");
+                    System.out.print("Km: "+dati_dispositivo.getKm()+";");
+                    System.out.print(" ");
+                    System.out.print("Codice Errore: "+dati_dispositivo.getCodice_Errore()+";");
+                    System.out.print(" ");
+                    System.out.print("Stato: "+dati_dispositivo.getStato()+";");
+                    System.out.print(" ");
+                    System.out.print("Livello: "+dati_dispositivo.getLivello_olio()+";");
+                    System.out.print(" ");
+                    System.out.print("Targa: "+auto_1.getTarga()+";");
+                    System.out.println();
+                }
+
+            case "azzerare_driver":
+
+                System.out.println("INSERIRE IL CODICE DISPOSITIVO");
+                int cod_dispositivo = Integer.valueOf(getInput());
+
+                autoService.azzeraDriver(cod_dispositivo);
+
+
+                System.out.println("DRIVER AZZERATO CON SUCCESSO");
+
                 break;
         }
     }

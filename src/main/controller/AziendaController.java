@@ -12,6 +12,7 @@ public class AziendaController implements Controller {
                 request.put("mode", "insert");
                 break;
         }
+
         MainDispatcher.getInstance().callView("Azienda", request);
 
     }

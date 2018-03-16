@@ -11,6 +11,10 @@ public class HomeView implements View {
     private int choice;
     private String role;
 
+    Request request = new Request();
+    String mode;
+
+
     public void showResults(Request request) {
         if (request!=null) {
             role = request.get("role").toString();
@@ -52,9 +56,12 @@ public class HomeView implements View {
                 System.out.println("-------MENU AZIENDA-------");
                 System.out.println("");
                 System.out.println("1) Inserire Driver");
-                System.out.println("2) Lista auto assegnate per Driver");
-                System.out.println("3) Logout");
-                System.out.println("Scelta:");
+                System.out.println("2) Lista auto assegnate");
+                System.out.println("3) Assegna Auto a Driver");
+                System.out.println("4) Vedi lista Errori non risolti");
+                System.out.println("5) Vedi lista Errori non risolti");
+                System.out.println("6) Logout");
+                this.choice = Integer.parseInt(getInput());
                 break;
 
             case "driver":
@@ -117,7 +124,7 @@ public class HomeView implements View {
                 switch (choice)
                 {
                     case 1:
-                        String mode = "insert";
+                        mode = "insert";
                         request.put("mode", mode);
                         request.put("role", role);
                         MainDispatcher.getInstance().callAction("Auto", "doControl", request);
@@ -155,6 +162,7 @@ public class HomeView implements View {
                         MainDispatcher.getInstance().callAction("Home", "doControl",request);
                 }
             case "azienda":
+
                 switch (choice)
                 {
                     case 1:
@@ -163,13 +171,36 @@ public class HomeView implements View {
                         MainDispatcher.getInstance().callAction("Driver", "doControl", request);
                         break;
 
-                    case 2:
-                        MainDispatcher.getInstance().callAction("Login", "doControl", null);
+                    case 2: Request requesta = new Request();
+                        mode = "listauto";
+                        requesta.put("choice", choice);
+                        requesta.put("role", role);
+                        requesta.put("mode", mode);
+                        MainDispatcher.getInstance().callAction("Auto", "doControl", requesta);
                         break;
 
-
                     case 3:
-                        MainDispatcher.getInstance().callAction("Login", "doControl", null);
+                        mode = "assegna_auto_driver";
+                        request.put("choice", choice);
+                        request.put("role", role);
+                        request.put("mode", mode);
+                        MainDispatcher.getInstance().callAction("Auto", "doControl", request);
+                        break;
+
+                    case 4:
+                        mode = "lista_errori_non_risolti";
+                        request.put("choice", choice);
+                        request.put("role", role);
+                        request.put("mode", mode);
+                        MainDispatcher.getInstance().callAction("Auto", "doControl", request);
+                        break;
+
+                    case 5:
+                        mode = "azzerare_driver";
+                        request.put("choice", choice);
+                        request.put("role", role);
+                        request.put("mode", mode);
+                        MainDispatcher.getInstance().callAction("Auto", "doControl", request);
                         break;
 
                     default:
@@ -178,7 +209,6 @@ public class HomeView implements View {
                         request.put("role",role);
                         MainDispatcher.getInstance().callAction("Home", "doControl", request);
                 }
-
 
             case "driver":
                 switch (choice)
