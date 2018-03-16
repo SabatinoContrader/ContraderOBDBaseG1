@@ -12,7 +12,6 @@ import dao.GestioneUtenteDAO;
 import model.Auto;
 import model.Azienda;
 import model.Utente;
-import utility.NotifierWorker;
 import utility.Utility;
 public class ControllerImpl implements IController {
 
@@ -26,10 +25,15 @@ public class ControllerImpl implements IController {
 //    	NotifierWorker worker = new NotifierWorker(u);
 //    	worker.run();
     	
+    	//QUESTI SONO I GUASTI
     	aDAO.getUserAlertsGuasti(u);
     	
-    	
     }
+    
+	public void showAlertsKm(Utente u){
+		aDAO.alertsKm(u);
+	}
+
 
     @Override
     public void showCarList(Utente u) {
