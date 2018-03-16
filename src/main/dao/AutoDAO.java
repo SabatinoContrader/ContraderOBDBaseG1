@@ -45,7 +45,7 @@ public class AutoDAO {
                String revisione = resultSet.getString("Revisione");
                String tagliando_Data = resultSet.getString("Tagliando_Data");
                int tagliando_Km = resultSet.getInt("Tagliando_Km");
-               auto.add(new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, driver, proprietario, revisione, tagliando_Data, tagliando_Km));
+               auto.add(new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver));
            }
         }
         catch (SQLException e) {
@@ -140,12 +140,12 @@ public class AutoDAO {
             String alimentazione = resultSet.getString("Alimentazione");
             String tipologia = resultSet.getString("Tipologia");
             String cambio = resultSet.getString("Cambio");
-            int driver =  resultSet.getInt("Driver");
             int proprietario = resultSet.getInt("Proprietario");
             String revisione = resultSet.getString("Revisione");
             String tagliando_Data = resultSet.getString("Tagliando_Data");
             int tagliando_Km = resultSet.getInt("Tagliando_Km");
-            Auto auto = new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, driver, proprietario, revisione, tagliando_Data, tagliando_Km);
+            int driver =  resultSet.getInt("Driver");
+            Auto auto = new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver );
             hashMap.put("Auto", auto);
             List<Dati_dispositivo> dati = new ArrayList<>();
             do {

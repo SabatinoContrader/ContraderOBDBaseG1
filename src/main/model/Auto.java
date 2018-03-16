@@ -13,14 +13,15 @@ public class Auto {
     private String alimentazione;
     private String tipologia;
     private String cambio;
-    private int driver;
     private int proprietario;
     private String revisione;
     private String tagliando_Data;
     private int tagliando_Km;
+    private int driver;
 
 
-    public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, int driver, int proprietario, String revisione, String tagliando_Data, int tagliando_Km) {
+
+    public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, int proprietario, String revisione, String tagliando_Data, int tagliando_Km, int driver) {
         this.cod_Dispositivo = cod_Dispositivo;
         this.targa = targa;
         this.telaio = telaio;
