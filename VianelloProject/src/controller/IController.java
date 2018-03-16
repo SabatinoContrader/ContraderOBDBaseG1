@@ -6,6 +6,8 @@ public interface IController {
  
 	public void showAlerts(Utente u);
 	
+	public void showAlertsKm(Utente u);
+	
 	public void showCarList(Utente u);
 
 	public void showUserList(Utente u);
