@@ -118,7 +118,7 @@ public class ControllerImpl implements IController {
     	Date dataInserimento;
     	
     	System.out.println("[Registrazione Azienda]: Inserisci i campi");
-    	System.out.println("---------------------------");
+    	System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------");
     	
     	System.out.println();
     	
@@ -132,7 +132,7 @@ public class ControllerImpl implements IController {
     	telefono = Utility.getInput();
     	System.out.println("Email:");
     	email = Utility.getInput();
-    	System.out.println("Citt&agrave; della Sede:");
+    	System.out.println("Citta'; della Sede:");
     	citta = Utility.getInput();
     	
     	System.out.println("Inserisci Latitudine:");

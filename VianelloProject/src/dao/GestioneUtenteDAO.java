@@ -95,7 +95,7 @@ public static void signUp() {
 	Date dataRegistrazione;
 	
 	System.out.println("[Registrazione Utente]: Inserisci i campi");
-	System.out.println("---------------------------");
+	System.out.println("-------------------------------------------------------------------------------------------------------------");
 	
 	System.out.println();
 	
@@ -109,7 +109,7 @@ public static void signUp() {
 	email = Utility.getInput();
 	System.out.println("Password:");
 	password = Utility.getInput();
-	System.out.println("Id Azienda:");
+	System.out.println("Id Azienda [Obbligatorio e corretto]:");
 	idAzienda = Integer.parseInt(Utility.getInput());
 	
 	dataRegistrazione = new Date(System.currentTimeMillis());
@@ -136,6 +136,8 @@ public static void signUp() {
 	
 	if(registrato > 0) System.out.println("Registrazione Avvenuta con SUCCESSO!");
 	else System.out.println("Registrazione FALLITA!");
+	
+	Utility.clearConsole();
 	
 }
 

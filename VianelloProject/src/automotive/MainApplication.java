@@ -48,9 +48,9 @@ public class MainApplication {
 			System.out.println("9) Esci");
 			
 			String scelta = Utility.getInput();
-			System.out.println(scelta);
-			if(scelta.equals("1")) HomeView.runHomeView(o);
-			else if (scelta.equals("2")) {logOut(); logIn(); HomeView.runHomeView(o);}
+			//System.out.println(scelta);
+			if(scelta.equals("1")) {Utility.clearConsole(); HomeView.runHomeView(o);}
+			else if (scelta.equals("2")) {Utility.clearConsole(); logOut(); logIn(); HomeView.runHomeView(o);}
 			else if (scelta.equals("9")) exit = true;
 		}
 		
