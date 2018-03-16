@@ -19,6 +19,9 @@ public class HomeView {
 		case 0: 
 			vc.runVistaCliente(user);
 			break;
+		case 2:
+			VistaAmministratore.runVistaCliente(user);
+			break;
 		}
 	}
 }

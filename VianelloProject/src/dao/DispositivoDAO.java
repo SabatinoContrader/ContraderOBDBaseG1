@@ -12,7 +12,7 @@ import com.mysql.jdbc.Connection;
 
 public class DispositivoDAO {
 
-	public static void showAllDevices(int IdAzienda) {
+	public static List<Dispositivo> showAllDevices(int IdAzienda) {
 		
 		List<Dispositivo> listaDispositivi = new ArrayList<>();
 
@@ -38,13 +38,8 @@ public class DispositivoDAO {
 			//e.printStackTrace();
 		}
 		
-		if(listaDispositivi.size() != 0) System.out.println("Elenco di Dispositivi dell'Azienda:\n");
+		return listaDispositivi;
 		
-		for(int i = 0; i < listaDispositivi.size(); i ++) {
-			
-			System.out.println("ID: "+listaDispositivi.get(i).getId()+"	Codice: "+listaDispositivi.get(i).getCodice()+"	Id Auto: "+listaDispositivi.get(i).getIdAuto()+"	Id Azienda: "+listaDispositivi.get(i).getIdAzienda()+"	Data di Installazione: "+listaDispositivi.get(i).getDataInstallazione());
-			
-		}
 	}
 
 }
