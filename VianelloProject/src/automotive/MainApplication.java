@@ -63,9 +63,8 @@ public class MainApplication {
 	}
 
 	private static void logIn() {
-		
 		System.out.println("Log In...");
-		
+
 		
 		while(o == null) {
 			

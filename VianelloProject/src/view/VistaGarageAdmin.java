@@ -8,12 +8,13 @@ public class VistaGarageAdmin {
 
     public void runVistaCliente(Utente user) {
         //this is an admin;
-        System.out.println("SEI LOGGATO COME ADMIN:" + user.getNome());
-        System.out.println("//////ADMIN MENU\\\\\\");
+        System.out.println("BENVENUTO " + user.getNome());
+        System.out.println("//////MENU ADMIN OFFICINA\\\\\\");
         System.out.println("SELEZIONA UN'OPZIONE");
         System.out.println("1) VISUALIZZA AUTO CON GUASTI");
-        System.out.println("2) VISUALIZZA LISTA AUTO DELL'AZIENDA");
-        System.out.println("3) VAI ARRETRU");
+        System.out.println("2) VISUALIZZA LISTA UTENTI");
+        System.out.println("3) VISUALIZZA LISTA AUTO DELL'AZIENDA");
+        System.out.println("4) ALTRO");
 
 
         String opzioneSelezionata = Utility.getInput();
@@ -22,10 +23,15 @@ public class VistaGarageAdmin {
                 showAlerts(user);
                 break;
             case "2":
+                showUserList(user);
+                break;
+            case "3":
                 showCarList(user);
                 break;
-            case "3":System.out.println("bravo sei tornato indietro");
-                HomeView.runHomeView(user);
+            case "4":
+                //HomeView.runHomeView(user);
+                break;
+
 
         }
     }
@@ -37,6 +43,11 @@ public class VistaGarageAdmin {
     private void showCarList(Utente u) {
 
         ControllerSingleton.getIstance().showCarList(u);
+
+    }
+    private void showUserList(Utente u) {
+
+        ControllerSingleton.getIstance().showUserList(u);
 
     }
 

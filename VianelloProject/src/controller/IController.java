@@ -7,6 +7,8 @@ public interface IController {
 	public void showAlerts(Utente u);
 	
 	public void showCarList(Utente u);
+
+	public void showUserList(Utente u);
 	
 	public void showAllDevice(Utente u);
 	
