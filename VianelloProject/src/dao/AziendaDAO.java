@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import model.Azienda;
+import utility.Utility;
 
 public class AziendaDAO{
 
@@ -12,7 +13,7 @@ public class AziendaDAO{
 		
 		String Query = "INSERT INTO `azienda` (`Denominazione`, `NomeReferente`, `CognomeReferente`, `Email`, `Telefono`, `Latitudine`, `Longitudine`, `Tipologia`, `DataInserimento`, `Citta`) VALUES ('"+a.getDenominazione()+"', '"+a.getNomeReferente()+"', '"+a.getCognomeReferente()+"', '"+a.getEmail()+"', '"+a.getTelefono()+"', ?, ?, "+a.getTipologia()+", ?, '"+a.getCitta()+"')";
 		
-		System.out.println(Query);
+		//System.out.println(Query);
 		
 		PreparedStatement statement;
 		
@@ -34,6 +35,7 @@ public class AziendaDAO{
 		if(inserito > 0) System.out.println("Registrazione Avvenuta con SUCCESSO!");
 		else System.out.println("Registrazione FALLITA!");
 		
+		Utility.clearConsole();
 	}
 	
 }

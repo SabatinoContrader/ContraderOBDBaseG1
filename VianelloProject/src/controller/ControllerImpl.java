@@ -8,9 +8,11 @@ import java.util.Scanner;
 import dao.AlertsDAO;
 import dao.AziendaDAO;
 import dao.CarDAO;
+import dao.DispositivoDAO;
 import dao.GestioneUtenteDAO;
 import model.Auto;
 import model.Azienda;
+import model.Dispositivo;
 import model.Utente;
 import utility.Utility;
 public class ControllerImpl implements IController {
@@ -57,6 +59,7 @@ public class ControllerImpl implements IController {
             showAutoAzienda(u.getIdAzienda());
         }
 
+        System.out.println();
         System.out.println("Cosa vuoi fare?");
         System.out.println("1)  Torna indietro");
         System.out.println("2)  Modifica Auto");
@@ -71,24 +74,28 @@ public class ControllerImpl implements IController {
         String option = scanner.nextLine();
         switch (option) {
             case "1":
-                //gobasck
+            	Utility.clearConsole();
                 break;
             case "2":
-                System.out.println("Inserisci ID dell'auto da modificare: ");
+            	Utility.clearConsole();
+            	System.out.println("Inserisci ID dell'auto da modificare: ");
                 String op = scanner.nextLine();
                 makeUpdateAuto(Integer.parseInt(op),listauto);
 
                 break;
             case "3":
+            	Utility.clearConsole();
 //                showAutoDetail(idAuto);
                 break;
             case "4":
+            	Utility.clearConsole();
                 if(u.getRuolo()==1){
                     //             assignDeviceToAuto();
                 }
 
                 break;
             case "5":
+            	Utility.clearConsole();
                 if(u.getRuolo()==1) {
                     //visualizza storico riparaizone
                 }
@@ -100,7 +107,16 @@ public class ControllerImpl implements IController {
 
     @Override
     public void showAllDevice(Utente u) {
-        // TODO Auto-generated method stub
+        
+    	List<Dispositivo> listaDispositivi = DispositivoDAO.showAllDevices(u.getIdAzienda());
+    	
+    	if(listaDispositivi.size() != 0) System.out.println("Elenco di Dispositivi dell'Azienda:\n");
+
+    	for(int i = 0; i < listaDispositivi.size(); i ++) {
+
+    		System.out.println("ID: "+listaDispositivi.get(i).getId()+"	Codice: "+listaDispositivi.get(i).getCodice()+"	Id Auto: "+listaDispositivi.get(i).getIdAuto()+"	Id Azienda: "+listaDispositivi.get(i).getIdAzienda()+"	Data di Installazione: "+listaDispositivi.get(i).getDataInstallazione());
+
+    	}
 
     }
 
@@ -111,7 +127,7 @@ public class ControllerImpl implements IController {
     	Date dataInserimento;
     	
     	System.out.println("[Registrazione Azienda]: Inserisci i campi");
-    	System.out.println("---------------------------");
+    	System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------");
     	
     	System.out.println();
     	
@@ -125,7 +141,7 @@ public class ControllerImpl implements IController {
     	telefono = Utility.getInput();
     	System.out.println("Email:");
     	email = Utility.getInput();
-    	System.out.println("Citt&agrave; della Sede:");
+    	System.out.println("Citta'; della Sede:");
     	citta = Utility.getInput();
     	
     	System.out.println("Inserisci Latitudine:");

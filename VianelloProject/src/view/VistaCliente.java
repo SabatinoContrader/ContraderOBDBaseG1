@@ -19,14 +19,11 @@ public class VistaCliente {
 		System.out.println("2) VAI ARRETRU");
 		String opzioneSelezionata = Utility.getInput();
 		switch (opzioneSelezionata) {
-
-		case "1":
-			showCarList(user);
-			break;
-		case "2":System.out
-		.println("bravo sei tornato indiet");
-		HomeView.runHomeView(user);
-
+			case "1":
+				Utility.clearConsole();
+				showCarList(user);
+				break;
+			case "2": Utility.clearConsole();
 		}
 	}
 
