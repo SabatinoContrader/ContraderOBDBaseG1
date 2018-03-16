@@ -2,17 +2,17 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.mysql.jdbc.Connection;
 
 import model.Utente;
-import utility.Utility;
 
 
 public class AlertsDAO {
 
 	Connection conn = ConnessioneDB.getInstance();
-
+	
 
 	public void getUserAlertsGuasti(Utente u){
 		PreparedStatement ps = null;
@@ -70,32 +70,77 @@ public class AlertsDAO {
 				ps.setInt(1, u.getID());
 				rs = ps.executeQuery();
 
-					if(rs.isBeforeFirst()){
-						System.out.println("ELENCO AUTO CON GUASTI:");
+				if(rs.isBeforeFirst()){
+					System.out.println("ELENCO AUTO CON GUASTI:");
 
-						while (rs.next()) {
+					while (rs.next()) {
 
-							System.out.println("//////////////////////");
-							System.out.println("Data: "+rs.getDate("Data"));
-							System.out.println("Id guasto: " +rs.getInt("ID"));
-							System.out.println("Codice Guasto: "+rs.getString("Codice"));
-							System.out.println("Descrizione guasto: "+rs.getString("Descrizione"));
-							System.out.println("Id Telemtria: "+rs.getInt("IdTelemetria"));
-							System.out.println("Id dispositivo: "+rs.getInt("IdDispositivo"));
-							System.out.println("Marca auto: "+rs.getString("Marca"));
-							System.out.println("Modello auto: "+rs.getString("Modello"));
-							System.out.println("Numero targa: "+rs.getString("Targa"));
-							System.out.println("Numero Telaio: "+rs.getString("NumeroTelaio"));
-							System.out.println("//////////////////////");
-							System.out.println();
-						}
+						System.out.println("//////////////////////");
+						System.out.println("Data: "+rs.getDate("Data"));
+						System.out.println("Id guasto: " +rs.getInt("ID"));
+						System.out.println("Codice Guasto: "+rs.getString("Codice"));
+						System.out.println("Descrizione guasto: "+rs.getString("Descrizione"));
+						System.out.println("Id Telemtria: "+rs.getInt("IdTelemetria"));
+						System.out.println("Id dispositivo: "+rs.getInt("IdDispositivo"));
+						System.out.println("Marca auto: "+rs.getString("Marca"));
+						System.out.println("Modello auto: "+rs.getString("Modello"));
+						System.out.println("Numero targa: "+rs.getString("Targa"));
+						System.out.println("Numero Telaio: "+rs.getString("NumeroTelaio"));
+						System.out.println("//////////////////////");
+						System.out.println();
 					}
-				} catch (Exception e) {
-					throw new RuntimeException(e);
 				}
-				/*finally{
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+			/*finally{
 					Utility.closeConnection(rs,ps,conn,true);
 				}*/
-			}
 		}
 	}
+
+	public void alertsKm(Utente u){
+
+		String QUERY = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+
+		QUERY=  "SELECT a.marca,a.modello,a.targa,a.KmAttuali,a.KmInizioNoleggio, au.MaxKmNoleggio"+
+				" FROM auto a, auto_utente au, utente u "+
+				" WHERE a.id = au.IdAuto and au.IdUtente = u.ID and au.MaxKmNoleggio IS NOT NULL and  u.id=? ";
+
+		try{
+			ps = conn.prepareStatement(QUERY);
+			ps.setInt(1, u.getID());
+			rs = ps.executeQuery();
+
+			while(rs.next()){
+
+				int kmAttuali = rs.getInt("KmAttuali");
+				int kmInizioNoleggio = rs.getInt("KmInizioNoleggio");
+				int maxKmNoleggio = rs.getInt("MaxKmNoleggio");
+				int kmConsumati = kmAttuali - kmInizioNoleggio;
+				float sogliaKm = maxKmNoleggio/10;
+
+				if(kmConsumati!=0 && ((maxKmNoleggio-kmConsumati)<sogliaKm)){
+					System.out.println();
+					System.out.println("|------------------------------------------------------------------------|");
+					System.out.println("ATTENZIONE L'AUTO CON TARGA: "+rs.getString("targa")+" e modello: "+rs.getString("modellO")+ " e marca: "+rs.getString("marca") );
+					System.out.println("STA PER SUPERARE LA SOGLIA MASSIMA DI KM DISPONIBILI PER QUESTO NOLEGGIO");
+					System.out.println("|------------------------------------------------------------------------|");
+					System.out.println();
+				}
+			}
+		}	
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+}
