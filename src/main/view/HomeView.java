@@ -28,7 +28,7 @@ public class HomeView implements View {
                 System.out.println("1) Aggiungi officina");
                 System.out.println("2) Aggiungi azienda");
                 System.out.println("3) Logout");
-                this.choice = Integer.parseInt(getInput());
+                System.out.println("Scelta:");
                 break;
 
             case "officina":
@@ -42,7 +42,7 @@ public class HomeView implements View {
                 System.out.println("3) Reset dispositivo");
                 System.out.println("4) Cerca auto");
                 System.out.println("5) Logout");
-                this.choice = Integer.parseInt(getInput());
+                System.out.println("Scelta:");
                 break;
 
             case "azienda":
@@ -54,7 +54,7 @@ public class HomeView implements View {
                 System.out.println("1) Inserire Driver");
                 System.out.println("2) Lista auto assegnate per Driver");
                 System.out.println("3) Logout");
-                this.choice = Integer.parseInt(getInput());
+                System.out.println("Scelta:");
                 break;
 
             case "driver":
@@ -64,39 +64,59 @@ public class HomeView implements View {
                 System.out.println("-------MENU DRIVER-------");
                 System.out.println("");
                 System.out.println("9) Logout");
-                this.choice = Integer.parseInt(getInput());
+                System.out.println("Scelta:");
                 break;
         }
+
+        boolean flag;
+        do{
+            flag=false;
+            try{
+                this.choice = Integer.parseInt(getInput());
+            }
+            catch(NumberFormatException e){
+                flag=true;
+                Request request = new Request();
+                request.put("choice", choice);
+                request.put("role", role);
+                System.out.println("Scelta non valida\nRiprova");
+                MainDispatcher.getInstance().callAction("Home", "doControl", request);
+            }
+        }while(flag);
 
     }
 
     public void submit() {
+        Request request = new Request();
         switch (role)
         {
             case "owner":
                 switch (choice)
                 {
-                    case 1:{
-                        Request request= new Request();
+                    case 1:
                         request.put("choice",choice);
                         request.put("role", role);
                         MainDispatcher.getInstance().callAction("Officina", "doControl", request);
-                        break;}
-                    case 2:{
-                        Request request= new Request();
+                        break;
+                    case 2:
                         request.put("choice",choice);
                         request.put("role", role);
                         MainDispatcher.getInstance().callAction("Azienda", "doControl", request);
-                        break;}
-                    case 3:
-                        MainDispatcher.getInstance().callAction("Login", "doControl", null);
                         break;
+                    case 3:{
+                        MainDispatcher.getInstance().callAction("Login", "doControl", null);
+                        break;}
+                    default:
+                        System.out.println("Scelta non valida\nRiprova");
+                        request.put ("choice", choice);
+                        request.put("role", role);
+                        MainDispatcher.getInstance().callAction("Home", "doControl", request);
+
                 }
             case "officina":
                 switch (choice)
                 {
                     case 1:
-                        Request request = new Request();
                         String mode = "insert";
                         request.put("mode", mode);
                         request.put("role", role);
@@ -104,7 +124,6 @@ public class HomeView implements View {
                         break;
 
                     case 2:
-                        request = new Request();
                         mode = "update";
                         request.put("mode", mode);
                         request.put("role", role);
@@ -112,7 +131,6 @@ public class HomeView implements View {
                         break;
 
                     case 3:
-                        request = new Request();
                         mode = "reset";
                         request.put("mode", mode);
                         request.put("role", role);
@@ -120,7 +138,6 @@ public class HomeView implements View {
                         break;
 
                     case 4:
-                        request = new Request();
                         mode = "find";
                         request.put("mode", mode);
                         request.put("role", role);
@@ -132,14 +149,15 @@ public class HomeView implements View {
                         break;
 
                     default:
-                        MainDispatcher.getInstance().callAction("Home", "doControl", null);
+                        System.out.println("Scelta non valida\nRiprova");
+                        request.put("choice", choice);
+                        request.put("role", role);
+                        MainDispatcher.getInstance().callAction("Home", "doControl",request);
                 }
             case "azienda":
                 switch (choice)
                 {
-
                     case 1:
-                        Request request= new Request();
                         request.put("choice",choice);
                         request.put("role", role);
                         MainDispatcher.getInstance().callAction("Driver", "doControl", request);
@@ -155,7 +173,10 @@ public class HomeView implements View {
                         break;
 
                     default:
-                        MainDispatcher.getInstance().callAction("Home", "doControl", null);
+                        System.out.println("Scelta non valida\nRiprova");
+                        request.put("choice", choice);
+                        request.put("role",role);
+                        MainDispatcher.getInstance().callAction("Home", "doControl", request);
                 }
 
 
@@ -167,7 +188,10 @@ public class HomeView implements View {
                         break;
 
                     default:
-                        MainDispatcher.getInstance().callAction("Home", "doControl", null);
+                        System.out.println("Scelta non valida\nRiprova");
+                        request.put("choice", choice);
+                        request.put("role",role);
+                        MainDispatcher.getInstance().callAction("Home", "doControl", request);
                 }
         }
     }
