@@ -4,6 +4,7 @@ package view;
 import java.io.IOException;
 
 import model.Utente;
+import utility.Utility;
 
 
 public class HomeView {
@@ -16,9 +17,11 @@ public class HomeView {
 
 		switch(user.getRuolo()){
 		case 1:
+			Utility.clearConsole();
 			vg.runVistaCliente(user);
 			break;
 		case 0: 
+			Utility.clearConsole();
 			vc.runVistaCliente(user);
 			break;
 		case 2:

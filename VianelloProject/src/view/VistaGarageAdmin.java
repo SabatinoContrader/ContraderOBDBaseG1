@@ -19,13 +19,14 @@ public class VistaGarageAdmin {
         String opzioneSelezionata = Utility.getInput();
         switch (opzioneSelezionata) {
             case "1":
+            	Utility.clearConsole();
                 showAlerts(user);
                 break;
             case "2":
+            	Utility.clearConsole();
                 showCarList(user);
                 break;
-            case "3":System.out.println("bravo sei tornato indietro");
-                HomeView.runHomeView(user);
+            case "3": Utility.clearConsole();
 
         }
     }

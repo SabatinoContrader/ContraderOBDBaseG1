@@ -21,11 +21,10 @@ public class VistaCliente {
 		switch (opzioneSelezionata) {
 
 			case "1":
+				Utility.clearConsole();
 				showCarList(user);
 				break;
-			case "2":System.out
-					.println("bravo sei tornato indiet");
-				HomeView.runHomeView(user);
+			case "2": Utility.clearConsole();
 
 		}
 	}

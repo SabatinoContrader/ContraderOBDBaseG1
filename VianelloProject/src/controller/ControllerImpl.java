@@ -55,6 +55,7 @@ public class ControllerImpl implements IController {
             showAutoAzienda(u.getIdAzienda());
         }
 
+        System.out.println();
         System.out.println("Cosa vuoi fare?");
         System.out.println("1)  Torna indietro");
         System.out.println("2)  Modifica Auto");
@@ -69,24 +70,28 @@ public class ControllerImpl implements IController {
         String option = scanner.nextLine();
         switch (option) {
             case "1":
-                //gobasck
+            	Utility.clearConsole();
                 break;
             case "2":
-                System.out.println("Inserisci ID dell'auto da modificare: ");
+            	Utility.clearConsole();
+            	System.out.println("Inserisci ID dell'auto da modificare: ");
                 String op = scanner.nextLine();
                 makeUpdateAuto(Integer.parseInt(op),listauto);
 
                 break;
             case "3":
+            	Utility.clearConsole();
 //                showAutoDetail(idAuto);
                 break;
             case "4":
+            	Utility.clearConsole();
                 if(u.getRuolo()==1){
                     //             assignDeviceToAuto();
                 }
 
                 break;
             case "5":
+            	Utility.clearConsole();
                 if(u.getRuolo()==1) {
                     //visualizza storico riparaizone
                 }
