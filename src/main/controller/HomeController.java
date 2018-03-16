@@ -3,6 +3,8 @@ package main.controller;
 import main.MainDispatcher;
 import main.service.LoginService;
 
+import java.util.HashMap;
+
 public class HomeController implements Controller {
 
     private LoginService loginService;
@@ -15,14 +17,15 @@ public class HomeController implements Controller {
         if ((request != null) && ((request.get("role") == null))) {
             String nomeUtente = request.get("nomeUtente").toString();
             String password = request.get("password").toString();
-            String role = loginService.login(nomeUtente, password);
-            if ( role != ""){
-                request.put("role", role);
+            HashMap hash = loginService.login(nomeUtente, password);
+            if ( !hash.isEmpty()){
+                request.put("role", hash.get("role"));
+                request.put("id", hash.get("id"));
                 MainDispatcher.getInstance().callView("Home", request);
             }
 
             else
-                MainDispatcher.getInstance().callAction("Login", "doControl", request);
+                MainDispatcher.getInstance().callView("Login",  null);
         }
         else MainDispatcher.getInstance().callView("Home", request);
 

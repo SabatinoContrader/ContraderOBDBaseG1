@@ -4,6 +4,9 @@ import main.dao.LoginDAO;
 import main.model.Login;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginService {
 
     private LoginDAO loginDAO;
@@ -12,7 +15,7 @@ public class LoginService {
         this.loginDAO = new LoginDAO();
     }
 
-    public String login (String username, String password) {
+    public HashMap login (String username, String password) {
         return this.loginDAO.login(username, password);
     }
 

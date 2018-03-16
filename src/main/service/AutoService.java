@@ -20,6 +20,10 @@ public class AutoService {
         return this.autoDAO.getAllAuto();
     }
 
+    public List<Auto> getAllAuto (int id) {
+        return this.autoDAO.getAllAuto(id);
+    }
+
     public boolean insertAuto (Auto auto) {
         return this.autoDAO.insertAuto(auto);
     }
@@ -32,14 +36,20 @@ public class AutoService {
         return this.autoDAO.resetAuto(cod_Dispositivo);
     }
 
-    public HashMap findAuto (int cod_Dispositivo) {
+    public Auto findAuto (int cod_Dispositivo) {
         return this.autoDAO.findAuto(cod_Dispositivo);
     }
+
 
     public int updateAutoDriver(int Cod_Dispositivo, int Cod_Driver){return this.autoDAO.updateAutoDriver(Cod_Dispositivo, Cod_Driver);}
 
     public HashMap<Dati_dispositivo, Auto> findAutoWithError(){return this.autoDAO.getDatiDispositiviWithError();}
     public boolean azzeraDriver(int cod_dispositivo){return this.autoDAO.azzeraDriver(cod_dispositivo);}
+
+    public List<Auto> listaAutoDriver(int id) {
+        return this.autoDAO.listaAutoDriver(id);
+    }
+
 }
 
 

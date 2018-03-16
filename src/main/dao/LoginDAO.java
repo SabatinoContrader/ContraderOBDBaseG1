@@ -9,15 +9,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginDAO {
 
-    private final String QUERY_LOGIN = "SELECT ruolo FROM login WHERE username = ? and password = ?";
+    private final String QUERY_LOGIN = "SELECT ruolo, id FROM login WHERE username = ? and password = ?";
     private final String QUERY_INSERT = "INSERT Login (Username, Password, Ruolo, Id) values (?,?,?,?)";
 
-    public String login (String username, String password) {
-        String ruolo;
-        ruolo = "";
+    public HashMap login (String username, String password) {
+        HashMap login = new HashMap();
+        String role;
+        role = "";
+
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement statement = connection.prepareStatement(QUERY_LOGIN);
@@ -26,24 +30,32 @@ public class LoginDAO {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 if(resultSet.getInt("ruolo") == 1) {
-                    ruolo = "owner";
+                    role = "owner";
                 }
                 else if(resultSet.getInt("ruolo") == 2) {
-                    ruolo = "officina";
+                    role = "officina";
                 }
                 else if(resultSet.getInt("ruolo") == 3) {
-                    ruolo = "azienda";
+                    role = "azienda";
                 }
                 else if(resultSet.getInt("ruolo") == 4) {
-                    ruolo = "driver";
+                    role = "driver";
                 }
 
+
+            login.put("role", role);
+            login.put("id",resultSet.getInt("id"));
+            return login;
             }
-            return ruolo;
+            else
+            {
+                return login;
+            }
+
         }
         catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
-            return "";
+            return null;
         }
     }
 

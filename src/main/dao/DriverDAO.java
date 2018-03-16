@@ -7,7 +7,7 @@ import main.model.Driver;
 import java.sql.*;
 
 public class DriverDAO {
-    private final String QUERY_INSERT = "insert into driver (Id, Nome, Cognome, cf,  Residenza) values (?,?,?,?,?)";
+    private final String QUERY_INSERT = "insert into driver (Id_driver, Nome, Cognome, cf,  Residenza) values (?,?,?,?,?)";
     private  final String QUERY_GET = "select * from dati_dispositivo where  Codice_Errore = NULL";
 
     public DriverDAO(){}

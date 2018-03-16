@@ -15,6 +15,7 @@ public class OfficinaView implements View {
     private String mode;
     private LoginService loginService;
     private String role;
+    private int id;
 
     public OfficinaView(){
         this.officinaService = new OfficinaService();
@@ -24,18 +25,22 @@ public class OfficinaView implements View {
     @Override
     public void showResults(Request request){
         this.role=(String)request.get("role");
+        Scanner scanner = new Scanner(request.get("id").toString());
+        this.id = scanner.nextInt();
+
     };
 
     public void showOptions() {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Inserisci i dati della nuova officina:");
+            System.out.println("");
             System.out.println("Nome officina:");
             String Nome_Officina = getInput();
             System.out.println("Indirizzo:");
             String Indirizzo = getInput();
             System.out.println("Città:");
             String Città = getInput();
-            int id=officinaService.insertOfficina(new Officina(Nome_Officina, Indirizzo, Città));
+            int id = officinaService.insertOfficina(new Officina(Nome_Officina, Indirizzo, Città));
             String access = "O_00"+id;
             loginService.InsertLogin(new Login(access, access, 2, id));
 
@@ -50,6 +55,7 @@ public class OfficinaView implements View {
         public void submit() {
             Request request=new Request();
             request.put("role",role);
+            request.put("id", id);
             MainDispatcher.getInstance().callAction("Home", "doControl", request);
         }
 

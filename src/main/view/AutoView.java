@@ -4,6 +4,7 @@ import main.controller.Request;
 import main.model.Auto;
 import main.model.Dati_dispositivo;
 import main.service.AutoService;
+import main.service.DatiService;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,12 +15,20 @@ import java.util.*;
 public class AutoView implements View {
 
     private AutoService autoService;
+    private DatiService datiService;
     private String mode;
     private String role;
     private String id_azienda;
 
-  public AutoView() {
+    private int id;
+    private int choice;
+    private List<Auto> listaAutoDriver;
+    private List<Dati_dispositivo> listaDatiAuto;
+
+
+    public AutoView() {
       this.autoService = new AutoService();
+      this.datiService = new DatiService();
       this.mode = "all";
   }
 
@@ -27,11 +36,15 @@ public class AutoView implements View {
     public void showResults(Request request) {
        this.mode  = (String) request.get("mode");
        this.role  = (String) request.get("role");
+       Scanner scanner = new Scanner(request.get("id").toString());
+       this.id = scanner.nextInt();
 
     }
 
     @Override
     public void showOptions() {
+
+
         switch (mode) {
             case "all":
      //           List<Gomma> gomme = gommaService.getAllGomme();
@@ -43,7 +56,7 @@ public class AutoView implements View {
             case "insert":
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("");
-                System.out.println("Inserisci i dati dell'auto:");
+                System.out.println("-----Inserisci i dati dell'auto-----");
                 System.out.println("Codice del dispositivo associato:");
                 int cod_Dispositivo = Integer.parseInt(getInput());
                 System.out.println("Targa");
@@ -108,7 +121,6 @@ public class AutoView implements View {
                 break;
 
             case "reset":
-                scanner = new Scanner(System.in);
                 System.out.println("");
                 System.out.println("Inserisci il codice del dispositivo da resettare:");
                 cod_Dispositivo = Integer.parseInt(getInput());
@@ -117,14 +129,13 @@ public class AutoView implements View {
                 break;
 
             case "find":
-                scanner = new Scanner(System.in);
                 System.out.println("");
                 System.out.println("Inserisci il codice dell'auto da ricercare:");
                 cod_Dispositivo = Integer.parseInt(getInput());
                 System.out.println("");
-                HashMap autoDati = new HashMap(autoService.findAuto(cod_Dispositivo));
-                Auto auto = (Auto) autoDati.get("Auto");
-                List<Dati_dispositivo> dati = (List<Dati_dispositivo>) autoDati.get("Dati");
+                Auto auto = autoService.findAuto(cod_Dispositivo);
+                listaDatiAuto = datiService.listaDatiAuto(cod_Dispositivo);
+
                 System.out.println("Codice dispositivo: " + auto.getCod_Dispositivo());
                 System.out.println("Targa: " + auto.getTarga());
                 System.out.println("Num. telaio: " + auto.getTelaio());
@@ -136,21 +147,19 @@ public class AutoView implements View {
                 System.out.println("");
 
                 System.out.println("Dati del dispositivo:");
-                System.out.println("    Data      Km       Liv. olio     Cod. Errore");
-                Iterator i = dati.iterator();
-                while(i.hasNext())
+                System.out.println("    Data       Km        Liv. olio   Cod. Errore");
+                for(int i = 0; i < listaDatiAuto.size(); i++)
                 {
-                    Dati_dispositivo dato = (Dati_dispositivo) i.next();
+                    Dati_dispositivo dato = listaDatiAuto.get(i);
                     System.out.println("  " + dato.getData() + "    " + dato.getKm() + "         " + dato.getLivello_olio() + "           "  + dato.getCodice_Errore());
                 }
                 break;
-
             case "listauto":
                 scanner = new Scanner(System.in);
                 System.out.println("");
                 System.out.println("Stai per vedere la lista delle auto con driver:");
 
-                List<Auto> listAuto = autoService.getAllAuto();
+                List<Auto> listAuto = autoService.getAllAuto(id);
                 for(Auto automo : listAuto){
                     System.out.print(automo.getCambio()+ " ");
                     System.out.print(automo.getAlimentazione()+" ");
@@ -159,8 +168,7 @@ public class AutoView implements View {
                     System.out.print(automo.getRevisione()+" ");
                     System.out.println();
                 }
-
-
+                break;
             case "assegna_auto_driver":
                 scanner = new Scanner(System.in);
                 System.out.println("");
@@ -170,19 +178,15 @@ public class AutoView implements View {
                 int IdDAuto = Integer.valueOf(getInput());
                 autoService.updateAutoDriver(IdDAuto, IdDriver);
                 break;
-
             case "lista_errori_non_risolti":
-
                 scanner = new Scanner(System.in);
                 System.out.println("");
                 System.out.println("Stai per vedere la lista degli errori non risolti:");
-
                 HashMap<Dati_dispositivo, Auto> mappaErrori = autoService.findAutoWithError();
                 Set set = mappaErrori.entrySet();
                 Iterator iterator = set.iterator();
                 while (iterator.hasNext()){
                     Map.Entry mentry = (Map.Entry)iterator.next();
-
                     Dati_dispositivo dati_dispositivo =  (Dati_dispositivo) mentry.getKey();
                     Auto auto_1 = (Auto)mentry.getValue();
                     System.out.print("");
@@ -201,14 +205,19 @@ public class AutoView implements View {
                 }
 
             case "azzerare_driver":
-
                 System.out.println("INSERIRE IL CODICE DISPOSITIVO");
                 int cod_dispositivo = Integer.valueOf(getInput());
-
                 autoService.azzeraDriver(cod_dispositivo);
-
-
                 System.out.println("DRIVER AZZERATO CON SUCCESSO");
+
+            case "listaAutoDriver":
+                listaAutoDriver = autoService.listaAutoDriver(id);
+                for(int j = 0; j < listaAutoDriver.size(); j++ ) {
+                    Auto autodriver = listaAutoDriver.get(j);
+                    System.out.println(j+1 + ") " + autodriver.getCasa_Costruttrice() + " " + autodriver.getModello() + " targata " + autodriver.getTarga());
+                }
+
+                this.choice = Integer.parseInt(getInput());
 
                 break;
         }
@@ -239,7 +248,33 @@ public class AutoView implements View {
     public void submit() {
         Request request = new Request();
         request.put("role",role);
-        MainDispatcher.getInstance().callAction("Home", "doControl",   request);
+        request.put("id", id);
+
+        switch (role) {
+            case "owner":
+                MainDispatcher.getInstance().callAction("Home", "doControl", request);
+                break;
+
+            case "officina":
+                MainDispatcher.getInstance().callAction("Home", "doControl", request);
+                break;
+
+            case "azienda":
+                MainDispatcher.getInstance().callAction("Home", "doControl", request);
+                break;
+
+            case "driver":
+                switch (mode) {
+                    case "listaAutoDriver":
+                        int cod_dispositivo = listaAutoDriver.get(choice-1).getCod_Dispositivo();
+                        request.put("cod_dispositivo", cod_dispositivo);
+                        request.put("mode", mode);
+                        MainDispatcher.getInstance().callAction("Dati", "doControl", request);
+                        break;
+                }
+
+        }
+
     }
 
 

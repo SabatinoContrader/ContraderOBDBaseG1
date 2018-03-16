@@ -1,7 +1,8 @@
-
 DROP DATABASE contraderproject;
 
 CREATE DATABASE contraderproject;
+
+SET FOREIGN_KEY_CHECKS = 0;
 
 USE contraderproject;
 
@@ -34,7 +35,7 @@ CREATE TABLE automobile (
   revisione varchar(10) NOT NULL,
   tagliando_data varchar(10) NOT NULL,
   tagliando_km int(11) DEFAULT NULL,
-  id_driver int(11) default null,
+  id_driver int(11),
   PRIMARY KEY (cod_dispositivo),
   FOREIGN KEY (proprietario) REFERENCES azienda (id_azienda),
   FOREIGN KEY (id_driver) REFERENCES driver (id_driver)
@@ -42,7 +43,8 @@ CREATE TABLE automobile (
 
 INSERT INTO automobile VALUES	(1,'AS123PC',12,'FORD','FIESTA','DIESEL','UTILITARIA','A',9991,'18/04/17','17/02/18',32000,null),
 								(2,'AS123MN',12,'FIAT','PANDA','DIESEL','UTILITARIA','M',28956,'18/04/17','17/02/18',6000,null),
-                                (3,'AS6543PC',12,'FIAT','PUNTO','DIESEL','COMMERCIALE','A',1258,'18/04/17','17/02/18',3200,1);
+                                (3,'AS6543PC',12,'FIAT','PUNTO','DIESEL','COMMERCIALE','A',1258,'18/04/17','17/02/18',3200,1),
+                                (4,'FG558800',12,'FERRARI','F430','DIESEL','COMMERCIALE','A',1258,'18/04/17','17/02/18',3200,1);
 
 CREATE TABLE azienda (
   id_azienda int(11) NOT NULL AUTO_INCREMENT,
@@ -119,15 +121,15 @@ CREATE TABLE login (
 );
 
 INSERT INTO login VALUES ('OWNER','OWNER',1,0),
-						('O_01','O_01',2,1),
-						('O_02','O_02',2,2),
-                        ('O_03','O_03',2,3),
-                        ('A_01','A_01',3,1),
-                        ('A_02','A_02',3,2),
-                        ('A_03','A_03',3,3),
-                        ('D_01','D_01',4,1),
-                        ('D_02','D_02',4,2),
-                        ('D_03','D_03',4,3);
+						 ('O_01','O_01',2,1),
+						 ('O_02','O_02',2,2),
+                         ('O_03','O_03',2,3),
+                         ('A_01','A_01',3,1),
+                         ('A_02','A_02',3,2),
+                         ('A_03','A_03',3,3),
+                         ('D_01','D_01',4,1),
+                         ('D_02','D_02',4,2),
+                         ('D_03','D_03',4,3);
 
 CREATE TABLE offerta (
   id_offerta int(11) NOT NULL,

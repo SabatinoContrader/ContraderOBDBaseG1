@@ -14,6 +14,7 @@ public class AziendaView implements View {
     private AziendaService aziendaService;
     private LoginService loginService;
     private String role;
+    private int id;
 
     public AziendaView () {
         this.aziendaService = new AziendaService();
@@ -23,6 +24,8 @@ public class AziendaView implements View {
     @Override
     public void showResults(Request request) {
         role=(String)request.get("role");
+        Scanner scanner = new Scanner(request.get("id").toString());
+        this.id = scanner.nextInt();
     }
 
     @Override
@@ -49,6 +52,7 @@ public class AziendaView implements View {
     public void submit() {
         Request request = new Request();
         request.put("role",role);
+        request.put("id", id);
         MainDispatcher.getInstance().callAction("Home", "doControl", request);
     }
 }

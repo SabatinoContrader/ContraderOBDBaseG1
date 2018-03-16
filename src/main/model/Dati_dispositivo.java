@@ -15,9 +15,9 @@ public class Dati_dispositivo {
 
     }
 
-    public Dati_dispositivo(int cod_Dispositivo,  int km, float livello_olio, String codice_Errore, int stato) {
+    public Dati_dispositivo(int cod_Dispositivo, String data,  int km, float livello_olio, String codice_Errore, int stato) {
         this.cod_Dispositivo = cod_Dispositivo;
-       // this.data = data;
+        this.data = data;
         this.km = km;
         this.livello_olio = livello_olio;
         this.codice_Errore = codice_Errore;
