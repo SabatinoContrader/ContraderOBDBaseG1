@@ -7,7 +7,7 @@ public interface IController {
 	public void showAlerts(Utente u);
 	
 	public void showAlertsKm(Utente u);
-	
+
 	public void alertsScadenzaRevisione(Utente u);
 	
 	public void showCarList(Utente u);
@@ -23,5 +23,8 @@ public interface IController {
 	public void alertsRevisioneGarageAdmin(Utente u);
 
 	public void inserisciAutoAzienda(int idAzienda);
+
+	public void showAllAlertsKm(Utente u);
+
 } 
  

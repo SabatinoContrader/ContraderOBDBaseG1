@@ -42,6 +42,6 @@ public class Utility {
 */
 	public final static void clearConsole()
 	{
-		System.out.println(new String(new char[100]).replace("\0", "\r\n"));
+		System.out.println(new String(new char[50]).replace("\0", "\r\n"));
 	}
 }

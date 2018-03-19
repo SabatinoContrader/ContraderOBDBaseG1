@@ -12,6 +12,7 @@ public class VistaGarageAdmin {
         System.out.println("BENVENUTO " + user.getNome());
         System.out.println("//////MENU ADMIN OFFICINA\\\\\\");
         showAlertsKm(user);
+        showAllAlertsKm(user);
         System.out.println("SELEZIONA UN'OPZIONE");
         System.out.println("1) VISUALIZZA AUTO CON GUASTI");
         System.out.println("2) VISUALIZZA LISTA UTENTI");
@@ -54,7 +55,9 @@ public class VistaGarageAdmin {
     private void showAlertsKm(Utente u){
         ControllerSingleton.getIstance().showAlertsKm(u);
     }
-
+    private void showAllAlertsKm(Utente u ){
+        ControllerSingleton.getIstance().showAllAlertsKm(u);
+    }
     private void showCarList(Utente u) {
         ControllerSingleton.getIstance().showCarList(u);
     }

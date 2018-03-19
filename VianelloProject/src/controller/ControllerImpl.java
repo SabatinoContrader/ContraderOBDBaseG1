@@ -44,7 +44,9 @@ public class ControllerImpl implements IController {
 	public void showAlertsKm(Utente u){
 		aDAO.alertsKm(u);
 	}
-
+	public void showAllAlertsKm(Utente u){
+		aDAO.allAlertsKm(u);
+	}
 
 	@Override
 	public void showUserList(Utente u) {
