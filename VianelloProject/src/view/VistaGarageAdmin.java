@@ -18,7 +18,8 @@ public class VistaGarageAdmin {
         System.out.println("3) VISUALIZZA LISTA AUTO DELL'AZIENDA");
         System.out.println("4) VISUALIZZA TUTTI I DISPOSITIVI");
 		System.out.println("5) VISUALIZZA AUTO CON REVISIONE IN SCADENZA");
-        System.out.println("6) TORNA INDIETRO");
+        System.out.println("6) AGGIUNGI NUOVA AUTO DELL'AZIENDA");
+        System.out.println("7) TORNA INDIETRO");
 
 
         String opzioneSelezionata = Utility.getInput();
@@ -39,7 +40,8 @@ public class VistaGarageAdmin {
     		case "5":Utility.clearConsole();
     		alertsRevisioneGarageAdmin(user);
     		break;
-            case "6": Utility.clearConsole();
+            case "6": addAutoAzienda(user.getIdAzienda());
+            case "7": Utility.clearConsole();
                     break;
             //default: Utility.clearConsole();
         }
@@ -61,5 +63,8 @@ public class VistaGarageAdmin {
 	private void alertsRevisioneGarageAdmin(Utente u){
 		ControllerSingleton.getIstance().alertsRevisioneGarageAdmin(u);
 	}
+    private void addAutoAzienda(int idAzienda ){
+        ControllerSingleton.getIstance().inserisciAutoAzienda(idAzienda);
+    }
 
 }

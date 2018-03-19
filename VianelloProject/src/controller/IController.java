@@ -21,5 +21,7 @@ public interface IController {
 	public void signUpUser();
 	
 	public void alertsRevisioneGarageAdmin(Utente u);
+
+	public void inserisciAutoAzienda(int idAzienda);
 } 
  
