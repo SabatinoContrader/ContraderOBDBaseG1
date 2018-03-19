@@ -8,6 +8,8 @@ public interface IController {
 	
 	public void showAlertsKm(Utente u);
 	
+	public void alertsScadenzaRevisione(Utente u);
+	
 	public void showCarList(Utente u);
 	
 	public void showAllDevice(Utente u);
@@ -16,5 +18,6 @@ public interface IController {
 	
 	public void signUpUser();
 	
+	public void alertsRevisioneGarageAdmin(Utente u);
 } 
  

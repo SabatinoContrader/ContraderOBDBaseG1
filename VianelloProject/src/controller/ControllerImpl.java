@@ -27,9 +27,14 @@ public class ControllerImpl implements IController {
 //    	NotifierWorker worker = new NotifierWorker(u);
 //    	worker.run();
     	
-    	//QUESTI SONO I GUASTI
+    	//QUESTI SONO I GUASTI+
+    	
     	aDAO.getUserAlertsGuasti(u);
     	
+    }
+    
+    public void alertsScadenzaRevisione(Utente u){
+    	 aDAO.alertsScadenzaRevisione(u);
     }
     
 	public void showAlertsKm(Utente u){
@@ -258,6 +263,9 @@ public class ControllerImpl implements IController {
 
         }
     }
-
-
+    
+	public void alertsRevisioneGarageAdmin(Utente u){
+		aDAO.alertsRevisioneGarageAdmin(u);
+	}
+	
 }

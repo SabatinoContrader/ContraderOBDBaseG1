@@ -3,6 +3,9 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.mysql.jdbc.Connection;
 
@@ -12,7 +15,7 @@ import model.Utente;
 public class AlertsDAO {
 
 	Connection conn = ConnessioneDB.getInstance();
-	
+
 
 	public void getUserAlertsGuasti(Utente u){
 		PreparedStatement ps = null;
@@ -133,6 +136,95 @@ public class AlertsDAO {
 				}
 			}
 		}	
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	//ALERTS SCADENZA REVISIONE driver
+	public void alertsScadenzaRevisione(Utente u){
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String QUERY = null;
+
+		QUERY = " SELECT a.Marca, a.Modello,a.ScadenzaRevisione,a.Targa"+
+				" FROM auto a,utente u,auto_utente au"+ 
+				" WHERE a.ID=au.IdAuto and au.IdUtente = u.ID and u.id=? and a.ScadenzaRevisione<=DATE_ADD(NOW(),INTERVAL 10 DAY)";
+		try{
+			ps = conn.prepareStatement(QUERY);
+			ps.setInt(1, u.getID());
+			rs = ps.executeQuery();
+			if(rs.isBeforeFirst()){
+				while(rs.next()){
+					String macchina = rs.getString("Marca")+" "+rs.getString("Modello")+" - "+rs.getString("Targa").toUpperCase();
+					Date scadenzaRevisione = rs.getDate("ScadenzaRevisione");
+					Date oggi = new Date(System.currentTimeMillis());
+					System.out.println();
+					System.out.println("|----------------------------------------------------|");
+					System.out.println("La macchina: "+macchina);
+					System.out.println("DATA SCADENZA REVISIONE: "+scadenzaRevisione);
+					if(oggi.after(scadenzaRevisione)){
+						System.out.println("LA REVISIONE è SCADUTA");
+					}
+					System.out.println("|----------------------------------------------------|");
+					System.out.println();
+				}
+			}else{
+				System.out.println("Non ci sono revisioni in scadenza!");
+				System.out.println();
+			}
+		}		
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	//METODO CHE RESTITUISCE TUTTE LE REVISIONI IN SCADENZA(VISTA GARAGE-ADMIN)
+	public void alertsRevisioneGarageAdmin(Utente u){
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String QUERY = null;
+
+		QUERY = " SELECT autoz.idAzienda, a.Marca, a.Modello,a.ScadenzaRevisione,a.Targa "
+				+ " FROM auto a,auto_azienda autoz,azienda az"
+				+ " WHERE a.ID=autoz.IdAuto and az.ID = autoz.IdAzienda and az.ID=? and a.ScadenzaRevisione<=DATE_ADD(NOW(),INTERVAL 10 DAY)";
+
+		try{
+			ps = conn.prepareStatement(QUERY);
+			ps.setInt(1, u.getIdAzienda());
+			rs = ps.executeQuery();
+			if(rs.isBeforeFirst()){
+				while(rs.next()){
+					Date scadenzaRevisione = rs.getDate("ScadenzaRevisione");
+					Date oggi = new Date(System.currentTimeMillis());
+					String macchina = rs.getString("Marca")+" "+rs.getString("Modello")+" - "+rs.getString("Targa").toUpperCase();
+					System.out.println();
+					System.out.println("|----------------------------------------------------|");
+					System.out.println("La macchina: "+macchina);
+					System.out.println("DATA SCADENZA REVISIONE: "+scadenzaRevisione);
+					if(oggi.after(scadenzaRevisione)){
+						System.out.println("----LA REVISIONE è SCADUTA!!!----");
+					}
+					System.out.println("|----------------------------------------------------|");
+					System.out.println();
+				}
+			}else{
+				System.out.println("Non ci sono revisioni in scadenza!");
+				System.out.println();
+			}
+		}		
 		catch(SQLException e){
 			e.printStackTrace();
 		}
