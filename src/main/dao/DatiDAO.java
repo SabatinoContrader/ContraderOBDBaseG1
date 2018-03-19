@@ -27,7 +27,7 @@ public class DatiDAO {
             preparedStatement.setInt(1, cod_Dispositivo);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-           while (resultSet.next()) {
+            while (resultSet.next()) {
                String data = resultSet.getString("Data");
                int km = resultSet.getInt("Km");
                float livello_olio = resultSet.getFloat("Livello_Olio");

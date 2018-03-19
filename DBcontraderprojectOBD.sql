@@ -41,10 +41,12 @@ CREATE TABLE automobile (
   FOREIGN KEY (id_driver) REFERENCES driver (id_driver)
 );
 
-INSERT INTO automobile VALUES	(1,'AS123PC',12,'FORD','FIESTA','DIESEL','UTILITARIA','A',9991,'18/04/17','17/02/18',32000,null),
-								(2,'AS123MN',12,'FIAT','PANDA','DIESEL','UTILITARIA','M',28956,'18/04/17','17/02/18',6000,null),
-                                (3,'AS6543PC',12,'FIAT','PUNTO','DIESEL','COMMERCIALE','A',1258,'18/04/17','17/02/18',3200,1),
-                                (4,'FG558800',12,'FERRARI','F430','DIESEL','COMMERCIALE','A',1258,'18/04/17','17/02/18',3200,1);
+INSERT INTO automobile VALUES	(1,'AS123PC',3421343,'FORD','FIESTA','DIESEL','UTILITARIA','A',1,'18/04/17','17/02/18',32000,null),
+								(2,'AS123MN',342135452,'FIAT','PANDA','DIESEL','UTILITARIA','M',1,'18/04/17','17/02/18',6000,null),
+                                (3,'AS654PC',125642,'FIAT','PUNTO','DIESEL','COMMERCIALE','M',2,'10/04/16','17/02/18',3200,1),
+                                (4,'FG050588',213465321,'FERRARI','F430','DIESEL','COMMERCIALE','A',3,'18/04/17','17/02/18',3200,1),
+                                (5,'FE643DE',8346743,'NISSAN','QASHQAI','DIESEL','SUV','M',2,'02/10/17','12/12/17',3200,1),
+                                (6,'AA832DB',685436081,'WOLKSVAGEN','POLO','BENZINA','UTILITARIA','M',2,'02/02/18','17/03/18',3200,1);
 
 CREATE TABLE azienda (
   id_azienda int(11) NOT NULL AUTO_INCREMENT,
@@ -86,16 +88,20 @@ CREATE TABLE dati_dispositivo (
   data varchar(10) NOT NULL,
   km int(11) NOT NULL,
   livello_olio float DEFAULT NULL,
-  cod_errore varchar(25) NOT NULL default '0',
-  stato bit(1) DEFAULT 0,
+  cod_errore varchar(25),
+  stato bit(1),
   PRIMARY KEY (n),
   foreign key (cod_dispositivo) references automobile (cod_dispositivo)
 );
 
-INSERT INTO dati_dispositivo VALUES (1, 1,'04/07/18', 13444, 1.1, '0',0),
-									(2, 1,'05/07/18', 13445, 1.1, '0',0),
-                                    (3, 1,'06/07/18', 13446, 1.1, '0',0),
-                                    (4, 1,'07/07/18', 13447, 1.1, '992JN',0);
+INSERT INTO dati_dispositivo VALUES (1, 1, '04/07/18', 13444, 1.1, null, null),
+									(2, 1, '05/07/18', 13445, 1.1, null, null),
+                                    (3, 1, '06/07/18', 13446, 1.1, null, null),
+                                    (4, 1, '07/07/18', 13447, 1.1, '992JN', 0),
+                                    (5, 3, '19/03/18', 10000, 1.1, null, null),
+                                    (6, 4, '19/03/18', 10000, 1.1, null, null),
+                                    (7, 5, '19/03/18', 10000, 1.1, 'P6788', 0),
+                                    (8, 6, '19/03/18', 18000, 1.1, null, null);
 
 CREATE TABLE driver (
   id_driver int(11) NOT NULL,

@@ -47,51 +47,69 @@ public class DatiView implements View{
             case "listaAutoDriver":
                 listaDatiAuto = datiService.listaDatiAuto(cod_dispositivo);
                 auto = autoService.findAuto(cod_dispositivo);
+
+                int errore = 0;
                 for(int i = 0; i < listaDatiAuto.size(); i++)
                 {
                     Dati_dispositivo dato = listaDatiAuto.get(i);
-                    if(!dato.getCodice_Errore().equals("0"))
+                    if(dato.getCodice_Errore() != null)
                     {
+                        errore = 1;
                         System.out.println("");
                         System.out.println("ALERT! Errore: " + dato.getCodice_Errore() + " ricevuto in data " + dato.getData());
+                    }
+                }
+                if(errore == 0)
+                {
+                    System.out.println("");
+                    System.out.println("Nessun errore rilevato su quest'auto");
+                }
+
+                if(listaDatiAuto.size() != 0) {
+                    Dati_dispositivo dato = listaDatiAuto.get(listaDatiAuto.size() - 1);
+                    Scanner scanner = new Scanner(auto.getRevisione()).useDelimiter("/");
+                    int gg_revisione = scanner.nextInt();
+                    int mm_revisione = scanner.nextInt();
+                    int aa_revisione = scanner.nextInt();
+                    scanner = new Scanner(auto.getTagliando_Data()).useDelimiter("/");
+                    int gg_tagliando = scanner.nextInt();
+                    int mm_tagliando = scanner.nextInt();
+                    int aa_tagliando = scanner.nextInt();
+                    scanner = new Scanner(dato.getData()).useDelimiter("/");
+                    int gg_dato = scanner.nextInt();
+                    int mm_dato = scanner.nextInt();
+                    int aa_dato = scanner.nextInt();
+                    int revisione = gg_revisione + mm_revisione * 365 / 12 + aa_revisione * 365;
+                    int tagliando = gg_tagliando + mm_tagliando * 365 / 12 + aa_tagliando * 365;
+                    int data = gg_dato + mm_dato * 365 / 12 + aa_dato * 365;
+
+                    int km = dato.getKm() - auto.getTagliando_Km();
+
+                    if (data - revisione > 365 + 365 / 12 * 11) {
+                        System.out.println("");
+                        System.out.println("La revisione scadrà tra meno di 1 mese!");
+                        System.out.println("");
+                    }
+                    else if (((data - tagliando) > 365 + 365 / 12 * 11) || km > 14500) {
+                        System.out.println("");
+                        System.out.println("Il tagliando è in scadenza!");
+                        System.out.println("");
+                    }
+                    else
+                    {
+                        System.out.println("");
+                        System.out.println("Nessuna prossima scadenza su quest'auto");
                         System.out.println("");
                     }
                 }
-
-                Dati_dispositivo dato = listaDatiAuto.get(listaDatiAuto.size()-1);
-                Scanner scanner = new Scanner(auto.getRevisione()).useDelimiter("/");
-                int gg_revisione = scanner.nextInt();
-                int mm_revisione = scanner.nextInt();
-                int aa_revisione = scanner.nextInt();
-                scanner = new Scanner(auto.getTagliando_Data()).useDelimiter("/");
-                int gg_tagliando = scanner.nextInt();
-                int mm_tagliando = scanner.nextInt();
-                int aa_tagliando = scanner.nextInt();
-                scanner = new Scanner(dato.getData()).useDelimiter("/");
-                int gg_dato = scanner.nextInt();
-                int mm_dato = scanner.nextInt();
-                int aa_dato = scanner.nextInt();
-                int revisione = gg_revisione + mm_revisione*365/12 + aa_revisione*365;
-                int tagliando = gg_tagliando + mm_tagliando*365/12 + aa_tagliando*365;
-                int data = gg_dato + mm_dato*365/12 + aa_dato*365;
-
-                int km = dato.getKm() - auto.getTagliando_Km();
-
-                if(data - revisione > 365+365/12*11)
+                else
                 {
-                    System.out.println("La revisione scadrà tra meno di 1 mese!");
+                    System.out.println("");
+                    System.out.println("Nessun dato rilevato per quest'auto");
                     System.out.println("");
                 }
-
-                boolean case1 = ((data - tagliando) > 365+365/12*11);
-                boolean case2 = km > 14500;
-
-                if( case1 || case2)
-                {
-                    System.out.println("Il tagliando è in scadenza!");
-                }
                 break;
-        }
+            }
 
 
     }
