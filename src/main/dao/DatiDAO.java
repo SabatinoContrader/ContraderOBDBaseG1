@@ -56,9 +56,8 @@ public class DatiDAO {
                     result += resultSet.getString("casa_costruttrice") + " ";
                     result += resultSet.getString("modello") + " ";
                     result += resultSet.getString("targa") + " ";
-                    result += resultSet.getInt("cod_errore") + "\n";
+                    result += resultSet.getString("cod_errore") + "\n";
                     listaDatiAuto.add(result);
-
                 }
             }else{
 
