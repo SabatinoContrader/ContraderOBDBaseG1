@@ -18,7 +18,7 @@ public class AutoDAO {
     private final String AZZERA_DRIVER = "UPDATE automobile set id_driver=? where cod_dispositivo = ?";
     private final String DRIVER_WITH_ERROR = "SELECT * FROM dati_dispositivo d join automobile a on (d.Cod_Dispositivo = a.Cod_Dispositivo) where d.Stato = ?";
     private final String QUERY_ALL = "SELECT * FROM Automobile";
-    private final String QUERY_ALL_AZIENDA = "SELECT * FROM Automobile WHERE proprietario = ? and id_driver is not null";
+    private final String QUERY_ALL_AZIENDA = "SELECT * FROM Automobile WHERE proprietario = ?";
     private final String QUERY_ALL_WITH = "update Automobile set id_driver=? where cod_dispositivo=?";
     private final String QUERY_AUTODRIVER = "SELECT * FROM Automobile WHERE id_driver = ?";
     private final String QUERY_INSERT = "INSERT into Automobile (Cod_Dispositivo , Targa, Telaio, Casa_Costruttrice, Modello ,Alimentazione, Tipologia, Cambio, Proprietario, Revisione, Tagliando_Data, Tagliando_Km, id_driver) values (?,?,?,?,?,?,?,?,?,?,?,?, null)";
@@ -76,7 +76,7 @@ public class AutoDAO {
                 String alimentazione = resultSet.getString("Alimentazione");
                 String tipologia = resultSet.getString("Tipologia");
                 String cambio = resultSet.getString("Cambio");
-                int driver =  resultSet.getInt("id_Driver");
+                Integer driver =  resultSet.getInt("id_Driver");
                 int proprietario = resultSet.getInt("Proprietario");
                 String revisione = resultSet.getString("Revisione");
                 String tagliando_Data = resultSet.getString("Tagliando_Data");

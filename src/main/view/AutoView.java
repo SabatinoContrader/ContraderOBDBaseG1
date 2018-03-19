@@ -135,15 +135,17 @@ public class AutoView implements View {
                 break;
             case "listauto":
                 System.out.println("");
-                System.out.println("---LISTA DELLE AUTO---");
+                System.out.println("---Lista auto---");
                 System.out.println("");
                 List<Auto> listAuto = autoService.getAllAuto(id);
                 for(Auto automo : listAuto){
-                    System.out.print(automo.getCasa_Costruttrice()+" ");
-                    System.out.print(automo.getModello()+" ");
-                    System.out.print(automo.getCambio()+ " ");
-                    System.out.print(automo.getAlimentazione()+" ");
-                    System.out.print(automo.getRevisione()+" ");
+                    System.out.println(automo.getCasa_Costruttrice()+ " " + automo.getModello() + " targata " + automo.getTarga());
+                    System.out.println("Ultima revisione: " + automo.getRevisione() + " ");
+                    System.out.println("Ultimo tagliando: " + automo.getTagliando_Data() + " a " + automo.getTagliando_Km() + " km");
+                    if(automo.getDriver() == 0)
+                        System.out.println("In noleggio: libera");
+                    else
+                        System.out.println("In noleggio: Driver Id " + automo.getDriver());
                     System.out.println();
                 }
                 break;

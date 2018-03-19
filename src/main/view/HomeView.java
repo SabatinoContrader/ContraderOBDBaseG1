@@ -51,7 +51,7 @@ public class HomeView implements View {
                 System.out.println("-------MENU AZIENDA-------");
                 System.out.println("");
                 System.out.println("1) Inserire Driver");
-                System.out.println("2) Lista auto assegnate");
+                System.out.println("2) Lista auto");
                 System.out.println("3) Assegna Auto a Driver");
                 System.out.println("4) Vedi lista Errori non risolti");
                 System.out.println("5) Terminare noleggio ");

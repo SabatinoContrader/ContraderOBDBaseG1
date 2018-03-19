@@ -34,6 +34,7 @@ public class Auto {
         this.revisione = revisione;
         this.tagliando_Data = tagliando_Data;
         this.tagliando_Km = tagliando_Km;
+        this.driver = driver;
     }
 
     public int getCod_Dispositivo() {
