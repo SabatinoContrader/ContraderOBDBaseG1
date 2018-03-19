@@ -37,7 +37,7 @@ public class AziendaView implements View {
         System.out.println("Città:");
         String Città = getInput();
         int id=aziendaService.insertAzienda(new Azienda(nomeAzienda, Città));
-        String access = "A_00"+id;
+        String access = "A_0"+id;
         loginService.InsertLogin(new Login(access, access, 3, id));
     }
 

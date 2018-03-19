@@ -40,7 +40,7 @@ public class OfficinaView implements View {
             System.out.println("Città:");
             String Città = getInput();
             int id = officinaService.insertOfficina(new Officina(Nome_Officina, Indirizzo, Città));
-            String access = "O_00"+id;
+            String access = "O_0"+id;
             loginService.InsertLogin(new Login(access, access, 2, id));
 
         }

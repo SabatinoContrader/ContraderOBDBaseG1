@@ -45,7 +45,7 @@ public class DriverView implements View{
         System.out.println("Residenza:");
         String residenza = getInput();
         driverService.insertDriver(new Driver(nome, cognome, cf, residenza, id));
-        String access = "D_00"+id;
+        String access = "D_0"+id;
         loginService.InsertLogin(new Login(access, access, 4, id));
     }
 

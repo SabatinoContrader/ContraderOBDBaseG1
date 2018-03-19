@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DatiDAO {
 
-    private final String   QUERY_ERROR= "select dd.cod_dispositivo, casa_costruttrice, modello, targa, cod_errore from  dati_dispositivo dd join automobile a on (dd.Cod_Dispositivo=a.cod_dispositivo) where dd.Stato=0 and proprietario=?";
+    private final String QUERY_ERROR= "select dd.cod_dispositivo, casa_costruttrice, modello, targa, cod_errore from  dati_dispositivo dd join automobile a on (dd.Cod_Dispositivo=a.cod_dispositivo) where dd.Stato=0 and proprietario=?";
     private final String QUERY_DATIAUTO = "SELECT * FROM dati_dispositivo WHERE  Cod_Dispositivo=?";
 
     public DatiDAO() {
