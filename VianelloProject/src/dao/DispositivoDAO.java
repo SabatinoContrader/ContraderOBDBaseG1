@@ -42,6 +42,54 @@ public class DispositivoDAO {
 		
 	}
 
+	public static void setDispositivoAuto(int iddisp,int idauto){
+		Connection conn = ConnessioneDB.getInstance();
+
+		String QUERY = "UPDATE dispositivo SET IdAuto=? WHERE ID=?";
+
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+
+		try {
+
+			statement = conn.prepareStatement(QUERY);
+			statement.setInt(1, idauto);
+			statement.setInt(2,iddisp);
+			 statement.executeUpdate();
+	}catch(SQLException e){
+		System.out.println(e);
+		}
+	}
+
+	public String getDispositivo(int idauto){
+		String codice="";
+		Connection conn = ConnessioneDB.getInstance();
+
+		String QUERY = "SELECT Codice FROM dispositivo WHERE IdAuto=?";
+
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+
+		try {
+
+			statement = conn.prepareStatement(QUERY);
+			statement.setInt(1, idauto);
+			resultSet=statement.executeQuery();
+
+			if (resultSet.isBeforeFirst()){
+				while(resultSet.next()) {
+					codice=resultSet.getString("Codice");
+			}
+				return codice;
+				}
+
+				else return "no";
+		}catch(SQLException e){
+			System.out.println(e);
+			return "no";
+		}
+
+	}
 }
 	
 	

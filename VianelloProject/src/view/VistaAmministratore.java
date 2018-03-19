@@ -29,7 +29,7 @@ public class VistaAmministratore {
 		case "2":
 			Utility.clearConsole(); ControllerSingleton.getIstance().signUpAziende();
 			break;
-		case "3": Utility.clearConsole();
+		case "9": Utility.clearConsole();
 
 		}
 	}

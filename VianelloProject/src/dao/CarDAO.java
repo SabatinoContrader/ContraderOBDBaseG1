@@ -16,25 +16,28 @@ import model.Auto;
 
 public class CarDAO {
 
-    public static List<Auto> getListAutoAzienda(int IdAzienda){
+    public static List<Auto> getListAutoAzienda(int IdAzienda) {
         Connection conn = ConnessioneDB.getInstance();
         PreparedStatement statement;
         ResultSet resultSet = null;
         List<Auto> lista = new ArrayList<>();
-        String QUERY ="select a.* from auto a,auto_azienda az  where az.IdAzienda = ? and az.IdAuto=a.ID ";
-        
-        
+
+
+        String QUERY = "select a.* from auto a,auto_azienda az  where az.IdAzienda = ? and az.IdAuto=a.ID ORDER BY a.ID ASC";
+
+
         try {
+            resultSet = null;
             statement = conn.prepareStatement(QUERY);
             statement.setInt(1, IdAzienda);
             resultSet = statement.executeQuery();
 
-           if (resultSet.isBeforeFirst()) {
+            if (resultSet.isBeforeFirst()) {
                 System.out.println("\nAuto dell'azienda");
             }
 
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
 
                 //System.out.println("Trovate Auto Associate!");
 
@@ -49,15 +52,50 @@ public class CarDAO {
             }
 
 
-
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Errore di Recupero Lista Auto Azienda!");
         }
 
-
-        return lista;
+    return lista;
     }
+// GET LISTA AUTO CLIENTI AZIENDA
+        public static List<Auto> getListAutoAziendaClienti(int IdAzienda) {
+            Connection conn = ConnessioneDB.getInstance();
+            PreparedStatement statement;
+            ResultSet resultSet = null;
+            List<Auto> lista = new ArrayList<>();
+
+            String QUERY1 ="select DISTINCT a.* from auto a,auto_utente au,utente u  where au.IdAuto = a.ID and u.IdAzienda=? ORDER BY a.ID ASC";
+
+
+            try {
+                statement = conn.prepareStatement(QUERY1);
+                statement.setInt(1, IdAzienda);
+                resultSet = statement.executeQuery();
+
+                if (resultSet.isBeforeFirst()) {
+                    System.out.println("\nAuto dei clienti");
+                }
+
+
+                while(resultSet.next()) {
+
+                    //System.out.println("Trovate Auto Associate!");
+
+                    Auto a = new Auto(resultSet.getInt("ID"), resultSet.getString("Marca"), resultSet.getString("Modello"), resultSet.getString("Targa"),
+                            resultSet.getString("NumeroTelaio"), resultSet.getInt("KmAttuali"),
+                            resultSet.getInt("KmInizioNoleggio"), resultSet.getDate("ScadenzaRevisione"),
+                            resultSet.getDate("ScadenzaTagliando"), resultSet.getDate("ScadenzaAssicurazione"),
+                            resultSet.getDate("ScadenzaBollo"), resultSet.getString("TipologiaAuto"), resultSet.getInt("DaNoleggio"));
+
+                    lista.add(a);
+
+                }
+        }catch (SQLException e){
+                System.out.println(e);
+            }
+            return  lista;
+        }
 
 
     //Ottengo lista delle Auto di un Utente che non sono io
@@ -96,7 +134,7 @@ public class CarDAO {
 
         }
         catch (SQLException e) {
-            System.out.println("Errore di Recupero Lista Auto Azienda!");
+            System.out.println("Errore di Recupero Lista Auto Utente!");
         }
 
         return lista;
@@ -271,42 +309,7 @@ public static void updateAuto(Auto a) {
         statement.setInt(12, a.getDaNoleggio());
         statement.setInt(13, a.getID());
         insertOk= statement.executeUpdate();
-      /*  if(insertOk>0){
 
-            int autoIncKeyFromApi = -1;
-
-            resultSet = statement.getGeneratedKeys();
-
-            if (resultSet.next()) {
-                autoIncKeyFromApi = resultSet.getInt(1);
-
-                String QUERYCROSS="INSERT INTO auto_azienda (IdAzienda,IdAuto) VALUES(?,?)";
-                try {
-
-                    statement = conn.prepareStatement(QUERYCROSS);
-                    statement.setInt(1,idAzienda );
-                    statement.setInt(2,autoIncKeyFromApi );
-
-                    insertOk= statement.executeUpdate();
-                    if(insertOk>0){
-                        System.out.println("Auto inserita correttamente");
-                    }else{
-                        System.out.println("Errore nell'inserimento auto");
-                    }
-                }catch(SQLException e){
-                    System.out.println(e);
-                }
-
-            } else {
-
-                // throw an exception from here
-            }
-
-//                System.out.println("Key returned from getGeneratedKeys():"                        + autoIncKeyFromApi);
-
-
-        }
-        else System.out.println("Errore nell'inserimento auto");*/
 
     }catch(SQLException e){
         System.out.println(e);
@@ -372,9 +375,26 @@ public static void updateAuto(Auto a) {
             System.out.println(e);
         }
 
-        ConnessioneDB.closeConnection();
+
 
     }
 
+    public static ResultSet getAutoDetail(int idAuto){
+        Connection conn = ConnessioneDB.getInstance();
+        PreparedStatement statement;
+        ResultSet resultSet = null;
 
+        String QUERY1 ="select DISTINCT u.*,a.* from sql2226824.auto a,sql2226824.auto_utente au,sql2226824.utente u  where au.IdAuto = a.ID and a.ID= ? and au.IdUtente=u.ID";
+
+
+        try {
+            statement = conn.prepareStatement(QUERY1);
+            statement.setInt(1, idAuto);
+            resultSet = statement.executeQuery();
+return resultSet;
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
 }

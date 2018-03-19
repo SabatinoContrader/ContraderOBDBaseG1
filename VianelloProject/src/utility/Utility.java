@@ -12,7 +12,8 @@ public class Utility {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
-	
+
+    /*
 	public static void closeConnection(ResultSet rs, PreparedStatement ps,Connection dataConnection, boolean closeConnection) {
 		if (rs!=null) {
 			try {
@@ -38,7 +39,7 @@ public class Utility {
 			}
 		}
 	}
-	
+*/
 	public final static void clearConsole()
 	{
 		System.out.println(new String(new char[100]).replace("\0", "\r\n"));

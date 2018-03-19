@@ -45,7 +45,7 @@ public static Utente logIn(String email, String password) {
 		 if(found) {
 			 
 			 try {
-				//Se non verrà inserito nessuna data di default la data sarà "0000-00-00" e verrà restituito un errore
+				//Se non verrï¿½ inserito nessuna data di default la data sarï¿½ "0000-00-00" e verrï¿½ restituito un errore
 				utente = new Utente(resultSet.getInt("ID"), resultSet.getString("Nome"), resultSet.getString("Cognome"), resultSet.getString("Email"), resultSet.getString("Password"), resultSet.getInt("Stato"), resultSet.getInt("IdAzienda"), resultSet.getDate("DataRegistrazione"), resultSet.getInt("Ruolo"), resultSet.getString("Telefono"), null);
 				String QueryAuto = "select a.* from auto as a inner join auto_utente as au on a.ID = au.IdAuto inner join utente as u on u.ID = au.IdUtente where au.IdUtente = ?";
 				statement1 = conn.prepareStatement(QueryAuto);
@@ -140,5 +140,121 @@ public static void signUp() {
 	Utility.clearConsole();
 	
 }
+
+
+public static List<Utente> getListUtenti(int idAzienda){
+	Connection conn = ConnessioneDB.getInstance();
+	PreparedStatement statement;
+	ResultSet resultSet = null;
+	List<Utente> lista = new ArrayList<>();
+	String QUERY ="select * from utente WHERE IdAzienda=?";
+
+
+	try {
+		statement = conn.prepareStatement(QUERY);
+		statement.setInt(1, idAzienda);
+		resultSet = statement.executeQuery();
+
+		/*if (resultSet.isBeforeFirst()) {
+			System.out.println("\nAuto dell'azienda");
+		}
+*/
+
+		while(resultSet.next()) {
+
+			//System.out.println("Trovate Auto Associate!");
+
+			Utente u = new Utente(resultSet.getInt("ID"), resultSet.getString("Nome"), resultSet.getString("Cognome"), resultSet.getString("Email"), resultSet.getString("Password"), resultSet.getInt("Stato"), resultSet.getInt("IdAzienda"),
+			resultSet.getDate("DataRegistrazione"),
+			resultSet.getInt("Ruolo"), resultSet.getString("Telefono"),null);
+
+			lista.add(u);
+
+		}
+
+
+
+	}
+	catch (SQLException e) {
+		System.out.println("Errore di Recupero Lista Auto Azienda!");
+	}
+
+
+	return lista;
+
+
+}
+	public static int updateUtente(Utente u) {
+
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		int insertOk=0;
+		String QUERY = "UPDATE utente SET Nome=?,Cognome=?,Email=?,Password=?,Stato=?,IdAzienda=?,DataRegistrazione=?,Ruolo=?,Telefono=? WHERE ID=?";
+
+		try{
+
+
+
+			statement = conn.prepareStatement(QUERY);
+
+
+
+			statement.setString(1, u.getNome());
+			statement.setString(2, u.getCognome());
+			statement.setString(3, u.getEmail());
+			statement.setString(4, u.getPassword());
+			statement.setInt(5, u.getStato());
+			statement.setInt(6, u.getIdAzienda());
+			statement.setDate(7, u.getDataRegistrazione());
+			statement.setInt(8, u.getRuolo());
+			statement.setString(9, u.getTelefono());
+			statement.setInt(10, u.getID());
+			insertOk= statement.executeUpdate();
+
+
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+
+
+return insertOk;
+	}
+
+	public static void removeUtente(int idUtente) {
+
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		int insertOk;
+		String QUERY = "DELETE FROM auto_utente WHERE IdUtente=?";
+
+		try{
+
+			statement = conn.prepareStatement(QUERY);
+			statement.setInt(1, idUtente);
+			statement.executeUpdate();
+
+			try {
+				String QUERYCROSS = "DELETE FROM utente WHERE ID=?";
+
+				statement = conn.prepareStatement(QUERYCROSS);
+				statement.setInt(1, idUtente);
+
+
+				statement.executeUpdate();
+				System.out.println("Utente rimosso correttamente");
+			}catch(SQLException e){
+				System.out.println(e);
+			}
+
+
+
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+
+
+	}
 
 }

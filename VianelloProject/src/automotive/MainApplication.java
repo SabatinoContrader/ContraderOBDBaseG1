@@ -1,8 +1,5 @@
 package automotive;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import dao.ConnessioneDB;
 import dao.GestioneUtenteDAO;
 import model.Utente;
@@ -69,7 +66,6 @@ public class MainApplication {
 	private static void logIn() {
 
 		System.out.println("Log In...");
-
 
 		while(o == null) {
 

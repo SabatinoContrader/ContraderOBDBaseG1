@@ -17,7 +17,7 @@ public class VistaCliente {
 
 		System.out.println("1) VISUALIZZA LISTA AUTO");
 		System.out.println("2) VISUALIZZA SCADENZA REVISIONE");
-		System.out.println("3) BACK");
+		System.out.println("3) TORNA INDIETRO");
 		String opzioneSelezionata = Utility.getInput();
 		switch (opzioneSelezionata) {
 		case "1":

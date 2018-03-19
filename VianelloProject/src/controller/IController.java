@@ -11,6 +11,8 @@ public interface IController {
 	public void alertsScadenzaRevisione(Utente u);
 	
 	public void showCarList(Utente u);
+
+	public void showUserList(Utente u);
 	
 	public void showAllDevice(Utente u);
 	
