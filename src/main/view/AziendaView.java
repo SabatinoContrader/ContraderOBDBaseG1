@@ -39,6 +39,10 @@ public class AziendaView implements View {
         int id=aziendaService.insertAzienda(new Azienda(nomeAzienda, Città));
         String access = "A_0"+id;
         loginService.InsertLogin(new Login(access, access, 3, id));
+        System.out.println("");
+        System.out.println("Azienda registrat con successo");
+        System.out.println("Username: " + access);
+        System.out.println("Password: " + access);
     }
 
     @Override

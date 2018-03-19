@@ -42,6 +42,11 @@ public class OfficinaView implements View {
             int id = officinaService.insertOfficina(new Officina(Nome_Officina, Indirizzo, Città));
             String access = "O_0"+id;
             loginService.InsertLogin(new Login(access, access, 2, id));
+            System.out.println("");
+            System.out.println("Officina registrata con successo");
+            System.out.println("Username: " + access);
+            System.out.println("Password: " + access);
+
 
         }
         @Override

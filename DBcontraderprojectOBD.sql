@@ -95,7 +95,7 @@ CREATE TABLE dati_dispositivo (
 );
 
 INSERT INTO dati_dispositivo VALUES (1, 1, '04/07/18', 13444, 1.1, null, null),
-									                  (2, 1, '05/07/18', 13445, 1.1, null, null),
+									(2, 1, '05/07/18', 13445, 1.1, null, null),
                                     (3, 1, '06/07/18', 13446, 1.1, null, null),
                                     (4, 1, '07/07/18', 13447, 1.1, '992JN', 0),
                                     (5, 3, '19/03/18', 10000, 1.1, null, null),
