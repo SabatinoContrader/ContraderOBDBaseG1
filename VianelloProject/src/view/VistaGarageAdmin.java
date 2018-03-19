@@ -15,7 +15,8 @@ public class VistaGarageAdmin {
         System.out.println("1) VISUALIZZA AUTO CON GUASTI");
         System.out.println("2) VISUALIZZA LISTA UTENTI");
         System.out.println("3) VISUALIZZA LISTA AUTO DELL'AZIENDA");
-        System.out.println("4) BACK");
+        System.out.println("4) VISUALIZZA TUTTI I DISPOSITIVI");
+        System.out.println("5) BACK");
 
 
         String opzioneSelezionata = Utility.getInput();
@@ -30,8 +31,12 @@ public class VistaGarageAdmin {
             case "3":
                 showCarList(user);
                 break;
-
-            case "4": Utility.clearConsole();
+            case "4":
+                showAllDevice(user);
+                break;
+            case "5": Utility.clearConsole();
+                    break;
+            //default: Utility.clearConsole();
         }
     }
 
@@ -46,10 +51,7 @@ public class VistaGarageAdmin {
     private void showCarList(Utente u) {
         ControllerSingleton.getIstance().showCarList(u);
     }
-    private void showUserList(Utente u) {
-
-        ControllerSingleton.getIstance().showUserList(u);
-
-    }
+    private void showUserList(Utente u) { ControllerSingleton.getIstance().showUserList(u); }
+    private void showAllDevice(Utente u) { ControllerSingleton.getIstance().showAllDevice(u); }
 
 }

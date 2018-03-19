@@ -16,7 +16,7 @@ public class VistaCliente {
 		System.out.println("SELEZIONA UN'OPZIONE");
 
 		System.out.println("1) VISUALIZZA LISTA AUTO");
-		System.out.println("2) VAI ARRETRU");
+		System.out.println("2) TORNA INDIETRO");
 		String opzioneSelezionata = Utility.getInput();
 		switch (opzioneSelezionata) {
 			case "1":

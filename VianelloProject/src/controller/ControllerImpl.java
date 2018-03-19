@@ -134,9 +134,6 @@ public class ControllerImpl implements IController {
                             dDAO.setDispositivoAuto(iddisp, idauto);
                         } else System.out.println("\nNON HAI DISPOSITIVI DISPONIBILI");
                         break;
-                    case "4":
-                        goBack(u);
-                        break;
 
                 }
                 break;
@@ -156,9 +153,6 @@ public class ControllerImpl implements IController {
                 //CASE REGISTER NEW USER
                 signUpUser();
 
-                break;
-            case "5":
-                goBack(u);
                 break;
 
         }
@@ -206,7 +200,7 @@ public class ControllerImpl implements IController {
         System.out.println("3)  Visualizza dettagli Auto");
         if (u.getRuolo() == 1) {
             System.out.println("4)  Assegna dispositivo ad auto");
-            System.out.println("5)  Visualizza Dispositivi");
+         //   System.out.println("5)  Visualizza Dispositivi");
             //     System.out.println("5)  Visualizza storico riparazioni auto");
 
         }
@@ -215,7 +209,7 @@ public class ControllerImpl implements IController {
         String option = scanner.nextLine();
         switch (option) {
             case "1":
-                Utility.clearConsole();
+
                 break;
             case "2":
                 Utility.clearConsole();
@@ -254,7 +248,7 @@ public class ControllerImpl implements IController {
                     } else System.out.println("\nNON HAI DISPOSITIVI DISPONIBILI");
                 }
                 break;
-            case "5":
+          /*  case "5":
                 if (u.getRuolo() == 1) {
                     //visualizza dispositivi
                     List<Dispositivo> newlistdispositivo = dDAO.showAllDevices(u.getIdAzienda());
@@ -271,7 +265,7 @@ public class ControllerImpl implements IController {
                        /* if(newlistdispositivo.get(i).getDataInstallazione())
                         System.out.println("Data Installazione: " + newlistdispositivo.get(i).getDataInstallazione());
                         */
-
+/*
 
                     }
 
@@ -279,8 +273,9 @@ public class ControllerImpl implements IController {
                     if (u.getRuolo() == 1) {
                         //visualizza storico riparaizone
                     }
-                    break;
+
                 }
+                break; */
         }
 
     }
@@ -288,7 +283,7 @@ public class ControllerImpl implements IController {
     @Override
     public void showAllDevice(Utente u) {
 
-        List<Dispositivo> listaDispositivi = DispositivoDAO.showAllDevices(u.getIdAzienda());
+   /*     List<Dispositivo> listaDispositivi = DispositivoDAO.showAllDevices(u.getIdAzienda());
 
         if (listaDispositivi.size() != 0) System.out.println("Elenco di Dispositivi dell'Azienda:\n");
 
@@ -297,7 +292,25 @@ public class ControllerImpl implements IController {
             System.out.println("ID: " + listaDispositivi.get(i).getId() + "	Codice: " + listaDispositivi.get(i).getCodice() + "	Id Auto: " + listaDispositivi.get(i).getIdAuto() + "	Id Azienda: " + listaDispositivi.get(i).getIdAzienda() + "	Data di Installazione: " + listaDispositivi.get(i).getDataInstallazione());
 
         }
+*/
+        List<Dispositivo> newlistdispositivo = dDAO.showAllDevices(u.getIdAzienda());
+        if (newlistdispositivo.size() > 0) {
+            System.out.println("Lista dispositivi");
+        }
+        for (int i = 0; i < newlistdispositivo.size(); i++) {
+            System.out.println("------------------------------------");
+            System.out.println("ID: " + newlistdispositivo.get(i).getId());
+            System.out.println("Codice: " + newlistdispositivo.get(i).getCodice());
+            if (newlistdispositivo.get(i).getIdAuto() > 0)
+                System.out.println("ID Auto: " + newlistdispositivo.get(i).getIdAuto());
+            else System.out.println("ID Auto: Ancora non è installato su nessuna auto");
+                       /* if(newlistdispositivo.get(i).getDataInstallazione())
+                        System.out.println("Data Installazione: " + newlistdispositivo.get(i).getDataInstallazione());
+                        */
 
+
+        }
+        System.out.println();
     }
 
     @Override
@@ -509,7 +522,7 @@ public class ControllerImpl implements IController {
             if (!(dispositivo).equals("no")) {
                 System.out.println("Dispositivo associato: " + dispositivo);
             }
-            ;
+
 
         }
     }
@@ -596,8 +609,8 @@ public class ControllerImpl implements IController {
         }
     }
 
-    private static void goBack(Utente u) {
+    /*private static void goBack(Utente u) {
         HomeView.runHomeView(u);
-    }
+    }*/
 }
 
