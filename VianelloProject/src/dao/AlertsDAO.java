@@ -170,7 +170,7 @@ public class AlertsDAO {
 					System.out.println("La macchina: "+macchina);
 					System.out.println("DATA SCADENZA REVISIONE: "+scadenzaRevisione);
 					if(oggi.after(scadenzaRevisione)){
-						System.out.println("LA REVISIONE è SCADUTA");
+						System.out.println("LA REVISIONE E' SCADUTA");
 					}
 					System.out.println("|----------------------------------------------------|");
 					System.out.println();
@@ -215,7 +215,7 @@ public class AlertsDAO {
 					System.out.println("La macchina: "+macchina);
 					System.out.println("DATA SCADENZA REVISIONE: "+scadenzaRevisione);
 					if(oggi.after(scadenzaRevisione)){
-						System.out.println("----LA REVISIONE è SCADUTA!!!----");
+						System.out.println("----LA REVISIONE ï¿½ SCADUTA!!!----");
 					}
 					System.out.println("|----------------------------------------------------|");
 					System.out.println();

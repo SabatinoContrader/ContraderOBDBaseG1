@@ -589,6 +589,38 @@ public class ControllerImpl implements IController {
 		CarDAO.insertAutoUtente(idutente, maxKmNoleggio, marca, modello, targa, numeroTelaio, kmAttuali,
 				kmInizioNoleggio, scadenzaRevisione, scadenzaTagliando, scadenzaBollo, scadenzaAssicurazione, tipologia, daNoleggio);
 	}
+	//INSERISCI NUOVA AUTO AZIENDA
+	public  void inserisciAutoAzienda(int idazienda) {
+		String marca = "", modello = "", targa = "", numeroTelaio = "", tipologia = "";
+		int maxKmNoleggio = 0, kmInizioNoleggio = 0, kmAttuali = 0, daNoleggio = 0;
+		Date d = new Date(System.currentTimeMillis());
+		Date scadenzaRevisione = d, scadenzaTagliando = d, scadenzaBollo = d, scadenzaAssicurazione = d;
+		System.out.print("Inserisci marca: ");
+		marca = Utility.getInput();
+		System.out.print("Inserisci modello: ");
+		modello = Utility.getInput();
+		System.out.print("Inserisci targa: ");
+		targa = Utility.getInput();
+		System.out.print("Inserisci numero di telaio: ");
+		numeroTelaio = Utility.getInput();
+
+		System.out.print("Inserisci Km Attuali: ");
+		kmAttuali = Integer.parseInt(Utility.getInput());
+		System.out.println("E' un auto da noleggio? y/n");
+		if (Utility.getInput().equals("y")) {
+			daNoleggio = 1;
+/*
+			System.out.print("Inserisci Massimo km noleggio: ");
+			maxKmNoleggio = Integer.parseInt(Utility.getInput());
+
+			System.out.print("Inserisci km inizio noleggio: ");
+			kmInizioNoleggio = Integer.parseInt(Utility.getInput());*/
+		}
+
+
+		CarDAO.insertAutoAzienda(idazienda, marca, modello, targa, numeroTelaio, kmAttuali,
+				kmInizioNoleggio, scadenzaRevisione, scadenzaTagliando, scadenzaBollo, scadenzaAssicurazione, tipologia, daNoleggio);
+	}
 
 	private void showAutoDetail(int idAuto) {
 		ResultSet resultSet = cDAO.getAutoDetail(idAuto);
