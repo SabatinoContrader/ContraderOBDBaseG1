@@ -71,20 +71,22 @@ public class DatiView implements View{
                 int gg_dato = scanner.nextInt();
                 int mm_dato = scanner.nextInt();
                 int aa_dato = scanner.nextInt();
-
-                int revisione = gg_revisione + mm_revisione*30 + aa_revisione*365;
-                int tagliando = gg_tagliando + mm_tagliando*30 + aa_tagliando*365;
-                int data = gg_dato + mm_dato*30 + aa_dato*365;
+                int revisione = gg_revisione + mm_revisione*365/12 + aa_revisione*365;
+                int tagliando = gg_tagliando + mm_tagliando*365/12 + aa_tagliando*365;
+                int data = gg_dato + mm_dato*365/12 + aa_dato*365;
 
                 int km = dato.getKm() - auto.getTagliando_Km();
 
-                if(data - revisione > 365+30*11)
+                if(data - revisione > 365+365/12*11)
                 {
                     System.out.println("La revisione scadrà tra meno di 1 mese!");
                     System.out.println("");
                 }
 
-                if(((data - tagliando) > 365+30*11 ) || km > 14500)
+                boolean case1 = ((data - tagliando) > 365+365/12*11);
+                boolean case2 = km > 14500;
+
+                if( case1 || case2)
                 {
                     System.out.println("Il tagliando è in scadenza!");
                 }

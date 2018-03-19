@@ -35,7 +35,6 @@ public class HomeView implements View {
                 System.out.println("1) Aggiungi officina");
                 System.out.println("2) Aggiungi azienda");
                 System.out.println("3) Logout");
-                System.out.println("Scelta:");
                 break;
 
             case "officina":
@@ -48,7 +47,6 @@ public class HomeView implements View {
                 System.out.println("3) Reset dispositivo");
                 System.out.println("4) Cerca auto");
                 System.out.println("5) Logout");
-                System.out.println("Scelta:");
                 break;
 
             case "azienda":
@@ -62,7 +60,6 @@ public class HomeView implements View {
                 System.out.println("4) Vedi lista Errori non risolti");
                 System.out.println("5) Terminare noleggio ");
                 System.out.println("6) Logout");
-                System.out.println("Scelta:");
                 break;
 
             case "driver":
@@ -71,7 +68,6 @@ public class HomeView implements View {
                 System.out.println("-------MENU DRIVER-------");
                 System.out.println("1) Elenco auto");
                 System.out.println("2) Logout");
-                System.out.println("Scelta:");
                 break;
         }
 
@@ -79,6 +75,7 @@ public class HomeView implements View {
         do{
             flag=false;
             try{
+                System.out.println("Inserisci il numero corrispondente alla tua scelta e premi invio");
                 this.choice = Integer.parseInt(getInput());
             }
             catch(NumberFormatException e){

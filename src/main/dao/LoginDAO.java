@@ -42,13 +42,14 @@ public class LoginDAO {
                     role = "driver";
                 }
 
-
             login.put("role", role);
             login.put("id",resultSet.getInt("id"));
             return login;
             }
             else
             {
+                System.out.println("");
+                System.out.println("Dati di accesso errati, riprovare");
                 return login;
             }
 

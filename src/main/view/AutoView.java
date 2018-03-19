@@ -46,17 +46,11 @@ public class AutoView implements View {
 
 
         switch (mode) {
-            case "all":
-     //           List<Gomma> gomme = gommaService.getAllGomme();
-     //           System.out.println("----- Gomme disponibili -----");
-     //           System.out.println();
-     //           gomme.forEach(gomma -> System.out.println(gomma));
-                break;
-
             case "insert":
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("");
-                System.out.println("-----Inserisci i dati dell'auto-----");
+                System.out.println("-----INSERIMENTO AUTO-----");
+                System.out.println("");
                 System.out.println("Codice del dispositivo associato:");
                 int cod_Dispositivo = Integer.parseInt(getInput());
                 System.out.println("Targa");
@@ -81,16 +75,14 @@ public class AutoView implements View {
                 String tagliando_Data = getInput();
                 System.out.println("Chilometri all'ultimo tagliando");
                 int tagliando_Km = Integer.parseInt(getInput());
-                System.out.println("");
-
                 int driver = 0;
                 autoService.insertAuto(new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver));
                 break;
 
             case "update":
-                 scanner = new Scanner(System.in);
                 System.out.println("");
                 System.out.println("Inserisci il codice del dispositivo associato all'auto da modificare:");
+                System.out.println("");
                 cod_Dispositivo = Integer.parseInt(getInput());
                 System.out.println("Targa");
                 targa = getInput();
@@ -114,8 +106,6 @@ public class AutoView implements View {
                 tagliando_Data = getInput();
                 System.out.println("Chilometri all'ultimo tagliando");
                 tagliando_Km = Integer.parseInt(getInput());
-                System.out.println("");
-
                 driver = 0;
                 autoService.updateAuto(new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver));
                 break;
@@ -123,16 +113,17 @@ public class AutoView implements View {
             case "reset":
                 System.out.println("");
                 System.out.println("Inserisci il codice del dispositivo da resettare:");
-                cod_Dispositivo = Integer.parseInt(getInput());
+                System.out.println("");
                 System.out.println("Verrà cancellata l'auto ad esso associata e tutti i dati relativi");
+                cod_Dispositivo = Integer.parseInt(getInput());
                 autoService.resetAuto(cod_Dispositivo);
                 break;
 
             case "find":
                 System.out.println("");
                 System.out.println("Inserisci il codice dell'auto da ricercare:");
-                cod_Dispositivo = Integer.parseInt(getInput());
                 System.out.println("");
+                cod_Dispositivo = Integer.parseInt(getInput());
                 Auto auto = autoService.findAuto(cod_Dispositivo);
                 listaDatiAuto = datiService.listaDatiAuto(cod_Dispositivo);
 
@@ -157,8 +148,8 @@ public class AutoView implements View {
             case "listauto":
                 scanner = new Scanner(System.in);
                 System.out.println("");
-                System.out.println("Stai per vedere la lista delle auto con driver:");
-
+                System.out.println("---LISTA DELLE AUTO---");
+                System.out.println("");
                 List<Auto> listAuto = autoService.getAllAuto(id);
                 for(Auto automo : listAuto){
                     System.out.print(automo.getCambio()+ " ");
@@ -169,8 +160,10 @@ public class AutoView implements View {
                     System.out.println();
                 }
                 break;
+
             case "assegna_auto_driver":
                 scanner = new Scanner(System.in);
+                System.out.println("----NOLEGGIA AUTO----");
                 System.out.println("");
                 System.out.println("Inserire la Id del Driver");
                 int IdDriver = Integer.valueOf(getInput());
@@ -178,8 +171,8 @@ public class AutoView implements View {
                 int IdDAuto = Integer.valueOf(getInput());
                 autoService.updateAutoDriver(IdDAuto, IdDriver);
                 break;
+
             case "lista_errori_non_risolti":
-                scanner = new Scanner(System.in);
                 System.out.println("");
                 System.out.println("Stai per vedere la lista degli errori non risolti:");
                 HashMap<Dati_dispositivo, Auto> mappaErrori = autoService.findAutoWithError();
@@ -205,10 +198,12 @@ public class AutoView implements View {
                 }
 
             case "azzerare_driver":
-                System.out.println("INSERIRE IL CODICE DISPOSITIVO");
+                System.out.println("---TERMINA NOLEGGIO---");
+                System.out.println("");
+                System.out.println("Inserisci il codice del dispositivo dell'auto");
                 int cod_dispositivo = Integer.valueOf(getInput());
                 autoService.azzeraDriver(cod_dispositivo);
-                System.out.println("DRIVER AZZERATO CON SUCCESSO");
+                System.out.println("Noleggio terminato");
 
             case "listaAutoDriver":
                 listaAutoDriver = autoService.listaAutoDriver(id);
@@ -228,22 +223,7 @@ public class AutoView implements View {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
   }
-  /*  public Date getData() {
-            Scanner scanner = new Scanner(getInput()).useDelimiter("/");
-            int giorno = scanner.nextInt();
-            int mese = scanner.nextInt();
-            int anno = scanner.nextInt();
-            Date data = new Date(giorno, mese, anno);
-            DateFormat df = new SimpleDateFormat("dd/mm/yy");
-            Date data = null;
-            try {
-                data =  df.parse(target);
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return data;
-        }*/
+  
     @Override
     public void submit() {
         Request request = new Request();
