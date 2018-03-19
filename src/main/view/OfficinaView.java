@@ -25,8 +25,7 @@ public class OfficinaView implements View {
     @Override
     public void showResults(Request request){
         this.role=(String)request.get("role");
-        Scanner scanner = new Scanner(request.get("id").toString());
-        this.id = scanner.nextInt();
+        this.id = (Integer)request.get("id");
 
     };
 

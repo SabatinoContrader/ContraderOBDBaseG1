@@ -23,9 +23,8 @@ public class AziendaView implements View {
 
     @Override
     public void showResults(Request request) {
-        role=(String)request.get("role");
-        Scanner scanner = new Scanner(request.get("id").toString());
-        this.id = scanner.nextInt();
+        this.role=(String)request.get("role");
+        this.id = (Integer)request.get("id");
     }
 
     @Override

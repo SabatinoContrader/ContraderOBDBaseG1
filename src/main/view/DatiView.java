@@ -33,9 +33,8 @@ public class DatiView implements View{
     public void showResults(Request request) {
         this.mode  = (String) request.get("mode");
         this.role  = (String) request.get("role");
-        this.id = (Integer)(request.get("id"));
-        this.cod_dispositivo = (Integer)(request.get("cod_dispositivo"));
-
+        this.id = (Integer) request.get("id");
+        this.cod_dispositivo = (Integer) request.get("cod_dispositivo");
     }
 
     @Override

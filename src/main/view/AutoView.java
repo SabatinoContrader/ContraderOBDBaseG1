@@ -18,8 +18,6 @@ public class AutoView implements View {
     private DatiService datiService;
     private String mode;
     private String role;
-    private String id_azienda;
-
     private int id;
     private int choice;
     private List<Auto> listaAutoDriver;
@@ -36,8 +34,7 @@ public class AutoView implements View {
     public void showResults(Request request) {
        this.mode  = (String) request.get("mode");
        this.role  = (String) request.get("role");
-       Scanner scanner = new Scanner(request.get("id").toString());
-       this.id = scanner.nextInt();
+       this.id = (Integer)request.get("id");
 
     }
 

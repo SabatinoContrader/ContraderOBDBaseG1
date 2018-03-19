@@ -12,16 +12,12 @@ public class HomeView implements View {
     private int choice;
     private String role;
     private int id;
-
-    Request request = new Request();
     String mode;
-
 
     public void showResults(Request request) {
         if (request!=null) {
-            role = request.get("role").toString();
-            Scanner scanner = new Scanner(request.get("id").toString());
-            id = scanner.nextInt();
+            role = (String)request.get("role");
+            id = (Integer)request.get("id");
         }
     }
 
