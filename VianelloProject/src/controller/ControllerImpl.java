@@ -372,6 +372,7 @@ public class ControllerImpl implements IController {
         Date d=new Date(System.currentTimeMillis());
         Date oldrevisione=d,oldtagliando=d,oldbollo=d,oldassicurazione=d;
         int oldkmattuali=0,oldkminizionoleggio=0,danoleggio=0;*/
+		boolean isAuto=false;
 		for (int i = 0; i < auto.size(); i++) {
 			if (idAuto == auto.get(i).getID()) {
 				System.out.println("Vuoi modificare la marca? y/n");
@@ -436,10 +437,12 @@ public class ControllerImpl implements IController {
 
 
 				CarDAO.updateAuto(auto.get(i));
+				isAuto=true;
 				i = auto.size();
 			}
 
 		}
+		if(!isAuto)System.out.println("ALL UTENTE NON E' ASSOCIATA NESSUN AUTO CON ID "+idAuto);
 
 
 	}
@@ -626,7 +629,11 @@ public class ControllerImpl implements IController {
 
 	private void showAutoDetail(int idAuto) {
 		ResultSet resultSet = cDAO.getAutoDetail(idAuto);
+
 		try {
+			if(!resultSet.isBeforeFirst()){
+				System.out.println("NESSUNA AUTO ASSOCIATA ALL'ID "+idAuto);
+			}
 			while (resultSet.next()) {
 				System.out.println("AUTO: " + resultSet.getString("Marca") + " " + resultSet.getString("Modello"));
 				System.out.println("TARGA: " + resultSet.getString("Targa"));

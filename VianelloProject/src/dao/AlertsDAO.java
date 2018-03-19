@@ -264,7 +264,7 @@ int cont=0;
 					System.out.println("La macchina: "+macchina);
 					System.out.println("DATA SCADENZA REVISIONE: "+scadenzaRevisione);
 					if(oggi.after(scadenzaRevisione)){
-						System.out.println("----LA REVISIONE � SCADUTA!!!----");
+						System.out.println("----LA REVISIONE E' SCADUTA!!!----");
 					}
 					System.out.println("|----------------------------------------------------|");
 					System.out.println();
