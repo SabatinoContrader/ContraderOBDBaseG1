@@ -265,7 +265,9 @@ public class AutoDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_AUTODRIVER);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            if(!resultSet.next()){
+                System.out.println("NON CI SONO AUTO ASSEGNATE");
+            }
             while (resultSet.next())
             {
                 int cod_Dispositivo = resultSet.getInt("cod_dispositivo");

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DatiDAO {
 
-    private final String QUERY_ERROR= "select dd.cod_dispositivo, casa_costruttrice, modello, targa, cod_errore from  dati_dispositivo dd join automobile a on (dd.Cod_Dispositivo=a.cod_dispositivo) where dd.Stato=0 and proprietario=?";
+    private final String QUERY_ERROR= "select dd.cod_dispositivo, casa_costruttrice, modello, targa, cod_errore from  dati_dispositivo dd join automobile a on (dd.cod_dispositivo=a.cod_dispositivo) where dd.stato=0  and proprietario=?";
     private final String QUERY_DATIAUTO = "SELECT * FROM dati_dispositivo WHERE  Cod_Dispositivo=?";
 
     public DatiDAO() {
@@ -50,16 +50,19 @@ public class DatiDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_ERROR);
             preparedStatement.setInt(1, id_proprietario);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(!resultSet.next()){
+            if(resultSet.isBeforeFirst()) {
+                while (resultSet.next()) {
+                    result += resultSet.getString("cod_dispositivo") + " ";
+                    result += resultSet.getString("casa_costruttrice") + " ";
+                    result += resultSet.getString("modello") + " ";
+                    result += resultSet.getString("targa") + " ";
+                    result += resultSet.getInt("cod_errore") + "\n";
+                    listaDatiAuto.add(result);
+
+                }
+            }else{
+
                 listaDatiAuto.add("NON CI SONO AUTO CON ERRORI");
-            }
-            while (resultSet.next()) {
-                result+= resultSet.getString("cod_dispositivo")+" ";
-                result += resultSet.getString("casa_costruttrice")+" ";
-                result += resultSet.getString("modello")+" ";
-                result += resultSet.getString("targa")+" ";
-                result += resultSet.getInt("cod_errore")+"\n";
-                listaDatiAuto.add(result);
             }
         }
         catch (SQLException e) {

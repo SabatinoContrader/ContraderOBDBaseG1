@@ -138,6 +138,9 @@ public class AutoView implements View {
                 System.out.println("---Lista auto---");
                 System.out.println("");
                 List<Auto> listAuto = autoService.getAllAuto(id);
+                if(listAuto.isEmpty()){
+                    System.out.println("NON CI SONO AUTO ASSEGNATE");
+                }
                 for(Auto automo : listAuto){
                     System.out.println(automo.getCasa_Costruttrice()+ " " + automo.getModello() + " targata " + automo.getTarga());
                     System.out.println("Ultima revisione: " + automo.getRevisione() + " ");
@@ -157,6 +160,7 @@ public class AutoView implements View {
                 System.out.println("Inserire la Id della Auto");
                 int IdDAuto = Integer.valueOf(getInput());
                 autoService.updateAutoDriver(IdDAuto, IdDriver);
+                System.out.println("AUTO ASSEGNATA A DRIVER CON SUCCESSO");
                 break;
             case "lista_errori_non_risolti":
                 System.out.println("");
