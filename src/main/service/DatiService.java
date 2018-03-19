@@ -10,11 +10,15 @@ public class DatiService {
 
     private DatiDAO datiDAO;
 
-   public DatiService(){
+    public DatiService(){
        datiDAO = new DatiDAO();
    }
 
-    public List<Dati_dispositivo> listaDatiAuto (int cod_dispositivo) {
+    public List<Dati_dispositivo> listaAllDatiDispositivo (int cod_dispositivo) {
+        return this.datiDAO.listaAllDatiDispositivo(cod_dispositivo);
+    }
+
+    public List<String> listaDatiDispositivo (int cod_dispositivo) {
         return this.datiDAO.listaDatiDispositivo(cod_dispositivo);
     }
 

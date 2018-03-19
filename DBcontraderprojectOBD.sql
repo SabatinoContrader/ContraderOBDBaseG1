@@ -83,7 +83,7 @@ INSERT INTO città VALUES ('Benevento',82100,'BN','CAMPANIA'),
                         ('Torino',10124,'TO','PIEMONTE');
 
 CREATE TABLE dati_dispositivo (
-  n int(11) auto_increment NOT NULL, 	
+  n int(11) auto_increment NOT NULL,
   cod_dispositivo int(11) NOT NULL,
   data varchar(10) NOT NULL,
   km int(11) NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE driver (
   PRIMARY KEY (id_driver)
 );
 
-INSERT INTO driver VALUES (1258,'Antonio','Rossi','ASDFA230AAFRWE4R','NAPOLI'),
+INSERT INTO driver VALUES (1258,'Antonio','Rossi','ASDFA230AAFRWE4R','Napoli'),
 							(9991,'Pippo','Demagistris','SLONGBLONGSERADM','Torino'),
 							(12589,'Carmine','Albero','RSSDFETEADFTSFDF','Modena'),
                             (28956,'Alessia','Bardo','NGRONDNRONGGUNR','Benevento'),

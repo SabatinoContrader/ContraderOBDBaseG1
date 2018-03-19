@@ -33,10 +33,8 @@ public class DatiView implements View{
     public void showResults(Request request) {
         this.mode  = (String) request.get("mode");
         this.role  = (String) request.get("role");
-        Scanner scanner = new Scanner(request.get("id").toString());
-        this.id = scanner.nextInt();
-        Scanner scanner2 = new Scanner(request.get("cod_dispositivo").toString());
-        this.cod_dispositivo = scanner2.nextInt();
+        this.id = (Integer)(request.get("id"));
+        this.cod_dispositivo = (Integer)(request.get("cod_dispositivo"));
 
     }
 
@@ -45,7 +43,7 @@ public class DatiView implements View{
         switch (mode)
         {
             case "listaAutoDriver":
-                listaDatiAuto = datiService.listaDatiAuto(cod_dispositivo);
+                listaDatiAuto = datiService.listaAllDatiDispositivo(cod_dispositivo);
                 auto = autoService.findAuto(cod_dispositivo);
 
                 int errore = 0;
@@ -111,9 +109,7 @@ public class DatiView implements View{
                 break;
             }
 
-
     }
-
 
     @Override
     public String getInput() {

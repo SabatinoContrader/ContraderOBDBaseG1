@@ -18,16 +18,14 @@ public class HomeController implements Controller {
             String nomeUtente = request.get("nomeUtente").toString();
             String password = request.get("password").toString();
             HashMap hash = loginService.login(nomeUtente, password);
-            if ( !hash.isEmpty()){
+            if (!hash.isEmpty()){
                 request.put("role", hash.get("role"));
                 request.put("id", hash.get("id"));
                 MainDispatcher.getInstance().callView("Home", request);
             }
-
             else
                 MainDispatcher.getInstance().callView("Login",  null);
         }
         else MainDispatcher.getInstance().callView("Home", request);
-
     }
 }

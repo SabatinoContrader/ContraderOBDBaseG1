@@ -19,8 +19,7 @@ public class LoginDAO {
 
     public HashMap login (String username, String password) {
         HashMap login = new HashMap();
-        String role;
-        role = "";
+        String role="";
 
         Connection connection = ConnectionSingleton.getInstance();
         try {
@@ -41,10 +40,10 @@ public class LoginDAO {
                 else if(resultSet.getInt("ruolo") == 4) {
                     role = "driver";
                 }
+                login.put("role", role);
+                login.put("id",resultSet.getInt("id"));
+                return login;
 
-            login.put("role", role);
-            login.put("id",resultSet.getInt("id"));
-            return login;
             }
             else
             {
@@ -76,7 +75,5 @@ public class LoginDAO {
         }
 
     }
-
-
 
 }

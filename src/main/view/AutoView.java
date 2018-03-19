@@ -43,8 +43,6 @@ public class AutoView implements View {
 
     @Override
     public void showOptions() {
-
-
         switch (mode) {
             case "insert":
                 Scanner scanner = new Scanner(System.in);
@@ -109,7 +107,6 @@ public class AutoView implements View {
                 driver = 0;
                 autoService.updateAuto(new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver));
                 break;
-
             case "reset":
                 System.out.println("");
                 System.out.println("Inserisci il codice del dispositivo da resettare:");
@@ -118,15 +115,13 @@ public class AutoView implements View {
                 cod_Dispositivo = Integer.parseInt(getInput());
                 autoService.resetAuto(cod_Dispositivo);
                 break;
-
             case "find":
                 System.out.println("");
                 System.out.println("Inserisci il codice dell'auto da ricercare:");
                 System.out.println("");
                 cod_Dispositivo = Integer.parseInt(getInput());
                 Auto auto = autoService.findAuto(cod_Dispositivo);
-                listaDatiAuto = datiService.listaDatiAuto(cod_Dispositivo);
-
+                listaDatiAuto = datiService.listaAllDatiDispositivo(cod_Dispositivo);
                 System.out.println("Codice dispositivo: " + auto.getCod_Dispositivo());
                 System.out.println("Targa: " + auto.getTarga());
                 System.out.println("Num. telaio: " + auto.getTelaio());
@@ -136,7 +131,6 @@ public class AutoView implements View {
                 System.out.println("Ultima revisione: " + auto.getRevisione());
                 System.out.println("Ultimo tagliando: " + auto.getTagliando_Data() + " a " + auto.getTagliando_Km() + " km");
                 System.out.println("");
-
                 System.out.println("Dati del dispositivo:");
                 System.out.println("    Data       Km        Liv. olio   Cod. Errore");
                 for(int i = 0; i < listaDatiAuto.size(); i++)
@@ -146,23 +140,20 @@ public class AutoView implements View {
                 }
                 break;
             case "listauto":
-                scanner = new Scanner(System.in);
                 System.out.println("");
                 System.out.println("---LISTA DELLE AUTO---");
                 System.out.println("");
                 List<Auto> listAuto = autoService.getAllAuto(id);
                 for(Auto automo : listAuto){
-                    System.out.print(automo.getCambio()+ " ");
-                    System.out.print(automo.getAlimentazione()+" ");
                     System.out.print(automo.getCasa_Costruttrice()+" ");
                     System.out.print(automo.getModello()+" ");
+                    System.out.print(automo.getCambio()+ " ");
+                    System.out.print(automo.getAlimentazione()+" ");
                     System.out.print(automo.getRevisione()+" ");
                     System.out.println();
                 }
                 break;
-
             case "assegna_auto_driver":
-                scanner = new Scanner(System.in);
                 System.out.println("----NOLEGGIA AUTO----");
                 System.out.println("");
                 System.out.println("Inserire la Id del Driver");
@@ -171,32 +162,14 @@ public class AutoView implements View {
                 int IdDAuto = Integer.valueOf(getInput());
                 autoService.updateAutoDriver(IdDAuto, IdDriver);
                 break;
-
             case "lista_errori_non_risolti":
                 System.out.println("");
                 System.out.println("Stai per vedere la lista degli errori non risolti:");
-                HashMap<Dati_dispositivo, Auto> mappaErrori = autoService.findAutoWithError();
-                Set set = mappaErrori.entrySet();
-                Iterator iterator = set.iterator();
-                while (iterator.hasNext()){
-                    Map.Entry mentry = (Map.Entry)iterator.next();
-                    Dati_dispositivo dati_dispositivo =  (Dati_dispositivo) mentry.getKey();
-                    Auto auto_1 = (Auto)mentry.getValue();
-                    System.out.print("");
-                    System.out.print("Cod_Dispositivo: "+dati_dispositivo.getCod_Dispositivo()+";");
-                    System.out.print(" ");
-                    System.out.print("Km: "+dati_dispositivo.getKm()+";");
-                    System.out.print(" ");
-                    System.out.print("Codice Errore: "+dati_dispositivo.getCodice_Errore()+";");
-                    System.out.print(" ");
-                    System.out.print("Stato: "+dati_dispositivo.getStato()+";");
-                    System.out.print(" ");
-                    System.out.print("Livello: "+dati_dispositivo.getLivello_olio()+";");
-                    System.out.print(" ");
-                    System.out.print("Targa: "+auto_1.getTarga()+";");
-                    System.out.println();
+                List<String> result = datiService.listaDatiDispositivo(id);;
+                for(String val: result) {
+                    System.out.println(val);
                 }
-
+                break;
             case "azzerare_driver":
                 System.out.println("---TERMINA NOLEGGIO---");
                 System.out.println("");
@@ -204,16 +177,14 @@ public class AutoView implements View {
                 int cod_dispositivo = Integer.valueOf(getInput());
                 autoService.azzeraDriver(cod_dispositivo);
                 System.out.println("Noleggio terminato");
-
+                break;
             case "listaAutoDriver":
                 listaAutoDriver = autoService.listaAutoDriver(id);
                 for(int j = 0; j < listaAutoDriver.size(); j++ ) {
                     Auto autodriver = listaAutoDriver.get(j);
                     System.out.println(j+1 + ") " + autodriver.getCasa_Costruttrice() + " " + autodriver.getModello() + " targata " + autodriver.getTarga());
                 }
-
                 this.choice = Integer.parseInt(getInput());
-
                 break;
         }
     }
@@ -223,7 +194,6 @@ public class AutoView implements View {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
   }
-  
     @Override
     public void submit() {
         Request request = new Request();

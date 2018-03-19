@@ -15,12 +15,11 @@ import java.util.Map;
 
 
 public class AutoDAO {
-    private final String AZZERA_DRIVER = "UPDATE automobile set Driver=? where Cod_Dispositivo = ?";
-    //private final String AZZERA_DRIVER_DRIVER = "UPDATE Driver set Id=? where"
+    private final String AZZERA_DRIVER = "UPDATE automobile set id_driver=? where cod_dispositivo = ?";
     private final String DRIVER_WITH_ERROR = "SELECT * FROM dati_dispositivo d join automobile a on (d.Cod_Dispositivo = a.Cod_Dispositivo) where d.Stato = ?";
     private final String QUERY_ALL = "SELECT * FROM Automobile";
     private final String QUERY_ALL_AZIENDA = "SELECT * FROM Automobile WHERE proprietario = ? and id_driver != 0";
-    private final String QUERY_ALL_WITH = "update Automobile set Driver=? where Cod_Dispositivo=?";
+    private final String QUERY_ALL_WITH = "update Automobile set id_driver=? where cod_dispositivo=?";
     private final String QUERY_AUTODRIVER = "SELECT * FROM Automobile WHERE id_driver = ?";
     private final String QUERY_INSERT = "INSERT into Automobile (Cod_Dispositivo , Targa, Telaio, Casa_Costruttrice, Modello ,Alimentazione, Tipologia, Cambio, Proprietario, Revisione, Tagliando_Data, Tagliando_Km, id_driver) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String QUERY_UPDATE = "UPDATE Automobile set Targa = ?, Telaio = ?, Casa_Costruttrice = ?, Modello = ? ,Alimentazione = ?, Tipologia = ?, Cambio = ?, Proprietario = ?, Revisione = ?, Tagliando_Data = ?, Tagliando_Km = ? WHERE Cod_Dispositivo = ?";
@@ -172,7 +171,6 @@ public class AutoDAO {
 
     public boolean updateAuto(Auto auto) {
         Connection connection = ConnectionSingleton.getInstance();
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
             preparedStatement.setString(1, auto.getTarga());
@@ -193,12 +191,10 @@ public class AutoDAO {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
             return false;
         }
-
     }
 
     public int updateAutoDriver(int Cod_Dispositivo, int Cod_Driver){
         Connection connection = ConnectionSingleton.getInstance();
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_ALL_WITH);
             preparedStatement.setInt(1, Cod_Driver);
@@ -297,18 +293,15 @@ public class AutoDAO {
         return listaAutoDriver;
     }
 
-
     public boolean azzeraDriver(int cod_dispositivo){
         Connection connection = ConnectionSingleton.getInstance();
-
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(AZZERA_DRIVER);
-            preparedStatement.setInt(1, 0);
+            preparedStatement.setString(1, null);
             preparedStatement.setInt(2, cod_dispositivo);
             preparedStatement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
-
         }
        return true;
     }

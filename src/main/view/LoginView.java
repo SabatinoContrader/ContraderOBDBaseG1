@@ -14,7 +14,6 @@ public class LoginView implements View {
 
     }
 
-
     public void showOptions () {
         System.out.println("-----LOGIN----");
         System.out.println("");
@@ -31,7 +30,6 @@ public class LoginView implements View {
         MainDispatcher.getInstance().callAction("Home", "doControl", request);
     }
 
-
     public String getInput () {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
@@ -39,6 +37,5 @@ public class LoginView implements View {
 
     protected void send () {
     }
-
 
 }

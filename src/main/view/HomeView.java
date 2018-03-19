@@ -162,6 +162,7 @@ public class HomeView implements View {
                 switch (choice)
                 {
                     case 1:
+                        request.put("role", role);
                         MainDispatcher.getInstance().callAction("Driver", "doControl", request);
                         break;
                     case 2:
