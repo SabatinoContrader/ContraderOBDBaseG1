@@ -109,9 +109,9 @@ public class AlertsDAO {
 		ResultSet rs = null;
 
 
-		QUERY=  "SELECT a.marca,a.modello,a.targa,a.KmAttuali,a.KmInizioNoleggio, au.MaxKmNoleggio"+
+		QUERY=  "SELECT a.marca,a.modello,a.targa,a.KmAttuali,a.KmInizioNoleggio, au.MaxKmNoleggio,u.Nome,u.Cognome " +
 				" FROM auto a, auto_utente au, utente u "+
-				" WHERE a.id = au.IdAuto and au.IdUtente = u.ID and au.MaxKmNoleggio IS NOT NULL and  u.id=? ";
+				" WHERE a.id = au.IdAuto and au.IdUtente = u.ID and au.MaxKmNoleggio IS NOT NULL and au.MaxKmNoleggio>0 and u.id=? ";
 
 		try{
 			ps = conn.prepareStatement(QUERY);
@@ -125,11 +125,14 @@ public class AlertsDAO {
 				int maxKmNoleggio = rs.getInt("MaxKmNoleggio");
 				int kmConsumati = kmAttuali - kmInizioNoleggio;
 				float sogliaKm = maxKmNoleggio/10;
-
+				int cont=0;
 				if(kmConsumati!=0 && ((maxKmNoleggio-kmConsumati)<sogliaKm)){
+					cont++;
+					if(cont==1)System.out.println("--------------------------------------\nNOTIFICHE AUTO NOLEGGIO UTENTE\n--------------------------------------");
 					System.out.println();
 					System.out.println("|------------------------------------------------------------------------|");
 					System.out.println("ATTENZIONE L'AUTO CON TARGA: "+rs.getString("targa")+" e modello: "+rs.getString("modellO")+ " e marca: "+rs.getString("marca") );
+					System.out.println("ASSOCIATA A: "+rs.getString("Nome") + " "+rs.getString("Cognome"));
 					System.out.println("STA PER SUPERARE LA SOGLIA MASSIMA DI KM DISPONIBILI PER QUESTO NOLEGGIO");
 					System.out.println("|------------------------------------------------------------------------|");
 					System.out.println();
@@ -147,6 +150,52 @@ public class AlertsDAO {
 		}
 	}
 
+	public void allAlertsKm(Utente  u){
+		String QUERY = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+
+		QUERY=  "SELECT a.marca,a.modello,a.targa,a.KmAttuali,a.KmInizioNoleggio, au.MaxKmNoleggio,u.Nome,u.Cognome " +
+				" FROM auto a, auto_utente au, utente u "+
+				" WHERE a.id = au.IdAuto and au.IdUtente = u.ID and au.MaxKmNoleggio IS NOT NULL  and  au.MaxKmNoleggio >0 and  u.IdAzienda=? and  u.ID!=? ";
+
+		try{
+			ps = conn.prepareStatement(QUERY);
+			ps.setInt(1, u.getIdAzienda());
+			ps.setInt(2, u.getID());
+			rs = ps.executeQuery();
+int cont=0;
+			while(rs.next()){
+				cont++;
+				if(cont==1)System.out.println("--------------------------------------\nNOTIFICHE AUTO NOLEGGIO CLIENTI\n--------------------------------------");
+				int kmAttuali = rs.getInt("KmAttuali");
+				int kmInizioNoleggio = rs.getInt("KmInizioNoleggio");
+				int maxKmNoleggio = rs.getInt("MaxKmNoleggio");
+				int kmConsumati = kmAttuali - kmInizioNoleggio;
+				float sogliaKm = maxKmNoleggio/10;
+
+				if(kmConsumati!=0 && ((maxKmNoleggio-kmConsumati)<sogliaKm)){
+					System.out.println();
+					System.out.println("|------------------------------------------------------------------------|");
+					System.out.println("ATTENZIONE L'AUTO CON TARGA: "+rs.getString("targa")+" e modello: "+rs.getString("modellO")+ " e marca: "+rs.getString("marca") );
+					System.out.println("ASSOCIATA A: "+rs.getString("Nome") + " "+rs.getString("Cognome"));
+					System.out.println("STA PER SUPERARE LA SOGLIA MASSIMA DI KM DISPONIBILI PER QUESTO NOLEGGIO");
+					System.out.println("|------------------------------------------------------------------------|");
+					System.out.println();
+				}
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	//ALERTS SCADENZA REVISIONE driver
 	public void alertsScadenzaRevisione(Utente u){
 		PreparedStatement ps = null;
