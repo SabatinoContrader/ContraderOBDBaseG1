@@ -213,12 +213,12 @@ public class AutoDAO {
         Connection connection = ConnectionSingleton.getInstance();
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_RESET);
-            preparedStatement.setInt(1, cod_Dispositivo);
-            preparedStatement.execute();
             PreparedStatement preparedStatement1 = connection.prepareStatement(QUERY_DELETEDATI);
             preparedStatement1.setInt(1, cod_Dispositivo);
-            return preparedStatement1.execute();
+            preparedStatement1.execute();
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_RESET);
+            preparedStatement.setInt(1, cod_Dispositivo);
+            return preparedStatement.execute();
         }
         catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
