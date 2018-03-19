@@ -21,7 +21,7 @@ public class AutoDAO {
     private final String QUERY_ALL_AZIENDA = "SELECT * FROM Automobile WHERE proprietario = ? and id_driver != 0";
     private final String QUERY_ALL_WITH = "update Automobile set id_driver=? where cod_dispositivo=?";
     private final String QUERY_AUTODRIVER = "SELECT * FROM Automobile WHERE id_driver = ?";
-    private final String QUERY_INSERT = "INSERT into Automobile (Cod_Dispositivo , Targa, Telaio, Casa_Costruttrice, Modello ,Alimentazione, Tipologia, Cambio, Proprietario, Revisione, Tagliando_Data, Tagliando_Km, id_driver) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final String QUERY_INSERT = "INSERT into Automobile (Cod_Dispositivo , Targa, Telaio, Casa_Costruttrice, Modello ,Alimentazione, Tipologia, Cambio, Proprietario, Revisione, Tagliando_Data, Tagliando_Km, id_driver) values (?,?,?,?,?,?,?,?,?,?,?,?, null)";
     private final String QUERY_UPDATE = "UPDATE Automobile set Targa = ?, Telaio = ?, Casa_Costruttrice = ?, Modello = ? ,Alimentazione = ?, Tipologia = ?, Cambio = ?, Proprietario = ?, Revisione = ?, Tagliando_Data = ?, Tagliando_Km = ? WHERE Cod_Dispositivo = ?";
     private final String QUERY_RESET = "DELETE from Automobile WHERE Cod_Dispositivo = ?";
     private final String QUERY_FIND = "SELECT * from automobile WHERE Cod_Dispositivo = ?;";
@@ -40,7 +40,7 @@ public class AutoDAO {
            while (resultSet.next()) {
                int cod_Dispositivo = resultSet.getInt("Cod_Dispositivo");
                String targa = resultSet.getString("Targa");
-               int telaio = resultSet.getInt("Tel   aio");
+               int telaio = resultSet.getInt("Telaio");
                String casa_Costruttrice = resultSet.getString("Casa_Costruttrice");
                String modello = resultSet.getString("Modello");
                String alimentazione = resultSet.getString("Alimentazione");
@@ -154,11 +154,10 @@ public class AutoDAO {
             preparedStatement.setString( 6, auto.getAlimentazione());
             preparedStatement.setString( 7, auto.getTipologia());
             preparedStatement.setString( 8, auto.getCambio());
-            preparedStatement.setInt(9, auto.getDriver());
-            preparedStatement.setInt( 10, auto.getProprietario());
-            preparedStatement.setString( 11, auto.getRevisione());
-            preparedStatement.setString( 12, auto.getTagliando_Data());
-            preparedStatement.setInt( 13, auto.getTagliando_Km());
+            preparedStatement.setInt( 9, auto.getProprietario());
+            preparedStatement.setString( 10, auto.getRevisione());
+            preparedStatement.setString( 11, auto.getTagliando_Data());
+            preparedStatement.setInt( 12, auto.getTagliando_Km());
             return preparedStatement.execute();
         }
         catch (SQLException e) {

@@ -17,11 +17,11 @@ public class Auto {
     private String revisione;
     private String tagliando_Data;
     private int tagliando_Km;
-    private int driver;
+    private Integer driver;
 
 
 
-    public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, int proprietario, String revisione, String tagliando_Data, int tagliando_Km, int driver) {
+    public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, int proprietario, String revisione, String tagliando_Data, int tagliando_Km, Integer driver) {
         this.cod_Dispositivo = cod_Dispositivo;
         this.targa = targa;
         this.telaio = telaio;
@@ -100,11 +100,11 @@ public class Auto {
         this.cambio = cambio;
     }
 
-    public int getDriver() {
+    public Integer getDriver() {
         return driver;
     }
 
-    public void setDriver(int driver) {
+    public void setDriver(Integer driver) {
         this.driver = driver;
     }
 

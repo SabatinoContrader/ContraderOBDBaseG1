@@ -45,7 +45,6 @@ public class AutoView implements View {
     public void showOptions() {
         switch (mode) {
             case "insert":
-                Scanner scanner = new Scanner(System.in);
                 System.out.println("");
                 System.out.println("-----INSERIMENTO AUTO-----");
                 System.out.println("");
@@ -73,14 +72,12 @@ public class AutoView implements View {
                 String tagliando_Data = getInput();
                 System.out.println("Chilometri all'ultimo tagliando");
                 int tagliando_Km = Integer.parseInt(getInput());
-                int driver = 0;
-                autoService.insertAuto(new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver));
+                autoService.insertAuto(new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, null));
                 break;
 
             case "update":
                 System.out.println("");
                 System.out.println("Inserisci il codice del dispositivo associato all'auto da modificare:");
-                System.out.println("");
                 cod_Dispositivo = Integer.parseInt(getInput());
                 System.out.println("Targa");
                 targa = getInput();
@@ -104,21 +101,18 @@ public class AutoView implements View {
                 tagliando_Data = getInput();
                 System.out.println("Chilometri all'ultimo tagliando");
                 tagliando_Km = Integer.parseInt(getInput());
-                driver = 0;
-                autoService.updateAuto(new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver));
+                autoService.updateAuto(new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, null));
                 break;
             case "reset":
                 System.out.println("");
-                System.out.println("Inserisci il codice del dispositivo da resettare:");
-                System.out.println("");
                 System.out.println("Verrà cancellata l'auto ad esso associata e tutti i dati relativi");
+                System.out.println("Inserisci il codice del dispositivo da resettare:");
                 cod_Dispositivo = Integer.parseInt(getInput());
                 autoService.resetAuto(cod_Dispositivo);
                 break;
             case "find":
                 System.out.println("");
                 System.out.println("Inserisci il codice dell'auto da ricercare:");
-                System.out.println("");
                 cod_Dispositivo = Integer.parseInt(getInput());
                 Auto auto = autoService.findAuto(cod_Dispositivo);
                 listaDatiAuto = datiService.listaAllDatiDispositivo(cod_Dispositivo);
@@ -132,11 +126,14 @@ public class AutoView implements View {
                 System.out.println("Ultimo tagliando: " + auto.getTagliando_Data() + " a " + auto.getTagliando_Km() + " km");
                 System.out.println("");
                 System.out.println("Dati del dispositivo:");
-                System.out.println("    Data       Km        Liv. olio   Cod. Errore");
-                for(int i = 0; i < listaDatiAuto.size(); i++)
-                {
-                    Dati_dispositivo dato = listaDatiAuto.get(i);
-                    System.out.println("  " + dato.getData() + "    " + dato.getKm() + "         " + dato.getLivello_olio() + "           "  + dato.getCodice_Errore());
+                if(listaDatiAuto.size() == 0) System.out.println("Nessun dato presente per quest'auto");
+                else {
+                    System.out.println("    Data       Km        Liv. olio   Cod. Errore");
+                    for(int i = 0; i < listaDatiAuto.size(); i++)
+                    {
+                        Dati_dispositivo dato = listaDatiAuto.get(i);
+                        System.out.println("  " + dato.getData() + "    " + dato.getKm() + "         " + dato.getLivello_olio() + "           "  + dato.getCodice_Errore());
+                    }
                 }
                 break;
             case "listauto":
