@@ -47,6 +47,11 @@ public class DriverView implements View{
         driverService.insertDriver(new Driver(nome, cognome, cf, residenza, id));
         String access = "D_0"+id;
         loginService.InsertLogin(new Login(access, access, 4, id));
+        System.out.println("");
+        System.out.println("Driver registrato con successo");
+        System.out.println("Username: " + access);
+        System.out.println("Password: " + access);
+
     }
 
     @Override
