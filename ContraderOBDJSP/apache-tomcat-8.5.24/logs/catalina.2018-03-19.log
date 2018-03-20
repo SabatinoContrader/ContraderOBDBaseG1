@@ -1,0 +1,391 @@
+19-Mar-2018 15:47:39.730 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.24
+19-Mar-2018 15:47:39.730 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 27 2017 13:05:30 UTC
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.24.0
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk1.8.0_144\jre
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_144-b01
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\conf\logging.properties
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\temp
+19-Mar-2018 15:47:39.746 INFORMAZIONI [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_144\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files (x86)\nodejs\;C:\apache-maven-3.5.0\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Users\Contrar18002\AppData\Local\Microsoft\WindowsApps;C:\Users\Contrar18002\AppData\Roaming\npm;;.]
+19-Mar-2018 15:47:40.355 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+19-Mar-2018 15:47:40.543 INFORMAZIONI [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+19-Mar-2018 15:47:40.574 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+19-Mar-2018 15:47:40.574 INFORMAZIONI [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+19-Mar-2018 15:47:40.574 INFORMAZIONI [main] org.apache.catalina.startup.Catalina.load Initialization processed in 1836 ms
+19-Mar-2018 15:47:40.793 INFORMAZIONI [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+19-Mar-2018 15:47:40.793 INFORMAZIONI [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.24
+19-Mar-2018 15:47:40.855 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\bookstore-1.0-SNAPSHOT.war]
+19-Mar-2018 15:47:42.340 INFORMAZIONI [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 15:47:42.465 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\bookstore-1.0-SNAPSHOT.war] has finished in [1,610] ms
+19-Mar-2018 15:47:42.512 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 15:47:44.121 INFORMAZIONI [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 15:47:44.137 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,625] ms
+19-Mar-2018 15:47:44.137 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\docs]
+19-Mar-2018 15:47:44.199 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\docs] has finished in [62] ms
+19-Mar-2018 15:47:44.199 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\examples]
+19-Mar-2018 15:47:46.001 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\examples] has finished in [1,802] ms
+19-Mar-2018 15:47:46.001 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\host-manager]
+19-Mar-2018 15:47:46.095 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\host-manager] has finished in [94] ms
+19-Mar-2018 15:47:46.095 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\manager]
+19-Mar-2018 15:47:46.188 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\manager] has finished in [93] ms
+19-Mar-2018 15:47:46.188 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\ROOT]
+19-Mar-2018 15:47:46.235 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\ROOT] has finished in [47] ms
+19-Mar-2018 15:47:46.251 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+19-Mar-2018 15:47:46.251 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+19-Mar-2018 15:47:46.266 INFORMAZIONI [main] org.apache.catalina.startup.Catalina.start Server startup in 5678 ms
+19-Mar-2018 15:48:06.250 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 15:48:06.485 INFORMAZIONI [localhost-startStop-2] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 15:48:08.146 INFORMAZIONI [localhost-startStop-2] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 15:48:08.169 INFORMAZIONI [localhost-startStop-2] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,684] ms
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.24
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 27 2017 13:05:30 UTC
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.24.0
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk1.8.0_144\jre
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_144-b01
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\conf\logging.properties
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\temp
+19-Mar-2018 16:28:10.476 INFORMAZIONI [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_144\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files (x86)\nodejs\;C:\apache-maven-3.5.0\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Users\Contrar18002\AppData\Local\Microsoft\WindowsApps;C:\Users\Contrar18002\AppData\Roaming\npm;;.]
+19-Mar-2018 16:28:10.632 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+19-Mar-2018 16:28:10.820 INFORMAZIONI [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+19-Mar-2018 16:28:10.820 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+19-Mar-2018 16:28:10.835 INFORMAZIONI [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+19-Mar-2018 16:28:10.835 INFORMAZIONI [main] org.apache.catalina.startup.Catalina.load Initialization processed in 1042 ms
+19-Mar-2018 16:28:10.867 INFORMAZIONI [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+19-Mar-2018 16:28:10.867 INFORMAZIONI [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.24
+19-Mar-2018 16:28:10.898 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\bookstore-1.0-SNAPSHOT.war]
+19-Mar-2018 16:28:11.554 INFORMAZIONI [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 16:28:11.632 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\bookstore-1.0-SNAPSHOT.war] has finished in [734] ms
+19-Mar-2018 16:28:11.632 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 16:28:11.632 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.ExpandWar.expand An expanded directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader] was found with a last modified time that did not match the associated WAR. It will be deleted.
+19-Mar-2018 16:28:13.070 INFORMAZIONI [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 16:28:13.085 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,453] ms
+19-Mar-2018 16:28:13.085 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\docs]
+19-Mar-2018 16:28:13.117 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\docs] has finished in [32] ms
+19-Mar-2018 16:28:13.117 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\examples]
+19-Mar-2018 16:28:13.492 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\examples] has finished in [375] ms
+19-Mar-2018 16:28:13.492 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\host-manager]
+19-Mar-2018 16:28:13.539 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\host-manager] has finished in [47] ms
+19-Mar-2018 16:28:13.539 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\manager]
+19-Mar-2018 16:28:13.570 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\manager] has finished in [31] ms
+19-Mar-2018 16:28:13.570 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\ROOT]
+19-Mar-2018 16:28:13.601 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\ROOT] has finished in [31] ms
+19-Mar-2018 16:28:13.601 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+19-Mar-2018 16:28:13.601 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+19-Mar-2018 16:28:13.617 INFORMAZIONI [main] org.apache.catalina.startup.Catalina.start Server startup in 2779 ms
+19-Mar-2018 16:28:33.608 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 16:28:33.749 INFORMAZIONI [localhost-startStop-2] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 16:28:35.152 INFORMAZIONI [localhost-startStop-2] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 16:28:35.168 INFORMAZIONI [localhost-startStop-2] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,419] ms
+19-Mar-2018 18:02:35.137 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.24
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 27 2017 13:05:30 UTC
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.24.0
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk1.8.0_144\jre
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_144-b01
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\conf\logging.properties
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\temp
+19-Mar-2018 18:02:35.169 INFORMAZIONI [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_144\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files (x86)\nodejs\;C:\apache-maven-3.5.0\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Users\Contrar18002\AppData\Local\Microsoft\WindowsApps;C:\Users\Contrar18002\AppData\Roaming\npm;;.]
+19-Mar-2018 18:02:35.856 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+19-Mar-2018 18:02:35.872 GRAVE [main] org.apache.catalina.core.StandardService.initInternal Failed to initialize connector [Connector[HTTP/1.1-8080]]
+ org.apache.catalina.LifecycleException: Failed to initialize component [Connector[HTTP/1.1-8080]]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:112)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:549)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:107)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:875)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:107)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:621)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:644)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:309)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:492)
+Caused by: org.apache.catalina.LifecycleException: Protocol handler initialization failed
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:995)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:107)
+	... 12 more
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:210)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1082)
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.init(AbstractJsseEndpoint.java:267)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:581)
+	at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:66)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:993)
+	... 13 more
+
+19-Mar-2018 18:02:35.872 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+19-Mar-2018 18:02:35.887 GRAVE [main] org.apache.catalina.core.StandardService.initInternal Failed to initialize connector [Connector[AJP/1.3-8009]]
+ org.apache.catalina.LifecycleException: Failed to initialize component [Connector[AJP/1.3-8009]]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:112)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:549)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:107)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:875)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:107)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:621)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:644)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:309)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:492)
+Caused by: org.apache.catalina.LifecycleException: Protocol handler initialization failed
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:995)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:107)
+	... 12 more
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:210)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1082)
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.init(AbstractJsseEndpoint.java:267)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:581)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:993)
+	... 13 more
+
+19-Mar-2018 18:02:35.887 INFORMAZIONI [main] org.apache.catalina.startup.Catalina.load Initialization processed in 1266 ms
+19-Mar-2018 18:02:35.950 INFORMAZIONI [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+19-Mar-2018 18:02:35.950 INFORMAZIONI [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.24
+19-Mar-2018 18:02:35.997 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\bookstore-1.0-SNAPSHOT.war]
+19-Mar-2018 18:02:36.934 INFORMAZIONI [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:02:37.106 AVVERTENZA [localhost-startStop-1] org.apache.catalina.util.SessionIdGeneratorBase.createSecureRandom Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [109] milliseconds.
+19-Mar-2018 18:02:37.122 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\bookstore-1.0-SNAPSHOT.war] has finished in [1,125] ms
+19-Mar-2018 18:02:37.137 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:02:38.298 INFORMAZIONI [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:02:38.314 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,177] ms
+19-Mar-2018 18:02:38.314 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\docs]
+19-Mar-2018 18:02:38.361 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\docs] has finished in [47] ms
+19-Mar-2018 18:02:38.361 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\examples]
+19-Mar-2018 18:02:39.423 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\examples] has finished in [1,062] ms
+19-Mar-2018 18:02:39.423 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\host-manager]
+19-Mar-2018 18:02:39.517 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\host-manager] has finished in [94] ms
+19-Mar-2018 18:02:39.517 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\manager]
+19-Mar-2018 18:02:39.595 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\manager] has finished in [78] ms
+19-Mar-2018 18:02:39.595 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\ROOT]
+19-Mar-2018 18:02:39.642 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\ROOT] has finished in [47] ms
+19-Mar-2018 18:02:39.642 INFORMAZIONI [main] org.apache.catalina.startup.Catalina.start Server startup in 3759 ms
+19-Mar-2018 18:02:59.647 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 18:02:59.772 INFORMAZIONI [localhost-startStop-2] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:03:01.350 INFORMAZIONI [localhost-startStop-2] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:03:01.382 INFORMAZIONI [localhost-startStop-2] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,610] ms
+19-Mar-2018 18:04:11.455 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 18:04:11.658 INFORMAZIONI [localhost-startStop-3] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:04:14.137 INFORMAZIONI [localhost-startStop-3] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:04:14.199 INFORMAZIONI [localhost-startStop-3] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [2,541] ms
+19-Mar-2018 18:05:13.466 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.24
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 27 2017 13:05:30 UTC
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.24.0
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk1.8.0_144\jre
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_144-b01
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\conf\logging.properties
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\temp
+19-Mar-2018 18:05:13.482 INFORMAZIONI [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_144\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files (x86)\nodejs\;C:\apache-maven-3.5.0\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Users\Contrar18002\AppData\Local\Microsoft\WindowsApps;C:\Users\Contrar18002\AppData\Roaming\npm;;.]
+19-Mar-2018 18:05:13.638 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+19-Mar-2018 18:05:13.794 INFORMAZIONI [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+19-Mar-2018 18:05:13.794 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+19-Mar-2018 18:05:13.794 INFORMAZIONI [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+19-Mar-2018 18:05:13.794 INFORMAZIONI [main] org.apache.catalina.startup.Catalina.load Initialization processed in 899 ms
+19-Mar-2018 18:05:13.841 INFORMAZIONI [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+19-Mar-2018 18:05:13.841 INFORMAZIONI [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.24
+19-Mar-2018 18:05:13.872 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\bookstore-1.0-SNAPSHOT.war]
+19-Mar-2018 18:05:14.654 INFORMAZIONI [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:05:14.732 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\bookstore-1.0-SNAPSHOT.war] has finished in [860] ms
+19-Mar-2018 18:05:14.732 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:05:15.888 INFORMAZIONI [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:05:15.922 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,190] ms
+19-Mar-2018 18:05:15.924 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\docs]
+19-Mar-2018 18:05:15.942 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\docs] has finished in [18] ms
+19-Mar-2018 18:05:15.942 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\examples]
+19-Mar-2018 18:05:16.271 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\examples] has finished in [329] ms
+19-Mar-2018 18:05:16.271 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\host-manager]
+19-Mar-2018 18:05:16.317 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\host-manager] has finished in [46] ms
+19-Mar-2018 18:05:16.317 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\manager]
+19-Mar-2018 18:05:16.364 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\manager] has finished in [47] ms
+19-Mar-2018 18:05:16.364 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\ROOT]
+19-Mar-2018 18:05:16.396 INFORMAZIONI [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\ROOT] has finished in [32] ms
+19-Mar-2018 18:05:16.396 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+19-Mar-2018 18:05:16.411 INFORMAZIONI [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+19-Mar-2018 18:05:16.411 INFORMAZIONI [main] org.apache.catalina.startup.Catalina.start Server startup in 2609 ms
+19-Mar-2018 18:05:36.402 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 18:05:36.512 INFORMAZIONI [localhost-startStop-2] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:05:40.426 INFORMAZIONI [localhost-startStop-2] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:05:40.456 INFORMAZIONI [localhost-startStop-2] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [3,944] ms
+19-Mar-2018 18:11:50.706 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 18:11:50.909 INFORMAZIONI [localhost-startStop-3] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:11:52.992 INFORMAZIONI [localhost-startStop-3] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:11:53.013 INFORMAZIONI [localhost-startStop-3] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [2,104] ms
+19-Mar-2018 18:21:23.313 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 18:21:23.538 INFORMAZIONI [localhost-startStop-4] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:21:24.828 INFORMAZIONI [localhost-startStop-4] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:21:24.845 INFORMAZIONI [localhost-startStop-4] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,307] ms
+19-Mar-2018 18:21:41.068 INFORMAZIONI [http-nio-8080-exec-34] org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName Loaded JDBC driver: com.mysql.jdbc.Driver
+19-Mar-2018 18:23:44.933 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 18:23:45.011 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [contrader] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+19-Mar-2018 18:23:45.011 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [contrader] appears to have started a thread named [Abandoned connection cleanup thread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+ com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:64)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+19-Mar-2018 18:23:45.136 INFORMAZIONI [localhost-startStop-5] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:23:46.354 INFORMAZIONI [Abandoned connection cleanup thread] org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+ java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1311)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResource(WebappClassLoaderBase.java:986)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.checkContextClassLoaders(AbandonedConnectionCleanupThread.java:90)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:63)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+19-Mar-2018 18:23:46.417 INFORMAZIONI [localhost-startStop-5] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:23:46.433 INFORMAZIONI [localhost-startStop-5] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,297] ms
+19-Mar-2018 18:24:07.176 INFORMAZIONI [http-nio-8080-exec-30] org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName Loaded JDBC driver: com.mysql.jdbc.Driver
+19-Mar-2018 18:26:16.496 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 18:26:16.511 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [contrader] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+19-Mar-2018 18:26:16.511 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [contrader] appears to have started a thread named [Abandoned connection cleanup thread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+ com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:64)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+19-Mar-2018 18:26:16.636 INFORMAZIONI [localhost-startStop-6] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:26:17.489 INFORMAZIONI [Abandoned connection cleanup thread] org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+ java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1311)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResource(WebappClassLoaderBase.java:986)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.checkContextClassLoaders(AbandonedConnectionCleanupThread.java:90)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:63)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+19-Mar-2018 18:26:17.997 INFORMAZIONI [localhost-startStop-6] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:26:18.025 INFORMAZIONI [localhost-startStop-6] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,388] ms
+19-Mar-2018 18:26:28.886 INFORMAZIONI [http-nio-8080-exec-51] org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName Loaded JDBC driver: com.mysql.jdbc.Driver
+19-Mar-2018 18:32:28.206 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 18:32:28.211 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [contrader] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+19-Mar-2018 18:32:28.211 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [contrader] appears to have started a thread named [Abandoned connection cleanup thread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+ com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:64)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+19-Mar-2018 18:32:28.336 INFORMAZIONI [localhost-startStop-7] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:32:29.730 INFORMAZIONI [localhost-startStop-7] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:32:29.793 INFORMAZIONI [localhost-startStop-7] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,457] ms
+19-Mar-2018 18:32:29.840 INFORMAZIONI [Abandoned connection cleanup thread] org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+ java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1311)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResource(WebappClassLoaderBase.java:986)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.checkContextClassLoaders(AbandonedConnectionCleanupThread.java:90)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:63)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+19-Mar-2018 18:32:41.548 INFORMAZIONI [http-nio-8080-exec-61] org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName Loaded JDBC driver: com.mysql.jdbc.Driver
+19-Mar-2018 18:38:09.985 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 18:38:10.001 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [contrader] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+19-Mar-2018 18:38:10.001 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [contrader] appears to have started a thread named [Abandoned connection cleanup thread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+ com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:64)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+19-Mar-2018 18:38:10.126 INFORMAZIONI [localhost-startStop-8] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 18:38:11.604 INFORMAZIONI [localhost-startStop-8] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 18:38:11.624 INFORMAZIONI [localhost-startStop-8] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,498] ms
+19-Mar-2018 18:38:12.389 INFORMAZIONI [Abandoned connection cleanup thread] org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+ java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1311)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResource(WebappClassLoaderBase.java:986)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.checkContextClassLoaders(AbandonedConnectionCleanupThread.java:90)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:63)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+19-Mar-2018 18:38:20.858 INFORMAZIONI [http-nio-8080-exec-70] org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName Loaded JDBC driver: com.mysql.jdbc.Driver
+19-Mar-2018 19:03:02.490 INFORMAZIONI [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/contrader]
+19-Mar-2018 19:03:02.506 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [contrader] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+19-Mar-2018 19:03:02.506 AVVERTENZA [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [contrader] appears to have started a thread named [Abandoned connection cleanup thread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+ com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:64)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)
+19-Mar-2018 19:03:02.631 INFORMAZIONI [localhost-startStop-9] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war]
+19-Mar-2018 19:03:04.016 INFORMAZIONI [localhost-startStop-9] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+19-Mar-2018 19:03:04.031 INFORMAZIONI [localhost-startStop-9] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Contrar18002\Desktop\ContraderNuovoCorso\SecondProject\ContraderFrameworkJSP\apache-tomcat-8.5.24\webapps\contrader.war] has finished in [1,400] ms
+19-Mar-2018 19:03:04.121 INFORMAZIONI [Abandoned connection cleanup thread] org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+ java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load []. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1311)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResource(WebappClassLoaderBase.java:986)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.checkContextClassLoaders(AbandonedConnectionCleanupThread.java:90)
+	at com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:63)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+19-Mar-2018 19:03:16.564 INFORMAZIONI [http-nio-8080-exec-70] org.springframework.jdbc.datasource.DriverManagerDataSource.setDriverClassName Loaded JDBC driver: com.mysql.jdbc.Driver
