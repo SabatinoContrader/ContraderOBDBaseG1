@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class HomeView implements View {
 
     private int choice;
-    private String role;
     private int id;
-    String mode;
+    private String role;
+    private String mode;
 
     public void showResults(Request request) {
         if (request!=null) {
