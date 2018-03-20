@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class LoginServlet extends HttpServlet
+public class LogoutServlet extends HttpServlet
 {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -22,13 +22,13 @@ public class LoginServlet extends HttpServlet
 
         switch (scelta)
         {
-            case "Login":
+            case "Logout":
             {
                 HttpSession session = request.getSession(true);
-                session.setAttribute("servlet","Home");
+                session.setAttribute("view","index.jsp");
                 session.setAttribute("role",null);
                 session.setAttribute("id",null);
-                MainDispatcherServlet.getInstance(request).callAction(request,response);
+                MainDispatcherServlet.getInstance(request).callView(request,response);
             }
             break;
         }

@@ -11,6 +11,42 @@
     <title>Title</title>
 </head>
 <body>
-Benvetuto in Contrader
+<%  String role = (String) session.getAttribute("role");
+    String id = (String) session.getAttribute("id");  %>
+
+<div style="width:400px; position:relative; top:100px; left:50%; margin-left:-200px;">
+    <form action="MainDispatcherServlet" method="post">
+        <fieldset>
+            <legend>Benvenuto in Contrader, <% out.print(role); %></legend>
+            <% if( role.equals("owner")) { %>
+            <table>
+                <tr>
+                    <td>Menu owner</td>
+                </tr>
+            </table>
+            <% } else if( role.equals("officina")) { %>
+            <table>
+                <tr>
+                    <td>Menu officina</td>
+                </tr>
+            </table>
+            <% } else if( role.equals("azienda")) { %>
+            <table>
+                <tr>
+                    <td>Menu azienda</td>
+                </tr>
+            </table>
+            <% } else if( role.equals("driver")) { %>
+            <table>
+                <tr>
+                    <td>Menu driver</td>
+                </tr>
+            </table>
+            <% } %>
+        </fieldset>
+    </form>
+    <form action="MainDispatcherServlet" method="post">
+        <input type="submit" value="Logout" name="bott">
+    </form>
 </body>
 </html>

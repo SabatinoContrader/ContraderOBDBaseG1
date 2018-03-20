@@ -12,7 +12,7 @@
     session.setAttribute("method", "callAction");
     session.setAttribute("servlet",null);
 %>
-<div style="width:250px;position:relative;top:300px;left:730px;">
+<div style="width:250px;position:relative;top:100px;left:50%; margin-left:-125px;">
     <form action="MainDispatcherServlet" method="post">
         <fieldset>
             <legend align="center">Welcome project ContraderOBD</legend>

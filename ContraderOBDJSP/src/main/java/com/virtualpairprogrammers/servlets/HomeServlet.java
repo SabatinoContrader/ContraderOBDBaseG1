@@ -17,11 +17,11 @@ public class HomeServlet extends HttpServlet
 
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        String firstName = (String) session.getAttribute("firstname");
+        String id = (String) session.getAttribute("id");
         String role = (String) session.getAttribute("role");
         loginService =LoginService.getService();
 
-        if ((request != null)&&(role== null)&&(firstName==null))
+        if ((request != null)&&(role== null)&&(id==null))
         {
 
             String userName = request.getParameter("user");
@@ -32,8 +32,8 @@ public class HomeServlet extends HttpServlet
             if (result != null)
             {
                 String[] part = result.split(":");
-                session.setAttribute("firstname", part[0]);
-                session.setAttribute("role", part[1]);
+                session.setAttribute("role", part[0]);
+                session.setAttribute("id", part[1]);
                 session.setAttribute("view", "home.jsp");
                 MainDispatcherServlet.getInstance(request).callView(request, response);
             }
