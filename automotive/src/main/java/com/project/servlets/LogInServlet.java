@@ -46,14 +46,36 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) {
 					} catch (IOException e) {
 						System.out.println("Caricameto pagina Index FALLITA!");
 					}
-	            } else
-					try {
-						session.setAttribute("Utente", u);
-						response.sendRedirect("officina_home.jsp");
-					} catch (IOException e) {
-						System.out.println("Caricamento pagina Home FALLITA!");
-					}
-    
+	            } else {
+	            	switch(u.getRuolo()) {
+	            	
+	            	case 1 :	//Officina
+	            		try {
+							session.setAttribute("Utente", u);
+							response.sendRedirect("officina_home.jsp");
+						} catch (IOException e) {
+							System.out.println("Caricamento pagina Home FALLITA!");
+						}
+	            		break;
+	            	case 0 : 	//Cliente
+	            		try {
+							session.setAttribute("Utente", u);
+							response.sendRedirect("home.jsp");
+						} catch (IOException e) {
+							System.out.println("Caricamento pagina Home FALLITA!");
+						}
+	            		break;
+	            	case 2 : 	//Admin
+	            		try {
+							session.setAttribute("Utente", u);
+							response.sendRedirect("home.jsp");
+						} catch (IOException e) {
+							System.out.println("Caricamento pagina Home FALLITA!");
+						}
+	            		break;
+	            	
+	            }
+	           }
 	        }
     }
 }
