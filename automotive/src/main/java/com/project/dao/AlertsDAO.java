@@ -5,25 +5,37 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import com.project.automotive.dto.GuastoDTO;
 import com.project.model.Auto;
 import com.project.model.Utente;
+
+import utility.Utility;
 
 
 public class AlertsDAO {
 
 	Connection conn = ConnessioneDB.getInstance();
 
+	private final Logger getLog = Logger.getLogger(AlertsDAO.class);
 
-	public void getUserAlertsGuasti(Utente u){
+	private final int DEADLINE_SCADENZA_REVISIONE = 15;
+	private final int DEADLINE_SCADENZA_TAGLIANDO = 15;
+	private final int DEADLINE_SCADENZA_ASSICURAZIONE = 15;
+	private final int DEADLINE_SCADENZA_BOLLO = 15;
+
+
+	public ArrayList<GuastoDTO> getUserAlertsGuasti(Utente u){
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String QUERY = null;
 
-
+		GuastoDTO guastoDto = null;
+		ArrayList<GuastoDTO> listGuastoDto = null;
 
 		//lista auto driver
 		if(u.getRuolo() == 0){
@@ -37,29 +49,23 @@ public class AlertsDAO {
 				ps.setInt(1, u.getID());
 				rs = ps.executeQuery();
 
-				if(rs.isBeforeFirst()){
-					System.out.println("ATTENZIONE HAI DELLE AUTO CON GUASTI:");
+				guastoDto = new GuastoDTO();
+				listGuastoDto = new ArrayList<GuastoDTO>();
 
-					while (rs.next()) {
-
-
-						System.out.println("//////////////////////");
-						System.out.println("Data: "+rs.getDate("Data"));
-						System.out.println("Codice Guasto: "+rs.getString("Codice"));
-						System.out.println("Marca auto: "+rs.getString("Marca"));
-						System.out.println("Modello auto: "+rs.getString("Modello"));
-						System.out.println("Numero targa: "+rs.getString("Targa"));
-						System.out.println("Numero Telaio: "+rs.getString("NumeroTelaio"));
-						System.out.println("//////////////////////");
-						System.out.println();
-					}
+				while (rs.next()) {
+					guastoDto.setData(rs.getDate("Data"));
+					guastoDto.setCodice(rs.getString("Codice"));
+					guastoDto.setMarcaAuto(rs.getString("Marca"));
+					guastoDto.setModelloAuto(rs.getString("Modello"));
+					guastoDto.setNumeroTarga(rs.getString("Targa"));
+					guastoDto.setNumeroTelaio(rs.getString("NumeroTelaio"));
+					listGuastoDto.add(guastoDto);
 				}
+
 			} catch (Exception e) {
+				getLog.debug(e.getMessage());
 				throw new RuntimeException(e);
 			}
-			/*finally{
-				Utility.closeConnection(rs,ps,conn,true);
-			}*/
 		} 
 		if(u.getRuolo()==1){
 			// ALERTS DELLE AUTO CON GUASTI RELATIVI ALL AZIENDA.
@@ -74,33 +80,29 @@ public class AlertsDAO {
 				ps.setInt(1, u.getID());
 				rs = ps.executeQuery();
 
-				if(rs.isBeforeFirst()){
-					System.out.println("ELENCO AUTO CON GUASTI:");
+				guastoDto = new GuastoDTO();
+				listGuastoDto = new ArrayList<GuastoDTO>();
 
-					while (rs.next()) {
-
-						System.out.println("//////////////////////");
-						System.out.println("Data: "+rs.getDate("Data"));
-						System.out.println("Id guasto: " +rs.getInt("ID"));
-						System.out.println("Codice Guasto: "+rs.getString("Codice"));
-						System.out.println("Descrizione guasto: "+rs.getString("Descrizione"));
-						System.out.println("Id Telemtria: "+rs.getInt("IdTelemetria"));
-						System.out.println("Id dispositivo: "+rs.getInt("IdDispositivo"));
-						System.out.println("Marca auto: "+rs.getString("Marca"));
-						System.out.println("Modello auto: "+rs.getString("Modello"));
-						System.out.println("Numero targa: "+rs.getString("Targa"));
-						System.out.println("Numero Telaio: "+rs.getString("NumeroTelaio"));
-						System.out.println("//////////////////////");
-						System.out.println();
-					}
+				while (rs.next()) {
+					guastoDto.setData(rs.getDate("Data"));
+					guastoDto.setId(rs.getInt("ID"));
+					guastoDto.setCodice(rs.getString("Codice"));
+					guastoDto.setDescrizione(rs.getString("Descrizione"));
+					guastoDto.setIdTelemetria(rs.getInt("IdTelemetria"));
+					guastoDto.setIdDispositivo(rs.getInt("IdDispositivo"));
+					guastoDto.setMarcaAuto(rs.getString("Marca"));
+					guastoDto.setModelloAuto(rs.getString("Modello"));
+					guastoDto.setNumeroTarga(rs.getString("Targa"));
+					guastoDto.setNumeroTelaio(rs.getString("NumeroTelaio"));
+					listGuastoDto.add(guastoDto);
 				}
+
 			} catch (Exception e) {
+				getLog.debug(e.getMessage());
 				throw new RuntimeException(e);
 			}
-			/*finally{
-					Utility.closeConnection(rs,ps,conn,true);
-				}*/
 		}
+		return listGuastoDto;
 	}
 
 	public void alertsKm(Utente u){
@@ -166,7 +168,7 @@ public class AlertsDAO {
 			ps.setInt(1, u.getIdAzienda());
 			ps.setInt(2, u.getID());
 			rs = ps.executeQuery();
-int cont=0;
+			int cont=0;
 			while(rs.next()){
 				cont++;
 				if(cont==1)System.out.println("--------------------------------------\nNOTIFICHE AUTO NOLEGGIO CLIENTI\n--------------------------------------");
@@ -285,6 +287,40 @@ int cont=0;
 			e.printStackTrace();
 		}
 	}
+	public ArrayList<Auto> autoConRevisioneInScadenza(List<Auto> listaIn){
+		ArrayList<Auto> listaAutoInScadenzaRevisione = new ArrayList<Auto>();
+		for(Auto a : listaAutoInScadenzaRevisione){
+			if(Utility.getGiorniScadenzaGenerica(a.getScadenzaRevisione())< DEADLINE_SCADENZA_REVISIONE){
+				listaAutoInScadenzaRevisione.add(a);
+			}
+		}return listaAutoInScadenzaRevisione;
+	}
 
+	public ArrayList<Auto> autoConTagliandoInScadenza(List<Auto> listaIn){	
+		ArrayList<Auto> listaAutoInScadenzaRevisione = new ArrayList<Auto>();
+		for(Auto a : listaAutoInScadenzaRevisione){
+			if(Utility.getGiorniScadenzaGenerica(a.getScadenzaRevisione())< DEADLINE_SCADENZA_TAGLIANDO){
+				listaAutoInScadenzaRevisione.add(a);
+			}
+		}return listaAutoInScadenzaRevisione;
+	}
+
+	public ArrayList<Auto> autoConAssicurazioneInScadenza(List<Auto> listaIn){
+		ArrayList<Auto> listaAutoInScadenzaRevisione = new ArrayList<Auto>();
+		for(Auto a : listaAutoInScadenzaRevisione){
+			if(Utility.getGiorniScadenzaGenerica(a.getScadenzaRevisione())< DEADLINE_SCADENZA_ASSICURAZIONE){
+				listaAutoInScadenzaRevisione.add(a);
+			}
+		}return listaAutoInScadenzaRevisione;
+	}
+
+	public ArrayList<Auto> autoConBolloInScadenza(List<Auto> listaIn){
+		ArrayList<Auto> listaAutoInScadenzaRevisione = new ArrayList<Auto>();
+		for(Auto a : listaAutoInScadenzaRevisione){
+			if(Utility.getGiorniScadenzaGenerica(a.getScadenzaRevisione())< DEADLINE_SCADENZA_BOLLO){
+				listaAutoInScadenzaRevisione.add(a);
+			}
+		}return listaAutoInScadenzaRevisione;
+	}
 
 }
