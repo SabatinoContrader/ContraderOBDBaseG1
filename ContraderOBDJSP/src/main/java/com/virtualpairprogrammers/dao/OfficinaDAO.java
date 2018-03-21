@@ -76,13 +76,11 @@ public class OfficinaDAO {
                 Officina officina = new Officina( nome, indirizzo, citta);
                 lista.add(officina);
             }
-            return lista;
-
         }
         catch (SQLException e) {
             e.printStackTrace();
             GestoreEccezioni.getInstance().gestisciEccezione(e);
-            return null;
         }
+        return lista;
     }
 }

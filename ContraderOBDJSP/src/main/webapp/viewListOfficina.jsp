@@ -45,6 +45,9 @@
         </fieldset>
     </form>
     <form action="MainDispatcherServlet" method="post">
+            <input type="submit" value="Menu principale" name="bott">
+        </form>
+    <form action="MainDispatcherServlet" method="post">
         <input type="submit" value="Logout" name="bott">
     </form>
 </body>

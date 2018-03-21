@@ -51,63 +51,15 @@ public class MainDispatcherServlet extends HttpServlet
 
         if (bott.equals("Logout"))
             session.setAttribute("servlet", "Logout");
-        else
-            if(bott.equals("Registrati"))
-            {
-                session.setAttribute("servlet", "User");
-                session.setAttribute("choice",4);
-            }
-            else
-                if((bott.equals("Login"))&&(session.getAttribute("servlet")==null))
+
+        else if((bott.equals("Login"))&&(session.getAttribute("servlet")==null))
                 {
                     session.setAttribute("servlet", "Login");
                 }
-                else
-                    {
-                        Integer sel;
-                        if(!session.getAttribute("servlet").equals("Home"))
-                            sel = Integer.parseInt(request.getParameter("sel"));
-                        else
-                            sel=0;
-                        switch (sel)
-                        {
-                            case 0: break;
-                            /*
-                            case 1:
-                                session.setAttribute("servlet", "Gomma");
-                                session.setAttribute("choice",1);
-                                break;
-
-                            case 2:
-                                session.setAttribute("servlet", "Vehicle");
-                                break;
-
-                            case 3 :
-                                session.setAttribute("servlet", "Gomma");
-                                session.setAttribute("choice",2);
-                                break;
-
-                            case 6:
-                                String type = (String) request.getParameter("type");
-                                session.setAttribute("type", type);
-                                session.setAttribute("choice",1);
-                                session.setAttribute("servlet", "Gomma");
-                                break;
-
-                            case 7:
-                                type = (String) request.getParameter("type");
-                                session.setAttribute("type", type);
-                                session.setAttribute("choice",2);
-                                session.setAttribute("servlet", "Gomma");
-                                break;
-
-                            case 8:
-                                type = (String) request.getParameter("type");
-                                session.setAttribute("type", type);
-                                session.setAttribute("servlet", "Vehicle");
-                                break;*/
-                        }
-                    }
+        else if (bott.equals("Menu principale"))
+                {
+                    session.setAttribute("servlet", "Home");
+                }
         HttpServlet oggettoServlet = (HttpServlet) ReflectionUtils.instantiateClass("com.virtualpairprogrammers.servlets." + session.getAttribute("servlet") + "Servlet");
 
         try
