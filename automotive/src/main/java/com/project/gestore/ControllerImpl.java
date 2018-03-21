@@ -331,10 +331,10 @@ public class ControllerImpl implements IController {
 	}
 
 	@Override
-	public boolean signUpUser(String nome, String cognome, String email, String password, String telefono, int idAzienda) {
+	public boolean signUpUser(String nome, String cognome, String email, String password, String telefono, int idAzienda, int idAziendaPrivata) {
 		// TODO Auto-generated method stub
 
-		return GestioneUtenteDAO.signUp(nome, cognome, email, password, telefono, idAzienda);
+		return GestioneUtenteDAO.signUp(nome, cognome, email, password, telefono, idAzienda, idAziendaPrivata);
 	}
 
 	public static void makeUpdateAuto(int idAuto, List<Auto> auto) {

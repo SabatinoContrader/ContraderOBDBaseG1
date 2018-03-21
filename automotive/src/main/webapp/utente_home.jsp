@@ -50,6 +50,10 @@ License: You must have a valid license purchased only from themeforest(the above
 	
 	
 	<%@ page import = "com.project.model.*" %>
+	<%@ page import = "java.util.ArrayList" %>
+	<%@ page import = "com.project.dao.*" %>
+	<%@ page import = "com.project.automotive.dto.*" %>
+	
 
 
 <%
@@ -57,6 +61,10 @@ License: You must have a valid license purchased only from themeforest(the above
 Utente u = (Utente)session.getAttribute("Utente");
 
 String name = u.getNome();
+
+AlertsDAO alerts = new AlertsDAO();
+
+ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
  
 %>
 	
@@ -116,10 +124,10 @@ String name = u.getNome();
 															<div class="m-card-user m-card-user--skin-dark">
 																<div class="m-card-user__details">
 																	<span class="m-card-user__name m--font-weight-500">
-																		Mark Andre
+																		<%=u.getNome()+" "+u.getCognome() %>
 																	</span>
 																	<a href="" class="m-card-user__email m--font-weight-300 m-link">
-																		mark.andre@gmail.com
+																		<%=u.getEmail()%>
 																	</a>
 																</div>
 															</div>
@@ -1229,7 +1237,7 @@ String name = u.getNome();
 												<br>
 											
 												<span class="m-widget24__stats m--font-brand">
-													18
+													<%=listaGuastiUtente.size()%>
 												</span>
 												<div class="m--space-10"></div>
 											

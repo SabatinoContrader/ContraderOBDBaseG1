@@ -87,14 +87,18 @@ public static Utente logIn(String email, String password) {
 	}
 
 
-public static boolean signUp(String nome, String cognome, String email, String password, String telefono, int idAzienda) {
+public static boolean signUp(String nome, String cognome, String email, String password, String telefono, int idAzienda, int idAziendaPrivata) {
 	
 	Date dataRegistrazione;
 	
 	dataRegistrazione = new Date(System.currentTimeMillis());
 	
-	String Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `IdAzienda`, `DataRegistrazione`, `Telefono`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', "+ idAzienda +", ?, '"+ telefono +"')";
+	String Query;
 	
+	if(idAzienda==0 && idAziendaPrivata == 0) Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `DataRegistrazione`, `Telefono`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', ?, '"+ telefono +"')";
+	else if(idAzienda==0) Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `IdAzienda`, `DataRegistrazione`, `Telefono`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', "+ idAzienda +", ?, '"+ telefono +"')";
+	else Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `IdAzienda`, `DataRegistrazione`, `Telefono`, `IdAziendaPrivata`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', "+ idAzienda +", ?, '"+ telefono +"', "+idAziendaPrivata+")";
+
 	//System.out.println(Query);
 	
 	PreparedStatement statement;
