@@ -8,6 +8,7 @@ out/
 .classpath
 .factorypath
 .project
+.tern-project
 .settings
 .springBeans
 
