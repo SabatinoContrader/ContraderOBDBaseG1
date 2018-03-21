@@ -2,7 +2,6 @@ package com.project.model;
 
 import java.sql.Date;
 
-
 public class Auto {
 	  
 	  public Auto(int iD, String marca, String modello, String targa, String numeroTelaio, int kmAttuali,
@@ -23,6 +22,9 @@ public class Auto {
 		this.daNoleggio = daNoleggio;
 	}
 	  
+	  public Auto(){
+		  
+	  }
 	  
 	  private int ID;
 	  private String marca;
@@ -117,7 +119,4 @@ public class Auto {
 	public void setDaNoleggio(int daNoleggio) {
 		this.daNoleggio = daNoleggio;
 	}
-	  
-
-	
 }

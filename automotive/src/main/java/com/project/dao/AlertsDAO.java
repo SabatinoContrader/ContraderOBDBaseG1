@@ -7,17 +7,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.log4j.Logger;
 
-
+import com.project.model.Auto;
 import com.project.model.Utente;
+
+import utility.Utility;
 
 
 public class AlertsDAO {
 
 	Connection conn = ConnessioneDB.getInstance();
+	
+	private final Logger getLog = Logger.getLogger(AlertsDAO.class);
+	
+	private final int DEADLINE_SCADENZA_REVISIONE = 15;
+	private final int DEADLINE_SCADENZA_TAGLIANDO = 15;
+	private final int DEADLINE_SCADENZA_ASSICURAZIONE = 15;
+	private final int DEADLINE_SCADENZA_BOLLO = 15;
 
-
+	
 	public void getUserAlertsGuasti(Utente u){
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -285,4 +296,40 @@ int cont=0;
 			e.printStackTrace();
 		}
 	}
+	public ArrayList<Auto> autoConRevisioneInScadenza(List<Auto> listaIn){
+		ArrayList<Auto> listaAutoInScadenzaRevisione = new ArrayList<Auto>();
+		for(Auto a : listaAutoInScadenzaRevisione){
+			if(Utility.getGiorniScadenzaGenerica(a.getScadenzaRevisione())< DEADLINE_SCADENZA_REVISIONE){
+				listaAutoInScadenzaRevisione.add(a);
+			}
+		}return listaAutoInScadenzaRevisione;
+	}
+	
+	public ArrayList<Auto> autoConTagliandoInScadenza(List<Auto> listaIn){	
+		ArrayList<Auto> listaAutoInScadenzaRevisione = new ArrayList<Auto>();
+		for(Auto a : listaAutoInScadenzaRevisione){
+			if(Utility.getGiorniScadenzaGenerica(a.getScadenzaRevisione())< DEADLINE_SCADENZA_TAGLIANDO){
+				listaAutoInScadenzaRevisione.add(a);
+			}
+		}return listaAutoInScadenzaRevisione;
+	}
+	
+	public ArrayList<Auto> autoConAssicurazioneInScadenza(List<Auto> listaIn){
+		ArrayList<Auto> listaAutoInScadenzaRevisione = new ArrayList<Auto>();
+		for(Auto a : listaAutoInScadenzaRevisione){
+			if(Utility.getGiorniScadenzaGenerica(a.getScadenzaRevisione())< DEADLINE_SCADENZA_ASSICURAZIONE){
+				listaAutoInScadenzaRevisione.add(a);
+			}
+		}return listaAutoInScadenzaRevisione;
+	}
+	
+	public ArrayList<Auto> autoConBolloInScadenza(List<Auto> listaIn){
+		ArrayList<Auto> listaAutoInScadenzaRevisione = new ArrayList<Auto>();
+		for(Auto a : listaAutoInScadenzaRevisione){
+			if(Utility.getGiorniScadenzaGenerica(a.getScadenzaRevisione())< DEADLINE_SCADENZA_BOLLO){
+				listaAutoInScadenzaRevisione.add(a);
+			}
+		}return listaAutoInScadenzaRevisione;
+	}
+	
 }
