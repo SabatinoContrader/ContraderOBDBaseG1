@@ -60,7 +60,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) {
 	            	case 0 : 	//Cliente
 	            		try {
 							session.setAttribute("Utente", u);
-							response.sendRedirect("home.jsp");
+							response.sendRedirect("utente_home.jsp");
 						} catch (IOException e) {
 							System.out.println("Caricamento pagina Home FALLITA!");
 						}
@@ -68,7 +68,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) {
 	            	case 2 : 	//Admin
 	            		try {
 							session.setAttribute("Utente", u);
-							response.sendRedirect("home.jsp");
+							response.sendRedirect("home_admin.jsp");
 						} catch (IOException e) {
 							System.out.println("Caricamento pagina Home FALLITA!");
 						}

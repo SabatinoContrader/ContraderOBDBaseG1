@@ -33,6 +33,7 @@ public class Azienda {
 	  private Date dataInserimento;
 	  private String citta;
 	  private ArrayList<Auto> listAuto;
+	  public int id;
 	  
 	  
 	public String getDenominazione() {
