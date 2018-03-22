@@ -304,4 +304,106 @@ public class DaoUtility {
     return null;
     }
 	
+
+	public static Azienda getDatiAziendaPrivata(int idAziendaPrivata) {
+		
+
+        Connection conn = ConnessioneDB.getInstance();
+        PreparedStatement statement;
+        ResultSet resultSet = null;
+        Azienda a;
+
+
+        String QUERY = "select * from azienda_privata where ID = "+ idAziendaPrivata;
+
+
+        try {
+            resultSet = null;
+            statement = conn.prepareStatement(QUERY);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.isBeforeFirst()) {
+                System.out.println("\nAzienda Privata");
+            }
+
+
+            while (resultSet.next()) {
+
+                System.out.println("Azienda Privata....!");
+
+                a = new Azienda(resultSet.getString("Denominazione"), resultSet.getString("NomeReferente"), resultSet.getString("CognomeReferente"), resultSet.getString("Email"),
+                        resultSet.getString("Telefono"), null,
+                        null, null, resultSet.getDate("DataInserimento"), resultSet.getString("Citta"), null);
+
+                a.id = resultSet.getInt("ID");
+                
+                return a;
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Errore di Recupero Azienda Privata!");
+        }
+
+    return null;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+	
+	public static List<Auto> getAutoAziendaPrivata(int idAziendaPrivata){
+		
+
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		List<Auto> lista = new ArrayList<>();
+
+		String QUERY = "select * from auto_aziendali aa inner join auto a on aa.IdAuto = a.ID where aa.IdAziendaPrivata = "+ idAziendaPrivata;
+
+
+		try {
+			resultSet = null;
+			statement = conn.prepareStatement(QUERY);
+			resultSet = statement.executeQuery();
+
+			if (resultSet.isBeforeFirst()) {
+				System.out.println("\nAuto dell'azienda privata");
+			}
+
+
+			while (resultSet.next()) {
+
+				//System.out.println("Trovate Auto Associate!");
+
+				Auto a = new Auto(resultSet.getInt("ID"), resultSet.getString("Marca"), resultSet.getString("Modello"), resultSet.getString("Targa"),
+						resultSet.getString("NumeroTelaio"), resultSet.getInt("KmAttuali"),
+						resultSet.getInt("KmInizioNoleggio"), resultSet.getDate("ScadenzaRevisione"),
+						resultSet.getDate("ScadenzaTagliando"), resultSet.getDate("ScadenzaAssicurazione"),
+						resultSet.getDate("ScadenzaBollo"), resultSet.getString("TipologiaAuto"), resultSet.getInt("DaNoleggio"));
+
+				lista.add(a);
+
+			}
+
+
+		} catch (SQLException e) {
+			System.out.println("Errore di Recupero Lista Auto Azienda Privata!");
+		}
+
+		return lista;
+		
+		
+	}
+	
+	
 }

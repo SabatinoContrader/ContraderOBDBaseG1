@@ -73,6 +73,20 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) {
 							System.out.println("Caricamento pagina Home FALLITA!");
 						}
 	            		break;
+	            	case 3 : 	//Dipendente Azienda Privata (Cliente Business)
+	            		try {
+							session.setAttribute("Utente", u);
+							response.sendRedirect("index.jsp");
+						} catch (IOException e) {
+							System.out.println("Caricamento pagina Home FALLITA!");
+						}
+	            	case 4 :	//Amministratore Azienda Privata (Cliente Business)
+	            		try {
+							session.setAttribute("Utente", u);
+							response.sendRedirect("home_cliente-business_admin.jsp");
+						} catch (IOException e) {
+							System.out.println("Caricamento pagina Home FALLITA!");
+						}
 	            	
 	            }
 	           }

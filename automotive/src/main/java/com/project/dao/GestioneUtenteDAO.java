@@ -46,6 +46,8 @@ public static Utente logIn(String email, String password) {
 			 try {
 				//Se non verr� inserito nessuna data di default la data sar� "0000-00-00" e verr� restituito un errore
 				utente = new Utente(resultSet.getInt("ID"), resultSet.getString("Nome"), resultSet.getString("Cognome"), resultSet.getString("Email"), resultSet.getString("Password"), resultSet.getInt("Stato"), resultSet.getInt("IdAzienda"), resultSet.getDate("DataRegistrazione"), resultSet.getInt("Ruolo"), resultSet.getString("Telefono"), null);
+				utente.idAziendaPrivata = resultSet.getInt("IdAziendaPrivata");
+				
 				String QueryAuto = "select a.* from auto as a inner join auto_utente as au on a.ID = au.IdAuto inner join utente as u on u.ID = au.IdUtente where au.IdUtente = ?";
 				statement1 = conn.prepareStatement(QueryAuto);
 				statement1.setInt(1, utente.getID());

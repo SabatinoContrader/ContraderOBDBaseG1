@@ -37,6 +37,8 @@ public class Utente {
 	  private String telefono;
 	  private List<Auto> auto;
 	  
+	  public int idAziendaPrivata;
+	  
 	  
 	  
 	public int getID() {
