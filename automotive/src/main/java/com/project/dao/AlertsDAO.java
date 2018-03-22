@@ -41,39 +41,39 @@ public class AlertsDAO {
 
 
 
-			QUERY = "SELECT  g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio, tg.Descrizione "+
-					"FROM auto a, guasto g, dispositivo d, tipologia_guasto tg "+
-					"WHERE g.IdDispositivo = d.ID and d.IdAuto=a.ID and tg.Codice = g.Codice ORDER BY g.ID ASC";
+		QUERY = "SELECT  g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio, tg.Descrizione "+
+				"FROM auto a, guasto g, dispositivo d, tipologia_guasto tg "+
+				"WHERE g.IdDispositivo = d.ID and d.IdAuto=a.ID and tg.Codice = g.Codice ORDER BY g.ID ASC";
 
 
-			try {
-				ps = conn.prepareStatement(QUERY);
+		try {
+			ps = conn.prepareStatement(QUERY);
 
-				rs = ps.executeQuery();
-
-
-				listGuastoDto = new ArrayList<GuastoDTO>();
+			rs = ps.executeQuery();
 
 
-				while (rs.next()) {
-					guastoDto = new GuastoDTO();
-					guastoDto.setData(rs.getDate("Data"));
-					guastoDto.setId(rs.getInt("ID"));
-					guastoDto.setCodice(rs.getString("Codice"));
-					guastoDto.setDescrizione(rs.getString("Descrizione"));
-					guastoDto.setIdTelemetria(rs.getInt("IdTelemetria"));
-					guastoDto.setIdDispositivo(rs.getInt("IdDispositivo"));
-					guastoDto.setMarcaAuto(rs.getString("Marca"));
-					guastoDto.setModelloAuto(rs.getString("Modello"));
-					guastoDto.setNumeroTarga(rs.getString("Targa"));
-					guastoDto.setNumeroTelaio(rs.getString("NumeroTelaio"));
-					listGuastoDto.add(guastoDto);
-				}
+			listGuastoDto = new ArrayList<GuastoDTO>();
 
-			} catch (Exception e) {
-				getLog.error("Exception in getAlertsGuastiSystemAdministrator ",e);
-				throw new RuntimeException(e);
-			} 
+
+			while (rs.next()) {
+				guastoDto = new GuastoDTO();
+				guastoDto.setData(rs.getDate("Data"));
+				guastoDto.setId(rs.getInt("ID"));
+				guastoDto.setCodice(rs.getString("Codice"));
+				guastoDto.setDescrizione(rs.getString("Descrizione"));
+				guastoDto.setIdTelemetria(rs.getInt("IdTelemetria"));
+				guastoDto.setIdDispositivo(rs.getInt("IdDispositivo"));
+				guastoDto.setMarcaAuto(rs.getString("Marca"));
+				guastoDto.setModelloAuto(rs.getString("Modello"));
+				guastoDto.setNumeroTarga(rs.getString("Targa"));
+				guastoDto.setNumeroTelaio(rs.getString("NumeroTelaio"));
+				listGuastoDto.add(guastoDto);
+			}
+
+		} catch (Exception e) {
+			getLog.error("Exception in getAlertsGuastiSystemAdministrator ",e);
+			throw new RuntimeException(e);
+		} 
 
 		return listGuastoDto;
 	}
@@ -164,6 +164,52 @@ public class AlertsDAO {
 		}
 		return listGuastoDto;
 	}
+
+
+
+	/* QUESTA è LA LISTA DI TUTTE LE AUTO CON GUASTI ASSOCIATE ALL'AZIENDA PRIVATA */
+	public ArrayList<GuastoDTO> getAlertsGuastiAziendaPrivata(int azPrivataId){
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String QUERY = null;
+
+		GuastoDTO guastoDto = null;
+		ArrayList<GuastoDTO> listGuastoDto = null;
+
+		QUERY="SELECT g.*, a.Marca, a.Modello, a.NumeroTelaio,tg.Descrizione "+
+				"FROM guasto g, auto a, auto_aziendali a_z, dispositivo d,tipologia_guasto tg, azienda_privata azp "+
+				"WHERE g.IdDispositivo = d.ID and d.IdAuto = a.ID and tg.Codice = g.Codice and a_z.IdAuto = a.ID and a_z.IdAziendaPrivata = azp.ID and azp.ID= ?";
+		try {
+			ps = conn.prepareStatement(QUERY);
+			ps.setInt(1, azPrivataId);
+			rs = ps.executeQuery();
+
+
+			listGuastoDto = new ArrayList<GuastoDTO>();
+
+			while (rs.next()) {
+				guastoDto = new GuastoDTO();
+				guastoDto.setData(rs.getDate("Data"));
+				guastoDto.setId(rs.getInt("ID"));
+				guastoDto.setCodice(rs.getString("Codice"));
+				guastoDto.setDescrizione(rs.getString("Descrizione"));
+				guastoDto.setIdTelemetria(rs.getInt("IdTelemetria"));
+				guastoDto.setIdDispositivo(rs.getInt("IdDispositivo"));
+				guastoDto.setMarcaAuto(rs.getString("Marca"));
+				guastoDto.setModelloAuto(rs.getString("Modello"));
+				guastoDto.setNumeroTarga(rs.getString("Targa"));
+				guastoDto.setNumeroTelaio(rs.getString("NumeroTelaio"));
+				listGuastoDto.add(guastoDto);
+			}
+
+		} catch (Exception e) {
+			getLog.error("Exception in getAlertsGuastiAziendaPrivata ",e);
+			throw new RuntimeException(e);
+		}
+		return listGuastoDto;
+	}
+
 
 
 	public void alertsKm(Utente u){
