@@ -231,10 +231,10 @@ if(u != null ){
 		response.sendRedirect("utente_home.jsp");
 		break;
 	case 1:
-		response.sendRedirect("home_officina");
+		response.sendRedirect("home_officina.jsp");
 	break;
 	case 2:
-		response.sendRedirect("home_admin");
+		response.sendRedirect("home_admin.jsp");
 		break;
 	case 3:
 		//INFINITE LOOP, FAME DA LOOP
