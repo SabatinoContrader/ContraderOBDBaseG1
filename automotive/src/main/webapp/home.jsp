@@ -21,7 +21,7 @@ Utente u = (Utente)session.getAttribute("Utente");
 
 String name = u.getNome();
 int ruolo = u.getRuolo() ;
- 
+
 %>
 Benvetuto in Contrader <%=name%> <br>
 <div>
@@ -29,8 +29,8 @@ Il tuo ruolo è : <%=ruolo%> <br> <br>
 
 
 
-<% 
-	
+<%
+
 switch(u.getRuolo()){
 case 1:
 	//Officina
@@ -43,16 +43,16 @@ case 1:
 	<input type="submit" value="VISUALIZZA AUTO CON REVISIONE IN SCADENZA" name="bott"> <br> <br>
 	<input type="submit" value="AGGIUNGI NUOVA AUTO DELL'AZIENDA" name="bott"> <br> <br>
 	<input type="submit" value="TORNA INDIETRO" name="bott"> <br> <br>
-	
+
 	<%
 	break;
-case 0: 
+case 0:
 	//Cliente
 	%>
 	<input type="submit" value="VISUALIZZA LISTA AUTO" name="bott"> <br> <br>
 	<input type="submit" value="VISUALIZZA SCADENZA REVISIONE" name="bott"> <br> <br>
 	<input type="submit" value="TORNA INDIETRO" name="bott"> <br> <br>
-	
+
 	<%
 	break;
 case 2:
@@ -61,7 +61,7 @@ case 2:
 	<input type="submit" value="REGISTRA UTENTE" name="bott"> <br> <br>
 	<input type="submit" value="REGISTRA AZIENDA" name="bott"> <br> <br>
 	<input type="submit" value="TORNA INDIETRO" name="bott"> <br> <br>
-	
+
 	<%
 	break;
 }
@@ -76,6 +76,6 @@ case 2:
 </div>
 
 
-  
+
 </body>
 </html>

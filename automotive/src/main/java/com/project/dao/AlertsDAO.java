@@ -21,7 +21,7 @@ public class AlertsDAO {
 
 	Connection conn = ConnessioneDB.getInstance();
 
-	private final Logger getLog = Logger.getLogger(AlertsDAO.class);
+	private final static Logger getLog = Logger.getLogger(AlertsDAO.class);
 
 	private final int DEADLINE_SCADENZA_REVISIONE = 15;
 	private final int DEADLINE_SCADENZA_TAGLIANDO = 15;
@@ -29,7 +29,9 @@ public class AlertsDAO {
 	private final int DEADLINE_SCADENZA_BOLLO = 15;
 
 
-	public ArrayList<GuastoDTO> getUserAlertsGuastiDriver(Utente u){
+	/* QUESTA è LA LISTA DI TUTTE LE AUTO CON GUASTI DEL SISTEMA */
+	public ArrayList<GuastoDTO> getAlertsGuastiSystemAdministrator(){
+
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String QUERY = null;
@@ -37,53 +39,24 @@ public class AlertsDAO {
 		GuastoDTO guastoDto = null;
 		ArrayList<GuastoDTO> listGuastoDto = null;
 
-		//lista auto driver
-		if(u.getRuolo() == 0){
 
-			QUERY = "Select g.Codice, g.Data, a.Marca, a.Modello, a.Targa, a.NumeroTelaio"
-					+" from guasto g, auto a, dispositivo d,auto_utente au, utente u"
-					+" where g.IdDispositivo = d.ID and d.IdAuto=a.ID and u.ID = au.IdUtente"
-					+" and au.IdAuto = a.ID and u.ID =?";
-			try {
-				ps = conn.prepareStatement(QUERY);
-				ps.setInt(1, u.getID());
-				rs = ps.executeQuery();
 
-				guastoDto = new GuastoDTO();
-				listGuastoDto = new ArrayList<GuastoDTO>();
+			QUERY = "SELECT  g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio, tg.Descrizione "+
+					"FROM auto a, guasto g, dispositivo d, tipologia_guasto tg "+
+					"WHERE g.IdDispositivo = d.ID and d.IdAuto=a.ID and tg.Codice = g.Codice ORDER BY g.ID ASC";
 
-				while (rs.next()) {
-					guastoDto.setData(rs.getDate("Data"));
-					guastoDto.setCodice(rs.getString("Codice"));
-					guastoDto.setMarcaAuto(rs.getString("Marca"));
-					guastoDto.setModelloAuto(rs.getString("Modello"));
-					guastoDto.setNumeroTarga(rs.getString("Targa"));
-					guastoDto.setNumeroTelaio(rs.getString("NumeroTelaio"));
-					listGuastoDto.add(guastoDto);
-				}
-
-			} catch (Exception e) {
-				getLog.debug(e.getMessage());
-				throw new RuntimeException(e);
-			}
-		} 
-		if(u.getRuolo()==1){
-			// ALERTS DELLE AUTO CON GUASTI RELATIVI ALL AZIENDA.
-
-			QUERY = "Select g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio, tg.Descrizione"+
-					" from guasto g, auto a, dispositivo d,auto_azienda au, utente u,tipologia_guasto tg"+
-					" where g.IdDispositivo = d.ID and d.IdAuto=a.ID and u.IdAzienda = au.IdAzienda "+
-					" and tg.Codice= g.Codice and au.IdAuto = a.ID and u.ID = ?";
 
 			try {
 				ps = conn.prepareStatement(QUERY);
-				ps.setInt(1, u.getID());
+
 				rs = ps.executeQuery();
 
-				guastoDto = new GuastoDTO();
+
 				listGuastoDto = new ArrayList<GuastoDTO>();
 
+
 				while (rs.next()) {
+					guastoDto = new GuastoDTO();
 					guastoDto.setData(rs.getDate("Data"));
 					guastoDto.setId(rs.getInt("ID"));
 					guastoDto.setCodice(rs.getString("Codice"));
@@ -98,12 +71,100 @@ public class AlertsDAO {
 				}
 
 			} catch (Exception e) {
-				getLog.debug(e.getMessage());
+				getLog.error("Exception in getAlertsGuastiSystemAdministrator ",e);
 				throw new RuntimeException(e);
+			} 
+
+		return listGuastoDto;
+	}
+
+
+	/* QUESTA è LA LISTA DI TUTTE LE AUTO CON GUASTI ASSOCIATE AL DRIVER */
+	public ArrayList<GuastoDTO> getUserAlertsGuastiDriver(Utente u){
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String QUERY = null;
+
+		GuastoDTO guastoDto = null;
+		ArrayList<GuastoDTO> listGuastoDto = null;
+
+
+		QUERY = "Select g.Codice, g.Data, a.Marca, a.Modello, a.Targa, a.NumeroTelaio"
+				+" from guasto g, auto a, dispositivo d,auto_utente au, utente u"
+				+" where g.IdDispositivo = d.ID and d.IdAuto=a.ID and u.ID = au.IdUtente"
+				+" and au.IdAuto = a.ID and u.ID =?";
+		try {
+			ps = conn.prepareStatement(QUERY);
+			ps.setInt(1, u.getID());
+			rs = ps.executeQuery();
+
+			listGuastoDto = new ArrayList<GuastoDTO>();
+
+			while (rs.next()) {
+				guastoDto = new GuastoDTO();
+
+				guastoDto.setData(rs.getDate("Data"));
+				guastoDto.setCodice(rs.getString("Codice"));
+				guastoDto.setMarcaAuto(rs.getString("Marca"));
+				guastoDto.setModelloAuto(rs.getString("Modello"));
+				guastoDto.setNumeroTarga(rs.getString("Targa"));
+				guastoDto.setNumeroTelaio(rs.getString("NumeroTelaio"));
+				listGuastoDto.add(guastoDto);
 			}
+
+		} catch (Exception e) {
+			getLog.error("Exception in getUserAlertsGuastiDriver ",e);
+			throw new RuntimeException(e);
+		} 
+		return listGuastoDto;
+	}
+
+
+	/* QUESTA è LA LISTA DI TUTTE LE AUTO CON GUASTI ASSOCIATE ALL'OFFICINA SPECIFICA */
+	public ArrayList<GuastoDTO> getAlertsGuastiGarageAdmin(Utente u){
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String QUERY = null;
+
+		GuastoDTO guastoDto = null;
+		ArrayList<GuastoDTO> listGuastoDto = null;
+
+		QUERY = "Select g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio, tg.Descrizione"+
+				" from guasto g, auto a, dispositivo d,auto_azienda au, utente u,tipologia_guasto tg"+
+				" where g.IdDispositivo = d.ID and d.IdAuto=a.ID and u.IdAzienda = au.IdAzienda "+
+				" and tg.Codice= g.Codice and au.IdAuto = a.ID and u.ID = ?";
+
+		try {
+			ps = conn.prepareStatement(QUERY);
+			ps.setInt(1, u.getID());
+			rs = ps.executeQuery();
+
+
+			listGuastoDto = new ArrayList<GuastoDTO>();
+
+			while (rs.next()) {
+				guastoDto = new GuastoDTO();
+				guastoDto.setData(rs.getDate("Data"));
+				guastoDto.setId(rs.getInt("ID"));
+				guastoDto.setCodice(rs.getString("Codice"));
+				guastoDto.setDescrizione(rs.getString("Descrizione"));
+				guastoDto.setIdTelemetria(rs.getInt("IdTelemetria"));
+				guastoDto.setIdDispositivo(rs.getInt("IdDispositivo"));
+				guastoDto.setMarcaAuto(rs.getString("Marca"));
+				guastoDto.setModelloAuto(rs.getString("Modello"));
+				guastoDto.setNumeroTarga(rs.getString("Targa"));
+				guastoDto.setNumeroTelaio(rs.getString("NumeroTelaio"));
+				listGuastoDto.add(guastoDto);
+			}
+
+		} catch (Exception e) {
+			getLog.error("Exception in getUserAlertsGuastiGarageAdmin ",e);
+			throw new RuntimeException(e);
 		}
 		return listGuastoDto;
 	}
+
 
 	public void alertsKm(Utente u){
 

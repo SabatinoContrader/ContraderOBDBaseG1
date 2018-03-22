@@ -74,7 +74,7 @@
 				<version>2.4</version>
 				<configuration>
 					<warName>vianello</warName>
-					<outputDirectory>apache-tomcat-8.5.24/webapps</outputDirectory>
+					<outputDirectory>apache-tomcat-8.5.27/webapps</outputDirectory>
 				</configuration>
 			</plugin>
 			<plugin>

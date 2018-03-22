@@ -34,6 +34,8 @@ public class ControllerImpl implements IController {
 		//    	//Prova con Thread che rimane in ascolto di Alert
 		//    	NotifierWorker worker = new NotifierWorker(u);
 		//    	worker.run();
+		
+		
 		//QUESTI SONO I GUASTI+
 		aDAO.getUserAlertsGuastiDriver(u); 	
 	}
