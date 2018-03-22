@@ -18,7 +18,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<head>
 		<meta charset="utf-8" />
 		<title>
-			Home Cliente
+			Admin Azienda
 		</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,32 +41,32 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
-		<!-- <link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" /> -->
-		<style>.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}</style>
+		<link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" />
+		<style>#modcliente{color:red;}.fah3{font-size:24px;padding-right:10px;}.transparentli{color: transparent;}.fa{cursor:pointer;}.fa-ul li{display:inline;margin-left:10px;}.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;}.savebutton{margin-left: auto;    margin-right: auto;}.btn-box{       border: none;margin-top: 20px;    width: 200px;    color: white !important;}.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}</style>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
 	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
-	
-	
+
 	<%@ page import = "com.project.model.*" %>
-	<%@ page import = "java.util.ArrayList" %>
+	<%@ page import = "java.util.List" %>
 	<%@ page import = "com.project.dao.*" %>
-	<%@ page import = "com.project.automotive.dto.*" %>
+	<%@ page import = "utility.*" %>
 	
-
-
-<%
+	
+	<%
 
 Utente u = (Utente)session.getAttribute("Utente");
 
 String name = u.getNome();
 
-AlertsDAO alerts = new AlertsDAO();
+Azienda a = DaoUtility.getDatiAziendaPrivata(u.idAziendaPrivata);
 
-ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
- 
+List<Auto> listaAutoAziendaPrivata = DaoUtility.getAutoAziendaPrivata(u.idAziendaPrivata);
+
+
 %>
+	
 	
 	
 	
@@ -83,7 +83,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 							<div class="m-stack__item m-brand">
 								<div class="m-stack m-stack--ver m-stack--general m-stack--inline">
 									<div class="m-stack__item m-stack__item--middle m-brand__logo">
-										<a href="index.jsp" class="m-brand__logo-wrapper">
+										<a href="index.html" class="m-brand__logo-wrapper">
 											<img alt="" src="images/logo-contrader.png"/ class="logo">
 										</a>
 									</div>
@@ -110,11 +110,14 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 										<ul class="m-topbar__nav m-nav m-nav--inline">
 											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">
 												<a href="#" class="m-nav__link m-dropdown__toggle">
+													<span class="m-topbar__userpic m--hide">
+														<img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless m--img-centered" alt=""/>
+													</span>
 													<span class="m-topbar__welcome">
 														Benvenuto,&nbsp;
 													</span>
 													<span class="m-topbar__username">
-														<%=name%>
+														<%=u.getNome()%>
 													</span>
 												</a>
 												<div class="m-dropdown__wrapper">
@@ -124,7 +127,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 															<div class="m-card-user m-card-user--skin-dark">
 																<div class="m-card-user__details">
 																	<span class="m-card-user__name m--font-weight-500">
-																		<%=u.getNome()+" "+u.getCognome() %>
+																		<%=u.getNome()+" "+u.getCognome()%>
 																	</span>
 																	<a href="" class="m-card-user__email m--font-weight-300 m-link">
 																		<%=u.getEmail()%>
@@ -472,6 +475,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 													</div>
 												</div>
 											</li>
+											
 										</ul>
 									</div>
 								</div>
@@ -491,7 +495,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 								<div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light "  >
 									<ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
 										<li class="m-menu__item  m-menu__item--active "  aria-haspopup="true">
-											<a  href="index.jsp" class="m-menu__link ">
+											<a  href="index.html" class="m-menu__link ">
 												<span class="m-menu__item-here"></span>
 												<span class="m-menu__link-text">
 													Dashboard
@@ -1215,7 +1219,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
 								<h3 class="m-subheader__title ">
-									Dashboard
+									Dashboard - <%=a.getDenominazione()%> Admin
 								</h3>
 							</div>
 						
@@ -1223,8 +1227,8 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 					</div>
 					<!-- END: Subheader -->
 					<div class="m-content">
-						<!--begin:: Widgets/Stats-->
-						<div class="m-portlet ">
+					<!--begin:: Widgets/Stats-->
+					<div class="m-portlet ">
 							<div class="m-portlet__body  m-portlet__body--no-padding">
 								<div class="row m-row--no-padding m-row--col-separator-xl">
 									<div class="col-md-12 col-lg-6 col-xl-3">
@@ -1232,15 +1236,17 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Guasti
+													GUASTI
 												</h4>
 												<br>
-											
+												<span class="m-widget24__desc">
+													Rilevati dai dispositivi
+												</span>
 												<span class="m-widget24__stats m--font-brand">
-													<%=listaGuastiUtente.size()%>
+													102919
 												</span>
 												<div class="m--space-10"></div>
-											
+											<p style="text-align:center;" class="smooth-scroll"><a  href="#tableguasti" style="background-color:#716aca !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::Total Profit-->
@@ -1250,15 +1256,18 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-												Scadenze
+													SCADENZE
 												</h4>
 												<br>
-												
+												<span class="m-widget24__desc">
+													Manutenzione
+												</span>
 												<span class="m-widget24__stats m--font-info">
-													1349
+													983728
 												</span>
 												<div class="m--space-10"></div>
-												
+											
+													<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#36a3f7  !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Feedbacks-->
@@ -1268,15 +1277,17 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Richieste Preventivo
+													APPUNTAMENTI
 												</h4>
 												<br>
-												
+												<span class="m-widget24__desc">
+													Richiesti
+												</span>
 												<span class="m-widget24__stats m--font-danger">
 													567
 												</span>
 												<div class="m--space-10"></div>
-												
+											<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#f4516c   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Orders-->
@@ -1286,15 +1297,17 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Appuntamenti
+													PREVENTIVI
 												</h4>
 												<br>
-												
+												<span class="m-widget24__desc">
+													Richiesti
+												</span>
 												<span class="m-widget24__stats m--font-success">
 													276
 												</span>
 												<div class="m--space-10"></div>
-												
+											<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#34bfa3   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Users-->
@@ -1354,11 +1367,12 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
-													AUTO UTENTE
+												<i class="fa fa-car fah3"  ></i>
+													AUTO AZIENDALI
 												</h3>
 											</div>
 										</div>
-									
+										<button class="btn btn-info btn-add" type="button" data-toggle="modal" data-target="#modaladdcar">Aggiungi Nuova </button>
 									</div>
 									<div class="m-portlet__body">
 										<!--begin: Datatable -->
@@ -1372,24 +1386,107 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 									<th>Modello</th>
 									<th>Targa</th>
 									<th>Telaio</th>
+									<th></th>
 									</tr>
 									</thead>
 									<tbody>
-									<% if(u.getAuto().size() != 0){
-										for(int i = 0; i<u.getAuto().size(); i++){
+									
+									
+									<% if(listaAutoAziendaPrivata.size() != 0){
+										
+										for(int i = 0; i<listaAutoAziendaPrivata.size(); i++){
 											%>
 												<tr>
-												<td><%=u.getAuto().get(i).getID()%></td>
-												<td><%=u.getAuto().get(i).getMarca()%></td>
-												<td><%=u.getAuto().get(i).getModello()%></td>
-												<td><%=u.getAuto().get(i).getTarga()%></td>
-												<td><%=u.getAuto().get(i).getNumeroTelaio()%></td>
+												<td><%=listaAutoAziendaPrivata.get(i).getID()%></td>
+												<td><%=listaAutoAziendaPrivata.get(i).getMarca()%></td>
+												<td><%=listaAutoAziendaPrivata.get(i).getModello()%></td>
+												<td><%=listaAutoAziendaPrivata.get(i).getTarga()%></td>
+												<td><%=listaAutoAziendaPrivata.get(i).getNumeroTelaio()%></td>
+												
+												<td>
+												<ul class="fa-ul">
+												  <li class="fa-li"><i class="fa fa-calendar"  title="Visualizza Scadenze Tecnico Amministrative"></i></li>
+												  <li class="fa-li"><i class="fa fa-tachometer"  title="Associa Auto A Dipendente"></i></li></ul></td>
+																								
+												
+												
 												</tr>
+												
+												
+												
 											<%
 										}
 									}
 									
 									%>
+									
+									
+									</tbody>
+									</table>
+									</div>
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						<!--End::Section-->   
+						
+						
+<!--Begin::Section TABLE DIPENDENTI-->
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+												<i class="fa fa-user fah3"  ></i>
+													DIPENDENTI
+												</h3>
+											</div>
+										</div>
+									<button class="btn btn-info btn-add" type="button" data-toggle="modal" data-target="#modaladduser">Aggiungi Nuovo </button>
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+									<table class="table table-striped">
+									<thead>
+									<tr>
+									<th>ID</th>
+									<th>Nome</th>
+									<th>Cognome</th>
+									<th>Email</th>
+									<th>Telefono</th>
+									<th></th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+									<td>1</td>
+									<td>Marco</td>
+									<td>Rossi</td>
+									<td>mrossi@gmail.com</td>
+									<td>339837892</td>
+									<td>
+									<ul class="fa-ul">
+									 <li class="fa-li"><i class="fa fa-pencil"  title="Modifica Dipendente"></i></li>
+  <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi Dipendente"></i></li>
+ </ul></td>
+									</tr>
+									<tr>
+									<td>1</td>
+									<td>Marco</td>
+									<td>Rossi</td>
+									<td>mrossi@gmail.com</td>
+									<td>339837892</td>
+									<td>
+									<ul class="fa-ul">
+   <li class="fa-li"><i class="fa fa-pencil"  title="Modifica Dipendente"></i></li>
+  <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi Dipendente"></i></li>
+									</tr>
 									</tbody>
 									</table>
 									</div>
@@ -1406,6 +1503,91 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 			</div>
 			-->
 		</div>
+		
+<!-- begin::modal add dipendenti -->
+<div class="modal" tabindex="-1" role="dialog" id="modaladduser">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Aggiungi Dipendente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="" method="POST">
+  <div class="form-group">
+    <label for="nomeuser">Nome</label>
+    <input type="text" class="form-control" id="nomeuser" aria-describedby="nomeuser" placeholder="Nome dipendente..." name="nomeuser" required>
+   
+  </div>
+  <div class="form-group">
+    <label for="cognomeuser">Cognome</label>
+    <input type="text" class="form-control" id="cognomeuser" placeholder="Cognome dipendente..." name="cognomeuser">
+  </div>
+  <div class="form-group">
+    <label for="emailuser">Cognome referente</label>
+    <input type="email" class="form-control" id="emailuser" placeholder="Email..." name="emailuser">
+  </div>
+    <div class="form-group">
+    <label for="telefonouser">Telefono</label>
+    <input type="text" class="form-control" id="telefonouser" placeholder="Telefono..." name="telefonouser">
+  </div>
+   
+  
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Salva</button>
+	   </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal add dipendente -->
+<!-- begin::modal add  auto aziendali -->
+<div class="modal" tabindex="-1" role="dialog" id="modaladdcar">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Aggiungi Auto Aziendale</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="" method="POST">
+  <div class="form-group">
+    <label for="marca">Marca</label>
+    <input type="text" class="form-control" id="marca" aria-describedby="marca" placeholder="Marca..." name="marca" required>
+   
+  </div>
+  <div class="form-group">
+    <label for="modello">Modello</label>
+    <input type="text" class="form-control" id="modello" placeholder="Modello..." name="modello">
+  </div>
+  <div class="form-group">
+    <label for="targa">Targa</label>
+    <input type="text" class="form-control" id="targa" placeholder="Targa..." name="targa">
+  </div>
+    <div class="form-group">
+    <label for="telaio">Telaio</label>
+    <input type="text" class="form-control" id="telaio" placeholder="Telaio..." name="telaio">
+  </div>
+   
+  
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Salva</button>
+	   </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal add cliente business -->
 		<!-- end::Body -->
 <!-- begin::Footer -->
 		<footer class="m-grid__item m-footer ">
@@ -1464,609 +1646,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 		<!-- end::Footer -->
 	</div>
 	<!-- end:: Page -->
-    	            <!-- begin::Quick Sidebar -->
-	<div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
-		<div class="m-quick-sidebar__content m--hide">
-			<span id="m_quick_sidebar_close" class="m-quick-sidebar__close">
-				<i class="la la-close"></i>
-			</span>
-			<ul id="m_quick_sidebar_tabs" class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
-				<li class="nav-item m-tabs__item">
-					<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_messenger" role="tab">
-						Messages
-					</a>
-				</li>
-				<li class="nav-item m-tabs__item">
-					<a class="nav-link m-tabs__link" 		data-toggle="tab" href="#m_quick_sidebar_tabs_settings" role="tab">
-						Settings
-					</a>
-				</li>
-				<li class="nav-item m-tabs__item">
-					<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab">
-						Logs
-					</a>
-				</li>
-			</ul>
-			<div class="tab-content">
-				<div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
-					<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-						<div class="m-messenger__messages">
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-pic">
-										<img src="assets/app/media/img//users/user3.jpg" alt=""/>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Hi Bob. What time will be the meeting ?
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Hi Megan. It's at 2.30PM
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-pic">
-										<img src="assets/app/media/img//users/user3.jpg" alt=""/>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Will the development team be joining ?
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Yes sure. I invited them as well
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__datetime">
-								2:30PM
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-pic">
-										<img src="assets/app/media/img//users/user3.jpg"  alt=""/>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Noted. For the Coca-Cola Mobile App project as well ?
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Yes, sure.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Please also prepare the quotation for the Loop CRM project as well.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__datetime">
-								3:15PM
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-no-pic m--bg-fill-danger">
-										<span>
-											M
-										</span>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Noted. I will prepare it.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Thanks Megan. I will see you later.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-pic">
-										<img src="assets/app/media/img//users/user3.jpg"  alt=""/>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Sure. See you in the meeting soon.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="m-messenger__seperator"></div>
-						<div class="m-messenger__form">
-							<div class="m-messenger__form-controls">
-								<input type="text" name="" placeholder="Type here..." class="m-messenger__form-input">
-							</div>
-							<div class="m-messenger__form-tools">
-								<a href="" class="m-messenger__form-attachment">
-									<i class="la la-paperclip"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane  m-scrollable" id="m_quick_sidebar_tabs_settings" role="tabpanel">
-					<div class="m-list-settings">
-						<div class="m-list-settings__group">
-							<div class="m-list-settings__heading">
-								General Settings
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Email Notifications
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" checked="checked" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Site Tracking
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									SMS Alerts
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Backup Storage
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Audit Logs
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" checked="checked" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-						</div>
-						<div class="m-list-settings__group">
-							<div class="m-list-settings__heading">
-								System Settings
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									System Logs
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Error Reporting
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Applications Logs
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Backup Servers
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" checked="checked" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Audit Logs
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane  m-scrollable" id="m_quick_sidebar_tabs_logs" role="tabpanel">
-					<div class="m-list-timeline">
-						<div class="m-list-timeline__group">
-							<div class="m-list-timeline__heading">
-								System Logs
-							</div>
-							<div class="m-list-timeline__items">
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										12 new users registered
-										<span class="m-badge m-badge--warning m-badge--wide">
-											important
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										Just now
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										System shutdown
-									</a>
-									<span class="m-list-timeline__time">
-										11 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
-									<a href="" class="m-list-timeline__text">
-										New invoice received
-									</a>
-									<span class="m-list-timeline__time">
-										20 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
-									<a href="" class="m-list-timeline__text">
-										Database overloaded 89%
-										<span class="m-badge m-badge--success m-badge--wide">
-											resolved
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										1 hr
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										System error
-									</a>
-									<span class="m-list-timeline__time">
-										2 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server down
-										<span class="m-badge m-badge--danger m-badge--wide">
-											pending
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										3 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server up
-									</a>
-									<span class="m-list-timeline__time">
-										5 hrs
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-list-timeline__group">
-							<div class="m-list-timeline__heading">
-								Applications Logs
-							</div>
-							<div class="m-list-timeline__items">
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										New order received
-										<span class="m-badge m-badge--info m-badge--wide">
-											urgent
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										7 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										12 new users registered
-									</a>
-									<span class="m-list-timeline__time">
-										Just now
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										System shutdown
-									</a>
-									<span class="m-list-timeline__time">
-										11 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
-									<a href="" class="m-list-timeline__text">
-										New invoices received
-									</a>
-									<span class="m-list-timeline__time">
-										20 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
-									<a href="" class="m-list-timeline__text">
-										Database overloaded 89%
-									</a>
-									<span class="m-list-timeline__time">
-										1 hr
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										System error
-										<span class="m-badge m-badge--info m-badge--wide">
-											pending
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										2 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server down
-									</a>
-									<span class="m-list-timeline__time">
-										3 hrs
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-list-timeline__group">
-							<div class="m-list-timeline__heading">
-								Server Logs
-							</div>
-							<div class="m-list-timeline__items">
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server up
-									</a>
-									<span class="m-list-timeline__time">
-										5 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										New order received
-									</a>
-									<span class="m-list-timeline__time">
-										7 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										12 new users registered
-									</a>
-									<span class="m-list-timeline__time">
-										Just now
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										System shutdown
-									</a>
-									<span class="m-list-timeline__time">
-										11 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
-									<a href="" class="m-list-timeline__text">
-										New invoice received
-									</a>
-									<span class="m-list-timeline__time">
-										20 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
-									<a href="" class="m-list-timeline__text">
-										Database overloaded 89%
-									</a>
-									<span class="m-list-timeline__time">
-										1 hr
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										System error
-									</a>
-									<span class="m-list-timeline__time">
-										2 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server down
-									</a>
-									<span class="m-list-timeline__time">
-										3 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server up
-									</a>
-									<span class="m-list-timeline__time">
-										5 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										New order received
-									</a>
-									<span class="m-list-timeline__time">
-										1117 hrs
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end::Quick Sidebar -->	        
+    	       
 	    <!-- begin::Scroll Top -->
 	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 		<i class="la la-arrow-up"></i>
