@@ -42,7 +42,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
 		<link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" />
-		<style>.fah3{font-size:24px;padding-right:10px;}.transparentli{color: transparent;}.fa{cursor:pointer;}.fa-ul li{display:inline;margin-left:10px;}.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;}.savebutton{margin-left: auto;    margin-right: auto;}.btn-box{       border: none;margin-top: 20px;    width: 200px;    color: white !important;}.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}</style>
+		<style>.ali{color:#575962 !important;}.fah3{font-size:24px;padding-right:10px;}.transparentli{color: transparent;}.fa{cursor:pointer;}.fa-ul li{display:inline;margin-left:10px;}.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;}.savebutton{margin-left: auto;    margin-right: auto;}.btn-box{       border: none;margin-top: 20px;    width: 200px;    color: white !important;}.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}</style>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
@@ -1252,7 +1252,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 													Rilevati dai dispositivi
 												</span>
 												<span class="m-widget24__stats m--font-brand">
-													102919
+													<%=guasti.size()%>
 												</span>
 												<div class="m--space-10"></div>
 											<p style="text-align:center;" class="smooth-scroll"><a  href="#tableguasti" style="background-color:#716aca !important" class="btn btn-info btn-box">Visualizza</a></p>
@@ -1415,8 +1415,8 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 													<td><%=listaUtentiPrivati.get(i).getTelefono()%></td>
 													<td><%=listaUtentiPrivati.get(i).getDataRegistrazione()%></td>
 													<td><ul class="fa-ul">
-  <li class="fa-li"><i class="fa fa-car"  title="Visualizza lista auto"></i></li>
-  <li class="fa-li"><i class="fa fa-pencil" title="Modifica cliente"></i></li> 
+  <li class="fa-li"><a class="ali" href="list_auto_utente.jsp?idutente=<%=listaUtentiPrivati.get(i).getID()%>" target="_blank"><i class="fa fa-car"  title="Visualizza lista auto"></i></a></li>
+  <li class="fa-li"><i class="fa fa-pencil modcliente" title="Modifica cliente" data-id="<%=listaUtentiPrivati.get(i).getID()%>" data-nome="<%=listaUtentiPrivati.get(i).getNome()%>" data-cognome="<%=listaUtentiPrivati.get(i).getCognome()%>" data-email="<%=listaUtentiPrivati.get(i).getEmail()%>" data-telefono="<%=listaUtentiPrivati.get(i).getTelefono()%>"></i></li> 
   <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi cliente"></i></li>
 </ul></td>
 												</tr>
@@ -1487,8 +1487,8 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 													<td><%=listaClientiBusiness.get(i).getCitta()%></td>
 													<td><%=listaClientiBusiness.get(i).getDataInserimento()%></td>
 													<td><ul class="fa-ul">
-  <li class="fa-li"><i class="fa fa-car"  title="Visualizza lista auto"></i></li>
-  <li class="fa-li"><i class="fa fa-pencil" title="Modifica cliente"></i></li> 
+  <li class="fa-li"><a class="ali" href="list_auto_business.jsp?idutente=<%=listaClientiBusiness.get(i).id%>" target="_blank"><i class="fa fa-car"  title="Visualizza lista auto"></i></a></li>
+  <li class="fa-li"><i class="fa fa-pencil modbusiness" title="Modifica cliente" data-id="<%=listaClientiBusiness.get(i).id%>" data-nome="<%=listaClientiBusiness.get(i).getNomeReferente()%>" data-cognome="<%=listaClientiBusiness.get(i).getCognomeReferente()%>" data-email="<%=listaClientiBusiness.get(i).getEmail()%>" data-telefono="<%=listaClientiBusiness.get(i).getTelefono()%>" data-citta="<%=listaClientiBusiness.get(i).getCitta()%>" data-denominazione="<%=listaClientiBusiness.get(i).getDenominazione()%>"></i></li> 
   <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi cliente"></i></li>
 </ul></td>
 												</tr>
@@ -1744,609 +1744,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 		<!-- end::Footer -->
 	</div>
 	<!-- end:: Page -->
-    	            <!-- begin::Quick Sidebar -->
-	<div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
-		<div class="m-quick-sidebar__content m--hide">
-			<span id="m_quick_sidebar_close" class="m-quick-sidebar__close">
-				<i class="la la-close"></i>
-			</span>
-			<ul id="m_quick_sidebar_tabs" class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
-				<li class="nav-item m-tabs__item">
-					<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_messenger" role="tab">
-						Messages
-					</a>
-				</li>
-				<li class="nav-item m-tabs__item">
-					<a class="nav-link m-tabs__link" 		data-toggle="tab" href="#m_quick_sidebar_tabs_settings" role="tab">
-						Settings
-					</a>
-				</li>
-				<li class="nav-item m-tabs__item">
-					<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab">
-						Logs
-					</a>
-				</li>
-			</ul>
-			<div class="tab-content">
-				<div class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
-					<div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
-						<div class="m-messenger__messages">
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-pic">
-										<img src="assets/app/media/img//users/user3.jpg" alt=""/>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Hi Bob. What time will be the meeting ?
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Hi Megan. It's at 2.30PM
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-pic">
-										<img src="assets/app/media/img//users/user3.jpg" alt=""/>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Will the development team be joining ?
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Yes sure. I invited them as well
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__datetime">
-								2:30PM
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-pic">
-										<img src="assets/app/media/img//users/user3.jpg"  alt=""/>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Noted. For the Coca-Cola Mobile App project as well ?
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Yes, sure.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Please also prepare the quotation for the Loop CRM project as well.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__datetime">
-								3:15PM
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-no-pic m--bg-fill-danger">
-										<span>
-											M
-										</span>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Noted. I will prepare it.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--out">
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-text">
-												Thanks Megan. I will see you later.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="m-messenger__wrapper">
-								<div class="m-messenger__message m-messenger__message--in">
-									<div class="m-messenger__message-pic">
-										<img src="assets/app/media/img//users/user3.jpg"  alt=""/>
-									</div>
-									<div class="m-messenger__message-body">
-										<div class="m-messenger__message-arrow"></div>
-										<div class="m-messenger__message-content">
-											<div class="m-messenger__message-username">
-												Megan wrote
-											</div>
-											<div class="m-messenger__message-text">
-												Sure. See you in the meeting soon.
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="m-messenger__seperator"></div>
-						<div class="m-messenger__form">
-							<div class="m-messenger__form-controls">
-								<input type="text" name="" placeholder="Type here..." class="m-messenger__form-input">
-							</div>
-							<div class="m-messenger__form-tools">
-								<a href="" class="m-messenger__form-attachment">
-									<i class="la la-paperclip"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane  m-scrollable" id="m_quick_sidebar_tabs_settings" role="tabpanel">
-					<div class="m-list-settings">
-						<div class="m-list-settings__group">
-							<div class="m-list-settings__heading">
-								General Settings
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Email Notifications
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" checked="checked" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Site Tracking
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									SMS Alerts
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Backup Storage
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Audit Logs
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" checked="checked" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-						</div>
-						<div class="m-list-settings__group">
-							<div class="m-list-settings__heading">
-								System Settings
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									System Logs
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Error Reporting
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Applications Logs
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Backup Servers
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" checked="checked" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-							<div class="m-list-settings__item">
-								<span class="m-list-settings__item-label">
-									Audit Logs
-								</span>
-								<span class="m-list-settings__item-control">
-									<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-										<label>
-											<input type="checkbox" name="">
-											<span></span>
-										</label>
-									</span>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane  m-scrollable" id="m_quick_sidebar_tabs_logs" role="tabpanel">
-					<div class="m-list-timeline">
-						<div class="m-list-timeline__group">
-							<div class="m-list-timeline__heading">
-								System Logs
-							</div>
-							<div class="m-list-timeline__items">
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										12 new users registered
-										<span class="m-badge m-badge--warning m-badge--wide">
-											important
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										Just now
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										System shutdown
-									</a>
-									<span class="m-list-timeline__time">
-										11 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
-									<a href="" class="m-list-timeline__text">
-										New invoice received
-									</a>
-									<span class="m-list-timeline__time">
-										20 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
-									<a href="" class="m-list-timeline__text">
-										Database overloaded 89%
-										<span class="m-badge m-badge--success m-badge--wide">
-											resolved
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										1 hr
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										System error
-									</a>
-									<span class="m-list-timeline__time">
-										2 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server down
-										<span class="m-badge m-badge--danger m-badge--wide">
-											pending
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										3 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server up
-									</a>
-									<span class="m-list-timeline__time">
-										5 hrs
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-list-timeline__group">
-							<div class="m-list-timeline__heading">
-								Applications Logs
-							</div>
-							<div class="m-list-timeline__items">
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										New order received
-										<span class="m-badge m-badge--info m-badge--wide">
-											urgent
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										7 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										12 new users registered
-									</a>
-									<span class="m-list-timeline__time">
-										Just now
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										System shutdown
-									</a>
-									<span class="m-list-timeline__time">
-										11 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
-									<a href="" class="m-list-timeline__text">
-										New invoices received
-									</a>
-									<span class="m-list-timeline__time">
-										20 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
-									<a href="" class="m-list-timeline__text">
-										Database overloaded 89%
-									</a>
-									<span class="m-list-timeline__time">
-										1 hr
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										System error
-										<span class="m-badge m-badge--info m-badge--wide">
-											pending
-										</span>
-									</a>
-									<span class="m-list-timeline__time">
-										2 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server down
-									</a>
-									<span class="m-list-timeline__time">
-										3 hrs
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-list-timeline__group">
-							<div class="m-list-timeline__heading">
-								Server Logs
-							</div>
-							<div class="m-list-timeline__items">
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server up
-									</a>
-									<span class="m-list-timeline__time">
-										5 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										New order received
-									</a>
-									<span class="m-list-timeline__time">
-										7 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										12 new users registered
-									</a>
-									<span class="m-list-timeline__time">
-										Just now
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										System shutdown
-									</a>
-									<span class="m-list-timeline__time">
-										11 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
-									<a href="" class="m-list-timeline__text">
-										New invoice received
-									</a>
-									<span class="m-list-timeline__time">
-										20 mins
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
-									<a href="" class="m-list-timeline__text">
-										Database overloaded 89%
-									</a>
-									<span class="m-list-timeline__time">
-										1 hr
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										System error
-									</a>
-									<span class="m-list-timeline__time">
-										2 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server down
-									</a>
-									<span class="m-list-timeline__time">
-										3 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
-									<a href="" class="m-list-timeline__text">
-										Production server up
-									</a>
-									<span class="m-list-timeline__time">
-										5 hrs
-									</span>
-								</div>
-								<div class="m-list-timeline__item">
-									<span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
-									<a href="" class="m-list-timeline__text">
-										New order received
-									</a>
-									<span class="m-list-timeline__time">
-										1117 hrs
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end::Quick Sidebar -->	   
+    	 
 <!-- begin::modal windows -->
 <!-- begin::modal add  cliente business -->
 <div class="modal" tabindex="-1" role="dialog" id="modaladduserbusiness">
@@ -2386,7 +1784,6 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
     <input type="text" class="form-control" id="cittabusiness" placeholder="Citt&agrave;..." name="cittabusiness">
   </div>
   
-  
 
       </div>
       <div class="modal-footer " style="text-align:center;" >
@@ -2409,31 +1806,38 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
       </div>
       <div class="modal-body">
       <form action="" method="POST">
-  <div class="form-group">
-    <label for="nomecliente">Nome</label>
-    <input type="text" class="form-control" id="nomecliente" aria-describedby="nomecliente" placeholder="Nome..." name="nome" required>
-   
-  </div>
-  <div class="form-group">
-    <label for="cognomecliente">Cognome</label>
-    <input type="text" class="form-control" id="cognomecliente" placeholder="Cognome..." name="cognomecliente">
-  </div>
-  <div class="form-group">
-    <label for="emailcliente">Email</label>
-    <input type="email" class="form-control" id="emailcliente" placeholder="Email..." name="emailcliente" required>
-  </div>
-    <div class="form-group">
-    <label for="pwdcliente">Password</label>
-    <input type="text" class="form-control" id="group" placeholder="Password..." name="group" required>
-  </div>
-    <div class="form-group">
-    <label for="idazienda">ID Officina</label>
-    <input type="number" class="form-control" id="idazienda" placeholder="ID Azienda..." name="idazienda" required>
-  </div>
-   <div class="form-group">
-    <label for="telefonocliente">Telefono</label>
-    <input type="text" class="form-control" id="telefonocliente" placeholder="Telefono..." name="telefonocliente">
-  </div>
+<div class="form-group">
+							<label for="nomecliente">Nome</label> <input type="text"
+								class="form-control" id="nomecliente"
+								aria-describedby="nomecliente" placeholder="Nome..." name="nome"
+								required>
+
+						</div>
+						<div class="form-group">
+							<label for="cognomecliente">Cognome</label> <input type="text"
+								class="form-control" id="cognomecliente"
+								placeholder="Cognome..." name="cognomecliente">
+						</div>
+						<div class="form-group">
+							<label for="emailcliente">Email</label> <input type="email"
+								class="form-control" id="emailcliente" placeholder="Email..."
+								name="emailcliente" required>
+						</div>
+						<div class="form-group">
+							<label for="pwdcliente">Password</label> <input type="text"
+								class="form-control" id="pwdcliente" placeholder="Password..."
+								name="pwdcliente" required>
+						</div>
+						<div class="form-group">
+							<label for="idazienda">ID Officina</label> <input type="number"
+								class="form-control" id="idazienda" placeholder="ID Azienda..."
+								name="idazienda">
+						</div>
+						<div class="form-group">
+							<label for="telefonocliente">Telefono</label> <input type="text"
+								class="form-control" id="telefonocliente"
+								placeholder="Telefono..." name="telefonocliente">
+						</div>
   
 
       </div>
@@ -2495,6 +1899,96 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
   </div>
 </div>
 <!-- end::modal add auto azienda-->
+<!-- begin::modal modifica cliente privato-->
+<div class="modal" tabindex="-1" role="dialog" id="modalmodcliente">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modifica cliente privato <span id=modcliente></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="ModificaUtente" method="POST">
+ 
+  <div class="form-group">
+    <label for="nomemod">Nome</label>
+    <input type="text" class="form-control" id="nomemod" placeholder="Nome..." name="nomemod">
+  </div>
+  <div class="form-group">
+    <label for="cognomemod">Cognome</label>
+    <input type="text" class="form-control" id="cognomemod" placeholder="Cognome..." name="cognomemod">
+  </div>
+    <div class="form-group">
+    <label for="emailmod">Email</label>
+    <input type="email" class="form-control" id="emailmod" placeholder="Email..." name="emailmod">
+  </div>
+    <div class="form-group">
+    <label for="telefonomod">Telefono</label>
+    <input type="text" class="form-control" id="telefonomod" placeholder="Telefono..." name="telefonomod">
+  </div>
+ 
+  <input type="hidden" id="idmod" name="idmod">
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Salva</button>
+	   </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal modifica cliente -->
+<!-- begin::modal modifica cliente business-->
+<div class="modal" tabindex="-1" role="dialog" id="modalmodbusiness">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modifica cliente business <span id=modbusiness></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="ModificaUtenteBusiness" method="POST">
+ <div class="form-group">
+    <label for="denominazionemodbusiness">Nome</label>
+    <input type="text" class="form-control" id="denominazionemodbusiness" placeholder="Denominazione..." name="denominazionemodbusiness">
+  </div>
+  <div class="form-group">
+    <label for="nomemodbusiness">Nome</label>
+    <input type="text" class="form-control" id="nomemodbusiness" placeholder="Nome..." name="nomemodbusiness">
+  </div>
+  <div class="form-group">
+    <label for="cognomemodbusiness">Cognome</label>
+    <input type="text" class="form-control" id="cognomemodbusiness" placeholder="Cognome..." name="cognomemodbusiness">
+  </div>
+    <div class="form-group">
+    <label for="emailmodbusiness">Email</label>
+    <input type="email" class="form-control" id="emailmodbusiness" placeholder="Email..." name="emailmodbusiness">
+  </div>
+    <div class="form-group">
+    <label for="telefonomodbusiness">Telefono</label>
+    <input type="text" class="form-control" id="telefonomodbusiness" placeholder="Telefono..." name="telefonomodbusiness">
+  </div>
+ <div class="form-group">
+    <label for="cittamodbusiness">Citt&agrave;</label>
+    <input type="text" class="form-control" id="cittamodbusiness" placeholder="Citt&agrave;..." name="cittamodbusiness">
+  </div>
+  <input type="hidden" id="idmodbusiness" name="idmodbusiness">
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Salva</button>
+	   </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal modifica cliente business -->
 <!-- end::modal windows -->
 	    <!-- begin::Scroll Top -->
 	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
@@ -2511,7 +2005,42 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
         <!--begin::Page Snippets -->
 	<script src="assets/app/js/dashboard.js" type="text/javascript"></script>
 	<!--end::Page Snippets -->
+	<script>
 	
+	$('.modcliente').on('click',function(){
+	var nome=$(this).data("nome");
+	var cognome=$(this).data("cognome");
+	var telefono = $(this).data("telefono");
+	var email = $(this).data("email");
+	var id=$(this).data("id");
+	$('#modcliente').html(nome+ " " +cognome);
+	$('#nomemod').val(nome);
+	$('#cognomemod').val(cognome);
+	$('#telefonomod').val(telefono);
+	$('#emailmod').val(email);
+	$('#idmod').val(id);
+	$('#modalmodcliente').modal("show");
+	});
+		$('.modbusiness').on('click',function(){
+			var denominazione=$(this).data("denominazione");
+			var citta = $(this).data("citta");
+	var nome=$(this).data("nome");
+	var cognome=$(this).data("cognome");
+	var telefono = $(this).data("telefono");
+	var email = $(this).data("email");
+	var id=$(this).data("id");
+	$('#modbusiness').html(nome+ " " +cognome);
+	$('#nomemodbusiness').val(nome);
+	$('#denominazionemodbusiness').val(denominazione);
+	$('#cittamodbusiness').val(citta);
+	$('#cognomemodbusiness').val(cognome);
+	$('#telefonomodbusiness').val(telefono);
+	$('#emailmodbusiness').val(email);
+	$('#idmodbusiness').val(id);
+	$('#modalmodbusiness').modal("show");
+	});
+	
+	</script>
 </body>
 <!-- end::Body -->
 </html>

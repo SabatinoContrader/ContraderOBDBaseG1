@@ -89,21 +89,27 @@ public static Utente logIn(String email, String password) {
 	}
 
 
-public static boolean signUp(String nome, String cognome, String email, String password, String telefono, int idAzienda, int idAziendaPrivata) {
+public static boolean signUp(String nome, String cognome, String email, String password, int ruolo, String telefono, int idAzienda, int idAziendaPrivata) {
 	
 	Date dataRegistrazione;
 	
 	dataRegistrazione = new Date(System.currentTimeMillis());
 	
 	String Query;
+	PreparedStatement statement;
 	
-	if(idAzienda==0 && idAziendaPrivata == 0) Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `DataRegistrazione`, `Telefono`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', ?, '"+ telefono +"')";
-	else if(idAzienda==0) Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `IdAzienda`, `DataRegistrazione`, `Telefono`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', "+ idAzienda +", ?, '"+ telefono +"')";
-	else Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `IdAzienda`, `DataRegistrazione`, `Telefono`, `IdAziendaPrivata`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', "+ idAzienda +", ?, '"+ telefono +"', "+idAziendaPrivata+")";
-
+	
+	if(idAzienda==0 && idAziendaPrivata == 0) Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `DataRegistrazione`, `Ruolo`, `Telefono`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', ?, "+ ruolo +", '"+telefono +"')";
+	else if((idAziendaPrivata==0) && (idAzienda > 0)) Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `IdAzienda`, `DataRegistrazione`, `Ruolo`, `Telefono`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', "+ idAzienda +", ?, "+ ruolo +", '"+telefono +"')";
+	else if ((idAziendaPrivata>0) && (idAzienda == 0)) Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `DataRegistrazione`, `Ruolo`, `Telefono`, `IdAziendaPrivata`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', ?, "+ ruolo +", '"+telefono +"', "+idAziendaPrivata+")";
+	else if (idAzienda!=0 && idAziendaPrivata != 0) Query = "INSERT INTO `utente` (`Nome`, `Cognome`, `Email`, `Password`, `IdAzienda`, `DataRegistrazione`, `Ruolo`, `Telefono`, `IdAziendaPrivata`) VALUES ('"+ nome +"', '"+ cognome +"', '"+ email +"', '"+ password +"', "+ idAzienda +", ?, "+ ruolo +", '"+telefono +"', "+idAziendaPrivata+")";
+	else return false;
+	
+	
 	//System.out.println(Query);
 	
-	PreparedStatement statement;
+	
+	
 	ResultSet resultSet = null;
 	
 	int registrato = 0;
@@ -116,7 +122,7 @@ public static boolean signUp(String nome, String cognome, String email, String p
 		
 	} catch (SQLException e) {
 		System.out.println("Errore di Registrazione su DB!");
-		//e.printStackTrace();
+		e.printStackTrace();
 	}
 	
 	if(registrato > 0) return true;
@@ -240,5 +246,78 @@ return insertOk;
 
 
 	}
+
+	public static boolean updateUtenteOfficina(String nome,String cognome,String email, String telefono,int idmod) {
+
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		int insertOk=0;
+		String QUERY = "UPDATE utente SET Nome=?,Cognome=?,Email=?,Telefono=? WHERE ID=?";
+
+		try{
+
+
+
+			statement = conn.prepareStatement(QUERY);
+
+
+
+			statement.setString(1, nome);
+			statement.setString(2, cognome);
+			statement.setString(3, email);
+			statement.setString(4,telefono);
+			statement.setInt(5, idmod);
+
+			insertOk= statement.executeUpdate();
+
+
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+
+
+	if(insertOk>0)return true;
+		else return false;
+	}
+
+	public static boolean updateUtenteBusinessOfficina(String denominazione,String nome,String cognome,String email, String telefono,String citta,int idmod) {
+
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		int insertOk=0;
+		String QUERY = "UPDATE azienda_privata SET Denominazione=?, NomeReferente=?,CognomeReferente=?,Email=?,Telefono=?,Citta=? WHERE ID=?";
+
+		try{
+
+
+
+			statement = conn.prepareStatement(QUERY);
+
+
+			statement.setString(1, denominazione);
+			statement.setString(2, nome);
+			statement.setString(3, cognome);
+			statement.setString(4, email);
+			statement.setString(5,telefono);
+			statement.setString(6,citta);
+			statement.setInt(7, idmod);
+
+			insertOk= statement.executeUpdate();
+
+
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+
+
+		if(insertOk>0){
+
+			return true;
+		}
+		else return false;
+	}
+
 
 }
