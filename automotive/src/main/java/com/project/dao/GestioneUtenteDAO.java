@@ -241,4 +241,77 @@ return insertOk;
 
 	}
 
+	public static boolean updateUtenteOfficina(String nome,String cognome,String email, String telefono,int idmod) {
+
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		int insertOk=0;
+		String QUERY = "UPDATE utente SET Nome=?,Cognome=?,Email=?,Telefono=? WHERE ID=?";
+
+		try{
+
+
+
+			statement = conn.prepareStatement(QUERY);
+
+
+
+			statement.setString(1, nome);
+			statement.setString(2, cognome);
+			statement.setString(3, email);
+			statement.setString(4,telefono);
+			statement.setInt(5, idmod);
+
+			insertOk= statement.executeUpdate();
+
+
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+
+
+	if(insertOk>0)return true;
+		else return false;
+	}
+
+	public static boolean updateUtenteBusinessOfficina(String denominazione,String nome,String cognome,String email, String telefono,String citta,int idmod) {
+
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		int insertOk=0;
+		String QUERY = "UPDATE azienda_privata SET Denominazione=?, NomeReferente=?,CognomeReferente=?,Email=?,Telefono=?,Citta=? WHERE ID=?";
+
+		try{
+
+
+
+			statement = conn.prepareStatement(QUERY);
+
+
+			statement.setString(1, denominazione);
+			statement.setString(2, nome);
+			statement.setString(3, cognome);
+			statement.setString(4, email);
+			statement.setString(5,telefono);
+			statement.setString(6,citta);
+			statement.setInt(7, idmod);
+
+			insertOk= statement.executeUpdate();
+
+
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+
+
+		if(insertOk>0){
+
+			return true;
+		}
+		else return false;
+	}
+
+
 }

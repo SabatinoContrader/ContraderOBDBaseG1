@@ -39,7 +39,7 @@ public class RegistraUtente extends HttpServlet {
 		String cognome = request.getParameter("cognomecliente");
 		String email = request.getParameter("emailcliente");
 		String password = request.getParameter("pwdcliente");
-		
+
 		int idAzienda = 0;
 		if(request.getParameter("idazienda") != null && !request.getParameter("idazienda").equals("")) idAzienda = Integer.parseInt(request.getParameter("idazienda"));
 		
@@ -49,7 +49,8 @@ public class RegistraUtente extends HttpServlet {
 		
 		System.out.println("Sto per fare l'inserimento dell'utente di nome: "+ nome +" idazienda: "+idAzienda);
 		
-		if(GestioneUtenteDAO.signUp(nome, cognome, email, password, telefono, idAzienda, idAziendaPrivata)) response.sendRedirect("home_admin.jsp");
+		if(GestioneUtenteDAO.signUp(nome, cognome, email, password, telefono, idAzienda, idAziendaPrivata))response.sendRedirect("home_admin.jsp");
+
 		
 	}
 
