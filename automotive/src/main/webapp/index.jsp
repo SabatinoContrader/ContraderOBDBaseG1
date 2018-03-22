@@ -222,6 +222,29 @@ display: block;
     font-size: 32px;}
 </style>
 </head>
+	<%@ page import = "com.project.model.*" %>
+<%
+Utente u = (Utente)session.getAttribute("Utente");
+if(u != null ){
+	switch(u.getRuolo()){
+	case 0:
+		response.sendRedirect("utente_home.jsp");
+		break;
+	case 1:
+		response.sendRedirect("home_officina");
+	break;
+	case 2:
+		response.sendRedirect("home_admin");
+		break;
+	case 3:
+		//INFINITE LOOP, FAME DA LOOP
+		//TO DO
+	case 4:
+		response.sendRedirect("home_cliente-business_admin.jsp");
+		break;
+		
+	}
+} %>
 <body>
   <div class="container">
         <div class="card card-container">
