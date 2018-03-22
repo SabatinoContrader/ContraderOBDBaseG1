@@ -29,7 +29,7 @@ public class AlertsDAO {
 	private final int DEADLINE_SCADENZA_BOLLO = 15;
 
 
-	public ArrayList<GuastoDTO> getUserAlertsGuasti(Utente u){
+	public ArrayList<GuastoDTO> getUserAlertsGuastiDriver(Utente u){
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String QUERY = null;
