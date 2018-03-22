@@ -51,9 +51,11 @@ License: You must have a valid license purchased only from themeforest(the above
 	
 		<%@ page import="com.project.model.*"%>
 		<%@ page import="utility.*"%>
+		<%@ page import="java.util.ArrayList"%>
 		<%@ page import="java.util.List"%>
 		<%@ page import="com.project.dao.*"%>
 		<%@ page import="com.project.automotive.dto.*"%>
+		<%@ page import="com.project.dao.AlertsDAO"%>
 
 	<%
 
@@ -69,7 +71,8 @@ List<Azienda> listaClientiBusiness = DaoUtility.getListaClientiBusiness(a.id);
 
 List<Auto> listaAutoOfficina = CarDAO.getListAutoAzienda(a.id);
 
-
+AlertsDAO adao = new AlertsDAO();
+ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 
 %>
 	
@@ -1624,33 +1627,49 @@ List<Auto> listaAutoOfficina = CarDAO.getListAutoAzienda(a.id);
 									<table class="table table-striped">
 									<thead>
 									<tr>
+									<th>ID</th>
 									<th>Codice</th>
+									<th>Data</th>
 									<th>Dettagli</th>
 									<th>Dispositivo</th>
-									<th>Data</th>
+									<th>Marca</th>
+									<th>Modello</th>
+									<th>Targa</th>
+									<th>Telaio</th>
 									<th></th>
 						
 									
 									</tr>
 									</thead>
 									<tbody>
-									<tr>
-									<td>00001</td>
-									<td>Dettagli guasto</td>	
-<td>Codice Dispositivo</td>									
-<td>15/10/2017</td>
-									<td><i class="fa fa-car" data-id="2" title="Visualizza dettagli auto con ID 1"></i></td>
-								
-								
-									</tr>
-									<tr>
-										<td>00001</td>
-										<td>Dettagli guasto</td>		
-										<td>Codice Dispositivo</td>			
-<td>15/02/2018</td>										
-									<td><i class="fa fa-car" data-id="2" title="Visualizza dettagli auto con ID 2"></i></td>
-								
-									</tr>
+									
+											<% if(guasti.size() != 0){
+										for(int i = 0; i<guasti.size(); i++){
+											%>
+												<tr>
+													<td><%=guasti.get(i).getId()%></td>
+													<td><%=guasti.get(i).getCodice()%></td>
+													<td><%=guasti.get(i).getData()%></td>
+													<td><%=guasti.get(i).getDescrizione()%></td>
+													<td><%=guasti.get(i).getIdDispositivo()%></td>
+													<td><%=guasti.get(i).getMarcaAuto()%></td>
+													<td><%=guasti.get(i).getModelloAuto()%></td>
+													<td><%=guasti.get(i).getNumeroTarga()%></td>
+													<td><%=guasti.get(i).getNumeroTelaio()%></td>
+													<td><ul class="fa-ul">
+  <li class="fa-li"><i class="fa fa-bar-chart"  title="Visualizza dati telemetria"></i></li>
+  <li class="fa-li"><i class="fa fa-user" title="Visualizza dati cliente"></i></li> 
+
+</ul></td>
+												</tr>
+												<%
+										}
+									}
+									
+									%>
+									
+									
+									
 									</tbody>
 									</table>
 									</div>
