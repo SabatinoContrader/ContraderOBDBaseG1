@@ -106,7 +106,7 @@ List<Utente> utenti = DaoUtility.getListaUtenti();
 							<div
 								class="m-stack m-stack--ver m-stack--general m-stack--inline">
 								<div class="m-stack__item m-stack__item--middle m-brand__logo">
-									<a href="index.html" class="m-brand__logo-wrapper"> <img
+									<a href="index.jsp" class="m-brand__logo-wrapper"> <img
 										alt="" src="images/logo-contrader.png" / class="logo">
 									</a>
 								</div>
@@ -468,9 +468,9 @@ List<Utente> utenti = DaoUtility.getListaUtenti();
 								class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light ">
 								<ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
 									<li class="m-menu__item  m-menu__item--active "
-										aria-haspopup="true"><a href="index.html"
+										aria-haspopup="true"><a href="index.jsp"
 										class="m-menu__link "> <span class="m-menu__item-here"></span>
-											<span class="m-menu__link-text"> Dashboard </span>
+											<span class="m-menu__link-text"> Dashboard</span>
 									</a></li>
 									<li
 										class="m-menu__item  m-menu__item--submenu m-menu__item--rel"
@@ -1053,7 +1053,7 @@ List<Utente> utenti = DaoUtility.getListaUtenti();
 				<div class="m-subheader ">
 					<div class="d-flex align-items-center">
 						<div class="mr-auto">
-							<h3 class="m-subheader__title ">Dashboard</h3>
+							<h3 class="m-subheader__title ">Dashboard - Amministratore Sistema</h3>
 						</div>
 
 					</div>

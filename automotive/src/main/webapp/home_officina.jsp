@@ -18,7 +18,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<head>
 		<meta charset="utf-8" />
 		<title>
-			Home Cliente
+			Officina
 		</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,32 +41,38 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
-		<!-- <link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" /> -->
-		<style>.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}</style>
+		<link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" />
+		<style>.fah3{font-size:24px;padding-right:10px;}.transparentli{color: transparent;}.fa{cursor:pointer;}.fa-ul li{display:inline;margin-left:10px;}.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;}.savebutton{margin-left: auto;    margin-right: auto;}.btn-box{       border: none;margin-top: 20px;    width: 200px;    color: white !important;}.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}</style>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
 	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
 	
 	
-	<%@ page import = "com.project.model.*" %>
-	<%@ page import = "java.util.ArrayList" %>
-	<%@ page import = "com.project.dao.*" %>
-	<%@ page import = "com.project.automotive.dto.*" %>
-	
+		<%@ page import="com.project.model.*"%>
+		<%@ page import="utility.*"%>
+		<%@ page import="java.util.List"%>
+		<%@ page import="com.project.dao.*"%>
+		<%@ page import="com.project.automotive.dto.*"%>
 
-
-<%
+	<%
 
 Utente u = (Utente)session.getAttribute("Utente");
 
 String name = u.getNome();
 
-AlertsDAO alerts = new AlertsDAO();
-
-ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
+Azienda a = DaoUtility.getDatiAzienda(u);
  
+List<Utente> listaUtentiPrivati = DaoUtility.getListaClientiAzienda(a.id);
+
+List<Azienda> listaClientiBusiness = DaoUtility.getListaClientiBusiness(a.id);
+
+List<Auto> listaAutoOfficina = CarDAO.getListAutoAzienda(a.id);
+
+
+
 %>
+	
 	
 	
 	
@@ -110,6 +116,9 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 										<ul class="m-topbar__nav m-nav m-nav--inline">
 											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">
 												<a href="#" class="m-nav__link m-dropdown__toggle">
+													<span class="m-topbar__userpic m--hide">
+														<img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless m--img-centered" alt=""/>
+													</span>
 													<span class="m-topbar__welcome">
 														Benvenuto,&nbsp;
 													</span>
@@ -124,7 +133,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 															<div class="m-card-user m-card-user--skin-dark">
 																<div class="m-card-user__details">
 																	<span class="m-card-user__name m--font-weight-500">
-																		<%=u.getNome()+" "+u.getCognome() %>
+																		<%=name+" "+u.getCognome()%>
 																	</span>
 																	<a href="" class="m-card-user__email m--font-weight-300 m-link">
 																		<%=u.getEmail()%>
@@ -472,6 +481,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 													</div>
 												</div>
 											</li>
+										
 										</ul>
 									</div>
 								</div>
@@ -1215,7 +1225,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
 								<h3 class="m-subheader__title ">
-									Dashboard
+									Dashboard - Officina <%=a.getDenominazione()%>
 								</h3>
 							</div>
 						
@@ -1232,15 +1242,17 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Guasti
+													GUASTI
 												</h4>
 												<br>
-											
+												<span class="m-widget24__desc">
+													Rilevati dai dispositivi
+												</span>
 												<span class="m-widget24__stats m--font-brand">
-													<%=listaGuastiUtente.size()%>
+													102919
 												</span>
 												<div class="m--space-10"></div>
-											
+											<p style="text-align:center;" class="smooth-scroll"><a  href="#tableguasti" style="background-color:#716aca !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::Total Profit-->
@@ -1250,15 +1262,18 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-												Scadenze
+													SCADENZE
 												</h4>
 												<br>
-												
+												<span class="m-widget24__desc">
+													Manutenzione
+												</span>
 												<span class="m-widget24__stats m--font-info">
-													1349
+													983728
 												</span>
 												<div class="m--space-10"></div>
-												
+											
+													<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#36a3f7  !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Feedbacks-->
@@ -1268,15 +1283,17 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Richieste Preventivo
+													APPUNTAMENTI
 												</h4>
 												<br>
-												
+												<span class="m-widget24__desc">
+													Richiesti
+												</span>
 												<span class="m-widget24__stats m--font-danger">
 													567
 												</span>
 												<div class="m--space-10"></div>
-												
+											<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#f4516c   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Orders-->
@@ -1286,15 +1303,17 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Appuntamenti
+													PREVENTIVI
 												</h4>
 												<br>
-												
+												<span class="m-widget24__desc">
+													Richiesti
+												</span>
 												<span class="m-widget24__stats m--font-success">
 													276
 												</span>
 												<div class="m--space-10"></div>
-												
+											<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#34bfa3   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Users-->
@@ -1345,7 +1364,6 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 						</div>
 						<!--End::Section-->
 
-
 <!--Begin::Section-->
 						<div class="row">
 							<div class="col-xl-12">
@@ -1354,11 +1372,156 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
-													AUTO UTENTE
+												<i class="fa fa-user fah3"  ></i>
+													Clienti Privati
 												</h3>
 											</div>
 										</div>
+									<button class="btn btn-info btn-add" type="button" data-toggle="modal" data-target="#modaladduser">Aggiungi Nuovo</button>
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+									<table class="table table-striped">
+									<thead>
+									<tr>
+									<th>ID</th>
+									<th>Nome</th>
+									<th>Cognome</th>
+									<th>Email</th>
+									<th>Telefono</th>
+									<th>Data Registrazione</th>
+									<th style="width:150px;"></th>
 									
+									</tr>
+									</thead>
+									<tbody>
+									
+									
+									
+									
+												<% if(listaUtentiPrivati.size() != 0){
+										for(int i = 0; i<listaUtentiPrivati.size(); i++){
+											%>
+												<tr>
+													<td><%=listaUtentiPrivati.get(i).getID()%></td>
+													<td><%=listaUtentiPrivati.get(i).getNome()%></td>
+													<td><%=listaUtentiPrivati.get(i).getCognome()%></td>
+													<td><%=listaUtentiPrivati.get(i).getEmail()%></td>
+													<td><%=listaUtentiPrivati.get(i).getTelefono()%></td>
+													<td><%=listaUtentiPrivati.get(i).getDataRegistrazione()%></td>
+													<td><ul class="fa-ul">
+  <li class="fa-li"><i class="fa fa-car"  title="Visualizza lista auto"></i></li>
+  <li class="fa-li"><i class="fa fa-pencil" title="Modifica cliente"></i></li> 
+  <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi cliente"></i></li>
+</ul></td>
+												</tr>
+												<%
+										}
+									}
+									
+									%>
+									
+									</tbody>
+									</table>
+									</div>
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						<!--End::Section-->   
+						<!--Begin::Section-->
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+												<i class="fa fa-briefcase fah3"  ></i>
+													Clienti Business
+												</h3>
+											</div>
+										</div>
+									<button class="btn btn-info btn-add" type="button" data-toggle="modal" data-target="#modaladduserbusiness">Aggiungi Nuovo</button>
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+									<table class="table table-striped">
+									<thead>
+									<tr>
+									<th>ID</th>
+									<th>Denominazione</th>
+									<th>Nome Referente</th>
+									<th>Cognome Referente</th>
+									<th>Email</th>
+									<th>Telefono</th>
+									<th>Citt&agrave;</th>
+									<th>Data Registrazione</th>
+									<th style="width:150px;"></th>
+									
+									</tr>
+									</thead>
+									<tbody>
+									
+									
+									
+									<% if(listaClientiBusiness.size() != 0){
+										for(int i = 0; i<listaClientiBusiness.size(); i++){
+											%>
+												<tr>
+													<td><%=listaClientiBusiness.get(i).id%></td>
+													<td><%=listaClientiBusiness.get(i).getDenominazione()%></td>
+													<td><%=listaClientiBusiness.get(i).getNomeReferente()%></td>
+													<td><%=listaClientiBusiness.get(i).getCognomeReferente()%></td>
+													<td><%=listaClientiBusiness.get(i).getEmail()%></td>
+													<td><%=listaClientiBusiness.get(i).getTelefono()%></td>
+													<td><%=listaClientiBusiness.get(i).getCitta()%></td>
+													<td><%=listaClientiBusiness.get(i).getDataInserimento()%></td>
+													<td><ul class="fa-ul">
+  <li class="fa-li"><i class="fa fa-car"  title="Visualizza lista auto"></i></li>
+  <li class="fa-li"><i class="fa fa-pencil" title="Modifica cliente"></i></li> 
+  <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi cliente"></i></li>
+</ul></td>
+												</tr>
+												<%
+										}
+									}
+									
+									%>
+									
+									
+									
+									
+									
+									</tbody>
+									</table>
+									</div>
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						<!--End::Section-->
+<!--Begin::Section-->
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+												<i class="fa fa-car fah3"  ></i>	Auto <%=a.getDenominazione()%>
+												</h3>
+											</div>
+										</div>
+									<button class="btn btn-info btn-add" type="button" data-toggle="modal" data-target="#modaladdauto">Aggiungi Nuova</button>
 									</div>
 									<div class="m-portlet__body">
 										<!--begin: Datatable -->
@@ -1372,24 +1535,122 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 									<th>Modello</th>
 									<th>Targa</th>
 									<th>Telaio</th>
+									<th>Stato</th>
+									<th></th>
 									</tr>
 									</thead>
 									<tbody>
-									<% if(u.getAuto().size() != 0){
-										for(int i = 0; i<u.getAuto().size(); i++){
+									
+									
+									
+									
+									
+									
+												<% if(listaAutoOfficina.size() != 0){
+													
+													NoleggioDTO clienteBusiness = null;
+													NoleggioDTO clientePrivato = null;
+													
+										for(int i = 0; i<listaAutoOfficina.size(); i++){
+					
+											
 											%>
 												<tr>
-												<td><%=u.getAuto().get(i).getID()%></td>
-												<td><%=u.getAuto().get(i).getMarca()%></td>
-												<td><%=u.getAuto().get(i).getModello()%></td>
-												<td><%=u.getAuto().get(i).getTarga()%></td>
-												<td><%=u.getAuto().get(i).getNumeroTelaio()%></td>
+													<td><%=listaAutoOfficina.get(i).getID()%></td>
+													<td><%=listaAutoOfficina.get(i).getMarca()%></td>
+													<td><%=listaAutoOfficina.get(i).getModello()%></td>
+													<td><%=listaAutoOfficina.get(i).getTarga()%></td>
+													<td><%=listaAutoOfficina.get(i).getNumeroTelaio()%></td>
+												
+												
+												
+												<%clienteBusiness = DaoUtility.noleggioAutoClienteBusiness(listaAutoOfficina.get(i).getID());
+												clientePrivato = DaoUtility.noleggioAutoClientePrivato(listaAutoOfficina.get(i).getID());
+												
+												System.out.println(1);
+												if((clienteBusiness != null) || (clientePrivato != null)){
+													if(clienteBusiness != null){if(clienteBusiness.KmMaxNoleggio != 0) %><td>In noleggio</td><%;}
+													else if(clientePrivato.KmMaxNoleggio != 0){ %><td>In noleggio</td><%;}
+													else {%><td>Auto Privata</td><%;}
+													}else {%><td>Non in noleggio</td><%; System.out.println(4);}
+				
+												%>
+												<td><ul class="fa-ul"><li class="fa-li"><i class="fa fa-user" title="Visualizza Utente associato"></i></li>
+												<li class="fa-li"><i class="fa fa-calendar"  title="Visualizza scadenze auto"></i></li>
+												  <li class="fa-li"><i class="fa fa-pencil" title="Modifica auto"></i></li> 
+												  <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi auto"></i></li>
+												</ul></td>
 												</tr>
-											<%
+												<%
 										}
 									}
 									
 									%>
+									
+									
+									
+									
+									</tbody>
+									</table>
+									</div>
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						<!--End::Section-->   
+						
+
+<!--Begin::Section-->
+						<div class="row" id="tableguasti">
+							<div class="col-xl-12">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+												<i class="fa fa-wrench fah3"  ></i>
+													Guasti
+												</h3>
+											</div>
+										</div>
+									
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+									<table class="table table-striped">
+									<thead>
+									<tr>
+									<th>Codice</th>
+									<th>Dettagli</th>
+									<th>Dispositivo</th>
+									<th>Data</th>
+									<th></th>
+						
+									
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+									<td>00001</td>
+									<td>Dettagli guasto</td>	
+<td>Codice Dispositivo</td>									
+<td>15/10/2017</td>
+									<td><i class="fa fa-car" data-id="2" title="Visualizza dettagli auto con ID 1"></i></td>
+								
+								
+									</tr>
+									<tr>
+										<td>00001</td>
+										<td>Dettagli guasto</td>		
+										<td>Codice Dispositivo</td>			
+<td>15/02/2018</td>										
+									<td><i class="fa fa-car" data-id="2" title="Visualizza dettagli auto con ID 2"></i></td>
+								
+									</tr>
 									</tbody>
 									</table>
 									</div>
@@ -2066,7 +2327,156 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuasti(u);
 			</div>
 		</div>
 	</div>
-	<!-- end::Quick Sidebar -->	        
+	<!-- end::Quick Sidebar -->	   
+<!-- begin::modal windows -->
+<!-- begin::modal add  cliente business -->
+<div class="modal" tabindex="-1" role="dialog" id="modaladduserbusiness">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Aggiungi Cliente Business</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="" method="POST">
+  <div class="form-group">
+    <label for="nomeclientebusiness">Denominazione</label>
+    <input type="text" class="form-control" id="nomeclientebusiness" aria-describedby="nomeclientebusiness" placeholder="Denominazione Cliente Business..." name="nomeclientebusiness" required>
+   
+  </div>
+  <div class="form-group">
+    <label for="nomereferentebusiness">Nome referente</label>
+    <input type="text" class="form-control" id="nomereferentebusiness" placeholder="Nome referente business..." name="nomerefebusiness">
+  </div>
+  <div class="form-group">
+    <label for="cognomereferentebusiness">Cognome referente</label>
+    <input type="text" class="form-control" id="cognomereferentebusiness" placeholder="Cognome referente business..." name="cognomerefbusiness">
+  </div>
+    <div class="form-group">
+    <label for="emailbusiness">Email</label>
+    <input type="email" class="form-control" id="emailbusiness" placeholder="Email..." name="emailbusiness">
+  </div>
+    <div class="form-group">
+    <label for="telefonobusiness">Telefono</label>
+    <input type="text" class="form-control" id="telefonobusiness" placeholder="Telefono..." name="telefonobusiness">
+  </div>
+   <div class="form-group">
+    <label for="cittabusiness">Citt&agrave;</label>
+    <input type="text" class="form-control" id="cittabusiness" placeholder="Citt&agrave;..." name="cittabusiness">
+  </div>
+  
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Salva</button>
+	   </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal add cliente business -->
+<!-- begin::modal add cliente -->
+<div class="modal" tabindex="-1" role="dialog" id="modaladduser">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Aggiungi Cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="" method="POST">
+  <div class="form-group">
+    <label for="nomecliente">Nome</label>
+    <input type="text" class="form-control" id="nomecliente" aria-describedby="nomecliente" placeholder="Nome..." name="nome" required>
+   
+  </div>
+  <div class="form-group">
+    <label for="cognomecliente">Cognome</label>
+    <input type="text" class="form-control" id="cognomecliente" placeholder="Cognome..." name="cognomecliente">
+  </div>
+  <div class="form-group">
+    <label for="emailcliente">Email</label>
+    <input type="email" class="form-control" id="emailcliente" placeholder="Email..." name="emailcliente" required>
+  </div>
+    <div class="form-group">
+    <label for="pwdcliente">Password</label>
+    <input type="text" class="form-control" id="group" placeholder="Password..." name="group" required>
+  </div>
+    <div class="form-group">
+    <label for="idazienda">ID Officina</label>
+    <input type="number" class="form-control" id="idazienda" placeholder="ID Azienda..." name="idazienda" required>
+  </div>
+   <div class="form-group">
+    <label for="telefonocliente">Telefono</label>
+    <input type="text" class="form-control" id="telefonocliente" placeholder="Telefono..." name="telefonocliente">
+  </div>
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Salva</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal add cliente -->
+<!-- begin::modal add auto azienda-->
+<div class="modal" tabindex="-1" role="dialog" id="modaladdauto">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Aggiungi Auto Dell'Officina</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="" method="POST">
+  <div class="form-group">
+    <label for="nomeclientebusiness">Denominazione</label>
+    <input type="text" class="form-control" id="nomeclientebusiness" aria-describedby="nomeclientebusiness" placeholder="Denominazione Cliente Business..." name="nomeclientebusiness" required>
+   
+  </div>
+  <div class="form-group">
+    <label for="nomereferentebusiness">Nome referente</label>
+    <input type="text" class="form-control" id="nomereferentebusiness" placeholder="Nome referente business..." name="nomerefebusiness">
+  </div>
+  <div class="form-group">
+    <label for="cognomereferentebusiness">Cognome referente</label>
+    <input type="text" class="form-control" id="cognomereferentebusiness" placeholder="Cognome referente business..." name="cognomerefbusiness">
+  </div>
+    <div class="form-group">
+    <label for="emailbusiness">Email</label>
+    <input type="email" class="form-control" id="emailbusiness" placeholder="Email..." name="emailbusiness">
+  </div>
+    <div class="form-group">
+    <label for="telefonobusiness">Telefono</label>
+    <input type="text" class="form-control" id="telefonobusiness" placeholder="Telefono..." name="telefonobusiness">
+  </div>
+   <div class="form-group">
+    <label for="cittabusiness">Citt&agrave;</label>
+    <input type="text" class="form-control" id="cittabusiness" placeholder="Citt&agrave;..." name="cittabusiness">
+  </div>
+  
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Salva</button>
+	   </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal add auto azienda-->
+<!-- end::modal windows -->
 	    <!-- begin::Scroll Top -->
 	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 		<i class="la la-arrow-up"></i>
