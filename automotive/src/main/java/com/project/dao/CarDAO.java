@@ -65,7 +65,9 @@ public class CarDAO {
 
 		return lista;
 	}
-	// GET LISTA AUTO CLIENTI AZIENDA
+	
+	
+	// GET LISTA AUTO CLIENTI AZIENDA - CREDO CHE E' SBAGLIATA
 	public static List<Auto> getListAutoAziendaClienti(int IdAzienda) {
 		Connection conn = ConnessioneDB.getInstance();
 		PreparedStatement statement;

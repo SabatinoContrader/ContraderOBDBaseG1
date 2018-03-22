@@ -52,7 +52,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) {
 	            	case 1 :	//Officina
 	            		try {
 							session.setAttribute("Utente", u);
-							response.sendRedirect("officina_home.jsp");
+							response.sendRedirect("home_officina.jsp");
 						} catch (IOException e) {
 							System.out.println("Caricamento pagina Home FALLITA!");
 						}

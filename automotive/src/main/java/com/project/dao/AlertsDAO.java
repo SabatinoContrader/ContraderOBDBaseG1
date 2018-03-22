@@ -29,9 +29,9 @@ public class AlertsDAO {
 	private final int DEADLINE_SCADENZA_BOLLO = 15;
 
 
-
 	/* QUESTA è LA LISTA DI TUTTE LE AUTO CON GUASTI DEL SISTEMA */
 	public ArrayList<GuastoDTO> getAlertsGuastiSystemAdministrator(Utente u){
+
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String QUERY = null;
