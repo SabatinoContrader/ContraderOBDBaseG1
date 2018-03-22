@@ -33,12 +33,20 @@
                 <tr>
                     <td>Menu officina</td>
                 </tr>
+                <tr>
+                    <td><a href="officinaAddAuto.jsp">Aggiungi auto</a></td>
+                </tr>
+
             </table>
             <% } else if( role.equals("azienda")) { %>
             <table>
                 <tr>
                     <td>Menu azienda</td>
                 </tr>
+                <tr>
+                    <td><a href="aziendaAddDriverAuto.jsp">Associa un'auto ad un driver</a></td>
+                </tr>
+
             </table>
             <% } else if( role.equals("driver")) { %>
             <table>
