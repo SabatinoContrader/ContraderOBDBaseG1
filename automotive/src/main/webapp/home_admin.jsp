@@ -1097,7 +1097,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 									<!--begin::New Feedbacks-->
 									<div class="m-widget24">
 										<div class="m-widget24__item">
-											<h4 class="m-widget24__title">Clienti</h4>
+											<h4 class="m-widget24__title">Utenti</h4>
 											<br> <span class="m-widget24__desc"> Tutti i
 												clienti delle officine </span> <span
 												class="m-widget24__stats m--font-info"> <%=utenti.size() %>
@@ -1108,7 +1108,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 												<button data-toggle="modal" data-target="#modaladduser"
 													style="background-color: #36a3f7 !important"
 													class="btn btn-info btn-box" type="button">Aggiungi
-													Clienti</button>
+													Utenti</button>
 											</p>
 										</div>
 									</div>
@@ -2089,7 +2089,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Aggiungi Cliente</h5>
+					<h5 class="modal-title">Aggiungi Utente</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -2128,6 +2128,21 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 							<label for="telefonocliente">Telefono</label> <input type="text"
 								class="form-control" id="telefonocliente"
 								placeholder="Telefono..." name="telefonocliente">
+						</div>
+						<div class="form-group">
+							<label for="ruolo">Tipologia Utente</label> <select required
+								class="form-control" id="ruolocliente" name="ruolocliente">
+								<option disabled selected>Selezione la Tipologia di Utente</option>
+								<option value = "0">Cliente Privato</option>
+								<option value = "1">Officina</option>
+								<option value = "4">Cliente Business</option>
+								<option value = "3">Dipendete di Cliente Business</option>
+								</select>
+						</div>
+						<div class="form-group">
+							<label for="idaziendaprivata">Id Cliente Business (In caso di Dipendente)</label> <input type="text"
+								class="form-control" id="idaziendaprivata"
+								placeholder="Id Cliente Business" name="idaziendaprivata">
 						</div>
 						<div class="modal-footer " style="text-align: center;">
 							<button type="submit" class="btn btn-primary savebutton"

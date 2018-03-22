@@ -19,7 +19,7 @@ public interface IController {
 	
 	public boolean signUpAziende(Azienda a);
 	
-	public boolean signUpUser(String nome, String cognome, String email, String password, String telefono, int idAzienda, int idAziendaPrivata);
+	public boolean signUpUser(String nome, String cognome, String email, String password, int ruolo, String telefono, int idAzienda, int idAziendaPrivata);
 	
 	public void alertsRevisioneGarageAdmin(Utente u);
 

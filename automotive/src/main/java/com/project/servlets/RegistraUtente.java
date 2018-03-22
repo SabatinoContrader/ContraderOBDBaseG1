@@ -40,16 +40,20 @@ public class RegistraUtente extends HttpServlet {
 		String email = request.getParameter("emailcliente");
 		String password = request.getParameter("pwdcliente");
 		
+		int ruolo = Integer.parseInt(request.getParameter("ruolocliente"));
+		int idAziendaPrivata = 0;
+		if(request.getParameter("idaziendaprivata") != null && !request.getParameter("idaziendaprivata").equals("")) idAziendaPrivata = Integer.parseInt(request.getParameter("idaziendaprivata"));
+		
 		int idAzienda = 0;
 		if(request.getParameter("idazienda") != null && !request.getParameter("idazienda").equals("")) idAzienda = Integer.parseInt(request.getParameter("idazienda"));
 		
 		String telefono = request.getParameter("telefonocliente");
 		
-		int idAziendaPrivata = 0; //Da restituire
+		System.out.println("Sto per fare l'inserimento dell'utente di nome: "+ nome +" idazienda: "+idAzienda+" idaziendaprivata: "+idAziendaPrivata);
 		
-		System.out.println("Sto per fare l'inserimento dell'utente di nome: "+ nome +" idazienda: "+idAzienda);
 		
-		if(GestioneUtenteDAO.signUp(nome, cognome, email, password, telefono, idAzienda, idAziendaPrivata)) response.sendRedirect("home_admin.jsp");
+		
+		if(GestioneUtenteDAO.signUp(nome, cognome, email, password, ruolo, telefono, idAzienda, idAziendaPrivata)) response.sendRedirect("home_admin.jsp");
 		
 	}
 

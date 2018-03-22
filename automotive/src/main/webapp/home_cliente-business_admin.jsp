@@ -64,6 +64,8 @@ Azienda a = DaoUtility.getDatiAziendaPrivata(u.idAziendaPrivata);
 
 List<Auto> listaAutoAziendaPrivata = DaoUtility.getAutoAziendaPrivata(u.idAziendaPrivata);
 
+List<Utente> listaDipendenti = DaoUtility.getListaDipendendi(u.idAziendaPrivata);
+
 
 %>
 	
@@ -1464,29 +1466,33 @@ List<Auto> listaAutoAziendaPrivata = DaoUtility.getAutoAziendaPrivata(u.idAziend
 									</tr>
 									</thead>
 									<tbody>
-									<tr>
-									<td>1</td>
-									<td>Marco</td>
-									<td>Rossi</td>
-									<td>mrossi@gmail.com</td>
-									<td>339837892</td>
-									<td>
+									
+									
+									
+									
+									
+												<% if(listaDipendenti.size() != 0){
+										for(int i = 0; i<listaDipendenti.size(); i++){
+											%>
+												<tr>
+													<td><%=listaDipendenti.get(i).getID()%></td>
+													<td><%=listaDipendenti.get(i).getNome()%></td>
+													<td><%=listaDipendenti.get(i).getCognome()%></td>
+													<td><%=listaDipendenti.get(i).getEmail()%></td>
+													<td><%=listaDipendenti.get(i).getTelefono()%></td>
+													<td>
 									<ul class="fa-ul">
 									 <li class="fa-li"><i class="fa fa-pencil"  title="Modifica Dipendente"></i></li>
   <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi Dipendente"></i></li>
  </ul></td>
-									</tr>
-									<tr>
-									<td>1</td>
-									<td>Marco</td>
-									<td>Rossi</td>
-									<td>mrossi@gmail.com</td>
-									<td>339837892</td>
-									<td>
-									<ul class="fa-ul">
-   <li class="fa-li"><i class="fa fa-pencil"  title="Modifica Dipendente"></i></li>
-  <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi Dipendente"></i></li>
-									</tr>
+												</tr>
+												<%
+										}
+									}
+									
+									%>
+									
+									
 									</tbody>
 									</table>
 									</div>
