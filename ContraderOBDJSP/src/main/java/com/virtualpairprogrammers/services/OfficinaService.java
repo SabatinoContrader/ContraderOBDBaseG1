@@ -23,7 +23,7 @@ public class OfficinaService {
         this.officinaDAO = new OfficinaDAO();
     }
 
-    public boolean addOfficina (Officina officina) {
+    public int addOfficina (Officina officina) {
         return this.officinaDAO.addOfficina(officina);
     }
 

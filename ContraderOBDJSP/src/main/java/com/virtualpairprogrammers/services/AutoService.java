@@ -28,4 +28,9 @@ public class AutoService {
         return this.autoDAO.insertAuto(auto);
     }
 
+    public boolean updateAuto (Auto auto) {
+        return this.autoDAO.updateAuto(auto);
+    }
+    public boolean resetAuto(int cod_Dispositivo) { return this.autoDAO.resetAuto(cod_Dispositivo);};
+
 }

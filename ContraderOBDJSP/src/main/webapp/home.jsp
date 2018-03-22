@@ -34,9 +34,17 @@
                     <td>Menu officina</td>
                 </tr>
                 <tr>
-                    <td><a href="officinaAddAuto.jsp">Aggiungi auto</a></td>
+                    <td><a href="officinaAddAuto.jsp">Aggiungi Auto</a></td>
                 </tr>
-
+                <tr>
+                    <td><a href="officinaUpdateAuto.jsp">Modifica Auto</a></td>
+                 <tr>
+                    <td><a href="officinaAddAzienda.jsp">Aggiungi Azienda</a></td>
+                 </tr>
+                 <tr>
+                    <td><a href="officinaResetAuto.jsp">Rimuovi Auto</a></td>
+                </tr>
+                </tr>
             </table>
             <% } else if( role.equals("azienda")) { %>
             <table>

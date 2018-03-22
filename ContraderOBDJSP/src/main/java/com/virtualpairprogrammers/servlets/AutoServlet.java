@@ -57,7 +57,34 @@ public class AutoServlet extends HttpServlet {
                 MainDispatcherServlet.getInstance(request).callView(request, response);
             }
             break;
-
+            case "updateAuto":
+            {
+                int Cod_Dispositivo = (Integer.parseInt(request.getParameter("cod_disp")));
+                String Targa = request.getParameter("targa");
+                int Telaio = (Integer.parseInt(request.getParameter("telaio")));
+                String casa_Costruttrice = request.getParameter("casa_cost");
+                String Modello = request.getParameter("modello");
+                String Alimentazione = request.getParameter("alimentazione");
+                String Tipologia = request.getParameter("tipologia");
+                String Cambio = request.getParameter("cambio");
+                int Proprietario = (Integer.parseInt(request.getParameter("proprietario")));
+                String Revisione = request.getParameter("revisione");
+                String Tagliando_Data = request.getParameter("tagliando_data");
+                int Tagliando_Km = (Integer.parseInt(request.getParameter("tagliando_km")));
+                autoService = new AutoService();
+                Auto auto = new Auto(Cod_Dispositivo, Targa, Telaio, casa_Costruttrice, Modello, Alimentazione, Tipologia, Cambio, Proprietario, Revisione, Tagliando_Data, Tagliando_Km, null);
+                autoService.updateAuto(auto);
+                session.setAttribute("status", "Auto Modificata");
+                session.setAttribute("view", "home.jsp");
+                MainDispatcherServlet.getInstance(request).callView(request, response);
+            }
+            break;
+            case "resetAuto": {
+                int cod_Dispositivo = (Integer.parseInt(request.getParameter("cod_dispositivo")));
+                autoService = new AutoService();
+                autoService.resetAuto(cod_Dispositivo);
+            }
+            break;
 
 
 
