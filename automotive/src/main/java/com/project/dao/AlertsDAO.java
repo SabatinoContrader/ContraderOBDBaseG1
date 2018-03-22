@@ -30,7 +30,7 @@ public class AlertsDAO {
 
 
 	/* QUESTA è LA LISTA DI TUTTE LE AUTO CON GUASTI DEL SISTEMA */
-	public ArrayList<GuastoDTO> getAlertsGuastiSystemAdministrator(Utente u){
+	public ArrayList<GuastoDTO> getAlertsGuastiSystemAdministrator(){
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -39,23 +39,24 @@ public class AlertsDAO {
 		GuastoDTO guastoDto = null;
 		ArrayList<GuastoDTO> listGuastoDto = null;
 
-		if(u.getRuolo()==2){
+
 
 			QUERY = "SELECT  g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio, tg.Descrizione "+
 					"FROM auto a, guasto g, dispositivo d, tipologia_guasto tg "+
-					"WHERE g.IdDispositivo = d.ID and d.IdAuto=a.ID and tg.Codice = g.Codice";
+					"WHERE g.IdDispositivo = d.ID and d.IdAuto=a.ID and tg.Codice = g.Codice ORDER BY g.ID ASC";
 
 
 			try {
 				ps = conn.prepareStatement(QUERY);
-				ps.setInt(1, u.getID());
+
 				rs = ps.executeQuery();
 
-				guastoDto = new GuastoDTO();
+
 				listGuastoDto = new ArrayList<GuastoDTO>();
 
 
 				while (rs.next()) {
+					guastoDto = new GuastoDTO();
 					guastoDto.setData(rs.getDate("Data"));
 					guastoDto.setId(rs.getInt("ID"));
 					guastoDto.setCodice(rs.getString("Codice"));
@@ -73,7 +74,7 @@ public class AlertsDAO {
 				getLog.error("Exception in getAlertsGuastiSystemAdministrator ",e);
 				throw new RuntimeException(e);
 			} 
-		}
+
 		return listGuastoDto;
 	}
 
@@ -97,10 +98,11 @@ public class AlertsDAO {
 			ps.setInt(1, u.getID());
 			rs = ps.executeQuery();
 
-			guastoDto = new GuastoDTO();
 			listGuastoDto = new ArrayList<GuastoDTO>();
 
 			while (rs.next()) {
+				guastoDto = new GuastoDTO();
+
 				guastoDto.setData(rs.getDate("Data"));
 				guastoDto.setCodice(rs.getString("Codice"));
 				guastoDto.setMarcaAuto(rs.getString("Marca"));
@@ -138,10 +140,11 @@ public class AlertsDAO {
 			ps.setInt(1, u.getID());
 			rs = ps.executeQuery();
 
-			guastoDto = new GuastoDTO();
+
 			listGuastoDto = new ArrayList<GuastoDTO>();
 
 			while (rs.next()) {
+				guastoDto = new GuastoDTO();
 				guastoDto.setData(rs.getDate("Data"));
 				guastoDto.setId(rs.getInt("ID"));
 				guastoDto.setCodice(rs.getString("Codice"));
