@@ -13,6 +13,7 @@ import com.project.dao.ConnessioneDB;
 import com.project.model.Auto;
 import com.project.model.Azienda;
 import com.project.model.Utente;
+import com.project.model.Dispositivo;
 
 public class DaoUtility {
 
@@ -303,5 +304,6 @@ public class DaoUtility {
 
     return null;
     }
-	
+
+
 }

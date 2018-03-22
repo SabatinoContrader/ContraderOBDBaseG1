@@ -67,6 +67,7 @@ License: You must have a valid license purchased only from themeforest(the above
 .m-widget24 .m-widget24__item .m-widget24__title {
 	margin-top: 1.23rem !important;
 }
+.fah3{font-size:24px;padding-right:10px;}
 </style>
 </head>
 <!-- end::Head -->
@@ -76,9 +77,14 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 	<%@ page import="com.project.model.*"%>
+	<%@ page import="com.project.automotive.dto.*"%>
 	<%@ page import="utility.*"%>
 	<%@ page import="java.util.List"%>
-
+	<%@ page import="java.util.ArrayList"%>
+	<%@ page import="com.project.dao.DispositivoDAO"%>
+	<%@ page import="com.project.dao.CarDAO"%>
+	<%@ page import="com.project.dao.AlertsDAO"%>
+	
 	<%
 
 Utente u = (Utente)session.getAttribute("Utente");
@@ -87,7 +93,10 @@ String name = u.getNome();
 
 List<Azienda> officine = DaoUtility.getListaOfficine();
 List<Utente> utenti = DaoUtility.getListaUtenti();
- 
+List<Dispositivo> dispositivi = DispositivoDAO.getAllSystemDevice();
+List<Auto> auto = CarDAO.getListAllAuto();
+AlertsDAO adao = new AlertsDAO();
+ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 %>
 
 
@@ -1198,7 +1207,7 @@ List<Utente> utenti = DaoUtility.getListaUtenti();
 								<div class="m-portlet__head">
 									<div class="m-portlet__head-caption">
 										<div class="m-portlet__head-title">
-											<h3 class="m-portlet__head-text">OFFICINE</h3>
+											<h3 class="m-portlet__head-text"><i class="fa fa-wrench fah3"  ></i>OFFICINE</h3>
 										</div>
 									</div>
 
@@ -1258,7 +1267,7 @@ List<Utente> utenti = DaoUtility.getListaUtenti();
 								<div class="m-portlet__head">
 									<div class="m-portlet__head-caption">
 										<div class="m-portlet__head-title">
-											<h3 class="m-portlet__head-text">CLIENTI</h3>
+											<h3 class="m-portlet__head-text"><i class="fa fa-user fah3"  ></i>CLIENTI</h3>
 										</div>
 									</div>
 
@@ -1309,6 +1318,197 @@ List<Utente> utenti = DaoUtility.getListaUtenti();
 
 					</div>
 					<!--End::Section-->
+					
+						<!--Begin::Section TABLE DEVICE-->
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="m-portlet m-portlet--mobile ">
+								<div class="m-portlet__head">
+									<div class="m-portlet__head-caption">
+										<div class="m-portlet__head-title">
+											<h3 class="m-portlet__head-text">	<i class="fa fa-microchip fah3"  ></i>DISPOSITIVI</h3>
+										</div>
+									</div>
+
+								</div>
+								<div class="m-portlet__body">
+									<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Codice</th>
+													<th>ID Auto</th>
+													<th>Data Installazione</th>
+													<th>ID Azienda</th>
+													
+												</tr>
+											</thead>
+											<tbody>
+
+
+
+												<% if(dispositivi.size() != 0){
+										for(int i = 0; i<dispositivi.size(); i++){
+											%>
+												<tr>
+													<td><%=dispositivi.get(i).getId()%></td>
+													<td><%=dispositivi.get(i).getCodice()%></td>
+													<td><%if(dispositivi.get(i).getIdAuto()==0)out.println("Nessun auto");else out.println(dispositivi.get(i).getIdAuto());%></td>
+													<td><% if(dispositivi.get(i).getDataInstallazione()==null)out.println("Non installato");
+													else out.println(dispositivi.get(i).getDataInstallazione());%></td>
+													<td><%=dispositivi.get(i).getIdAzienda()%></td>
+													
+												</tr>
+												<%
+										}
+									}
+									
+									%>
+
+											</tbody>
+										</table>
+									</div>
+									<!--end: Datatable -->
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--End::Section TABLE DEVICE-->
+					
+					
+					<!--Begin::Section TABLE AUTO-->
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="m-portlet m-portlet--mobile ">
+								<div class="m-portlet__head">
+									<div class="m-portlet__head-caption">
+										<div class="m-portlet__head-title">
+											<h3 class="m-portlet__head-text">	<i class="fa fa-car fah3"  ></i>AUTO</h3>
+										</div>
+									</div>
+
+								</div>
+								<div class="m-portlet__body">
+									<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Marca</th>
+													<th>Modello</th>
+													<th>Targa</th>
+													<th>Telaio</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+
+
+
+												<% if(auto.size() != 0){
+										for(int i = 0; i<auto.size(); i++){
+											%>
+												<tr>
+													<td><%=auto.get(i).getID()%></td>
+													<td><%=auto.get(i).getMarca()%></td>
+													<td><%=auto.get(i).getModello()%></td>
+													<td><%=auto.get(i).getTarga()%></td>
+													<td><%=auto.get(i).getNumeroTelaio()%></td>
+													<td><ul class="fa-ul">
+  <li class="fa-li"><i class="fa fa-calendar"  title="Visualizza Scadenze Tecnico Amministrative" data-id="<%=auto.get(i).getID()%>"></i></li>
+</ul></td>
+												</tr>
+												<%
+										}
+									}
+									
+									%>
+
+											</tbody>
+										</table>
+									</div>
+									<!--end: Datatable -->
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--End::Section TABLE AUTO-->
+					
+						<!--Begin::Section TABLE GUASTI-->
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="m-portlet m-portlet--mobile ">
+								<div class="m-portlet__head">
+									<div class="m-portlet__head-caption">
+										<div class="m-portlet__head-title">
+											<h3 class="m-portlet__head-text">	<i class="fa fa-wrench fah3"  ></i>GUASTI</h3>
+										</div>
+									</div>
+
+								</div>
+								<div class="m-portlet__body">
+									<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Codice</th>
+													<th>Data</th>
+													<th>Descrizione</th>
+													<th>ID Dispositivo</th>
+													<th>Marca</th>
+													<th>Modello</th>
+													<th>Targa</th>
+													<th>Telaio</th>
+												</tr>
+											</thead>
+											<tbody>
+
+
+
+												<% if(guasti.size() != 0){
+										for(int i = 0; i<guasti.size(); i++){
+											%>
+												<tr>
+													<td><%=guasti.get(i).getId()%></td>
+													<td><%=guasti.get(i).getCodice()%></td>
+													<td><%=guasti.get(i).getData()%></td>
+													<td><%=guasti.get(i).getDescrizione()%></td>
+													<td><%=guasti.get(i).getIdDispositivo()%></td>
+													<td><%=guasti.get(i).getMarcaAuto()%></td>
+													<td><%=guasti.get(i).getModelloAuto()%></td>
+													<td><%=guasti.get(i).getNumeroTarga()%></td>
+													<td><%=guasti.get(i).getNumeroTelaio()%></td>
+												<!--	<td><ul class="fa-ul">
+  <li class="fa-li"><i class="fa fa-calendar"  title="Visualizza Scadenze Tecnico Amministrative" data-id="<%=auto.get(i).getID()%>"></i></li>
+</ul></td>-->
+												</tr>
+												<%
+										}
+									}
+									
+									%>
+
+											</tbody>
+										</table>
+									</div>
+									<!--end: Datatable -->
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--End::Section TABLE GUASTI-->
+					
 				</div>
 			</div>
 			<!--

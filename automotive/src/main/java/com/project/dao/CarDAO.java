@@ -408,4 +408,46 @@ public class CarDAO {
 		}
 		return a;
 	}
+	public static List<Auto> getListAllAuto() {
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		List<Auto> lista = new ArrayList<>();
+
+		String QUERY = "select * from auto ORDER BY ID ASC";
+
+
+		try {
+			resultSet = null;
+			statement = conn.prepareStatement(QUERY);
+			resultSet = statement.executeQuery();
+
+			if (resultSet.isBeforeFirst()) {
+				System.out.println("\nAuto dell'azienda");
+			}
+
+
+			while (resultSet.next()) {
+
+				//System.out.println("Trovate Auto Associate!");
+
+				Auto a = new Auto(resultSet.getInt("ID"), resultSet.getString("Marca"), resultSet.getString("Modello"), resultSet.getString("Targa"),
+						resultSet.getString("NumeroTelaio"), resultSet.getInt("KmAttuali"),
+						resultSet.getInt("KmInizioNoleggio"), resultSet.getDate("ScadenzaRevisione"),
+						resultSet.getDate("ScadenzaTagliando"), resultSet.getDate("ScadenzaAssicurazione"),
+						resultSet.getDate("ScadenzaBollo"), resultSet.getString("TipologiaAuto"), resultSet.getInt("DaNoleggio"));
+
+				lista.add(a);
+
+			}
+
+
+		} catch (SQLException e) {
+			System.out.println("Errore di Recupero Lista Auto Azienda!");
+		}
+
+		return lista;
+	}
+
+
 }

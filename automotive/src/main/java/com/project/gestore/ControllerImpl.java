@@ -35,7 +35,7 @@ public class ControllerImpl implements IController {
 		//    	NotifierWorker worker = new NotifierWorker(u);
 		//    	worker.run();
 		//QUESTI SONO I GUASTI+
-		aDAO.getUserAlertsGuasti(u); 	
+		aDAO.getUserAlertsGuastiDriver(u);
 	}
 
 	public void alertsScadenzaRevisione(Utente u){
