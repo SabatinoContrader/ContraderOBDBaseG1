@@ -400,4 +400,46 @@ public class DaoUtility {
 	}
 	
 	
+	public static List<Utente> getListaDipendendi(int IdAziendaPrivata) {
+        Connection conn = ConnessioneDB.getInstance();
+        PreparedStatement statement;
+        ResultSet resultSet = null;
+        List<Utente> lista = new ArrayList<>();
+
+
+        String QUERY = "select * from utente where IdAziendaPrivata = ? && 	Ruolo = 3";
+
+
+        try {
+            resultSet = null;
+            statement = conn.prepareStatement(QUERY);
+            statement.setInt(1, IdAziendaPrivata);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.isBeforeFirst()) {
+                System.out.println("\nLista Dipendenti dell'Azienda Privata");
+            }
+
+
+            while (resultSet.next()) {
+
+                System.out.println("Trovati Dipendenti dell'Azienda Privata!");
+
+                Utente u = new Utente(resultSet.getInt("ID"), resultSet.getString("Nome"), resultSet.getString("Cognome"), resultSet.getString("Email"), resultSet.getString("Password"), resultSet.getInt("Stato"), resultSet.getInt("IdAzienda"), resultSet.getDate("DataRegistrazione"), resultSet.getInt("Ruolo"), resultSet.getString("Telefono"), null);
+                
+                u.idAziendaPrivata = IdAziendaPrivata;
+                
+                lista.add(u);
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Errore di Dipendenti dell'Azienda Privata!");
+        }
+
+    return lista;
+    }
+	
+	
 }
