@@ -84,9 +84,13 @@ public class AutoServlet extends HttpServlet {
             }
             break;
             case "resetAuto": {
-                int cod_Dispositivo = (Integer.parseInt(request.getParameter("cod_dispositivo")));
+                int cod_Dispositivo = (Integer.parseInt(request.getParameter("cod_Dispositivo")));
                 autoService = new AutoService();
                 autoService.resetAuto(cod_Dispositivo);
+                session.setAttribute("status", "Auto Rimossa");
+                session.setAttribute("view", "home.jsp");
+                MainDispatcherServlet.getInstance(request).callView(request, response);
+
             }
             break;
             case "listaAutoDriver": {

@@ -1,5 +1,3 @@
-DROP DATABASE contraderproject;
-
 CREATE DATABASE contraderproject;
 
 SET FOREIGN_KEY_CHECKS = 0;

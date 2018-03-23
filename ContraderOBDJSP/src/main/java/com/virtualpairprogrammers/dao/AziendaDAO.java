@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class AziendaDAO {
 
-    private final String QUERY_INSERT = "insert into azienda (Nome, Citta) values (?,?)";
+    private final String QUERY_INSERT = "insert into azienda (nome, citta) values (?,?)";
     private final String QUERY_SELECTID = "select Id_Azienda from azienda order by Id_Azienda Desc limit 1";
 
 

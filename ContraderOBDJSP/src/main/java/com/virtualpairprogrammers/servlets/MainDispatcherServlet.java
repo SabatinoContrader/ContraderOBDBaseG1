@@ -61,7 +61,9 @@ public class MainDispatcherServlet extends HttpServlet
                 session.setAttribute("servlet", "Auto");
                 session.setAttribute("mode", "findAuto");
                 session.setAttribute("cod_dispositivo", cod_dispositivo);
-
+            }
+                else if (bott.equals("Reset")) {
+                session.setAttribute("servlet", "Auto");
             }
         }
         if(cod_dispositivo != null && bott == null)
@@ -70,6 +72,7 @@ public class MainDispatcherServlet extends HttpServlet
             session.setAttribute("mode", "getError");
             session.setAttribute("cod_dispositivo", cod_dispositivo);
             System.out.println("Dispatcher, lettura codice e indirizzamento servlet Dati");
+
         }
         HttpServlet oggettoServlet = (HttpServlet) ReflectionUtils.instantiateClass("com.virtualpairprogrammers.servlets." + session.getAttribute("servlet") + "Servlet");
 

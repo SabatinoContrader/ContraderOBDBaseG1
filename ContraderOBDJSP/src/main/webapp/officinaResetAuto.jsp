@@ -64,7 +64,7 @@
 <%
     session.setAttribute("method", "callAction");
     session.setAttribute("servlet","Auto");
-    session.setAttribute("mode", "addAutoDriver");
+    session.setAttribute("mode", "resetAuto");
     String role = (String) session.getAttribute("role");
 %>
 
@@ -84,14 +84,13 @@
     <form action="MainDispatcherServlet" method="post">
        <table>
            <tr>
-               <td>Id Codice Dispositivo:</td> <td><input type="text" name="cod_dispositivo"></td>
+               <td>Id Codice Dispositivo:</td> <td><input type="text" name="cod_Dispositivo"></td>
            </tr>
             <tr>
                  <td><td><input type="submit" value="Reset" name="bott"></td>
             </tr>
        </table>
    </form>
-</div>
 </div>
 </body>
 </html>
