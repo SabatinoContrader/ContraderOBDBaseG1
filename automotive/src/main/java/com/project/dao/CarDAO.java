@@ -14,7 +14,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 import com.project.model.Auto;
-
+import com.project.model.Utente;
 import utility.Utility;
 
 
@@ -449,5 +449,42 @@ public class CarDAO {
 		return lista;
 	}
 
+	public static Utente getUtenteFromAuto(int idAuto){
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		Utente  u = null;
+		String QUERY ="select distinct u.ID as uid,u.* from auto a,auto_utente au,utente u  where au.IdUtente = u.ID and au.IdAuto=? ";
+
+		try {
+			statement = conn.prepareStatement(QUERY);
+			statement.setInt(1, idAuto);
+			resultSet = statement.executeQuery();
+
+			/*     if (resultSet.isBeforeFirst()) {
+                System.out.println("Auto dell'azienda con Id "+IdAzienda);
+            }*/
+
+
+			while(resultSet.next()) {
+
+				//System.out.println("Trovate Auto Associate!");
+
+				 u = new Utente(resultSet.getInt("uid"), resultSet.getString("Nome"), resultSet.getString("Cognome"), resultSet.getString("Email"), resultSet.getString("Password"), resultSet.getInt("Stato"), resultSet.getInt("IdAzienda"),
+						resultSet.getDate("DataRegistrazione"),
+						resultSet.getInt("Ruolo"), resultSet.getString("Telefono"),null);
+
+
+			}
+
+
+
+		}
+		catch (SQLException e) {
+			System.out.println("Errore di Recupero Lista Auto Utente!");
+		}
+
+		return u;
+	}
 
 }

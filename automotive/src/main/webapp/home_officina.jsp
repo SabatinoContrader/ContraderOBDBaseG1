@@ -1,24 +1,62 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<!-- 
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
+
+<%@ page import="com.project.model.*"%>
+		<%@ page import="utility.*"%>
+		<%@ page import="java.util.ArrayList"%>
+		<%@ page import="java.util.List"%>
+		<%@ page import="com.project.dao.*"%>
+		<%@ page import="com.project.automotive.dto.*"%>
+		<%@ page import="com.project.dao.AlertsDAO"%>
+
+<%
+Utente u = (Utente)session.getAttribute("Utente");
+    
+    if(u != null ){
+    	switch(u.getRuolo()){
+
+    	case 0:
+    		response.sendRedirect("utente_home.jsp");
+    	break;
+    	case 2:
+    	System.out.println("dentro if "+u.getRuolo());
+    		response.sendRedirect("home_admin.jsp");
+    		break;
+    	case 3:
+    		//INFINITE LOOP, FAME DA LOOP
+    		//TO DO
+    	case 4:
+    		response.sendRedirect("home_cliente-business_admin.jsp");
+    		break;
+
+    	}
+    }else{
+    response.sendRedirect("index.jsp");
+	
+    }
+if(u != null ){
+ if(u.getRuolo()==1){
+	 String name = u.getNome();
+Azienda a = DaoUtility.getDatiAzienda(u);
+
+
+List<Utente> listaUtentiPrivati = DaoUtility.getListaClientiAzienda(a.id);
+
+List<Azienda> listaClientiBusiness = DaoUtility.getListaClientiBusiness(a.id);
+
+List<Auto> listaAutoOfficina = CarDAO.getListAutoAzienda(a.id);
+
+AlertsDAO adao = new AlertsDAO();
+ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
+boolean nol;
+%>
 <html lang="en" >
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
 		<title>
-			Officina
+			<%=a.getDenominazione()%>
 		</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,1205 +80,15 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
 		<link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" />
-		<style>.ali{color:#575962 !important;}.fah3{font-size:24px;padding-right:10px;}.transparentli{color: transparent;}.fa{cursor:pointer;}.fa-ul li{display:inline;margin-left:10px;}.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;}.savebutton{margin-left: auto;    margin-right: auto;}.btn-box{       border: none;margin-top: 20px;    width: 200px;    color: white !important;}.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}</style>
+		<style>.ali{color:#575962 !important;}.fah3{font-size:24px;padding-right:10px;}.transparentli{color: transparent !important;}.fa{cursor:pointer;}.fa-ul li{display:inline;margin-left:10px;}.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;}.savebutton{margin-left: auto;    margin-right: auto;}.btn-box{       border: none;margin-top: 20px;    width: 200px;    color: white !important;}.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}</style>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
 	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
 
-		<%@ page import="com.project.model.*"%>
-		<%@ page import="utility.*"%>
-		<%@ page import="java.util.ArrayList"%>
-		<%@ page import="java.util.List"%>
-		<%@ page import="com.project.dao.*"%>
-		<%@ page import="com.project.automotive.dto.*"%>
-		<%@ page import="com.project.dao.AlertsDAO"%>
-
-<%
-Utente u = (Utente)session.getAttribute("Utente");
-    	System.out.println("dentro if "+u.getRuolo());
-    if(u != null ){
-    	switch(u.getRuolo()){
-
-    	case 0:
-    		response.sendRedirect("utente_home.jsp");
-    	break;
-    	case 2:
-    	System.out.println("dentro if "+u.getRuolo());
-    		response.sendRedirect("home_admin.jsp");
-    		break;
-    	case 3:
-    		//INFINITE LOOP, FAME DA LOOP
-    		//TO DO
-    	case 4:
-    		response.sendRedirect("home_cliente-business_admin.jsp");
-    		break;
-
-    	}
-    }else{
-    response.sendRedirect("index.jsp");
-
-    }
-String name = u.getNome();
- if(u.getRuolo()==1){
-Azienda a = DaoUtility.getDatiAzienda(u);
-
- 
-List<Utente> listaUtentiPrivati = DaoUtility.getListaClientiAzienda(a.id);
-
-List<Azienda> listaClientiBusiness = DaoUtility.getListaClientiBusiness(a.id);
-
-List<Auto> listaAutoOfficina = CarDAO.getListAutoAzienda(a.id);
-
-AlertsDAO adao = new AlertsDAO();
-ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
-
-%>
-	
-	
-	
-	
-	
-	
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
-			<!-- begin::Header -->
-			<header class="m-grid__item		m-header "  data-minimize="minimize" data-minimize-offset="200" data-minimize-mobile-offset="200" >
-				<div class="m-header__top">
-					<div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
-						<div class="m-stack m-stack--ver m-stack--desktop">
-							<!-- begin::Brand -->
-							<div class="m-stack__item m-brand">
-								<div class="m-stack m-stack--ver m-stack--general m-stack--inline">
-									<div class="m-stack__item m-stack__item--middle m-brand__logo">
-										<a href="index.jsp" class="m-brand__logo-wrapper">
-											<img alt="" src="images/logo-contrader.png"/ class="logo">
-										</a>
-									</div>
-									<div class="m-stack__item m-stack__item--middle m-brand__tools">
-								
-										<!-- begin::Responsive Header Menu Toggler-->
-										<a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
-											<span></span>
-										</a>
-										<!-- end::Responsive Header Menu Toggler-->
-			<!-- begin::Topbar Toggler-->
-										<a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
-											<i class="flaticon-more"></i>
-										</a>
-										<!--end::Topbar Toggler-->
-									</div>
-								</div>
-							</div>
-							<!-- end::Brand -->		
-				<!-- begin::Topbar -->
-							<div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
-								<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
-									<div class="m-stack__item m-topbar__nav-wrapper">
-										<ul class="m-topbar__nav m-nav m-nav--inline">
-											<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">
-												<a href="#" class="m-nav__link m-dropdown__toggle">
-													<span class="m-topbar__userpic m--hide">
-														<img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless m--img-centered" alt=""/>
-													</span>
-													<span class="m-topbar__welcome">
-														Benvenuto,&nbsp;
-													</span>
-													<span class="m-topbar__username">
-														<%=name%>
-													</span>
-												</a>
-												<div class="m-dropdown__wrapper">
-													<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-													<div class="m-dropdown__inner">
-														<div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
-															<div class="m-card-user m-card-user--skin-dark">
-																<div class="m-card-user__details">
-																	<span class="m-card-user__name m--font-weight-500">
-																		<%=name+" "+u.getCognome()%>
-																	</span>
-																	<a href="" class="m-card-user__email m--font-weight-300 m-link">
-																		<%=u.getEmail()%>
-																	</a>
-																</div>
-															</div>
-														</div>
-														<div class="m-dropdown__body">
-															<div class="m-dropdown__content">
-																<ul class="m-nav m-nav--skin-light">
-																	<li class="m-nav__section m--hide">
-																		<span class="m-nav__section-text">
-																			Section
-																		</span>
-																	</li>
-																	<li class="m-nav__item">
-																		<a href="profile.html" class="m-nav__link">
-																			<i class="m-nav__link-icon flaticon-profile-1"></i>
-																			<span class="m-nav__link-title">
-																				<span class="m-nav__link-wrap">
-																					<span class="m-nav__link-text">
-																						My Profile
-																					</span>
-																					<span class="m-nav__link-badge">
-																						<span class="m-badge m-badge--success">
-																							2
-																						</span>
-																					</span>
-																				</span>
-																			</span>
-																		</a>
-																	</li>
-																	<li class="m-nav__item">
-																		<a href="profile.html" class="m-nav__link">
-																			<i class="m-nav__link-icon flaticon-share"></i>
-																			<span class="m-nav__link-text">
-																				Activity
-																			</span>
-																		</a>
-																	</li>
-																	<li class="m-nav__item">
-																		<a href="profile.html" class="m-nav__link">
-																			<i class="m-nav__link-icon flaticon-chat-1"></i>
-																			<span class="m-nav__link-text">
-																				Messages
-																			</span>
-																		</a>
-																	</li>
-																	<li class="m-nav__separator m-nav__separator--fit"></li>
-																	<li class="m-nav__item">
-																		<a href="profile.html" class="m-nav__link">
-																			<i class="m-nav__link-icon flaticon-info"></i>
-																			<span class="m-nav__link-text">
-																				FAQ
-																			</span>
-																		</a>
-																	</li>
-																	<li class="m-nav__item">
-																		<a href="profile.html" class="m-nav__link">
-																			<i class="m-nav__link-icon flaticon-lifebuoy"></i>
-																			<span class="m-nav__link-text">
-																				Support
-																			</span>
-																		</a>
-																	</li>
-																	<li class="m-nav__separator m-nav__separator--fit"></li>
-																	<li class="m-nav__item">
-																		<a href="index.jsp" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
-																			Logout
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center 	m-dropdown--mobile-full-width" data-dropdown-toggle="click" data-dropdown-persistent="true">
-												<a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
-													<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>
-													<span class="m-nav__link-icon">
-														<span class="m-nav__link-icon-wrapper">
-															<i class="flaticon-music-2"></i>
-														</span>
-													</span>
-												</a>
-												<div class="m-dropdown__wrapper">
-													<span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
-													<div class="m-dropdown__inner">
-														<div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/notification_bg.jpg); background-size: cover;">
-															<span class="m-dropdown__header-title">
-																9 New
-															</span>
-															<span class="m-dropdown__header-subtitle">
-																User Notifications
-															</span>
-														</div>
-														<div class="m-dropdown__body">
-															<div class="m-dropdown__content">
-																<ul class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
-																	<li class="nav-item m-tabs__item">
-																		<a class="nav-link m-tabs__link active" data-toggle="tab" href="#topbar_notifications_notifications" role="tab">
-																			Alerts
-																		</a>
-																	</li>
-																	<li class="nav-item m-tabs__item">
-																		<a class="nav-link m-tabs__link" data-toggle="tab" href="#topbar_notifications_events" role="tab">
-																			Events
-																		</a>
-																	</li>
-																	<li class="nav-item m-tabs__item">
-																		<a class="nav-link m-tabs__link" data-toggle="tab" href="#topbar_notifications_logs" role="tab">
-																			Logs
-																		</a>
-																	</li>
-																</ul>
-																<div class="tab-content">
-																	<div class="tab-pane active" id="topbar_notifications_notifications" role="tabpanel">
-																		<div class="m-scrollable" data-scrollable="true" data-max-height="250" data-mobile-max-height="200">
-																			<div class="m-list-timeline m-list-timeline--skin-light">
-																				<div class="m-list-timeline__items">
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-																						<span class="m-list-timeline__text">
-																							12 new users registered
-																						</span>
-																						<span class="m-list-timeline__time">
-																							Just now
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge"></span>
-																						<span class="m-list-timeline__text">
-																							System shutdown
-																							<span class="m-badge m-badge--success m-badge--wide">
-																								pending
-																							</span>
-																						</span>
-																						<span class="m-list-timeline__time">
-																							14 mins
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge"></span>
-																						<span class="m-list-timeline__text">
-																							New invoice received
-																						</span>
-																						<span class="m-list-timeline__time">
-																							20 mins
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge"></span>
-																						<span class="m-list-timeline__text">
-																							DB overloaded 80%
-																							<span class="m-badge m-badge--info m-badge--wide">
-																								settled
-																							</span>
-																						</span>
-																						<span class="m-list-timeline__time">
-																							1 hr
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge"></span>
-																						<span class="m-list-timeline__text">
-																							System error -
-																							<a href="#" class="m-link">
-																								Check
-																							</a>
-																						</span>
-																						<span class="m-list-timeline__time">
-																							2 hrs
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item m-list-timeline__item--read">
-																						<span class="m-list-timeline__badge"></span>
-																						<span href="" class="m-list-timeline__text">
-																							New order received
-																							<span class="m-badge m-badge--danger m-badge--wide">
-																								urgent
-																							</span>
-																						</span>
-																						<span class="m-list-timeline__time">
-																							7 hrs
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item m-list-timeline__item--read">
-																						<span class="m-list-timeline__badge"></span>
-																						<span class="m-list-timeline__text">
-																							Production server down
-																						</span>
-																						<span class="m-list-timeline__time">
-																							3 hrs
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge"></span>
-																						<span class="m-list-timeline__text">
-																							Production server up
-																						</span>
-																						<span class="m-list-timeline__time">
-																							5 hrs
-																						</span>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="tab-pane" id="topbar_notifications_events" role="tabpanel">
-																		<div class="m-scrollable" m-scrollabledata-scrollable="true" data-max-height="250" data-mobile-max-height="200">
-																			<div class="m-list-timeline m-list-timeline--skin-light">
-																				<div class="m-list-timeline__items">
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge m-list-timeline__badge--state1-success"></span>
-																						<a href="" class="m-list-timeline__text">
-																							New order received
-																						</a>
-																						<span class="m-list-timeline__time">
-																							Just now
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge m-list-timeline__badge--state1-danger"></span>
-																						<a href="" class="m-list-timeline__text">
-																							New invoice received
-																						</a>
-																						<span class="m-list-timeline__time">
-																							20 mins
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge m-list-timeline__badge--state1-success"></span>
-																						<a href="" class="m-list-timeline__text">
-																							Production server up
-																						</a>
-																						<span class="m-list-timeline__time">
-																							5 hrs
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
-																						<a href="" class="m-list-timeline__text">
-																							New order received
-																						</a>
-																						<span class="m-list-timeline__time">
-																							7 hrs
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
-																						<a href="" class="m-list-timeline__text">
-																							System shutdown
-																						</a>
-																						<span class="m-list-timeline__time">
-																							11 mins
-																						</span>
-																					</div>
-																					<div class="m-list-timeline__item">
-																						<span class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
-																						<a href="" class="m-list-timeline__text">
-																							Production server down
-																						</a>
-																						<span class="m-list-timeline__time">
-																							3 hrs
-																						</span>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="tab-pane" id="topbar_notifications_logs" role="tabpanel">
-																		<div class="m-stack m-stack--ver m-stack--general" style="min-height: 180px;">
-																			<div class="m-stack__item m-stack__item--center m-stack__item--middle">
-																				<span class="">
-																					All caught up!
-																					<br>
-																					No new logs.
-																				</span>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push m-dropdown--mobile-full-width m-dropdown--skin-light"  data-dropdown-toggle="click">
-												<a href="#" class="m-nav__link m-dropdown__toggle">
-													<span class="m-nav__link-badge m-badge m-badge--dot m-badge--info m--hide"></span>
-													<span class="m-nav__link-icon">
-														<span class="m-nav__link-icon-wrapper">
-															<i class="flaticon-share"></i>
-														</span>
-													</span>
-												</a>
-												<div class="m-dropdown__wrapper">
-													<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-													<div class="m-dropdown__inner">
-														<div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/quick_actions_bg.jpg); background-size: cover;">
-															<span class="m-dropdown__header-title">
-																Quick Actions
-															</span>
-															<span class="m-dropdown__header-subtitle">
-																Shortcuts
-															</span>
-														</div>
-														<div class="m-dropdown__body m-dropdown__body--paddingless">
-															<div class="m-dropdown__content">
-																<div class="m-scrollable" data-scrollable="false" data-max-height="380" data-mobile-max-height="200">
-																	<div class="m-nav-grid m-nav-grid--skin-light">
-																		<div class="m-nav-grid__row">
-																			<a href="#" class="m-nav-grid__item">
-																				<i class="m-nav-grid__icon flaticon-file"></i>
-																				<span class="m-nav-grid__text">
-																					Generate Report
-																				</span>
-																			</a>
-																			<a href="#" class="m-nav-grid__item">
-																				<i class="m-nav-grid__icon flaticon-time"></i>
-																				<span class="m-nav-grid__text">
-																					Add New Event
-																				</span>
-																			</a>
-																		</div>
-																		<div class="m-nav-grid__row">
-																			<a href="#" class="m-nav-grid__item">
-																				<i class="m-nav-grid__icon flaticon-folder"></i>
-																				<span class="m-nav-grid__text">
-																					Create New Task
-																				</span>
-																			</a>
-																			<a href="#" class="m-nav-grid__item">
-																				<i class="m-nav-grid__icon flaticon-clipboard"></i>
-																				<span class="m-nav-grid__text">
-																					Completed Tasks
-																				</span>
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</li>
-										
-										</ul>
-									</div>
-								</div>
-							</div>
-							<!-- end::Topbar -->
-						</div>
-					</div>
-				</div>
-				<div class="m-header__bottom">
-					<div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
-						<div class="m-stack m-stack--ver m-stack--desktop">
-							<!-- begin::Horizontal Menu -->
-							<div class="m-stack__item m-stack__item--middle m-stack__item--fluid">
-								<button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-light " id="m_aside_header_menu_mobile_close_btn">
-									<i class="la la-close"></i>
-								</button>
-								<div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light "  >
-									<ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
-										<li class="m-menu__item  m-menu__item--active "  aria-haspopup="true">
-											<a  href="index.jsp" class="m-menu__link ">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													Dashboard
-												</span>
-											</a>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
-											<a  href="#" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													Actions
-												</span>
-												<i class="m-menu__hor-arrow la la-angle-down"></i>
-												<i class="m-menu__ver-arrow la la-angle-right"></i>
-											</a>
-											<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<ul class="m-menu__subnav">
-													<li class="m-menu__item "  aria-haspopup="true">
-														<a  href="inner.html" class="m-menu__link ">
-															<i class="m-menu__link-icon flaticon-diagram"></i>
-															<span class="m-menu__link-title">
-																<span class="m-menu__link-wrap">
-																	<span class="m-menu__link-text">
-																		Generate Reports
-																	</span>
-																	<span class="m-menu__link-badge">
-																		<span class="m-badge m-badge--success">
-																			2
-																		</span>
-																	</span>
-																</span>
-															</span>
-														</a>
-													</li>
-													<li class="m-menu__item  m-menu__item--submenu"  data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-														<a  href="#" class="m-menu__link m-menu__toggle">
-															<i class="m-menu__link-icon flaticon-business"></i>
-															<span class="m-menu__link-text">
-																Manage Orders
-															</span>
-															<i class="m-menu__hor-arrow la la-angle-right"></i>
-															<i class="m-menu__ver-arrow la la-angle-right"></i>
-														</a>
-														<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
-															<span class="m-menu__arrow "></span>
-															<ul class="m-menu__subnav">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Latest Orders
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Pending Orders
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Processed Orders
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Delivery Reports
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Payments
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Customers
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</div>
-													</li>
-													<li class="m-menu__item  m-menu__item--submenu"  data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-														<a  href="#" class="m-menu__link m-menu__toggle">
-															<i class="m-menu__link-icon flaticon-chat-1"></i>
-															<span class="m-menu__link-text">
-																Customer Feedbacks
-															</span>
-															<i class="m-menu__hor-arrow la la-angle-right"></i>
-															<i class="m-menu__ver-arrow la la-angle-right"></i>
-														</a>
-														<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
-															<span class="m-menu__arrow "></span>
-															<ul class="m-menu__subnav">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Customer Feedbacks
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Supplier Feedbacks
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Reviewed Feedbacks
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Resolved Feedbacks
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Feedback Reports
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</div>
-													</li>
-													<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-														<a  href="inner.html" class="m-menu__link ">
-															<i class="m-menu__link-icon flaticon-users"></i>
-															<span class="m-menu__link-text">
-																Register Member
-															</span>
-														</a>
-													</li>
-												</ul>
-											</div>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">
-											<a  href="#" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													Reports
-												</span>
-												<i class="m-menu__hor-arrow la la-angle-down"></i>
-												<i class="m-menu__ver-arrow la la-angle-right"></i>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed m-menu__submenu--left" style="width:600px">
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-													<ul class="m-menu__content">
-														<li class="m-menu__item">
-															<h3 class="m-menu__heading m-menu__toggle">
-																<span class="m-menu__link-text">
-																	Finance Reports
-																</span>
-																<i class="m-menu__ver-arrow la la-angle-right"></i>
-															</h3>
-															<ul class="m-menu__inner">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-map"></i>
-																		<span class="m-menu__link-text">
-																			Annual Reports
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-user"></i>
-																		<span class="m-menu__link-text">
-																			HR Reports
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-clipboard"></i>
-																		<span class="m-menu__link-text">
-																			IPO Reports
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-graphic-1"></i>
-																		<span class="m-menu__link-text">
-																			Finance Margins
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-graphic-2"></i>
-																		<span class="m-menu__link-text">
-																			Revenue Reports
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</li>
-														<li class="m-menu__item">
-															<h3 class="m-menu__heading m-menu__toggle">
-																<span class="m-menu__link-text">
-																	Project Reports
-																</span>
-																<i class="m-menu__ver-arrow la la-angle-right"></i>
-															</h3>
-															<ul class="m-menu__inner">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Coca Cola CRM
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Delta Airlines Booking Site
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Malibu Accounting
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Vineseed Website Rewamp
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Zircon Mobile App
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Mercury CMS
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu"  data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">
-											<a  href="#" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<span class="m-menu__link-text">
-													Orders
-												</span>
-												<i class="m-menu__hor-arrow la la-angle-down"></i>
-												<i class="m-menu__ver-arrow la la-angle-right"></i>
-											</a>
-											<div class="m-menu__submenu  m-menu__submenu--fixed-xl m-menu__submenu--center" >
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<div class="m-menu__subnav">
-													<ul class="m-menu__content">
-														<li class="m-menu__item">
-															<h3 class="m-menu__heading m-menu__toggle">
-																<span class="m-menu__link-text">
-																	Finance Reports
-																</span>
-																<i class="m-menu__ver-arrow la la-angle-right"></i>
-															</h3>
-															<ul class="m-menu__inner">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-map"></i>
-																		<span class="m-menu__link-text">
-																			Annual Reports
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-user"></i>
-																		<span class="m-menu__link-text">
-																			HR Reports
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-clipboard"></i>
-																		<span class="m-menu__link-text">
-																			IPO Reports
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-graphic-1"></i>
-																		<span class="m-menu__link-text">
-																			Finance Margins
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-graphic-2"></i>
-																		<span class="m-menu__link-text">
-																			Revenue Reports
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</li>
-														<li class="m-menu__item">
-															<h3 class="m-menu__heading m-menu__toggle">
-																<span class="m-menu__link-text">
-																	Project Reports
-																</span>
-																<i class="m-menu__ver-arrow la la-angle-right"></i>
-															</h3>
-															<ul class="m-menu__inner">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Coca Cola CRM
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Delta Airlines Booking Site
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Malibu Accounting
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Vineseed Website Rewamp
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Zircon Mobile App
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--line">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Mercury CMS
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</li>
-														<li class="m-menu__item">
-															<h3 class="m-menu__heading m-menu__toggle">
-																<span class="m-menu__link-text">
-																	HR Reports
-																</span>
-																<i class="m-menu__ver-arrow la la-angle-right"></i>
-															</h3>
-															<ul class="m-menu__inner">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Staff Directory
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Client Directory
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Salary Reports
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Staff Payslips
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Corporate Expenses
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-																			<span></span>
-																		</i>
-																		<span class="m-menu__link-text">
-																			Project Expenses
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</li>
-														<li class="m-menu__item">
-															<h3 class="m-menu__heading m-menu__toggle">
-																<span class="m-menu__link-text">
-																	Reporting Apps
-																</span>
-																<i class="m-menu__ver-arrow la la-angle-right"></i>
-															</h3>
-															<ul class="m-menu__inner">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Report Adjusments
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Sources & Mediums
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Reporting Settings
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Conversions
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Report Flows
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<span class="m-menu__link-text">
-																			Audit & Logs
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</li>
-										<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel m-menu__item--more m-menu__item--icon-only"  data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">
-											<a  href="#" class="m-menu__link m-menu__toggle">
-												<span class="m-menu__item-here"></span>
-												<i class="m-menu__link-icon flaticon-more-v3"></i>
-												<span class="m-menu__link-text"></span>
-											</a>
-											<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left m-menu__submenu--pull">
-												<span class="m-menu__arrow m-menu__arrow--adjust"></span>
-												<ul class="m-menu__subnav">
-													<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-														<a  href="inner.html" class="m-menu__link ">
-															<i class="m-menu__link-icon flaticon-business"></i>
-															<span class="m-menu__link-text">
-																eCommerce
-															</span>
-														</a>
-													</li>
-													<li class="m-menu__item  m-menu__item--submenu"  data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-														<a  href="crud/datatable_v1.html" class="m-menu__link m-menu__toggle">
-															<i class="m-menu__link-icon flaticon-computer"></i>
-															<span class="m-menu__link-text">
-																Audience
-															</span>
-															<i class="m-menu__hor-arrow la la-angle-right"></i>
-															<i class="m-menu__ver-arrow la la-angle-right"></i>
-														</a>
-														<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
-															<span class="m-menu__arrow "></span>
-															<ul class="m-menu__subnav">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-users"></i>
-																		<span class="m-menu__link-text">
-																			Active Users
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-interface-1"></i>
-																		<span class="m-menu__link-text">
-																			User Explorer
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-lifebuoy"></i>
-																		<span class="m-menu__link-text">
-																			Users Flows
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-graphic-1"></i>
-																		<span class="m-menu__link-text">
-																			Market Segments
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-graphic"></i>
-																		<span class="m-menu__link-text">
-																			User Reports
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</div>
-													</li>
-													<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-														<a  href="inner.html" class="m-menu__link ">
-															<i class="m-menu__link-icon flaticon-map"></i>
-															<span class="m-menu__link-text">
-																Marketing
-															</span>
-														</a>
-													</li>
-													<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-														<a  href="inner.html" class="m-menu__link ">
-															<i class="m-menu__link-icon flaticon-graphic-2"></i>
-															<span class="m-menu__link-title">
-																<span class="m-menu__link-wrap">
-																	<span class="m-menu__link-text">
-																		Campaigns
-																	</span>
-																	<span class="m-menu__link-badge">
-																		<span class="m-badge m-badge--success">
-																			3
-																		</span>
-																	</span>
-																</span>
-															</span>
-														</a>
-													</li>
-													<li class="m-menu__item  m-menu__item--submenu"  data-menu-submenu-toggle="hover" data-redirect="true" aria-haspopup="true">
-														<a  href="#" class="m-menu__link m-menu__toggle">
-															<i class="m-menu__link-icon flaticon-infinity"></i>
-															<span class="m-menu__link-text">
-																Cloud Manager
-															</span>
-															<i class="m-menu__hor-arrow la la-angle-right"></i>
-															<i class="m-menu__ver-arrow la la-angle-right"></i>
-														</a>
-														<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-															<span class="m-menu__arrow "></span>
-															<ul class="m-menu__subnav">
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-add"></i>
-																		<span class="m-menu__link-title">
-																			<span class="m-menu__link-wrap">
-																				<span class="m-menu__link-text">
-																					File Upload
-																				</span>
-																				<span class="m-menu__link-badge">
-																					<span class="m-badge m-badge--danger">
-																						3
-																					</span>
-																				</span>
-																			</span>
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-signs-1"></i>
-																		<span class="m-menu__link-text">
-																			File Attributes
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-folder"></i>
-																		<span class="m-menu__link-text">
-																			Folders
-																		</span>
-																	</a>
-																</li>
-																<li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
-																	<a  href="inner.html" class="m-menu__link ">
-																		<i class="m-menu__link-icon flaticon-cogwheel-2"></i>
-																		<span class="m-menu__link-text">
-																			System Settings
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</div>
-													</li>
-												</ul>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<!-- end::Horizontal Menu -->	
-	
-						</div>
-					</div>
-				</div>
-			</header>
-			<!-- end::Header -->		
+			<%@ include file = "header.jsp" %>
 		<!-- begin::Body -->
 			<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
 				<div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -1285,7 +133,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 										<!--begin::New Feedbacks-->
 										<div class="m-widget24">
 											<div class="m-widget24__item">
-												<h4 class="m-widget24__title">
+												<h4 class="m-widget24__title" >
 													SCADENZE
 												</h4>
 												<br>
@@ -1351,46 +199,6 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 <!--Begin::Section-->
 						<div class="row">
 							<div class="col-xl-12">
-								<!--begin::Portlet-->
-						<!--		<div class="m-portlet " id="m_portlet">
-									<div class="m-portlet__head">
-										<div class="m-portlet__head-caption">
-											<div class="m-portlet__head-title">
-												<span class="m-portlet__head-icon">
-													<i class="flaticon-map-location"></i>
-												</span>
-												<h3 class="m-portlet__head-text">
-													Calendar
-												</h3>
-											</div>
-										</div>
-										<div class="m-portlet__head-tools">
-											<ul class="m-portlet__nav">
-												<li class="m-portlet__nav-item">
-													<a href="#" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
-														<span>
-															<i class="la la-plus"></i>
-															<span>
-																Add Event
-															</span>
-														</span>
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="m-portlet__body">
-										<div id="m_calendar"></div>
-									</div>
-								</div>
-								<!--end::Portlet-->
-							</div>
-						</div>
-						<!--End::Section-->
-
-<!--Begin::Section-->
-						<div class="row">
-							<div class="col-xl-12">
 								<div class="m-portlet m-portlet--mobile ">
 									<div class="m-portlet__head">
 										<div class="m-portlet__head-caption">
@@ -1399,6 +207,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 												<i class="fa fa-user fah3"  ></i>
 													Clienti Privati
 												</h3>
+												<div id=test></div>
 											</div>
 										</div>
 									<button class="btn btn-info btn-add" type="button" data-toggle="modal" data-target="#modaladduser">Aggiungi Nuovo</button>
@@ -1436,9 +245,9 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 													<td><%=listaUtentiPrivati.get(i).getTelefono()%></td>
 													<td><%=listaUtentiPrivati.get(i).getDataRegistrazione()%></td>
 													<td><ul class="fa-ul">
-  <li class="fa-li"><a class="ali" href="list_auto_utente.jsp?idutente=<%=listaUtentiPrivati.get(i).getID()%>" target="_blank"><i class="fa fa-car"  title="Visualizza lista auto"></i></a></li>
+  <li class="fa-li"><a class="ali" href="list_auto_utente.jsp?idutente=<%=listaUtentiPrivati.get(i).getID()%>&nome=<%=listaUtentiPrivati.get(i).getNome()%>&cognome=<%=listaUtentiPrivati.get(i).getCognome()%>" target="_blank"><i class="fa fa-car"  title="Visualizza lista auto"></i></a></li>
   <li class="fa-li"><i class="fa fa-pencil modcliente" title="Modifica cliente" data-id="<%=listaUtentiPrivati.get(i).getID()%>" data-nome="<%=listaUtentiPrivati.get(i).getNome()%>" data-cognome="<%=listaUtentiPrivati.get(i).getCognome()%>" data-email="<%=listaUtentiPrivati.get(i).getEmail()%>" data-telefono="<%=listaUtentiPrivati.get(i).getTelefono()%>"></i></li> 
-  <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi cliente"></i></li>
+  <li class="fa-li"><i class="fa fa-remove remcliente"  title="Rimuovi cliente" data-id="<%=listaUtentiPrivati.get(i).getID()%>" data-nome="<%=listaUtentiPrivati.get(i).getNome()%>" data-cognome="<%=listaUtentiPrivati.get(i).getCognome()%>"></i></li>
 </ul></td>
 												</tr>
 												<%
@@ -1559,6 +368,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 									<th>Modello</th>
 									<th>Targa</th>
 									<th>Telaio</th>
+									<th>Da Noleggio</th>
 									<th>Stato</th>
 									<th></th>
 									</tr>
@@ -1585,21 +395,20 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 													<td><%=listaAutoOfficina.get(i).getModello()%></td>
 													<td><%=listaAutoOfficina.get(i).getTarga()%></td>
 													<td><%=listaAutoOfficina.get(i).getNumeroTelaio()%></td>
-												
+												<td><% if(listaAutoOfficina.get(i).getDaNoleggio()==0) out.println("Non da noleggio"); else out.println("Da Noleggio");%></td>
 												
 												
 												<%clienteBusiness = DaoUtility.noleggioAutoClienteBusiness(listaAutoOfficina.get(i).getID());
 												clientePrivato = DaoUtility.noleggioAutoClientePrivato(listaAutoOfficina.get(i).getID());
-												
-												System.out.println(1);
+											 nol=false;
 												if((clienteBusiness != null) || (clientePrivato != null)){
-													if(clienteBusiness != null){if(clienteBusiness.KmMaxNoleggio != 0) %><td>In noleggio</td><%;}
-													else if(clientePrivato.KmMaxNoleggio != 0){ %><td>In noleggio</td><%;}
-													else {%><td>Auto Privata</td><%;}
-													}else {%><td>Non in noleggio</td><%; System.out.println(4);}
+													if(clienteBusiness != null){if(clienteBusiness.KmMaxNoleggio != 0){  nol=true; %><td>In noleggio</td><% }}
+													else if(clientePrivato.KmMaxNoleggio != 0){ nol=true; %><td>In noleggio</td><%}
+													else {%><td>Auto Privata</td><%}
+													}else {%><td>Non in noleggio</td><% }
 				
 												%>
-												<td><ul class="fa-ul"><li class="fa-li"><i class="fa fa-user" title="Visualizza Utente associato"></i></li>
+												<td><ul class="fa-ul"> <li class="fa-li"><a class="ali  <% if(nol){ %> "  href="dettagli_utente.jsp?idauto=<%=listaAutoOfficina.get(i).getID()%>"<% }else { %> transparentli" style="cursor:none !important;" <% } %>  target="_blank"><i class="fa fa-user" title="Visualizza Utente associato"></i></a></li>
 												<li class="fa-li"><i class="fa fa-calendar"  title="Visualizza scadenze auto"></i></li>
 												  <li class="fa-li"><i class="fa fa-pencil" title="Modifica auto"></i></li> 
 												  <li class="fa-li"><i class="fa fa-remove"  title="Rimuovi auto"></i></li>
@@ -1607,8 +416,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 												</tr>
 												<%
 										}
-									}
-									
+												}
 									%>
 									
 									
@@ -1708,61 +516,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 			-->
 		</div>
 		<!-- end::Body -->
-<!-- begin::Footer -->
-		<footer class="m-grid__item m-footer ">
-			<div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
-				<div class="m-footer__wrapper">
-					<div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
-						<div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
-							<span class="m-footer__copyright">
-								2018 &copy; Contrader Vianello
-								<a href="https://contrader.it" class="m-link">
-									Contrader.it
-								</a>
-							</span>
-						</div>
-						<div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
-							<ul class="m-footer__nav m-nav m-nav--inline m--pull-right">
-								<li class="m-nav__item">
-									<a href="#" class="m-nav__link">
-										<span class="m-nav__link-text">
-											About
-										</span>
-									</a>
-								</li>
-								<li class="m-nav__item">
-									<a href="#"  class="m-nav__link">
-										<span class="m-nav__link-text">
-											Privacy
-										</span>
-									</a>
-								</li>
-								<li class="m-nav__item">
-									<a href="#" class="m-nav__link">
-										<span class="m-nav__link-text">
-											T&C
-										</span>
-									</a>
-								</li>
-								<li class="m-nav__item">
-									<a href="#" class="m-nav__link">
-										<span class="m-nav__link-text">
-											Purchase
-										</span>
-									</a>
-								</li>
-								<li class="m-nav__item m-nav__item--last">
-									<a href="#" class="m-nav__link" data-toggle="m-tooltip" title="Support Center" data-placement="left">
-										<i class="m-nav__link-icon flaticon-info m--icon-font-size-lg3"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<!-- end::Footer -->
+<%@ include file = "footer.jsp" %>
 	</div>
 	<!-- end:: Page -->
     	 
@@ -1826,11 +580,11 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
         </button>
       </div>
       <div class="modal-body">
-      <form action="" method="POST">
+      <form action="RegistraUtente" method="POST">
 <div class="form-group">
 							<label for="nomecliente">Nome</label> <input type="text"
-								class="form-control" id="nomecliente"
-								aria-describedby="nomecliente" placeholder="Nome..." name="nome"
+								class="form-control" id="nome"
+								aria-describedby="nome" placeholder="Nome..." name="nome"
 								required>
 
 						</div>
@@ -1849,11 +603,17 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 								class="form-control" id="pwdcliente" placeholder="Password..."
 								name="pwdcliente" required>
 						</div>
-						<div class="form-group">
-							<label for="idazienda">ID Officina</label> <input type="number"
-								class="form-control" id="idazienda" placeholder="ID Azienda..."
+						
+							<input type="hidden"
+								class="form-control" id="idazienda" value="<%=u.getIdAzienda()%>"
 								name="idazienda">
-						</div>
+						<input type="hidden"
+								class="form-control" id="ruolocliente" value="0"
+								name="ruolocliente">
+								<input type="hidden"
+								class="form-control" id="idaziendaprivata" value="0"
+								name="idaziendaprivata">
+								
 						<div class="form-group">
 							<label for="telefonocliente">Telefono</label> <input type="text"
 								class="form-control" id="telefonocliente"
@@ -1882,34 +642,35 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
         </button>
       </div>
       <div class="modal-body">
-      <form action="" method="POST">
+      <form action="AddAutoAzienda" method="POST">
   <div class="form-group">
-    <label for="nomeclientebusiness">Denominazione</label>
-    <input type="text" class="form-control" id="nomeclientebusiness" aria-describedby="nomeclientebusiness" placeholder="Denominazione Cliente Business..." name="nomeclientebusiness" required>
+    <label for="marca">Marca</label>
+    <input type="text" class="form-control" id="marca" aria-describedby="marca" placeholder="Marca..." name="marca" >
    
   </div>
   <div class="form-group">
-    <label for="nomereferentebusiness">Nome referente</label>
-    <input type="text" class="form-control" id="nomereferentebusiness" placeholder="Nome referente business..." name="nomerefebusiness">
+    <label for="modello">Modello</label>
+    <input type="text" class="form-control" id="modello" placeholder="modello..." name="modello">
   </div>
   <div class="form-group">
-    <label for="cognomereferentebusiness">Cognome referente</label>
-    <input type="text" class="form-control" id="cognomereferentebusiness" placeholder="Cognome referente business..." name="cognomerefbusiness">
+    <label for="targa">Targa</label>
+    <input type="text" class="form-control" id="targa" placeholder="targa..." name="targa">
   </div>
     <div class="form-group">
-    <label for="emailbusiness">Email</label>
-    <input type="email" class="form-control" id="emailbusiness" placeholder="Email..." name="emailbusiness">
+    <label for="telaio">Telaio</label>
+    <input type="text" class="form-control" id="telaio" placeholder="Telaio..." name="telaio">
   </div>
     <div class="form-group">
-    <label for="telefonobusiness">Telefono</label>
-    <input type="text" class="form-control" id="telefonobusiness" placeholder="Telefono..." name="telefonobusiness">
-  </div>
-   <div class="form-group">
-    <label for="cittabusiness">Citt&agrave;</label>
-    <input type="text" class="form-control" id="cittabusiness" placeholder="Citt&agrave;..." name="cittabusiness">
+    <label for="Da Noleggio">Da noleggio</label>
+	<select class="form-control" name="danoleggio" id="danoleggio">
+	<option selected disabled> Selezionare se da noleggio</option>
+	<option value="0">No</option>
+	<option value="1">S&igrave;</option>
+	</select>
+   
   </div>
   
-  
+  <input value="<%=a.id%>" type="hidden" name="idazienda">
 
       </div>
       <div class="modal-footer " style="text-align:center;" >
@@ -2010,6 +771,31 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
   </div>
 </div>
 <!-- end::modal modifica cliente business -->
+<!-- begin::modal conferma rimuovi cliente privato -->
+<div class="modal" tabindex="-1" role="dialog" id="modalconfermarimuoviprivato">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Rimozione cliente<span id="titleconfermarimuoviprivato"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="RimuoviCliente" method="POST">
+  <p>Confermi di voler rimuovere questo cliente?</p>
+  <input type="hidden" id="idrimuoviclienteprivato" name="idrimuoviclienteprivato">
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Conferma</button>
+	   <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+	   </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal conferma rimuovi cliente privato -->
 <!-- end::modal windows -->
 	    <!-- begin::Scroll Top -->
 	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
@@ -2061,8 +847,21 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 	$('#modalmodbusiness').modal("show");
 	});
 	
+	$('.remcliente').on('click',function(){
+			
+	var nome=$(this).data("nome");
+	var cognome=$(this).data("cognome");
+
+	var id=$(this).data("id");
+	$('#titleconfermarimuoviprivato').html(nome+ " " +cognome);
+	$('#idrimuoviclienteprivato').val(id);
+	$('#modalconfermarimuoviprivato').modal("show");
+	});
+
+	
 	</script>
-	<% } %>
+	<% } 
+}%>
 </body>
 <!-- end::Body -->
 </html>
