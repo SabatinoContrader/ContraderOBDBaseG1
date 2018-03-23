@@ -47,18 +47,36 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- end::Head -->
     <!-- end::Body -->
 	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
-	
-	
+
 	<%@ page import = "com.project.model.*" %>
 	<%@ page import = "java.util.ArrayList" %>
 	<%@ page import = "com.project.dao.*" %>
 	<%@ page import = "com.project.automotive.dto.*" %>
-	
-
 
 <%
-
 Utente u = (Utente)session.getAttribute("Utente");
+    if(u != null ){
+    	switch(u.getRuolo()){
+
+    	case 1:
+    		response.sendRedirect("home_officina.jsp");
+    	break;
+    	case 2:
+    		response.sendRedirect("home_admin.jsp");
+    		break;
+    	case 3:
+    		//INFINITE LOOP, FAME DA LOOP
+    		//TO DO
+    	case 4:
+    		response.sendRedirect("home_cliente-business_admin.jsp");
+    		break;
+
+    	}
+    }else{
+    response.sendRedirect("index.jsp");
+
+    }
+
 
 String name = u.getNome();
 

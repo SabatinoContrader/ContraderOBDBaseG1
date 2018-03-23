@@ -47,7 +47,5 @@ public class RegistraUtente extends HttpServlet {
 		String telefono = request.getParameter("telefonocliente");
 		System.out.println("Sto per fare l'inserimento dell'utente di nome: "+ nome +" idazienda: "+idAzienda+" idaziendaprivata: "+idAziendaPrivata);
 		if(GestioneUtenteDAO.signUp(nome, cognome, email, password, ruolo, telefono, idAzienda, idAziendaPrivata)) response.sendRedirect("home_admin.jsp");
-		
 	}
-
 }

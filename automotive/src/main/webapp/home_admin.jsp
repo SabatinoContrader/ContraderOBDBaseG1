@@ -86,8 +86,28 @@ License: You must have a valid license purchased only from themeforest(the above
 	<%@ page import="com.project.dao.AlertsDAO"%>
 	
 	<%
-
 Utente u = (Utente)session.getAttribute("Utente");
+if(u != null ){
+	switch(u.getRuolo()){
+	case 0:
+		response.sendRedirect("utente_home.jsp");
+		break;
+	case 1:
+		response.sendRedirect("home_officina.jsp");
+	break;
+
+	case 3:
+		//INFINITE LOOP, FAME DA LOOP
+		//TO DO
+	case 4:
+		response.sendRedirect("home_cliente-business_admin.jsp");
+		break;
+
+	}
+}else{
+response.sendRedirect("index.jsp");
+
+}
 
 String name = u.getNome();
 
