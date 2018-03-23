@@ -37,6 +37,11 @@
 		<servlet-class>com.virtualpairprogrammers.servlets.AziendaServlet</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>DatiServlet</servlet-name>
+		<servlet-class>com.virtualpairprogrammers.servlets.DatiServlet</servlet-class>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/LoginServlet</url-pattern>
@@ -60,6 +65,11 @@
 	<servlet-mapping>
 		<servlet-name>AziendaServlet</servlet-name>
 		<url-pattern>/AziendaServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>DatiServlet</servlet-name>
+		<url-pattern>/DatiServlet</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

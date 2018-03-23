@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AutoServlet extends HttpServlet {
 
@@ -36,7 +38,7 @@ public class AutoServlet extends HttpServlet {
                 String Alimentazione = request.getParameter("alimentazione");
                 String Tipologia = request.getParameter("tipologia");
                 String Cambio = request.getParameter("cambio");
-                int Proprietario = (Integer.parseInt(request.getParameter("proprietario")));
+                String Proprietario = request.getParameter("proprietario");
                 String Revisione = request.getParameter("revisione");
                 String Tagliando_Data = request.getParameter("tagliando_data");
                 int Tagliando_Km = (Integer.parseInt(request.getParameter("tagliando_km")));
@@ -67,7 +69,7 @@ public class AutoServlet extends HttpServlet {
                 String Alimentazione = request.getParameter("alimentazione");
                 String Tipologia = request.getParameter("tipologia");
                 String Cambio = request.getParameter("cambio");
-                int Proprietario = (Integer.parseInt(request.getParameter("proprietario")));
+                String Proprietario = request.getParameter("proprietario");
                 String Revisione = request.getParameter("revisione");
                 String Tagliando_Data = request.getParameter("tagliando_data");
                 int Tagliando_Km = (Integer.parseInt(request.getParameter("tagliando_km")));
@@ -83,6 +85,17 @@ public class AutoServlet extends HttpServlet {
                 int cod_Dispositivo = (Integer.parseInt(request.getParameter("cod_dispositivo")));
                 autoService = new AutoService();
                 autoService.resetAuto(cod_Dispositivo);
+            }
+            break;
+            case "listaAutoDriver": {
+                System.out.println("Sei nella servlet auto");
+                List<Auto> lista;
+                int id_driver =  Integer.parseInt(session.getAttribute("id").toString());
+                autoService = new AutoService();
+                lista = autoService.listaAutoDriver(id_driver);
+                session.setAttribute("lista", lista);
+                session.setAttribute("view", "home.jsp");
+                MainDispatcherServlet.getInstance(request).callView(request, response);
             }
             break;
 

@@ -45,7 +45,7 @@ public class OfficinaServlet extends HttpServlet
                 int id=officinaService.addOfficina(officina);
 
                     session.setAttribute("status", "Officina inserita con successo");
-                    String access = "A_0"+id;
+                    String access = "O_0"+id;
                     loginService = new LoginService();
                     loginService.InsertLogin(new Login(access, access, 3, id));
 

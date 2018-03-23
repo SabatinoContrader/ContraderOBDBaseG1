@@ -48,18 +48,26 @@ public class MainDispatcherServlet extends HttpServlet
         HttpSession session = request.getSession(true);
 
         String bott=request.getParameter("bott");
+        String cod_dispositivo=request.getParameter("cod_dispositivo");
+        System.out.println("cod= " + cod_dispositivo);
+        System.out.println("bott? " + bott);
 
-        if (bott.equals("Logout"))
-            session.setAttribute("servlet", "Logout");
-
-        else if((bott.equals("Login"))&&(session.getAttribute("servlet")==null))
-                {
-                    session.setAttribute("servlet", "Login");
-                }
-        else if (bott.equals("Menu principale"))
-                {
-                    session.setAttribute("servlet", "Home");
-                }
+        if (bott != null) {
+            if (bott.equals("Logout")) {
+                session.setAttribute("servlet", "Logout");
+            } else if ((bott.equals("Login")) && (session.getAttribute("servlet") == null)) {
+                session.setAttribute("servlet", "Login");
+            } else if (bott.equals("Menu principale")) {
+                session.setAttribute("servlet", "Home");
+            }
+        }
+        if(cod_dispositivo != null)
+        {
+            session.setAttribute("servlet", "Dati");
+            session.setAttribute("mode", "getError");
+            session.setAttribute("cod_dispositivo", cod_dispositivo);
+            System.out.println("Dispatcher, lettura codice e indirizzamento servlet Dati");
+        }
         HttpServlet oggettoServlet = (HttpServlet) ReflectionUtils.instantiateClass("com.virtualpairprogrammers.servlets." + session.getAttribute("servlet") + "Servlet");
 
         try

@@ -6,9 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List"%>
+<%@ page import="com.virtualpairprogrammers.domain.Auto"%>
 <html>
 <head>
     <title>Title</title>
+    <link href="styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <%  String role = (String) session.getAttribute("role");
@@ -31,9 +34,6 @@
             <% } else if( role.equals("officina")) { %>
             <table>
                 <tr>
-                    <td>Menu officina</td>
-                </tr>
-                <tr>
                     <td><a href="officinaAddAuto.jsp">Aggiungi Auto</a></td>
                 </tr>
                 <tr>
@@ -49,18 +49,28 @@
             <% } else if( role.equals("azienda")) { %>
             <table>
                 <tr>
-                    <td>Menu azienda</td>
-                </tr>
-                <tr>
                     <td><a href="aziendaAddDriverAuto.jsp">Associa un'auto ad un driver</a></td>
                 </tr>
 
             </table>
             <% } else if( role.equals("driver")) { %>
             <table>
+                <% List<Auto> lista = (List<Auto>) session.getAttribute("lista");
+                if (lista.isEmpty()) { %>
+                 <tr>
+                    <td>Nessuna auto noleggiata</td>
+                 </tr>
+                <% } else { for (int i = 0; i < lista.size(); i++) { %>
                 <tr>
-                    <td>Menu driver</td>
+                    <td>
+                        <form action="MainDispatcherServlet" method="post">
+                            <button class="btn-pulito" type="submit" value="<% out.print(lista.get(i).getCod_Dispositivo()); %>" name="cod_dispositivo">
+                                <% out.print(lista.get(i).getCasa_Costruttrice() + " " + lista.get(i).getModello() + " targata " + lista.get(i).getTarga()); %>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
+                <% } }%>
             </table>
             <% } %>
         </fieldset>

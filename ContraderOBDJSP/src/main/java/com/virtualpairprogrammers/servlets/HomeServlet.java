@@ -34,8 +34,17 @@ public class HomeServlet extends HttpServlet
                 String[] part = result.split(":");
                 session.setAttribute("role", part[0]);
                 session.setAttribute("id", part[1]);
-                session.setAttribute("view", "home.jsp");
-                MainDispatcherServlet.getInstance(request).callView(request, response);
+                if(part[0].equals("driver"))
+                    {
+                        session.setAttribute("servlet", "Auto");
+                        session.setAttribute("mode", "listaAutoDriver");
+                        MainDispatcherServlet.getInstance(request).callAction(request, response);
+                    }
+                else
+                    {
+                        session.setAttribute("view", "home.jsp");
+                        MainDispatcherServlet.getInstance(request).callView(request, response);
+                    }
             }
 
             else

@@ -31,27 +31,26 @@ CREATE TABLE automobile (
   alimentazione varchar(25) NOT NULL,
   tipologia varchar(25) NOT NULL,
   cambio char(1) NOT NULL,
-  proprietario int(11) NOT NULL,
+  proprietario varchar(10) NOT NULL,
   revisione varchar(10) NOT NULL,
   tagliando_data varchar(10) NOT NULL,
   tagliando_km int(11) DEFAULT NULL,
   id_driver int(11),
   PRIMARY KEY (cod_dispositivo),
-  FOREIGN KEY (proprietario) REFERENCES azienda (id_azienda),
   FOREIGN KEY (id_driver) REFERENCES driver (id_driver)
 );
 
-INSERT INTO automobile VALUES	(1,'AS123PC',3421343,'FORD','FIESTA','DIESEL','UTILITARIA','A',1,'18/04/17','17/02/18',32000,null),
-								(2,'AS123MN',342135452,'FIAT','PANDA','DIESEL','UTILITARIA','M',1,'18/04/17','17/02/18',6000,null),
-                                (3,'AS654PC',125642,'FIAT','PUNTO','DIESEL','COMMERCIALE','M',2,'10/04/16','17/02/18',3200,1),
-                                (4,'FG050588',213465321,'FERRARI','F430','DIESEL','COMMERCIALE','A',3,'18/04/17','17/02/18',3200,1),
-                                (5,'FE643DE',8346743,'NISSAN','QASHQAI','DIESEL','SUV','M',2,'02/10/17','12/12/17',3200,1),
-                                (6,'AA832DB',685436081,'VOLKSWAGEN','POLO','BENZINA','UTILITARIA','M',2,'02/02/18','17/03/18',3200,1);
+INSERT INTO automobile VALUES	(1,'AS123PC',3421343,'FORD','FIESTA','DIESEL','UTILITARIA','A','a_01','18/04/17','17/02/18',32000,null),
+								(2,'AS123MN',342135452,'FIAT','PANDA','DIESEL','UTILITARIA','M','a_01','18/04/17','17/02/18',6000,null),
+                                (3,'AS654PC',125642,'FIAT','PUNTO','DIESEL','COMMERCIALE','M','a_02','10/04/16','17/02/18',3200,1),
+                                (4,'FG050588',213465321,'FERRARI','F430','DIESEL','COMMERCIALE','A','a_03','18/04/17','17/02/18',3200,1),
+                                (5,'FE643DE',8346743,'NISSAN','QASHQAI','DIESEL','SUV','M','a_02','02/10/17','12/12/17',3200,1),
+                                (6,'AA832DB',685436081,'VOLKSWAGEN','POLO','BENZINA','UTILITARIA','M','a_02','02/02/18','17/03/18',3200,1);
 
 CREATE TABLE azienda (
   id_azienda int(11) NOT NULL AUTO_INCREMENT,
   nome varchar(25) NOT NULL,
-  città varchar(25) NOT NULL,
+  citta varchar(25) NOT NULL,
   PRIMARY KEY (id_azienda)
 );
 
@@ -154,7 +153,7 @@ CREATE TABLE officina (
   id_officina int(11) NOT NULL AUTO_INCREMENT,
   nome_officina varchar(25) NOT NULL,
   indirizzo varchar(100) NOT NULL,
-  città varchar(25) NOT NULL,
+  citta varchar(25) NOT NULL,
   PRIMARY KEY (id_officina)
 );
 
