@@ -11,7 +11,8 @@ body {
 .btn-pulito:hover{
     background:none!important;
     padding:0!important;
-	border: none;
+    border: none;
+    color: blue;
 }
 .btn-pulito:focus, .btn-pulito.focus{
     background:none!important;

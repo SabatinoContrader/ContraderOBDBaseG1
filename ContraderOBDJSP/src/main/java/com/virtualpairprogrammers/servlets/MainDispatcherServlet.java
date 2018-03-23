@@ -49,8 +49,6 @@ public class MainDispatcherServlet extends HttpServlet
 
         String bott=request.getParameter("bott");
         String cod_dispositivo=request.getParameter("cod_dispositivo");
-        System.out.println("cod= " + cod_dispositivo);
-        System.out.println("bott? " + bott);
 
         if (bott != null) {
             if (bott.equals("Logout")) {
@@ -59,9 +57,14 @@ public class MainDispatcherServlet extends HttpServlet
                 session.setAttribute("servlet", "Login");
             } else if (bott.equals("Menu principale")) {
                 session.setAttribute("servlet", "Home");
+            } else if (bott.equals("cercaAuto")) {
+                session.setAttribute("servlet", "Auto");
+                session.setAttribute("mode", "findAuto");
+                session.setAttribute("cod_dispositivo", cod_dispositivo);
+
             }
         }
-        if(cod_dispositivo != null)
+        if(cod_dispositivo != null && bott == null)
         {
             session.setAttribute("servlet", "Dati");
             session.setAttribute("mode", "getError");

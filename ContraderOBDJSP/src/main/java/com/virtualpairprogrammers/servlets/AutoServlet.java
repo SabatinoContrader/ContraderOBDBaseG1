@@ -1,7 +1,9 @@
 package com.virtualpairprogrammers.servlets;
 
 import com.virtualpairprogrammers.domain.Auto;
+import com.virtualpairprogrammers.domain.Dati_dispositivo;
 import com.virtualpairprogrammers.services.AutoService;
+import com.virtualpairprogrammers.services.DatiService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -88,13 +90,27 @@ public class AutoServlet extends HttpServlet {
             }
             break;
             case "listaAutoDriver": {
-                System.out.println("Sei nella servlet auto");
                 List<Auto> lista;
                 int id_driver =  Integer.parseInt(session.getAttribute("id").toString());
                 autoService = new AutoService();
                 lista = autoService.listaAutoDriver(id_driver);
                 session.setAttribute("lista", lista);
                 session.setAttribute("view", "home.jsp");
+                MainDispatcherServlet.getInstance(request).callView(request, response);
+            }
+            break;
+            case "findAuto": {
+                Auto auto;
+                DatiService datiService;
+                int cod_dispositivo= Integer.parseInt(session.getAttribute("cod_dispositivo").toString());
+                autoService = new AutoService();
+                auto = autoService.findAuto(cod_dispositivo);
+                List<Dati_dispositivo> lista;
+                datiService = new DatiService();
+                lista = datiService.listaAllDatiDispositivo(cod_dispositivo);
+                session.setAttribute("auto", auto);
+                session.setAttribute("lista", lista);
+                session.setAttribute("view", "findAuto.jsp");
                 MainDispatcherServlet.getInstance(request).callView(request, response);
             }
             break;

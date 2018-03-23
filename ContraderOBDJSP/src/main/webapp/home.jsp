@@ -44,6 +44,13 @@
                  <tr>
                     <td><a href="officinaResetAuto.jsp">Rimuovi Auto</a></td>
                 </tr>
+                <tr>
+                    <form action="MainDispatcherServlet" method="post">
+                        <button class="btn-pulito" type="submit" value="cercaAuto" name="bott">
+                            Cerca auto
+                        </button>
+                        <input type="text" name="cod_dispositivo">
+                    </form>
                 </tr>
             </table>
             <% } else if( role.equals("azienda")) { %>
@@ -65,7 +72,7 @@
                     <td>
                         <form action="MainDispatcherServlet" method="post">
                             <button class="btn-pulito" type="submit" value="<% out.print(lista.get(i).getCod_Dispositivo()); %>" name="cod_dispositivo">
-                                <% out.print(lista.get(i).getCasa_Costruttrice() + " " + lista.get(i).getModello() + " targata " + lista.get(i).getTarga()); %>
+                            &bull; <% out.print(lista.get(i).getCasa_Costruttrice() + " " + lista.get(i).getModello() + " targata " + lista.get(i).getTarga()); %>
                             </button>
                         </form>
                     </td>
