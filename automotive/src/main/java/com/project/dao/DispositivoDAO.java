@@ -120,6 +120,37 @@ public class DispositivoDAO {
 		return listaDispositivi;
 
 	}
+
+	/*GET ALL DEVICE FOR SYSTEM ADMIN*/
+	public static List<Dispositivo> getOfficinaDevice(int idAzienda) {
+
+		List<Dispositivo> listaDispositivi = new ArrayList<>();
+
+		Connection conn = ConnessioneDB.getInstance();
+
+		String QUERY = "select * from dispositivo where IdAzienda=?";
+
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+
+		try {
+
+			statement = conn.prepareStatement(QUERY);
+			statement.setInt(1, idAzienda);
+			resultSet = statement.executeQuery();
+
+			while(resultSet.next()) listaDispositivi.add(new Dispositivo(resultSet.getInt("ID"), resultSet.getString("Codice"), resultSet.getInt("IdAuto"), resultSet.getDate("DataInstallazione"), resultSet.getInt("IdAzienda")));
+
+		} catch (SQLException e) {
+
+			System.out.println("Errore nel recupero dei Dispositivi associati all'Azienda!");
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
+
+		return listaDispositivi;
+
+	}
 }
 	
 	

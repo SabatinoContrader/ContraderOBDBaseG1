@@ -49,6 +49,7 @@ List<Auto> listaAutoOfficina = CarDAO.getListAutoAzienda(a.id);
 
 AlertsDAO adao = new AlertsDAO();
 ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
+List<Dispositivo> dispositivi = DispositivoDAO.getOfficinaDevice(a.id);
 boolean nol;
 %>
 <html lang="en" >
@@ -487,6 +488,77 @@ boolean nol;
 													<td><%=guasti.get(i).getNumeroTelaio()%></td>
 													<td><ul class="fa-ul">
   <li class="fa-li"><i class="fa fa-bar-chart"  title="Visualizza dati telemetria"></i></li>
+  <li class="fa-li"><i class="fa fa-user" title="Visualizza dati cliente"></i></li> 
+
+</ul></td>
+												</tr>
+												<%
+										}
+									}
+									
+									%>
+									
+									
+									
+									</tbody>
+									</table>
+									</div>
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						<!--End::Section-->   
+						
+	
+<!--Begin::Section-->
+						<div class="row" id="tabledispositivi">
+							<div class="col-xl-12">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+												<i class="fa fa-microchip fah3"  ></i>
+													DISPOSITIVI
+												</h3>
+											</div>
+										</div>
+									
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+									<table class="table table-striped">
+									<thead>
+									<tr>
+									<th>ID</th>
+									<th>Codice</th>
+									<th>ID Auto</th>
+									<th>Data Installazione</th>
+							
+									<th></th>
+						
+									
+									</tr>
+									</thead>
+									<tbody>
+									
+											<% if(dispositivi.size() != 0){
+										for(int i = 0; i<dispositivi.size(); i++){
+											%>
+												<tr>
+													<td><%=dispositivi.get(i).getId()%></td>
+													<td><%=dispositivi.get(i).getCodice()%></td>
+													<td><%if(dispositivi.get(i).getIdAuto()==0)out.println("Nessun auto");else out.println(dispositivi.get(i).getIdAuto());%></td>
+													<td><% if(dispositivi.get(i).getDataInstallazione()==null)out.println("Non installato");
+													else out.println(dispositivi.get(i).getDataInstallazione());%></td>
+													
+													
+													<td><ul class="fa-ul">
+  <li class="fa-li"><i class="fa fa-wrench"  title="Visualizza guasti dispositivo"></i></li>
   <li class="fa-li"><i class="fa fa-user" title="Visualizza dati cliente"></i></li> 
 
 </ul></td>
