@@ -2,6 +2,7 @@ package com.virtualpairprogrammers.dao;
 
 
 
+import com.virtualpairprogrammers.domain.Login;
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.utils.GestoreEccezioni;
 
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 public class LoginDAO {
 
     private final String QUERY_LOGIN = "select * from login where username = ? and password = ?";
+    private final String QUERY_INSERT = "INSERT Login (Username, Password, Ruolo, Id) values (?,?,?,?)";
+
 
     public String login (String username, String password) {
 
@@ -49,4 +52,23 @@ public class LoginDAO {
             return null;
         }
     }
+    public boolean insertLogin(Login login) {
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
+            preparedStatement.setString(1, login.getUsername());
+            preparedStatement.setString(2, login.getPassword());
+            preparedStatement.setInt(3, login.getRuolo());
+            preparedStatement.setInt(4, login.getId());
+            return preparedStatement.execute();
+        }
+        catch (SQLException e) {
+            GestoreEccezioni.getInstance().gestisciEccezione(e);
+            return false;
+        }
+
+    }
+
+
+
 }

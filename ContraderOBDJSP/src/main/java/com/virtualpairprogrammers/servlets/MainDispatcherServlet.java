@@ -48,18 +48,32 @@ public class MainDispatcherServlet extends HttpServlet
         HttpSession session = request.getSession(true);
 
         String bott=request.getParameter("bott");
+        String cod_dispositivo=request.getParameter("cod_dispositivo");
 
-        if (bott.equals("Logout"))
-            session.setAttribute("servlet", "Logout");
+        if (bott != null) {
+            if (bott.equals("Logout")) {
+                session.setAttribute("servlet", "Logout");
+            } else if ((bott.equals("Login")) && (session.getAttribute("servlet") == null)) {
+                session.setAttribute("servlet", "Login");
+            } else if (bott.equals("Menu principale")) {
+                session.setAttribute("servlet", "Home");
+            } else if (bott.equals("cercaAuto")) {
+                session.setAttribute("servlet", "Auto");
+                session.setAttribute("mode", "findAuto");
+                session.setAttribute("cod_dispositivo", cod_dispositivo);
+            }
+                else if (bott.equals("Reset")) {
+                session.setAttribute("servlet", "Auto");
+            }
+        }
+        if(cod_dispositivo != null && bott == null)
+        {
+            session.setAttribute("servlet", "Dati");
+            session.setAttribute("mode", "getError");
+            session.setAttribute("cod_dispositivo", cod_dispositivo);
+            System.out.println("Dispatcher, lettura codice e indirizzamento servlet Dati");
 
-        else if((bott.equals("Login"))&&(session.getAttribute("servlet")==null))
-                {
-                    session.setAttribute("servlet", "Login");
-                }
-        else if (bott.equals("Menu principale"))
-                {
-                    session.setAttribute("servlet", "Home");
-                }
+        }
         HttpServlet oggettoServlet = (HttpServlet) ReflectionUtils.instantiateClass("com.virtualpairprogrammers.servlets." + session.getAttribute("servlet") + "Servlet");
 
         try

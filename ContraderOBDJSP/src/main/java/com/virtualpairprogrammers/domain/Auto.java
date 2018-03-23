@@ -12,13 +12,13 @@ import java.util.Objects;
         private String alimentazione;
         private String tipologia;
         private String cambio;
-        private int proprietario;
+        private String proprietario;
         private String revisione;
         private String tagliando_Data;
         private int tagliando_Km;
         private Integer driver;
 
-        public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, int proprietario, String revisione, String tagliando_Data, int tagliando_Km, Integer driver) {
+        public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, String proprietario, String revisione, String tagliando_Data, int tagliando_Km, Integer driver) {
             this.cod_Dispositivo = cod_Dispositivo;
             this.targa = targa;
             this.telaio = telaio;
@@ -106,11 +106,11 @@ import java.util.Objects;
             this.driver = driver;
         }
 
-        public int getProprietario() {
+        public String getProprietario() {
             return proprietario;
         }
 
-        public void setProprietario(int proprietario) {
+        public void setProprietario(String proprietario) {
             this.proprietario = proprietario;
         }
 
@@ -147,7 +147,7 @@ import java.util.Objects;
                     telaio == auto.telaio &&
                     cambio == auto.cambio &&
                     driver == auto.driver &&
-                    proprietario == auto.proprietario &&
+                    Objects.equals(proprietario, auto.proprietario) &&
                     tagliando_Km == auto.tagliando_Km &&
                     Objects.equals(targa, auto.targa) &&
                     Objects.equals(casa_Costruttrice, auto.casa_Costruttrice) &&

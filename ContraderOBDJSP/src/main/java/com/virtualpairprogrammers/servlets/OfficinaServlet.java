@@ -1,6 +1,8 @@
 package com.virtualpairprogrammers.servlets;
 
+import com.virtualpairprogrammers.domain.Login;
 import com.virtualpairprogrammers.domain.Officina;
+import com.virtualpairprogrammers.services.LoginService;
 import com.virtualpairprogrammers.services.OfficinaService;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import java.util.List;
 public class OfficinaServlet extends HttpServlet
 {
     private OfficinaService officinaService;
+    private LoginService loginService;
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,14 +42,18 @@ public class OfficinaServlet extends HttpServlet
             {
                 officinaService = new OfficinaService();
                 officina = new Officina(nome, indirizzo, citta);
-                if(!officinaService.addOfficina(officina))
-                {
+                int id=officinaService.addOfficina(officina);
+
                     session.setAttribute("status", "Officina inserita con successo");
-                }
-                else
+                    String access = "O_0"+id;
+                    loginService = new LoginService();
+                    loginService.InsertLogin(new Login(access, access, 3, id));
+
+                /*else
                 {
                     session.setAttribute("status", "Errore nell'inserimento");
-                }
+                }*/
+
                 session.setAttribute("view", "home.jsp");
                 MainDispatcherServlet.getInstance(request).callView(request, response);
             }

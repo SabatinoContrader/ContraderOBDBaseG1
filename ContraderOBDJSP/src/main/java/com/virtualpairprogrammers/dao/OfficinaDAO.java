@@ -6,10 +6,7 @@ import com.virtualpairprogrammers.domain.Officina;
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.utils.GestoreEccezioni;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,22 +15,27 @@ public class OfficinaDAO {
     private final String QUERY_ADD = "insert into officina (Nome_Officina, Indirizzo, Citta) values (?,?,?)";
     private final String QUERY_LIST = "SELECT * from officina";
     private final String QUERY_LISTCITTA = "SELECT * from officina WHERE citta = ?";
+    private final String QUERY_SELECTID = "select Id_Officina from officina order by Id_Officina Desc limit 1";
 
-    public boolean addOfficina(Officina officina) {
 
+    public int addOfficina(Officina officina) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
-            PreparedStatement statement = connection.prepareStatement(QUERY_ADD);
-            statement.setString(1, officina.getNome());
-            statement.setString(2, officina.getIndirizzo());
-            statement.setString(3, officina.getCitta());
-            return statement.execute();
+            PreparedStatement preparestatement = connection.prepareStatement(QUERY_ADD);
+            preparestatement.setString(1, officina.getNome());
+            preparestatement.setString(2, officina.getIndirizzo());
+            preparestatement.setString(3, officina.getCitta());
+            preparestatement.execute();
+            Statement statement = connection.createStatement ();
+            ResultSet resultSet = statement.executeQuery(QUERY_SELECTID);
+            resultSet.next();
+            return resultSet.getInt("Id_Officina");
         }
         catch (SQLException e) {
-            e.printStackTrace();
             GestoreEccezioni.getInstance().gestisciEccezione(e);
-            return true;
+            return 0;
         }
+
     }
 
     public List<Officina> listOfficina() {

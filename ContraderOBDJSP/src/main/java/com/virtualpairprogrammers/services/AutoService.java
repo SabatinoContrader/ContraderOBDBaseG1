@@ -3,6 +3,8 @@ package com.virtualpairprogrammers.services;
 import com.virtualpairprogrammers.dao.AutoDAO;
 import com.virtualpairprogrammers.domain.Auto;
 
+import java.util.List;
+
 
 public class AutoService {
 
@@ -28,4 +30,21 @@ public class AutoService {
         return this.autoDAO.insertAuto(auto);
     }
 
+    public boolean updateAuto (Auto auto) {
+        return this.autoDAO.updateAuto(auto);
+    }
+
+    public boolean resetAuto(int cod_Dispositivo) {
+        return this.autoDAO.resetAuto(cod_Dispositivo);
+    }
+
+    public List<Auto> listaAutoDriver(int id_driver) {
+        System.out.println("Sei nella service listaauto");
+        return this.autoDAO.listaAutoDriver(id_driver);
+    }
+
+    public Auto findAuto (int cod_Dispositivo) {
+        System.out.println("Sei nella service findauto");
+        return this.autoDAO.findAuto(cod_Dispositivo);
+    }
 }
