@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.project.model.Dispositivo;
+import com.project.model.Guasto;
 
 
 public class DispositivoDAO {
@@ -149,6 +150,36 @@ public class DispositivoDAO {
 		}
 
 		return listaDispositivi;
+
+	}
+
+	/*GET ALL GUASTI DISPOSITIVO*/
+	public static List<Guasto> getGuastiDispositivo() {
+
+		List<Guasto> listaGuasti = new ArrayList<>();
+
+		Connection conn = ConnessioneDB.getInstance();
+
+		String QUERY = "select * from dispositivo";
+
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+
+		try {
+
+			statement = conn.prepareStatement(QUERY);
+			resultSet = statement.executeQuery();
+
+			while(resultSet.next()) listaGuasti.add(new Guasto(resultSet.getInt("ID"), resultSet.getString("Codice"), resultSet.getInt("IdAuto"), resultSet.getDate("DataInstallazione"), resultSet.getInt("IdAzienda")));
+
+		} catch (SQLException e) {
+
+			System.out.println("Errore nel recupero dei Dispositivi associati all'Azienda!");
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
+
+		return listaGuasti;
 
 	}
 }

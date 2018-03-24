@@ -558,8 +558,7 @@ boolean nol;
 													
 													
 													<td><ul class="fa-ul">
-  <li class="fa-li"><i class="fa fa-wrench"  title="Visualizza guasti dispositivo"></i></li>
-  <li class="fa-li"><i class="fa fa-user" title="Visualizza dati cliente"></i></li> 
+  <li class="fa-li"><a class="ali" href="list_guasti_dispositivo.jsp?id=<%=dispositivi.get(i).getId()%>" target="_blank"><i class="fa fa-wrench"  title="Visualizza guasti dispositivo"></i></a></li>
 
 </ul></td>
 												</tr>

@@ -43,6 +43,12 @@
     <servlet-name>AddAutoAzienda</servlet-name>
     <servlet-class>com.project.servlets.AddAutoAzienda</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>LogOut</display-name>
+    <servlet-name>LogOut</servlet-name>
+    <servlet-class>com.project.servlets.LogOut</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>RegistraUtente</servlet-name>
     <url-pattern>/RegistraUtente</url-pattern>
@@ -62,5 +68,9 @@
   <servlet-mapping>
     <servlet-name>AddAutoAzienda</servlet-name>
     <url-pattern>/AddAutoAzienda</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogOut</servlet-name>
+    <url-pattern>/logout</url-pattern>
   </servlet-mapping>
 </web-app>
