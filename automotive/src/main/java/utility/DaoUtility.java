@@ -188,12 +188,13 @@ public class DaoUtility {
         List<Utente> lista = new ArrayList<>();
 
 
-        String QUERY = "select distinct(IdUtente), Nome, Cognome, Email, Password, DataRegistrazione, Ruolo, IdAziendaPrivata, Stato, Telefono from auto_utente au inner join dispositivo d on au.IdAuto = d.IdAuto inner join utente u on u.ID = au.IdUtente where d.IdAzienda = "+IdAzienda;
-
+//        String QUERY = "select distinct(IdUtente), Nome, Cognome, Email, Password, DataRegistrazione, Ruolo, IdAziendaPrivata, Stato, Telefono from auto_utente au inner join dispositivo d on au.IdAuto = d.IdAuto inner join utente u on u.ID = au.IdUtente where u.Ruolo!=1 and u.Stato=0 and d.IdAzienda = "+IdAzienda;
+    String QUERY = "SELECT * FROM utente WHERE Ruolo!=1 and IdAzienda=? and Stato=0";
 
         try {
             resultSet = null;
             statement = conn.prepareStatement(QUERY);
+            statement.setInt(1, IdAzienda);
             resultSet = statement.executeQuery();
 
             if (resultSet.isBeforeFirst()) {
@@ -205,7 +206,7 @@ public class DaoUtility {
 
                 System.out.println("Trovati Clienti!");
 
-                Utente u = new Utente(resultSet.getInt("IdUtente"), resultSet.getString("Nome"), resultSet.getString("Cognome"), resultSet.getString("Email"), resultSet.getString("Password"), resultSet.getInt("Stato"), IdAzienda, resultSet.getDate("DataRegistrazione"), resultSet.getInt("Ruolo"), resultSet.getString("Telefono"), null);
+                Utente u = new Utente(resultSet.getInt("ID"), resultSet.getString("Nome"), resultSet.getString("Cognome"), resultSet.getString("Email"), resultSet.getString("Password"), resultSet.getInt("Stato"), IdAzienda, resultSet.getDate("DataRegistrazione"), resultSet.getInt("Ruolo"), resultSet.getString("Telefono"), null);
                 
                 lista.add(u);
 

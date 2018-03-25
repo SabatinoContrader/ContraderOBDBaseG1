@@ -19,6 +19,7 @@ public static Utente logIn(String email, String password) {
 		Connection conn = ConnessioneDB.getInstance();
 		
 		String QUERY = "select * from utente where Email = ? and Password = ?";
+
 		
 		boolean found = false;
 		
@@ -137,7 +138,7 @@ public static List<Utente> getListUtenti(int idAzienda){
 	PreparedStatement statement;
 	ResultSet resultSet = null;
 	List<Utente> lista = new ArrayList<>();
-	String QUERY ="select * from utente WHERE IdAzienda=?";
+	String QUERY ="select * from utente WHERE IdAzienda=? and Stato=0";
 
 
 	try {
@@ -319,5 +320,33 @@ return insertOk;
 		else return false;
 	}
 
+	public static boolean disableUtente(int idmod) {
 
+		Connection conn = ConnessioneDB.getInstance();
+		PreparedStatement statement;
+		ResultSet resultSet = null;
+		int insertOk=0;
+		String QUERY = "UPDATE utente SET Stato=1 WHERE ID=?";
+
+		try{
+
+
+
+			statement = conn.prepareStatement(QUERY);
+
+
+
+			statement.setInt(1, idmod);
+
+			insertOk= statement.executeUpdate();
+
+
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+
+
+		if(insertOk>0)return true;
+		else return false;
+	}
 }

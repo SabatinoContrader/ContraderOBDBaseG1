@@ -430,4 +430,48 @@ public class AlertsDAO {
 		}return listaAutoInScadenzaRevisione;
 	}
 
+	public ArrayList<GuastoDTO> getListaGuastiDispositivo(int idDispositivo,int idAzienda){
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String QUERY = null;
+
+		GuastoDTO guastoDto = null;
+		ArrayList<GuastoDTO> listGuastoDto = null;
+
+		QUERY = "Select distinct g.*, a.Marca, a.Modello, a.Targa, a.NumeroTelaio, tg.Descrizione"+
+				" from guasto g, auto a, dispositivo d,auto_azienda au, utente u,tipologia_guasto tg"+
+				" where g.IdDispositivo = d.ID and d.IdAuto=a.ID and u.IdAzienda = au.IdAzienda "+
+				" and tg.Codice= g.Codice and au.IdAuto = a.ID and d.ID = ? and u.IdAzienda=?";
+
+		try {
+			ps = conn.prepareStatement(QUERY);
+			ps.setInt(1, idDispositivo);
+			ps.setInt(2, idAzienda);
+			rs = ps.executeQuery();
+
+
+			listGuastoDto = new ArrayList<GuastoDTO>();
+
+			while (rs.next()) {
+				guastoDto = new GuastoDTO();
+				guastoDto.setData(rs.getDate("Data"));
+				guastoDto.setId(rs.getInt("ID"));
+				guastoDto.setCodice(rs.getString("Codice"));
+				guastoDto.setDescrizione(rs.getString("Descrizione"));
+				guastoDto.setIdTelemetria(rs.getInt("IdTelemetria"));
+				guastoDto.setIdDispositivo(rs.getInt("IdDispositivo"));
+				guastoDto.setMarcaAuto(rs.getString("Marca"));
+				guastoDto.setModelloAuto(rs.getString("Modello"));
+				guastoDto.setNumeroTarga(rs.getString("Targa"));
+				guastoDto.setNumeroTelaio(rs.getString("NumeroTelaio"));
+				listGuastoDto.add(guastoDto);
+			}
+
+		} catch (Exception e) {
+			getLog.error("Exception in getListaGuastiDispositivo ",e);
+			throw new RuntimeException(e);
+		}
+		return listGuastoDto;
+	}
 }
