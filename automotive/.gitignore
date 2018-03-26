@@ -1,0 +1,30 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+bin/
+out/
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.tern-project
+.settings
+.springBeans
+.externalToolBuilders
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+apache-tomcat-8.5.27/
