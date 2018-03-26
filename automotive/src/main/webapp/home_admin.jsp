@@ -52,8 +52,7 @@ License: You must have a valid license purchased only from themeforest(the above
 }
 
 .btn-box {
-	margin-top: 20px;
-	width: 200px;
+	border: none;margin-top: 20px;    width: 200px;    color: white !important;-webkit-appearance: button-bevel !important;
 }
 
 .logo {
@@ -68,6 +67,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	margin-top: 1.23rem !important;
 }
 .fah3{font-size:24px;padding-right:10px;}
+.ali{color:#575962 !important;}
 </style>
 </head>
 <!-- end::Head -->
@@ -108,8 +108,11 @@ if(u != null ){
 response.sendRedirect("index.jsp");
 
 }
-
+if(u != null ){
+ if(u.getRuolo()==2){
 String name = u.getNome();
+
+
 
 List<Azienda> officine = DaoUtility.getListaOfficine();
 List<Utente> utenti = DaoUtility.getListaUtenti();
@@ -188,18 +191,16 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 									<!--begin::New Orders-->
 									<div class="m-widget24">
 										<div class="m-widget24__item">
-											<h4 class="m-widget24__title">New Orders</h4>
-											<br> <span class="m-widget24__desc"> Fresh Order
-												Amount </span> <span class="m-widget24__stats m--font-danger">
-												567 </span>
+										<h4 class="m-widget24__title">Guasti</h4>
+											<br> <span class="m-widget24__desc"> Tutti i guasti nel network </span> <span class="m-widget24__stats m--font-danger">
+												<%=guasti.size()%> </span>
 											<div class="m--space-10"></div>
-											<div class="progress m-progress--sm">
-												<div class="progress-bar m--bg-danger" role="progressbar"
-													style="width: 69%;" aria-valuenow="50" aria-valuemin="0"
-													aria-valuemax="100"></div>
-											</div>
-											<span class="m-widget24__change"> Change </span> <span
-												class="m-widget24__number"> 69% </span>
+											<p style="text-align: center;">
+												<a href="#tabguasti" 
+													style="background-color: #f4516c  !important"
+													class="btn btn-info btn-box" type="button">Visualizza</a>
+
+											</p>
 										</div>
 									</div>
 									<!--end::New Orders-->
@@ -208,18 +209,16 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 									<!--begin::New Users-->
 									<div class="m-widget24">
 										<div class="m-widget24__item">
-											<h4 class="m-widget24__title">New Users</h4>
-											<br> <span class="m-widget24__desc"> Joined New
-												User </span> <span class="m-widget24__stats m--font-success">
-												276 </span>
+											<h4 class="m-widget24__title">Dispositivi</h4>
+											<br> <span class="m-widget24__desc">Tutti i dispositivi </span> <span class="m-widget24__stats m--font-success">
+												<%=dispositivi.size()%> </span>
 											<div class="m--space-10"></div>
-											<div class="progress m-progress--sm">
-												<div class="progress-bar m--bg-success" role="progressbar"
-													style="width: 90%;" aria-valuenow="50" aria-valuemin="0"
-													aria-valuemax="100"></div>
-											</div>
-											<span class="m-widget24__change"> Change </span> <span
-												class="m-widget24__number"> 90% </span>
+										<p style="text-align: center;">
+												<a href="#tabdispositivi" 
+													style="background-color: #34bfa3   !important"
+													class="btn btn-info btn-box" type="button">Visualizza</a>
+
+											</p>
 										</div>
 									</div>
 									<!--end::New Users-->
@@ -230,46 +229,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 					<!--end:: Widgets/Stats-->
 
 
-					<!--Begin::Section-->
-					<div class="row">
-						<div class="col-xl-12">
-							<!--begin::Portlet-->
-							<!--		<div class="m-portlet " id="m_portlet">
-									<div class="m-portlet__head">
-										<div class="m-portlet__head-caption">
-											<div class="m-portlet__head-title">
-												<span class="m-portlet__head-icon">
-													<i class="flaticon-map-location"></i>
-												</span>
-												<h3 class="m-portlet__head-text">
-													Calendar
-												</h3>
-											</div>
-										</div>
-										<div class="m-portlet__head-tools">
-											<ul class="m-portlet__nav">
-												<li class="m-portlet__nav-item">
-													<a href="#" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
-														<span>
-															<i class="la la-plus"></i>
-															<span>
-																Add Event
-															</span>
-														</span>
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="m-portlet__body">
-										<div id="m_calendar"></div>
-									</div>
-								</div>
-								<!--end::Portlet-->
-						</div>
-					</div>
-					<!--End::Section-->
-
+					
 					<!--Begin::Section-->
 					<div class="row">
 						<div class="col-xl-12">
@@ -390,7 +350,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 					<!--End::Section-->
 					
 						<!--Begin::Section TABLE DEVICE-->
-					<div class="row">
+					<div class="row" id="tabdispositivi">
 						<div class="col-xl-12">
 							<div class="m-portlet m-portlet--mobile ">
 								<div class="m-portlet__head">
@@ -413,7 +373,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 													<th>ID Auto</th>
 													<th>Data Installazione</th>
 													<th>ID Azienda</th>
-													
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -430,7 +390,9 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 													<td><% if(dispositivi.get(i).getDataInstallazione()==null)out.println("Non installato");
 													else out.println(dispositivi.get(i).getDataInstallazione());%></td>
 													<td><%=dispositivi.get(i).getIdAzienda()%></td>
-													
+													<td><ul class="fa-ul">
+  <li class="fa-li"><a class="ali" href="lista-guasti-dispositivo-network.jsp?id=<%=dispositivi.get(i).getId()%>" target="_blank"><i class="fa fa-wrench"  title="Visualizza guasti dispositivo"></i></a></li>
+</ul></td>
 												</tr>
 												<%
 										}
@@ -512,7 +474,7 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 					<!--End::Section TABLE AUTO-->
 					
 						<!--Begin::Section TABLE GUASTI-->
-					<div class="row">
+					<div class="row" id="tabguasti">
 						<div class="col-xl-12">
 							<div class="m-portlet m-portlet--mobile ">
 								<div class="m-portlet__head">
@@ -736,7 +698,8 @@ ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiSystemAdministrator();
 	<!--begin::Page Snippets -->
 	<script src="assets/app/js/dashboard.js" type="text/javascript"></script>
 	<!--end::Page Snippets -->
-
+	<% } 
+}%>
 </body>
 <!-- end::Body -->
 </html>

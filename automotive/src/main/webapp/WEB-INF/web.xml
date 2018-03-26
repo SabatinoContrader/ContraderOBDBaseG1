@@ -49,6 +49,12 @@
     <servlet-name>LogOut</servlet-name>
     <servlet-class>com.project.servlets.LogOut</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>RichiediPreventivo</display-name>
+    <servlet-name>RichiediPreventivo</servlet-name>
+    <servlet-class>com.project.servlets.RichiediPreventivo</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>RegistraUtente</servlet-name>
     <url-pattern>/RegistraUtente</url-pattern>
@@ -72,5 +78,9 @@
   <servlet-mapping>
     <servlet-name>LogOut</servlet-name>
     <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RichiediPreventivo</servlet-name>
+    <url-pattern>/RichiediPreventivo</url-pattern>
   </servlet-mapping>
 </web-app>

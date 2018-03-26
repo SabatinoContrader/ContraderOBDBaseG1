@@ -42,7 +42,9 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="assets/demo/demo2/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
 		<!-- <link rel="shortcut icon" href="assets/demo/demo2/media/img/logo/favicon.ico" /> -->
-		<style>.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}</style>
+		<style>.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}#autorichiesta{color:red;}
+		.ali{color:#575962 !important;cursor:pointer;}.fah3{font-size:24px;padding-right:10px;}
+		.btn-box{       border: none;margin-top: 20px;    width: 200px;    color: white !important;-webkit-appearance: button-bevel !important;}</style>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
@@ -50,6 +52,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 	<%@ page import = "com.project.model.*" %>
 	<%@ page import = "java.util.ArrayList" %>
+	<%@ page import = "java.util.List" %>
 	<%@ page import = "com.project.dao.*" %>
 	<%@ page import = "com.project.automotive.dto.*" %>
 
@@ -77,13 +80,14 @@ Utente u = (Utente)session.getAttribute("Utente");
 
     }
 
-
+if(u != null ){
+ if(u.getRuolo()==0){
 String name = u.getNome();
 
 AlertsDAO alerts = new AlertsDAO();
 
 ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
- 
+ List<RichiestaPreventivo> richieste = RichiestaPreventivoDAO.getAllRichiestePreventivoUtente(u.getID());
 %>
 	
 	
@@ -121,12 +125,14 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 													Guasti
 												</h4>
 												<br>
-											
+												<span class="m-widget24__desc">
+													Rilevati dai dispositivi
+												</span>
 												<span class="m-widget24__stats m--font-brand">
 													<%=listaGuastiUtente.size()%>
 												</span>
 												<div class="m--space-10"></div>
-											
+											<p style="text-align:center;" class="smooth-scroll"><a  href="#tableguasti" style="background-color:#716aca !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::Total Profit-->
@@ -157,12 +163,14 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 													Richieste Preventivo
 												</h4>
 												<br>
-												
+												<span class="m-widget24__desc">
+													Per riparazione auto
+												</span>
 												<span class="m-widget24__stats m--font-danger">
-													567
+													<%=richieste.size()%>
 												</span>
 												<div class="m--space-10"></div>
-												
+												<p style="text-align:center;" class="smooth-scroll"><a  href="#tablerichiestepreventivo" style="background-color:#f4516c  !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Orders-->
@@ -198,6 +206,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
+												<i class="fa fa-car fah3"  ></i>
 													AUTO UTENTE
 												</h3>
 											</div>
@@ -216,6 +225,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 									<th>Modello</th>
 									<th>Targa</th>
 									<th>Telaio</th>
+									<th></th>
 									</tr>
 									</thead>
 									<tbody>
@@ -228,6 +238,10 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 												<td><%=u.getAuto().get(i).getModello()%></td>
 												<td><%=u.getAuto().get(i).getTarga()%></td>
 												<td><%=u.getAuto().get(i).getNumeroTelaio()%></td>
+													<td><ul class="fa-ul">
+  <li class="fa-li"><a class="ali richiedipreventivo" data-marca="<%=u.getAuto().get(i).getMarca()%>"  data-modello="<%=u.getAuto().get(i).getModello()%>" data-id="<%=u.getAuto().get(i).getID()%>" target="_blank"><i class="fa fa-file-o"  title="Richiedi Preventivo per questa auto"></i></a></li>
+
+</ul></td>
 												</tr>
 											<%
 										}
@@ -253,6 +267,7 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
+												<i class="fa fa-wrench fah3"  ></i>
 													GUASTI 
 												</h3>
 											</div>
@@ -302,6 +317,61 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 						
 						</div>
 						<!--End::Section-->   
+							<!--begin:: section-->
+						<div class="row" id="tablerichiestepreventivo">
+							<div class="col-xl-12">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+												<i class="fa fa-file-o fah3"  ></i>
+													Richieste Preventivo
+												</h3>
+											</div>
+										</div>
+									
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+									<table class="table table-striped">
+									<thead>
+									<tr>
+									<th>ID</th>
+									<th>Descrizione</th>
+									<th>ID Auto</th>
+									<th></th>
+									</tr>
+									</thead>
+									<tbody>
+									<% if(richieste.size() != 0){
+										for(int i = 0; i<richieste.size(); i++){
+											%>
+												<tr>
+												<td><%=richieste.get(i).getId()%></td>
+												<td><%=richieste.get(i).getDescrizione()%></td>
+												<td><%=richieste.get(i).getIdAuto()%></td>
+												
+												<td></td>
+												
+												</tr>
+											<%
+										}
+									}
+									
+									%>
+									</tbody>
+									</table>
+									</div>
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						<!--End::Section-->   
 					</div>
 				</div>
 				<!--
@@ -312,7 +382,46 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 <%@ include file = "footer.jsp" %>
 	</div>
 	<!-- end:: Page -->
+<!-- begin::modal richiedi preventivo -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrichiedipreventivo">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Richiedi preventivo per <span id="autorichiesta"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="RichiediPreventivo" method="POST">
+<div class="form-group">
+						<div class="form-group">
+  <label for="descrizione">Descrizione Problema:</label>
+  <textarea class="form-control" rows="5" id="descrizione" name="descrizione"></textarea>
+</div>
+						
+							<input type="hidden"
+								class="form-control" id="idutente" value="<%=u.getID()%>"
+								name="idutente">
+							<input type="hidden"
+								class="form-control" id="idazienda" value="<%=u.getIdAzienda()%>"
+								name="idazienda">
+						<input type="hidden"
+								class="form-control" id="idauto" 
+								name="idauto">
+								
+  
 
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal richiedi preventivo-->
 	    <!-- begin::Scroll Top -->
 	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 		<i class="la la-arrow-up"></i>
@@ -328,7 +437,21 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
         <!--begin::Page Snippets -->
 	<script src="assets/app/js/dashboard.js" type="text/javascript"></script>
 	<!--end::Page Snippets -->
-	
+	<script>
+	$('.richiedipreventivo').on('click',function(){
+		var marca = $(this).data("marca");
+	var modello = $(this).data("modello");
+	var id=$(this).data("id");
+	$('#autorichiesta').html(marca+ " " +modello);
+	$('#idauto').val(id);
+	$('#modalrichiedipreventivo').modal("show");
+		
+		
+		
+	});
+	</script>
+		<% } 
+}%>
 </body>
 <!-- end::Body -->
 </html>
