@@ -73,5 +73,35 @@ public class RichiestaPreventivoDAO {
        return richieste;
     }
 
+    public static List <RichiestaPreventivo> getAllRichiestePreventivoAzienda(int idazienda) {
+        Connection conn = ConnessioneDB.getInstance();
+        PreparedStatement statement;
+        ResultSet resultSet = null;
+        int insertOk=0;
+        List <RichiestaPreventivo> richieste = new ArrayList<>();
+        String QUERY = "SELECT * FROM richiesta_preventivo WHERE IdAzienda=?";
+        try {
+
+
+            statement = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setInt(1, idazienda);
+            resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+
+                //System.out.println("Trovate Auto Associate!");
+
+                RichiestaPreventivo r = new RichiestaPreventivo(resultSet.getInt("ID"), resultSet.getString("Descrizione"),
+                        resultSet.getInt("IdUtente"),resultSet.getInt("IdAuto"),
+                        resultSet.getInt("IdAzienda"));
+
+                richieste.add(r);
+
+            }
+        } catch (SQLException e) {
+            System.out.println("ERRORE in getAllRichiestePreventivoUtente: "+e);
+        }
+        return richieste;
+    }
 
 }

@@ -51,6 +51,7 @@ AlertsDAO adao = new AlertsDAO();
 ArrayList<GuastoDTO> guasti = adao.getAlertsGuastiGarageAdmin(u);
 List<Dispositivo> dispositivi = DispositivoDAO.getOfficinaDevice(a.id);
 boolean nol;
+List<RichiestaPreventivo> richieste = RichiestaPreventivoDAO.getAllRichiestePreventivoUtente(a.id);
 %>
 <html lang="en" >
 	<!-- begin::Head -->
@@ -142,11 +143,11 @@ boolean nol;
 													Manutenzione
 												</span>
 												<span class="m-widget24__stats m--font-info">
-													983728
+													37
 												</span>
 												<div class="m--space-10"></div>
 											
-													<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#36a3f7  !important" class="btn btn-info btn-box">Visualizza</a></p>
+													<p style="text-align:center;"><a  style="background-color:#36a3f7  !important" class="btn btn-info btn-box" >Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Feedbacks-->
@@ -163,10 +164,10 @@ boolean nol;
 													Richiesti
 												</span>
 												<span class="m-widget24__stats m--font-danger">
-													567
+													23
 												</span>
 												<div class="m--space-10"></div>
-											<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#f4516c   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
+											<p style="text-align:center;"><a  style="background-color:#f4516c   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Orders-->
@@ -183,10 +184,10 @@ boolean nol;
 													Richiesti
 												</span>
 												<span class="m-widget24__stats m--font-success">
-													276
+												<%=richieste.size()%>
 												</span>
 												<div class="m--space-10"></div>
-											<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#34bfa3   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
+											<p style="text-align:center;"><a href="#richiestepreventivi" style="background-color:#34bfa3   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Users-->
@@ -580,6 +581,69 @@ boolean nol;
 						
 						</div>
 						<!--End::Section-->   
+						
+						<!--Begin::Section-->
+						<div class="row" id="richiestepreventivi">
+							<div class="col-xl-12">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+													<i class="fa fa-file-o fah3"  ></i>
+													Richieste Preventivo
+												</h3>
+												<div id=test></div>
+											</div>
+										</div>
+									
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+									<table class="table table-striped">
+									<thead>
+									<tr>
+									<th>ID</th>
+									<th>Descrizione</th>
+									<th>ID Auto</th>
+									<th>ID Utente</th>
+									<th style="width:150px;"></th>
+									
+									</tr>
+									</thead>
+									<tbody>
+									
+									
+									
+									
+												<% if(richieste.size() != 0){
+										for(int i = 0; i<richieste.size(); i++){
+											%>
+												<tr>
+														<td><%=richieste.get(i).getId()%></td>
+												<td><%=richieste.get(i).getDescrizione()%></td>
+												<td><%=richieste.get(i).getIdAuto()%></td>
+												<td><%=richieste.get(i).getIdUtente()%></td>
+												<td></td>
+												</tr>
+												<%
+										}
+									}
+									
+									%>
+									
+									</tbody>
+									</table>
+									</div>
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						<!--End::Section-->  
 					</div>
 				</div>
 				<!--

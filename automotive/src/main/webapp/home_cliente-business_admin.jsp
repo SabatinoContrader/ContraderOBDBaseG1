@@ -129,10 +129,10 @@ List<Utente> listaDipendenti = DaoUtility.getListaDipendendi(u.idAziendaPrivata)
 													Rilevati dai dispositivi
 												</span>
 												<span class="m-widget24__stats m--font-brand">
-													102919
+													13
 												</span>
 												<div class="m--space-10"></div>
-											<p style="text-align:center;" class="smooth-scroll"><a  href="#tableguasti" style="background-color:#716aca !important" class="btn btn-info btn-box">Visualizza</a></p>
+											<p style="text-align:center;" class="smooth-scroll"><a  style="background-color:#716aca !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::Total Profit-->
@@ -149,11 +149,11 @@ List<Utente> listaDipendenti = DaoUtility.getListaDipendendi(u.idAziendaPrivata)
 													Manutenzione
 												</span>
 												<span class="m-widget24__stats m--font-info">
-													983728
+													45
 												</span>
 												<div class="m--space-10"></div>
 											
-													<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#36a3f7  !important" class="btn btn-info btn-box">Visualizza</a></p>
+													<p style="text-align:center;"><a  style="background-color:#36a3f7  !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Feedbacks-->
@@ -170,10 +170,10 @@ List<Utente> listaDipendenti = DaoUtility.getListaDipendendi(u.idAziendaPrivata)
 													Richiesti
 												</span>
 												<span class="m-widget24__stats m--font-danger">
-													567
+													17
 												</span>
 												<div class="m--space-10"></div>
-											<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#f4516c   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
+											<p style="text-align:center;"><a  style="background-color:#f4516c   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Orders-->
@@ -190,10 +190,10 @@ List<Utente> listaDipendenti = DaoUtility.getListaDipendendi(u.idAziendaPrivata)
 													Richiesti
 												</span>
 												<span class="m-widget24__stats m--font-success">
-													276
+													34
 												</span>
 												<div class="m--space-10"></div>
-											<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#34bfa3   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
+											<p style="text-align:center;"><a  style="background-color:#34bfa3   !important" class="btn btn-info btn-box"  >Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Users-->

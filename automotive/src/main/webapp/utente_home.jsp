@@ -147,10 +147,10 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 												<br>
 												
 												<span class="m-widget24__stats m--font-info">
-													1349
+													7
 												</span>
 												<div class="m--space-10"></div>
-												
+												<p style="text-align:center;" class="smooth-scroll"><a   style="background-color:#36a3f7   !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Feedbacks-->
@@ -185,10 +185,10 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 												<br>
 												
 												<span class="m-widget24__stats m--font-success">
-													276
+													11
 												</span>
 												<div class="m--space-10"></div>
-												
+												<p style="text-align:center;" class="smooth-scroll"><a  style="background-color:#34bfa3    !important" class="btn btn-info btn-box">Visualizza</a></p>
 											</div>
 										</div>
 										<!--end::New Users-->
