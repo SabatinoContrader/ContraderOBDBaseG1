@@ -99,7 +99,6 @@ AlertsDAO alerts = new AlertsDAO();
 ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 
 %>
-<<<<<<< HEAD
 
 
 							<!-- begin:: Page -->
@@ -1235,86 +1234,6 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 												</div>
 												<!-- end::Horizontal Menu -->
 
-=======
-	
-	
-	
-	
-	
-		<!-- begin:: Page -->
-		<div class="m-grid m-grid--hor m-grid--root m-page">
-			<%@ include file = "header.jsp" %>
-		<!-- begin::Body -->
-			<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
-				<div class="m-grid__item m-grid__item--fluid m-wrapper">
-					<!-- BEGIN: Subheader -->
-					<div class="m-subheader ">
-						<div class="d-flex align-items-center">
-							<div class="mr-auto">
-								<h3 class="m-subheader__title ">
-									Dashboard
-								</h3>
-							</div>
-						
-						</div>
-					</div>
-					<!-- END: Subheader -->
-					<div class="m-content">
-						<!--begin:: Widgets/Stats-->
-						<div class="m-portlet ">
-							<div class="m-portlet__body  m-portlet__body--no-padding">
-								<div class="row m-row--no-padding m-row--col-separator-xl">
-									<div class="col-md-12 col-lg-6 col-xl-3">
-										<!--begin::Total Profit-->
-										<div class="m-widget24">
-											<div class="m-widget24__item">
-												<h4 class="m-widget24__title">
-													Guasti
-												</h4>
-												<br>
-											
-												<span class="m-widget24__stats m--font-brand">
-													<%=listaGuastiUtente.size()%>
-												</span>
-												<div class="m--space-10"></div>
-											
-											</div>
-										</div>
-										<!--end::Total Profit-->
-									</div>
-									<div class="col-md-12 col-lg-6 col-xl-3">
-										<!--begin::New Feedbacks-->
-										<div class="m-widget24">
-											<div class="m-widget24__item">
-												<h4 class="m-widget24__title">
-												Scadenze
-												</h4>
-												<br>
-												
-												<span class="m-widget24__stats m--font-info">
-													1349
-												</span>
-												<div class="m--space-10"></div>
-												
-											</div>
-										</div>
-										<!--end::New Feedbacks-->
-									</div>
-									<div class="col-md-12 col-lg-6 col-xl-3">
-										<!--begin::New Orders-->
-										<div class="m-widget24">
-											<div class="m-widget24__item">
-												<h4 class="m-widget24__title">
-													Richieste Preventivo
-												</h4>
-												<br>
-												
-												<span class="m-widget24__stats m--font-danger">
-													567
-												</span>
-												<div class="m--space-10"></div>
-												
->>>>>>> 902bfbb00a1659fe463def1c58092d4c93d0acde
 											</div>
 										</div>
 									</div>
@@ -1349,7 +1268,6 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 																	</h4>
 																	<br>
 
-<<<<<<< HEAD
 																	<span class="m-widget24__stats m--font-brand">
 																		<%=listaGuastiUtente.size()%>
 																	</span>
@@ -1433,119 +1351,8 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 								<h3 class="m-portlet__head-text">
 									Calendar
 								</h3>
-=======
-<!--begin:: section-->
-						<div class="row">
-							<div class="col-xl-12">
-								<div class="m-portlet m-portlet--mobile ">
-									<div class="m-portlet__head">
-										<div class="m-portlet__head-caption">
-											<div class="m-portlet__head-title">
-												<h3 class="m-portlet__head-text">
-													AUTO UTENTE
-												</h3>
-											</div>
-										</div>
-									
-									</div>
-									<div class="m-portlet__body">
-										<!--begin: Datatable -->
-									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-									<div class="table-responsive">
-									<table class="table table-striped">
-									<thead>
-									<tr>
-									<th>ID</th>
-									<th>Marca</th>
-									<th>Modello</th>
-									<th>Targa</th>
-									<th>Telaio</th>
-									</tr>
-									</thead>
-									<tbody>
-									<% if(u.getAuto().size() != 0){
-										for(int i = 0; i<u.getAuto().size(); i++){
-											%>
-												<tr>
-												<td><%=u.getAuto().get(i).getID()%></td>
-												<td><%=u.getAuto().get(i).getMarca()%></td>
-												<td><%=u.getAuto().get(i).getModello()%></td>
-												<td><%=u.getAuto().get(i).getTarga()%></td>
-												<td><%=u.getAuto().get(i).getNumeroTelaio()%></td>
-												</tr>
-											<%
-										}
-									}
-									
-									%>
-									</tbody>
-									</table>
-									</div>
-										<!--end: Datatable -->
-									</div>
-								</div>
-							</div>
-						
-						</div>
-						<!--End::Section-->   
-						
-<!--begin:: section-->
-						<div class="row">
-							<div class="col-xl-12">
-								<div class="m-portlet m-portlet--mobile ">
-									<div class="m-portlet__head">
-										<div class="m-portlet__head-caption">
-											<div class="m-portlet__head-title">
-												<h3 class="m-portlet__head-text">
-													GUASTI 
-												</h3>
-											</div>
-										</div>
-									
-									</div>
-									<div class="m-portlet__body">
-										<!--begin: Datatable -->
-									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-									<div class="table-responsive">
-									<table class="table table-striped">
-									<thead>
-									<tr>
-									<th>Codice</th>
-									<th>Data</th>		
-									<th>Marca</th>
-									<th>Modello</th>
-									<th>Targa</th>
-									<th>Telaio</th>
-									<th></th>
-									</tr>
-									</thead>
-									<tbody>
-									<% if(listaGuastiUtente.size() != 0){
-										for(int i = 0; i<listaGuastiUtente.size(); i++){
-											%>
-												<tr>										
-												<td><%=listaGuastiUtente.get(i).getCodice()%></td>
-												<td><%=listaGuastiUtente.get(i).getData()%></td>
-												<td><%=listaGuastiUtente.get(i).getMarcaAuto()%></td>
-												<td><%=listaGuastiUtente.get(i).getModelloAuto()%></td>
-												<td><%=listaGuastiUtente.get(i).getNumeroTarga()%></td>
-												<td><%=listaGuastiUtente.get(i).getNumeroTelaio()%></td>
-												</tr>
-											<%
-										}
-									}
-									
-									%>
-									</tbody>
-									</table>
-									</div>
-										<!--end: Datatable -->
-									</div>
-								</div>
->>>>>>> 902bfbb00a1659fe463def1c58092d4c93d0acde
 							</div>
 						</div>
-<<<<<<< HEAD
 						<div class="m-portlet__head-tools">
 							<ul class="m-portlet__nav">
 								<li class="m-portlet__nav-item">
@@ -2322,36 +2129,3 @@ ArrayList<GuastoDTO> listaGuastiUtente = alerts.getUserAlertsGuastiDriver(u);
 	<!-- end::Body -->
 
 	</html>
-=======
-						<!--End::Section-->   
-					</div>
-				</div>
-				<!--
-			</div>
-			-->
-		</div>
-		<!-- end::Body -->
-<%@ include file = "footer.jsp" %>
-	</div>
-	<!-- end:: Page -->
-
-	    <!-- begin::Scroll Top -->
-	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
-		<i class="la la-arrow-up"></i>
-	</div>
-	<!-- end::Scroll Top -->		
-    	<!--begin::Base Scripts -->
-	<script src="assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
-	<script src="assets/demo/demo2/base/scripts.bundle.js" type="text/javascript"></script>
-	<!--end::Base Scripts -->   
-        <!--begin::Page Vendors -->
-	<script src="assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
-	<!--end::Page Vendors -->  
-        <!--begin::Page Snippets -->
-	<script src="assets/app/js/dashboard.js" type="text/javascript"></script>
-	<!--end::Page Snippets -->
-	
-</body>
-<!-- end::Body -->
-</html>
->>>>>>> 902bfbb00a1659fe463def1c58092d4c93d0acde

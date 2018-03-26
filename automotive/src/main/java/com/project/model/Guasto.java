@@ -40,7 +40,7 @@ public class Guasto {
 	public void setIdDispositivo(int idDispositivo) {
 		this.idDispositivo = idDispositivo;
 	}
-	public Guasto(int id, String codice, int idAuto, java.sql.Date dataInstallazione, int idAzienda) {
+	public Guasto() {
 	}
 	
 	public Guasto(int id, String codice, String idTelemetria, Date dateTime, int idDispositivo) {

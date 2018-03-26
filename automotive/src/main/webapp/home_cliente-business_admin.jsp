@@ -163,7 +163,6 @@ List<Utente> listaDipendenti = DaoUtility.getListaDipendendi(u.idAziendaPrivata)
 
 
 %>
-<<<<<<< HEAD
 
 
 
@@ -1307,74 +1306,6 @@ List<Utente> listaDipendenti = DaoUtility.getListaDipendendi(u.idAziendaPrivata)
 												</div>
 												<!-- end::Horizontal Menu -->
 
-=======
-	
-	
-	
-	
-	
-	
-		<!-- begin:: Page -->
-		<div class="m-grid m-grid--hor m-grid--root m-page">
-		<%@ include file = "header.jsp" %>
-		<!-- begin::Body -->
-			<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
-				<div class="m-grid__item m-grid__item--fluid m-wrapper">
-					<!-- BEGIN: Subheader -->
-					<div class="m-subheader ">
-						<div class="d-flex align-items-center">
-							<div class="mr-auto">
-								<h3 class="m-subheader__title ">
-									Dashboard - <%=a.getDenominazione()%> Admin
-								</h3>
-							</div>
-						
-						</div>
-					</div>
-					<!-- END: Subheader -->
-					<div class="m-content">
-					<!--begin:: Widgets/Stats-->
-					<div class="m-portlet ">
-							<div class="m-portlet__body  m-portlet__body--no-padding">
-								<div class="row m-row--no-padding m-row--col-separator-xl">
-									<div class="col-md-12 col-lg-6 col-xl-3">
-										<!--begin::Total Profit-->
-										<div class="m-widget24">
-											<div class="m-widget24__item">
-												<h4 class="m-widget24__title">
-													GUASTI
-												</h4>
-												<br>
-												<span class="m-widget24__desc">
-													Rilevati dai dispositivi
-												</span>
-												<span class="m-widget24__stats m--font-brand">
-													102919
-												</span>
-												<div class="m--space-10"></div>
-											<p style="text-align:center;" class="smooth-scroll"><a  href="#tableguasti" style="background-color:#716aca !important" class="btn btn-info btn-box">Visualizza</a></p>
-											</div>
-										</div>
-										<!--end::Total Profit-->
-									</div>
-									<div class="col-md-12 col-lg-6 col-xl-3">
-										<!--begin::New Feedbacks-->
-										<div class="m-widget24">
-											<div class="m-widget24__item">
-												<h4 class="m-widget24__title">
-													SCADENZE
-												</h4>
-												<br>
-												<span class="m-widget24__desc">
-													Manutenzione
-												</span>
-												<span class="m-widget24__stats m--font-info">
-													983728
-												</span>
-												<div class="m--space-10"></div>
-											
-													<p style="text-align:center;"><a data-toggle="modal" data-target="#modaladduser" style="background-color:#36a3f7  !important" class="btn btn-info btn-box">Visualizza</a></p>
->>>>>>> 902bfbb00a1659fe463def1c58092d4c93d0acde
 											</div>
 										</div>
 									</div>
@@ -1859,7 +1790,6 @@ List<Utente> listaDipendenti = DaoUtility.getListaDipendendi(u.idAziendaPrivata)
 								</footer>
 								<!-- end::Footer -->
 							</div>
-<<<<<<< HEAD
 							<!-- end:: Page -->
 
 							<!-- begin::Scroll Top -->
@@ -1882,123 +1812,3 @@ List<Utente> listaDipendenti = DaoUtility.getListaDipendendi(u.idAziendaPrivata)
 	<!-- end::Body -->
 
 	</html>
-=======
-						
-						</div>
-						<!--End::Section-->   
-					</div>
-				</div>
-				<!--
-			</div>
-			-->
-		</div>
-		
-<!-- begin::modal add dipendenti -->
-<div class="modal" tabindex="-1" role="dialog" id="modaladduser">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Aggiungi Dipendente</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form action="" method="POST">
-  <div class="form-group">
-    <label for="nomeuser">Nome</label>
-    <input type="text" class="form-control" id="nomeuser" aria-describedby="nomeuser" placeholder="Nome dipendente..." name="nomeuser" required>
-   
-  </div>
-  <div class="form-group">
-    <label for="cognomeuser">Cognome</label>
-    <input type="text" class="form-control" id="cognomeuser" placeholder="Cognome dipendente..." name="cognomeuser">
-  </div>
-  <div class="form-group">
-    <label for="emailuser">Cognome referente</label>
-    <input type="email" class="form-control" id="emailuser" placeholder="Email..." name="emailuser">
-  </div>
-    <div class="form-group">
-    <label for="telefonouser">Telefono</label>
-    <input type="text" class="form-control" id="telefonouser" placeholder="Telefono..." name="telefonouser">
-  </div>
-   
-  
-  
-
-      </div>
-      <div class="modal-footer " style="text-align:center;" >
-       <button type="submit" class="btn btn-primary savebutton">Salva</button>
-	   </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end::modal add dipendente -->
-<!-- begin::modal add  auto aziendali -->
-<div class="modal" tabindex="-1" role="dialog" id="modaladdcar">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Aggiungi Auto Aziendale</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form action="" method="POST">
-  <div class="form-group">
-    <label for="marca">Marca</label>
-    <input type="text" class="form-control" id="marca" aria-describedby="marca" placeholder="Marca..." name="marca" required>
-   
-  </div>
-  <div class="form-group">
-    <label for="modello">Modello</label>
-    <input type="text" class="form-control" id="modello" placeholder="Modello..." name="modello">
-  </div>
-  <div class="form-group">
-    <label for="targa">Targa</label>
-    <input type="text" class="form-control" id="targa" placeholder="Targa..." name="targa">
-  </div>
-    <div class="form-group">
-    <label for="telaio">Telaio</label>
-    <input type="text" class="form-control" id="telaio" placeholder="Telaio..." name="telaio">
-  </div>
-   
-  
-  
-
-      </div>
-      <div class="modal-footer " style="text-align:center;" >
-       <button type="submit" class="btn btn-primary savebutton">Salva</button>
-	   </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end::modal add cliente business -->
-		<!-- end::Body -->
-<%@ include file = "footer.jsp" %>
-	</div>
-	<!-- end:: Page -->
-    	       
-	    <!-- begin::Scroll Top -->
-	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
-		<i class="la la-arrow-up"></i>
-	</div>
-	<!-- end::Scroll Top -->		
-    	<!--begin::Base Scripts -->
-	<script src="assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
-	<script src="assets/demo/demo2/base/scripts.bundle.js" type="text/javascript"></script>
-	<!--end::Base Scripts -->   
-        <!--begin::Page Vendors -->
-	<script src="assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
-	<!--end::Page Vendors -->  
-        <!--begin::Page Snippets -->
-	<script src="assets/app/js/dashboard.js" type="text/javascript"></script>
-	<!--end::Page Snippets -->
-	
-</body>
-<!-- end::Body -->
-</html>
->>>>>>> 902bfbb00a1659fe463def1c58092d4c93d0acde
