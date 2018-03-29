@@ -1,18 +1,29 @@
 package it.contrader.automative.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.ArrayList;
+
 
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
 @Entity
 @Table(name = "officina")
 public class Officina implements Serializable {
 
 	@Id
-	private int ID;
+	private int id;
 	
 	@Column
 	private String denominazione;
@@ -34,9 +45,6 @@ public class Officina implements Serializable {
 	
 	@Column
 	private String longitudine;
-	
-	@Column
-	private String tipologia;
 	
 	@Column
 	private Date dataInserimento;

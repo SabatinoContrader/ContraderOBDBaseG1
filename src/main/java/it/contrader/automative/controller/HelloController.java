@@ -16,4 +16,6 @@ public class HelloController {
         return "index01";
     }
 
+//    Model model;
+//    model.addAttribute("nomeVariabile", variabile);
 }

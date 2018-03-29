@@ -1,16 +1,27 @@
 package it.contrader.automative.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
 @Entity
 @Table(name = "auto")
 public class Auto implements Serializable {
 
 	@Id
-	private int ID;
+	private int id;
 	
 	@Column
 	private String marca;
@@ -64,9 +75,9 @@ public class Auto implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "officina_ID")
 	private Officina officina;
-	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "noleggio_IdAuto")
-	private Auto auto;
+//	
+//	@OneToOne(fetch=FetchType.EAGER)
+//	@JoinColumn(name = "IdAuto")
+//	private Auto auto;
 	
 }

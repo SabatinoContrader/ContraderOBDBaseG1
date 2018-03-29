@@ -1,13 +1,14 @@
 package it.contrader.automative.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -43,8 +44,13 @@ public class Utente implements Serializable {
 	@Column
 	private int stato;
 	
-	@Column
-	private int idAzienda;
+//	@Column
+//	private int idOfficina;
+	
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "idOfficina")
+	private Officina officina;
 	
 	@Column
 	private Date dataRegistrazione;
@@ -55,11 +61,9 @@ public class Utente implements Serializable {
 	@Column
 	private String telefono;
 	
-	@Column
-	public int idAziendaPrivata;
-
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "noleggio_IdUtente")
-	private Utente utente;
+//
+//	@OneToOne(fetch=FetchType.EAGER)
+//	@JoinColumn(name = "noleggio_IdUtente")
+//	private Noleggio noleggio;
 
 }

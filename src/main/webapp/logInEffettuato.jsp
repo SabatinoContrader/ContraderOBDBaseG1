@@ -14,7 +14,7 @@
 <div style="width:250px;position:relative;top:300px;left:730px;">
     <form action="get" method = "POST">
         <fieldset>
-            <legend align="center">Log In Effettuato</legend>
+            <legend align="center">Log In Effettuato ${utente.getEmail()} Marca auto a noleggio: ${autoUtente.get(0).getAuto().getMarca()}</legend>
             
         </fieldset>
     </form>
