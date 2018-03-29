@@ -20,7 +20,8 @@ public class AziendaEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id_azienda;
+    @Column(name="id_azienda")
+    private int idAzienda;
 
     @Column
     private String nome;
@@ -29,7 +30,7 @@ public class AziendaEntity implements Serializable {
     private String citta;
 
     @OneToMany
-    @JoinColumn(name = "id_azienda")
+    @JoinColumn(name = "idAzienda")
     private Set<DriverEntity> driverEntitySet;
 
 }

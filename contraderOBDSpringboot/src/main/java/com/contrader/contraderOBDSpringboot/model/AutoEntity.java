@@ -18,7 +18,8 @@ import java.util.Set;
 public class AutoEntity implements Serializable {
 
     @Id
-    private int cod_dispositivo;
+    @Column(name = "cod_dispositivo")
+    private int codDispositivo;
 
     @Column
     private String targa;
@@ -26,8 +27,8 @@ public class AutoEntity implements Serializable {
     @Column
     private int telaio;
 
-    @Column
-    private String casa_costruttrice;
+    @Column(name = "casa_costruttrice")
+    private String casaCostruttrice;
 
     @Column
     private String modello;
@@ -47,25 +48,25 @@ public class AutoEntity implements Serializable {
     @Column
     private String revisione;
 
-    @Column
-    private String tagliando_data;
+    @Column(name = "tagliando_data")
+    private String tagliandoData;
 
-    @Column
-    private int tagliando_km;
+    @Column(name = "tagliando_km")
+    private int tagliandoKm;
 
     @ManyToOne
-    @JoinColumn(name="id_driver")
+    @JoinColumn(name="idDriver")
     private DriverEntity driverEntity;
 
     @ManyToOne
-    @JoinColumn(name="id_officina")
+    @JoinColumn(name="idOfficina")
     private OfficinaEntity officinaEntity;
 
     @Column
     private boolean noleggiabile;
 
     @OneToMany
-    @JoinColumn(name = "cod_dispositivo")
+    @JoinColumn(name = "codDispositivo")
     private Set<DatiEntity> datiEntitySet;
 
 

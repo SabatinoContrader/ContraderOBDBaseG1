@@ -2,11 +2,11 @@
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
             <li>
-                <a href="home.jsp">
+                <a href="/contraderOBDSpringBoot/home">
                     <i class="fa fa-home fa-fw"></i> Dashboard</a>
             </li>
             <c:choose>
-                <c:when test="${user.ruolo == 1 }">
+                <c:when test="${sessionScope.model.user.ruolo == 1 }">
                     <li>
                         <a href="#">
                             <i class="fa fa-wrench fa-fw"></i> Officina
@@ -14,14 +14,9 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="javascript:{}" onclick="document.getElementById('listAll').submit(); return false;">
+                                <a href="/contraderOBDSpringBoot/viewListOfficina">
                                     Visualizza tutte
                                 </a>
-                                <form action="MainDispatcherServlet" method="post" id="listAll">
-                                    <fieldset>
-                                        <input type="hidden" value="Officina:listAll" name="button" class="btn btn-primary">
-                                    </fieldset>
-                                </form>
                             </li>
                             <li>
                                 <a href="#"> Cerca per citt&aacute;
@@ -30,10 +25,10 @@
                                 <ul class="nav nav-third-level">
                                     <li>
                                         <a>
-                                            <form action="MainDispatcherServlet" method="post">
+                                            <form action="/contraderOBDSpringBoot/viewListOfficina" method="post">
                                                 <fieldset>
                                                     <input type="text" size="12" name="citta">
-                                                    <button type="submit" value="Officina:listCitta" name="button" class="btn btn-primary btn-xs">
+                                                    <button type="submit" class="btn btn-primary btn-xs">
                                                         Cerca
                                                     </button>
                                                 </fieldset>
@@ -41,7 +36,6 @@
                                         </a>
                                     </li>
                                 </ul>
-
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -53,20 +47,34 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="javascript:{}" onclick="document.getElementById('listAllAzienda').submit(); return false;">
+                                <a href="/contraderOBDSpringBoot/viewListAzienda">
                                     Visualizza tutte
                                 </a>
-                                <form action="MainDispatcherServlet" method="post" id="listAllAzienda">
-                                    <fieldset>
-                                        <input type="hidden" value="Azienda:listAll" name="button" class="btn btn-primary">
-                                    </fieldset>
-                                </form>
+                            </li>
+                            <li>
+                                <a href="#"> Cerca per citt&aacute;
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a>
+                                            <form action="/contraderOBDSpringBoot/viewListAzienda" method="post">
+                                                <fieldset>
+                                                    <input type="text" size="12" name="citta">
+                                                    <button type="submit" class="btn btn-primary btn-xs">
+                                                        Cerca
+                                                    </button>
+                                                </fieldset>
+                                            </form>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
                 </c:when>
-                <c:when test="${user.ruolo == 2 }">
+                <c:when test="${sessionScope.model.user.ruolo == 2 }">
                     <li>
                         <a href="#">
                             <i class="fa fa-briefcase fa-fw"></i> Azienda
@@ -86,7 +94,9 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="officinaAddAuto.jsp">Aggiungi</a>
+                                <a href="#formAddAuto" data-toggle="modal">
+                                    Aggiungi
+                                </a>
                             </li>
                             <li>
                                 <a href="#"> Cerca
@@ -126,7 +136,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                 </c:when>
-                <c:when test="${user.ruolo == 3 }">
+                <c:when test="${sessionScope.model.user.ruolo == 3 }">
                     <li>
                         <a href="#">
                             <i class="fa fa-automobile fa-fw"></i> Auto
@@ -185,7 +195,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                 </c:when>
-                <c:when test="${user.ruolo == 4 }">
+                <c:when test="${sessionScope.model.user.ruolo == 4 }">
 
                 </c:when>
             </c:choose>

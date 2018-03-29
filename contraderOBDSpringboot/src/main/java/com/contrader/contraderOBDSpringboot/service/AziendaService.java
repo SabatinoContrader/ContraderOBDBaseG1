@@ -5,6 +5,8 @@ import com.contrader.contraderOBDSpringboot.model.AziendaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AziendaService {
@@ -20,4 +22,13 @@ public class AziendaService {
 
     return this.aziendaRepository.count();
     }
+
+    public List<AziendaEntity> findAll() {
+        return this.aziendaRepository.findAll();
+    }
+
+    public List<AziendaEntity> findByCitta(String citta) {
+        return this.aziendaRepository.findByCitta(citta);
+    }
 }
+

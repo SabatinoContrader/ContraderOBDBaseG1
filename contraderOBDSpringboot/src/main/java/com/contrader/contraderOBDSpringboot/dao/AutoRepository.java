@@ -12,4 +12,6 @@ public interface AutoRepository extends CrudRepository<AutoEntity, Long> {
 
     long count();
 
+    AutoEntity save(AutoEntity autoEntity);
+
 }

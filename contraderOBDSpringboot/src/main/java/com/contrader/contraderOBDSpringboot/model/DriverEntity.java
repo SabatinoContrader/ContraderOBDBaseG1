@@ -19,7 +19,8 @@ import java.util.Set;
 public class DriverEntity implements Serializable {
 
     @Id
-    private int id_driver;
+    @Column(name="id_driver")
+    private int idDriver;
 
     @Column
     private String nome;
@@ -40,11 +41,11 @@ public class DriverEntity implements Serializable {
     private String residenza;
 
     @ManyToOne
-    @JoinColumn(name = "id_azienda")
+    @JoinColumn(name = "idAzienda")
     private AziendaEntity aziendaEntity;
 
     @OneToMany
-    @JoinColumn(name = "id_driver")
+    @JoinColumn(name = "idDriver")
     private Set<AutoEntity> autoEntitySet;
 
 }

@@ -22,7 +22,7 @@ public class DatiEntity implements Serializable {
     private int n;
 
     @ManyToOne
-    @JoinColumn(name = "cod_dispositivo")
+    @JoinColumn(name = "codDispositivo")
     private AutoEntity autoEntity;
 
     @Column
@@ -31,11 +31,11 @@ public class DatiEntity implements Serializable {
     @Column
     private int km;
 
-    @Column
-    private float livello_olio;
+    @Column(name="livello_olio")
+    private float livelloOlio;
 
-    @Column
-    private String cod_errore;
+    @Column(name="cod_errore")
+    private String codErrore;
 
     @Column
     private boolean stato;

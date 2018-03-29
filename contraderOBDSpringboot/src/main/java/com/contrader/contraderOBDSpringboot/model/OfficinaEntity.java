@@ -20,10 +20,11 @@ public class OfficinaEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id_officina;
+    @Column(name="id_officina")
+    private long idOfficina;
 
-    @Column
-    private String nome_officina;
+    @Column(name="nome_officina")
+    private String nomeOfficina;
 
     @Column
     private String indirizzo;
@@ -32,7 +33,7 @@ public class OfficinaEntity implements Serializable {
     private String citta;
 
     @OneToMany
-    @JoinColumn(name = "id_officina")
+    @JoinColumn(name = "idOfficina")
     private Set<AutoEntity> autoEntitySet;
 
 

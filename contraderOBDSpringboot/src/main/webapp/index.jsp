@@ -49,7 +49,7 @@
                         <h3 class="panel-title">Benvenuti in Contrader OBD project</h3>
                     </div>
                     <div class="panel-body">
-                        <form action="home" method="post">
+                        <form action="login" method="post">
                             <fieldset>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Username" name="username" type="text" autofocus>

@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <c:choose>
-        <c:when test="${(user.ruolo != null) && (user.id != null) }">
+        <c:when test="${(sessionScope.model.user.ruolo != null) && (sessionScope.model.user.id != null) }">
             <!-- Navigation -->
             <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
@@ -10,7 +10,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="home.jsp">Contrader | OBD project</a>
+                    <a class="navbar-brand" href="/contraderOBDSpringBoot/home">Contrader | OBD project</a>
                 </div>
                 <!-- /.navbar-header -->
 

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 
@@ -36,13 +38,21 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout() {
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        session.invalidate();
         return "index";
     }
 
-    @RequestMapping(value = "/home", method = RequestMethod.POST)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String home(Map<String, Object> model) {
+        return "home";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam(name = "username", required = true) String username,
                         @RequestParam(name = "password", required = true) String password,
+                        HttpServletRequest request,
                         Map<String, Object> model) {
         LoginEntity loginEntity = loginService.login(username, password);
         if (loginEntity != null) {
@@ -61,6 +71,8 @@ public class LoginController {
 
             }
             model.put("user", loginEntity);
+            HttpSession session = request.getSession(true);
+            session.setAttribute("model", model);
             return "home";
         } else {
             return "index";
