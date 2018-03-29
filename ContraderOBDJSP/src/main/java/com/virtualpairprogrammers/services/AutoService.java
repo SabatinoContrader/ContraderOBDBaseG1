@@ -39,12 +39,18 @@ public class AutoService {
     }
 
     public List<Auto> listaAutoDriver(int id_driver) {
-        System.out.println("Sei nella service listaauto");
         return this.autoDAO.listaAutoDriver(id_driver);
     }
 
     public Auto findAuto (int cod_Dispositivo) {
-        System.out.println("Sei nella service findauto");
         return this.autoDAO.findAuto(cod_Dispositivo);
+    }
+
+    public boolean terminaAssegnazioneAutoDriver(int cod_dispositivo, String proprietario) {
+        return this.autoDAO.terminaAssegnazioneAutoDriver(cod_dispositivo, proprietario);
+    }
+
+    public List<Auto> listaAutoAzienda(String proprietario) {
+        return this.autoDAO.listaAutoAzienda(proprietario);
     }
 }

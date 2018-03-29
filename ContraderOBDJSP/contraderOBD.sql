@@ -5,11 +5,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 USE contraderproject;
 
 CREATE TABLE appuntamento (
-  id_appuntamento int(11) NOT NULL,
-  id_officina int(11) NOT NULL,
-  id_driver int(11) NOT NULL,
-  data varchar(10) NOT NULL,
-  stato bit(1) NOT NULL,
+  id_appuntamento INT(11) NOT NULL,
+  id_officina INT(11) NOT NULL,
+  id_driver INT(11) NOT NULL,
+  data VARCHAR(10) NOT NULL,
+  stato BIT(1) NOT NULL,
   PRIMARY KEY (id_appuntamento),
   FOREIGN KEY (id_officina) REFERENCES officina (id_officina),
   FOREIGN KEY (id_driver) REFERENCES driver (id_driver)
@@ -21,34 +21,34 @@ INSERT INTO appuntamento VALUES (1,6,9991,'15/05/18', 0),
 
 
 CREATE TABLE automobile (
-  cod_dispositivo int(11) NOT NULL,
-  targa varchar(25) NOT NULL,
-  telaio int(11) NOT NULL,
-  casa_Costruttrice varchar(25) NOT NULL,
-  modello varchar(25) NOT NULL,
-  alimentazione varchar(25) NOT NULL,
-  tipologia varchar(25) NOT NULL,
-  cambio char(1) NOT NULL,
-  proprietario varchar(10) NOT NULL,
-  revisione varchar(10) NOT NULL,
-  tagliando_data varchar(10) NOT NULL,
-  tagliando_km int(11) DEFAULT NULL,
-  id_driver int(11),
+  cod_dispositivo INT(11) NOT NULL,
+  targa VARCHAR(25) NOT NULL,
+  telaio INT(11) NOT NULL,
+  casa_Costruttrice VARCHAR(25) NOT NULL,
+  modello VARCHAR(25) NOT NULL,
+  alimentazione VARCHAR(25) NOT NULL,
+  tipologia VARCHAR(25) NOT NULL,
+  cambio CHAR(1) NOT NULL,
+  proprietario VARCHAR(10) NOT NULL,
+  revisione VARCHAR(10) NOT NULL,
+  tagliando_data VARCHAR(10) NOT NULL,
+  tagliando_km INT(11) DEFAULT NULL,
+  id_driver INT(11),
   PRIMARY KEY (cod_dispositivo),
   FOREIGN KEY (id_driver) REFERENCES driver (id_driver)
 );
 
-INSERT INTO automobile VALUES	(1,'AS123PC',3421343,'FORD','FIESTA','DIESEL','UTILITARIA','A','a_01','18/04/17','17/02/18',32000,null),
-								(2,'AS123MN',342135452,'FIAT','PANDA','DIESEL','UTILITARIA','M','a_01','18/04/17','17/02/18',6000,null),
+INSERT INTO automobile VALUES	(1,'AS123PC',3421343,'FORD','FIESTA','DIESEL','UTILITARIA','A','a_01','18/04/17','17/02/18',32000,NULL),
+								(2,'AS123MN',342135452,'FIAT','PANDA','DIESEL','UTILITARIA','M','a_01','18/04/17','17/02/18',6000,NULL),
                                 (3,'AS654PC',125642,'FIAT','PUNTO','DIESEL','COMMERCIALE','M','a_02','10/04/16','17/02/18',3200,1),
                                 (4,'FG050588',213465321,'FERRARI','F430','DIESEL','COMMERCIALE','A','a_03','18/04/17','17/02/18',3200,1),
                                 (5,'FE643DE',8346743,'NISSAN','QASHQAI','DIESEL','SUV','M','a_02','02/10/17','12/12/17',3200,1),
                                 (6,'AA832DB',685436081,'VOLKSWAGEN','POLO','BENZINA','UTILITARIA','M','a_02','02/02/18','17/03/18',3200,1);
 
 CREATE TABLE azienda (
-  id_azienda int(11) NOT NULL AUTO_INCREMENT,
-  nome varchar(25) NOT NULL,
-  citta varchar(25) NOT NULL,
+  id_azienda INT(11) NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(25) NOT NULL,
+  citta VARCHAR(25) NOT NULL,
   PRIMARY KEY (id_azienda)
 );
 
@@ -63,10 +63,10 @@ INSERT INTO azienda VALUES 	(1,'Azienda_1','Roma'),
                             (9,'Azienda_9','Modena');
 
 CREATE TABLE città (
-  nome varchar(25) NOT NULL,
-  cap int(11) NOT NULL,
-  provincia char(2) NOT NULL,
-  regione varchar(15) NOT NULL,
+  nome VARCHAR(25) NOT NULL,
+  cap INT(11) NOT NULL,
+  provincia CHAR(2) NOT NULL,
+  regione VARCHAR(15) NOT NULL,
   PRIMARY KEY (nome, cap)
 );
 
@@ -80,32 +80,32 @@ INSERT INTO città VALUES ('Benevento',82100,'BN','CAMPANIA'),
                         ('Torino',10124,'TO','PIEMONTE');
 
 CREATE TABLE dati_dispositivo (
-  n int(11) auto_increment NOT NULL,
-  cod_dispositivo int(11) NOT NULL,
-  data varchar(10) NOT NULL,
-  km int(11) NOT NULL,
-  livello_olio float DEFAULT NULL,
-  cod_errore varchar(25),
-  stato bit(1),
+  n INT(11) AUTO_INCREMENT NOT NULL,
+  cod_dispositivo INT(11) NOT NULL,
+  data VARCHAR(10) NOT NULL,
+  km INT(11) NOT NULL,
+  livello_olio FLOAT DEFAULT NULL,
+  cod_errore VARCHAR(25),
+  stato BIT(1),
   PRIMARY KEY (n),
-  foreign key (cod_dispositivo) references automobile (cod_dispositivo)
+  FOREIGN KEY (cod_dispositivo) REFERENCES automobile (cod_dispositivo)
 );
 
-INSERT INTO dati_dispositivo VALUES (1, 1, '04/07/18', 13444, 1.1, null, null),
-									(2, 1, '05/07/18', 13445, 1.1, null, null),
-                                    (3, 1, '06/07/18', 13446, 1.1, null, null),
+INSERT INTO dati_dispositivo VALUES (1, 1, '04/07/18', 13444, 1.1, NULL, NULL),
+									(2, 1, '05/07/18', 13445, 1.1, NULL, NULL),
+                                    (3, 1, '06/07/18', 13446, 1.1, NULL, NULL),
                                     (4, 1, '07/07/18', 13447, 1.1, '992JN', 0),
-                                    (5, 3, '19/03/18', 10000, 1.1, null, null),
-                                    (6, 4, '19/03/18', 10000, 1.1, null, null),
+                                    (5, 3, '19/03/18', 10000, 1.1, NULL, NULL),
+                                    (6, 4, '19/03/18', 10000, 1.1, NULL, NULL),
                                     (7, 5, '19/03/18', 10000, 1.1, 'P6788', 0),
-                                    (8, 6, '19/03/18', 18000, 1.1, null, null);
+                                    (8, 6, '19/03/18', 18000, 1.1, NULL, NULL);
 
 CREATE TABLE driver (
-  id_driver int(11) NOT NULL,
-  nome varchar(25) NOT NULL,
-  cognome varchar(25) NOT NULL,
-  cf char(16) NOT NULL,
-  residenza varchar(25) NOT NULL,
+  id_driver INT(11) NOT NULL,
+  nome VARCHAR(25) NOT NULL,
+  cognome VARCHAR(25) NOT NULL,
+  cf CHAR(16) NOT NULL,
+  residenza VARCHAR(25) NOT NULL,
   PRIMARY KEY (id_driver)
 );
 
@@ -116,10 +116,10 @@ INSERT INTO driver VALUES (1258,'Antonio','Rossi','ASDFA230AAFRWE4R','Napoli'),
                             (31415,'Givevra','Luce','GRUNCGRRUNCGRUNC','Roma');
 
 CREATE TABLE login (
-  username varchar(25) NOT NULL,
-  password varchar(25) NOT NULL,
-  ruolo int(11) NOT NULL,
-  id int(11) NOT NULL,
+  username VARCHAR(25) NOT NULL,
+  password VARCHAR(25) NOT NULL,
+  ruolo INT(11) NOT NULL,
+  id INT(11) NOT NULL,
   PRIMARY KEY (username)
 );
 
@@ -135,9 +135,9 @@ INSERT INTO login VALUES ('OWNER','OWNER',1,0),
                          ('D_03','D_03',4,3);
 
 CREATE TABLE offerta (
-  id_offerta int(11) NOT NULL,
-  id_officina int(11) NOT NULL,
-  descrizione varchar(100) DEFAULT NULL,
+  id_offerta INT(11) NOT NULL,
+  id_officina INT(11) NOT NULL,
+  descrizione VARCHAR(100) DEFAULT NULL,
   PRIMARY KEY (id_offerta),
   FOREIGN KEY (id_offerta) REFERENCES officina (id_officina)
 );
@@ -148,10 +148,10 @@ INSERT INTO offerta VALUES (6,1,'CAMBIA OLIO A SOLI 15 EURO'),
                             (10,1,'VIENI A SCOPRIRE I NUOVI PNEUMATICI SUPER RESISTENTI');
 
 CREATE TABLE officina (
-  id_officina int(11) NOT NULL AUTO_INCREMENT,
-  nome_officina varchar(25) NOT NULL,
-  indirizzo varchar(100) NOT NULL,
-  citta varchar(25) NOT NULL,
+  id_officina INT(11) NOT NULL AUTO_INCREMENT,
+  nome_officina VARCHAR(25) NOT NULL,
+  indirizzo VARCHAR(100) NOT NULL,
+  citta VARCHAR(25) NOT NULL,
   PRIMARY KEY (id_officina)
 );
 
@@ -162,15 +162,15 @@ INSERT INTO officina VALUES (6,'OFFICINA_1','Via dei principi 715','Roma'),
                             (10,'OFFICINA_6','Via delle Querce','Benevento');
 
 CREATE TABLE preventivo (
-  id_preventivo int(11) NOT NULL,
-  cod_dispositivo int(11) NOT NULL,
-  id_officina int(11) NOT NULL,
-  id_driver int(11) NOT NULL,
-  casa_Costruttrice varchar(25) NOT NULL,
-  modello varchar(25) NOT NULL,
-  descrizione varchar(200) DEFAULT NULL,
-  costo float DEFAULT NULL,
-  stato bit(1) DEFAULT 0,
+  id_preventivo INT(11) NOT NULL,
+  cod_dispositivo INT(11) NOT NULL,
+  id_officina INT(11) NOT NULL,
+  id_driver INT(11) NOT NULL,
+  casa_Costruttrice VARCHAR(25) NOT NULL,
+  modello VARCHAR(25) NOT NULL,
+  descrizione VARCHAR(200) DEFAULT NULL,
+  costo FLOAT DEFAULT NULL,
+  stato BIT(1) DEFAULT 0,
   PRIMARY KEY (id_preventivo),
   FOREIGN KEY (id_officina) REFERENCES officina (id_officina),
   FOREIGN KEY (cod_dispositivo) REFERENCES automobile (cod_dispositivo)

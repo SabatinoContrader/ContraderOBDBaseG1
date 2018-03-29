@@ -8,13 +8,15 @@ import java.util.List;
 
 
 public class AutoDAO {
-    private final String QUERY_INSERT = "INSERT into automobile (Cod_Dispositivo , Targa, Telaio, Casa_Costruttrice, Modello ,Alimentazione, Tipologia, Cambio, Proprietario, Revisione, Tagliando_Data, Tagliando_Km, id_driver) values (?,?,?,?,?,?,?,?,?,?,?,?, null)";
+    private final String QUERY_INSERT = "INSERT into automobile (Cod_Dispositivo , Targa, Telaio, Casa_Costruttrice, Modello ,Alimentazione, Tipologia, Cambio, Proprietario, Revisione, Tagliando_Data, Tagliando_Km, id_driver, id_officina) values (?,?,?,?,?,?,?,?,?,?,?,?, null, ?)";
     private final String QUERY_ALL_WITH = "update automobile set id_driver=? where cod_dispositivo=?";
     private final String QUERY_UPDATE = "UPDATE Automobile set Targa = ?, Telaio = ?, Casa_Costruttrice = ?, Modello = ? ,Alimentazione = ?, Tipologia = ?, Cambio = ?, Proprietario = ?, Revisione = ?, Tagliando_Data = ?, Tagliando_Km = ? WHERE Cod_Dispositivo = ?";
     private final String QUERY_RESET = "DELETE from Automobile WHERE Cod_Dispositivo = ?";
     private final String QUERY_DELETEDATI = "DELETE from dati_dispositivo WHERE Cod_Dispositivo = ?;";
     private final String QUERY_AUTODRIVER = "SELECT * FROM Automobile WHERE id_driver = ?";
     private final String QUERY_FIND = "SELECT * from automobile WHERE Cod_Dispositivo = ?;";
+    private final String TERMINA_ASSEGNAZIONE_AUTO_DRIVER="update automobile set id_driver=null where cod_dispositivo=? AND proprietario=?";
+    private final String QUERY_AUTOAZIENDA = "SELECT * FROM Automobile WHERE proprietario = ?";
 
     public AutoDAO() {
 
@@ -36,10 +38,11 @@ public class AutoDAO {
             preparedStatement.setString(10, auto.getRevisione());
             preparedStatement.setString(11, auto.getTagliando_Data());
             preparedStatement.setInt(12, auto.getTagliando_Km());
+            preparedStatement.setInt(13, auto.getId_officina());
             return preparedStatement.execute();
         } catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
-            return false;
+            return true;
         }
 
     }
@@ -54,7 +57,7 @@ public class AutoDAO {
         }
         catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
-            return false;
+            return true;
         }
     }
 
@@ -125,7 +128,8 @@ public class AutoDAO {
                 String tagliando_Data = resultSet.getString("Tagliando_Data");
                 int tagliando_Km = resultSet.getInt("Tagliando_Km");
                 int driver =  resultSet.getInt("id_driver");
-                Auto auto = new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver  );
+                int id_officina = resultSet.getInt("id_officina");
+                Auto auto = new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver, id_officina  );
                 listaAutoDriver.add(auto);
             } while (resultSet.next());
 
@@ -140,8 +144,6 @@ public class AutoDAO {
 
         Connection connection = ConnectionSingleton.getInstance();
         Auto auto = null;
-
-        System.out.println("Sei nella DAO auto");
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_FIND);
             preparedStatement.setInt(1, cod_Dispositivo);
@@ -159,7 +161,8 @@ public class AutoDAO {
                 String tagliando_Data = resultSet.getString("Tagliando_Data");
                 int tagliando_Km = resultSet.getInt("Tagliando_Km");
                 int driver = resultSet.getInt("id_Driver");
-                auto = new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver);
+                int id_officina = resultSet.getInt("id_officina");
+                auto = new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver, id_officina);
             }
 
         }
@@ -167,6 +170,59 @@ public class AutoDAO {
             e.printStackTrace();
         }
         return auto;
+    }
+
+    public boolean terminaAssegnazioneAutoDriver(int cod_dispositivo, String proprietario) {
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(TERMINA_ASSEGNAZIONE_AUTO_DRIVER);
+            preparedStatement.setInt(1, cod_dispositivo);
+            preparedStatement.setString(2, proprietario);
+            preparedStatement.executeUpdate();
+            return false;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return true;
+        }
+
+    }
+
+    public List<Auto> listaAutoAzienda(String username) {
+        List<Auto> listaAutoAzienda = new ArrayList<>();
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_AUTOAZIENDA);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.next()){
+                System.out.println("Non ci sono auto");
+            }
+
+            do {
+                int cod_Dispositivo = resultSet.getInt("cod_dispositivo");
+                String targa = resultSet.getString("Targa");
+                int telaio = resultSet.getInt("Telaio");
+                String casa_Costruttrice = resultSet.getString("Casa_Costruttrice");
+                String modello = resultSet.getString("Modello");
+                String alimentazione = resultSet.getString("Alimentazione");
+                String tipologia = resultSet.getString("Tipologia");
+                String cambio = resultSet.getString("Cambio");
+                String proprietario = resultSet.getString("Proprietario");
+                String revisione = resultSet.getString("Revisione");
+                String tagliando_Data = resultSet.getString("Tagliando_Data");
+                int tagliando_Km = resultSet.getInt("Tagliando_Km");
+                int driver =  resultSet.getInt("id_driver");
+                int id_officina = resultSet.getInt("id_officina");
+                Auto auto = new Auto(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver, id_officina );
+                listaAutoAzienda.add(auto);
+            } while (resultSet.next());
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaAutoAzienda;
     }
 
 }

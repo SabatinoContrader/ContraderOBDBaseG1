@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AziendaServlet  extends HttpServlet {
 
@@ -40,15 +41,25 @@ public class AziendaServlet  extends HttpServlet {
                 aziendaService = new AziendaService();
                 azienda = new Azienda(nome, citta);
                 int id=aziendaService.insertAzienda(azienda);
-                /*if (!aziendaService.insertAzienda(azienda)) {
-                    session.setAttribute("status", "Azienda inserita con successo");
-                } else {
-                    session.setAttribute("status", "Errore nell'inserimento");
-                }*/
-                session.setAttribute("view", "home.jsp");
                 String access = "A_0"+id;
                 loginService = new LoginService();
-                loginService.InsertLogin(new Login(access, access, 3, id));
+
+                if (!loginService.InsertLogin(new Login(access, access, 3, id)) ) {
+                    session.setAttribute("status", "success");
+                } else {
+                    session.setAttribute("status", "error");
+                }
+                session.setAttribute("view", "officinaAddAzienda.jsp");
+                MainDispatcherServlet.getInstance(request).callView(request, response);
+            }
+            break;
+
+            case "listAll": {
+                List<Azienda> listaAzienda;
+                aziendaService = new AziendaService();
+                listaAzienda = aziendaService.listAzienda();
+                session.setAttribute("listaAzienda", listaAzienda);
+                session.setAttribute("view", "viewListAzienda.jsp");
                 MainDispatcherServlet.getInstance(request).callView(request, response);
             }
             break;

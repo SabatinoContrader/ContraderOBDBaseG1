@@ -3,6 +3,8 @@ package com.virtualpairprogrammers.services;
 import com.virtualpairprogrammers.dao.AziendaDAO;
 import com.virtualpairprogrammers.domain.Azienda;
 
+import java.util.List;
+
 public class AziendaService {
 
     private AziendaDAO aziendaDAO;
@@ -21,5 +23,9 @@ public class AziendaService {
 
     public int insertAzienda (Azienda azienda) {
         return this.aziendaDAO.insertAzienda(azienda);
+    }
+
+    public List<Azienda> listAzienda () {
+        return this.aziendaDAO.listAzienda();
     }
 }

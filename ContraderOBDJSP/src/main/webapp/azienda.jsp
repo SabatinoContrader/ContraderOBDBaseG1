@@ -31,7 +31,7 @@
     session.getAttribute("username");
     String username =(String) session.getAttribute("username");
     AutoService autoService = new AutoService();
-    List<Auto> auto = autoService.ListaAutoAzienda(username);
+    List<Auto> auto = autoService.listaAutoAzienda(username);
     String role = (String) session.getAttribute("role");
     String aziendaFa = (String) session.getAttribute("aziendaFa");
 %>

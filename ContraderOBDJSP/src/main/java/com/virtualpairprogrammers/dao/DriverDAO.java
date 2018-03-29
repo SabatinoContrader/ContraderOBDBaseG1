@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DriverDAO {
-    private final String QUERY_INSERT = "insert into driver (Id_driver, Nome, Cognome, cf,  Residenza) values (?,?,?,?,?)";
-    private  final String LISTA_DRIVER = "select * from Driver";
+    private final String QUERY_INSERT = "insert into driver (Id_driver, Nome, Cognome, cf, email, cellulare,  Residenza, id_azienda) values (?,?,?,?,?,?,?,?)";
+    private  final String QUERY_LISTADRIVER = "select * from Driver WHERE id_azienda = ?";
 
     public DriverDAO(){}
 
@@ -17,18 +17,21 @@ public class DriverDAO {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
-//            preparedStatement.setInt(1, driver.getId());
-//            preparedStatement.setString(2, driver.getNome());
-//            preparedStatement.setString(3, driver.getCognome());
-//            preparedStatement.setString(4, driver.getCf());
-//            preparedStatement.setString(5, driver.getResidenza());
+            preparedStatement.setInt(1, driver.getId());
+            preparedStatement.setString(2, driver.getNome());
+            preparedStatement.setString(3, driver.getCognome());
+            preparedStatement.setString(4, driver.getCf());
+            preparedStatement.setString(5, driver.getEmail());
+            preparedStatement.setString(6, driver.getCellulare());
+            preparedStatement.setString(7, driver.getResidenza());
+            if(driver.getId_azienda() == null) preparedStatement.setString(8, null);
+            else preparedStatement.setInt(8, driver.getId_azienda());
             return preparedStatement.execute();
         }
         catch (SQLException e) {
             GestoreEccezioni.getInstance().gestisciEccezione(e);
-            return false;
+            return true;
         }
-
     }
 
     public int updateAutoDriver(int Id_Driver, int Id_Auto){
@@ -51,7 +54,7 @@ public class DriverDAO {
 
         Connection connection = ConnectionSingleton.getInstance();
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement(LISTA_DRIVER);
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_LISTADRIVER);
             return  preparedStatement.executeQuery();
         }
           catch (SQLException i){
@@ -60,20 +63,23 @@ public class DriverDAO {
           }
       }
     
-    public List<Driver> getAllDriver(){
+    public List<Driver> getAllDriver(int id_azienda){
     	Connection connection = ConnectionSingleton.getInstance();
-    	List<Driver> listaDriver = new ArrayList<Driver>();
+    	List<Driver> listaDriver = new ArrayList<>();
     	try{
-            PreparedStatement preparedStatement = connection.prepareStatement(LISTA_DRIVER);
-            ResultSet rs = preparedStatement.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_LISTADRIVER);
+            preparedStatement.setInt(1, id_azienda);
+            ResultSet resultSet = preparedStatement.executeQuery();
             
-            while(rs.next()) {
-            	String nome = rs.getString("nome");
-            	String cognome = rs.getString("cognome");
-            	String cf = rs.getString("cf");
-            	String residenza = rs.getString("residenza");
-            	int id_driver = rs.getInt("id_driver");
-            	listaDriver.add(new Driver(nome, cognome, cf, residenza, id_driver));
+            while(resultSet.next()) {
+                int id_driver = resultSet.getInt("id_driver");
+            	String nome = resultSet.getString("nome");
+            	String cognome = resultSet.getString("cognome");
+            	String cf = resultSet.getString("cf");
+            	String email = resultSet.getString("email");
+            	String cellulare = resultSet.getString("cellulare");
+            	String residenza = resultSet.getString("residenza");
+            	listaDriver.add(new Driver(id_driver, nome, cognome, cf, email, cellulare, residenza, id_azienda));
             }
             return listaDriver;
         }

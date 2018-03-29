@@ -22,15 +22,14 @@ public class DriverService {
         return reference;
     }
 
-   
-    
-    public List<Driver> getAllDriver(){
-    	System.out.println(this.driverDAO.getAllDriver());
+    public List<Driver> getAllDriver(int id_azienda){
     	
-    	return this.driverDAO.getAllDriver();
+    	return this.driverDAO.getAllDriver(id_azienda);
     	
     }
-    
-    
-     
+
+    public boolean insertDriver(Driver driver) {
+        return this.driverDAO.insertDriver(driver);
+    }
+
 }

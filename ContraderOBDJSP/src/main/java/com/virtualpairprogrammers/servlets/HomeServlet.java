@@ -26,6 +26,7 @@ public class HomeServlet extends HttpServlet
 
             String userName = request.getParameter("user");
             String password = request.getParameter("pwd");
+            session.setAttribute("username", userName);
 
             result = this.loginService.login(userName, password);
 

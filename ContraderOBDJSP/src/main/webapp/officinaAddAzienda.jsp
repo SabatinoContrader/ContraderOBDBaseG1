@@ -1,71 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="vendor/img/favicon.ico">
 
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
+    <title>Contrader | OBD project</title>
 
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
+    <!-- MetisMenu CSS -->
+    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-.myDiv {
-background-color:#4CAF58;
-width:400px;
-position:absolute;
-top:50%;
-left:50%;
-margin-left:-200px;
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
-}
-</style>
+    <!-- Morris Charts CSS -->
+    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <%@ page import="java.util.List"%>
+        <%@ page import="com.virtualpairprogrammers.domain.Auto"%>
+            <% String status = (String) session.getAttribute("status"); %>
+                <% session.removeAttribute("status"); %>
+
 </head>
 
 <body>
-<%
-    session.setAttribute("method", "callAction");
-    session.setAttribute("servlet","Azienda");
-    session.setAttribute("mode", "insertAzienda");
-    String role = (String) session.getAttribute("role");
-%>
 
-    <div id="myDiv" class = "myDiv" align="center"> <h2> Inserisci Azienda </h2>
-        <form action="MainDispatcherServlet" method="post">
-            <table>
-                <tr>
-                    <td> <b> Nome </b>: </td><td> <input type="text" name="nome" align="center" > </td>
-                </tr>
-                <tr>
-                    <td> <b> Città </b>: </td><td><input type="text" name="citta" align="center"> </td>
-                </tr>
-                <tr>
-                    <td collspan="2"><input type="submit" value= "Inserisci" name="bott" align="center"> </td>
-                </tr>
-            </table>
-        </form>
+    <div id="wrapper">
+
+        <%@ include file = "header.jsp" %>
+
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Azienda</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-9">
+                        <% if (status != null) { 
+                        if (status.equals("success")) { %>
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                Azienda inserita con successo
+                            </div>
+                            <% } else if (status.equals("error")) { %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    Errore nell'inserimento dell'azienda
+                                </div>
+                                <% } } %>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-briefcase fa-fw"></i> Aggiungi azienda
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <form action="MainDispatcherServlet" method="post" role="form">
+                                                <div class="form-group">
+                                                    <label>Nome</label>
+                                                    <input type="text" name="nome" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Citta</label>
+                                                    <input type="text" name="citta" class="form-control">
+                                                </div>
+                                                <button type="submit" value="Azienda:insertAzienda" name="button" class="btn btn-primary">
+                                                    Aggiungi
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                    </div>
+                    <%@ include file = "tabs.jsp" %>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /#page-wrapper -->
+
     </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="vendor/raphael/raphael.min.js"></script>
+    <script src="vendor/morrisjs/morris.min.js"></script>
+    <script src="data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="dist/js/sb-admin-2.js"></script>
+
 </body>
-</html>

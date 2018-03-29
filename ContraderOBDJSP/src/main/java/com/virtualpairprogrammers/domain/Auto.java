@@ -17,8 +17,9 @@ import java.util.Objects;
         private String tagliando_Data;
         private int tagliando_Km;
         private Integer driver;
+        private int id_officina;
 
-        public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, String proprietario, String revisione, String tagliando_Data, int tagliando_Km, Integer driver) {
+        public Auto(int cod_Dispositivo, String targa, int telaio, String casa_Costruttrice, String modello, String alimentazione, String tipologia, String cambio, String proprietario, String revisione, String tagliando_Data, int tagliando_Km, Integer driver, int id_officina) {
             this.cod_Dispositivo = cod_Dispositivo;
             this.targa = targa;
             this.telaio = telaio;
@@ -32,6 +33,7 @@ import java.util.Objects;
             this.tagliando_Data = tagliando_Data;
             this.tagliando_Km = tagliando_Km;
             this.driver = driver;
+            this.id_officina = id_officina;
         }
 
         public int getCod_Dispositivo() {
@@ -138,6 +140,15 @@ import java.util.Objects;
             this.tagliando_Km = tagliando_Km;
         }
 
+        public int getId_officina() {
+            return id_officina;
+        }
+
+        public void setId_officina(int id_officina) {
+            this.id_officina = id_officina;
+        }
+
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -145,23 +156,24 @@ import java.util.Objects;
             Auto auto = (Auto) o;
             return cod_Dispositivo == auto.cod_Dispositivo &&
                     telaio == auto.telaio &&
-                    cambio == auto.cambio &&
-                    driver == auto.driver &&
-                    Objects.equals(proprietario, auto.proprietario) &&
                     tagliando_Km == auto.tagliando_Km &&
+                    id_officina == auto.id_officina &&
                     Objects.equals(targa, auto.targa) &&
                     Objects.equals(casa_Costruttrice, auto.casa_Costruttrice) &&
                     Objects.equals(modello, auto.modello) &&
                     Objects.equals(alimentazione, auto.alimentazione) &&
                     Objects.equals(tipologia, auto.tipologia) &&
+                    Objects.equals(cambio, auto.cambio) &&
+                    Objects.equals(proprietario, auto.proprietario) &&
                     Objects.equals(revisione, auto.revisione) &&
-                    Objects.equals(tagliando_Data, auto.tagliando_Data);
+                    Objects.equals(tagliando_Data, auto.tagliando_Data) &&
+                    Objects.equals(driver, auto.driver);
         }
 
         @Override
         public int hashCode() {
 
-            return Objects.hash(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, driver, proprietario, revisione, tagliando_Data, tagliando_Km);
+            return Objects.hash(cod_Dispositivo, targa, telaio, casa_Costruttrice, modello, alimentazione, tipologia, cambio, proprietario, revisione, tagliando_Data, tagliando_Km, driver, id_officina);
         }
 
         @Override
@@ -174,12 +186,13 @@ import java.util.Objects;
                     ", modello='" + modello + '\'' +
                     ", alimentazione='" + alimentazione + '\'' +
                     ", tipologia='" + tipologia + '\'' +
-                    ", cambio=" + cambio +
-                    ", driver=" + driver +
-                    ", proprietario=" + proprietario +
-                    ", revisione=" + revisione +
-                    ", tagliando_Data=" + tagliando_Data +
+                    ", cambio='" + cambio + '\'' +
+                    ", proprietario='" + proprietario + '\'' +
+                    ", revisione='" + revisione + '\'' +
+                    ", tagliando_Data='" + tagliando_Data + '\'' +
                     ", tagliando_Km=" + tagliando_Km +
+                    ", driver=" + driver +
+                    ", id_officina=" + id_officina +
                     '}';
         }
     }

@@ -1,96 +1,120 @@
-
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="vendor/img/favicon.ico">
 
-    .topnav {
-      overflow: hidden;
-      background-color: #333;
-    }
+    <title>Contrader | OBD project</title>
 
-    .topnav a {
-      float: left;
-      color: #f2f2f2;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-      font-size: 17px;
-    }
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    .topnav a:hover {
-      background-color: #ddd;
-      color: black;
-    }
+    <!-- MetisMenu CSS -->
+    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-    .topnav a.active {
-      background-color: #c0c0c0;
-      color: white;
-      align:center;
-    }
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
-    .myDIV{
-    background-color: silver;
-    position:relative;
-    width: 800px;
-    height: 400px;
-    top: 50px;
-    left:50%;
-    margin-left: -400px;
-    align:center;
-    }
-    </style>
+    <!-- Morris Charts CSS -->
+    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
 
-    <script>
-    function myFunction() {
-        var x = document.getElementById("myDIV");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-    </script>
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <%@ page import="java.util.List"%>
+        <%@ page import="com.virtualpairprogrammers.domain.Auto"%>
+            <% String status = (String) session.getAttribute("status"); %>
+                <% session.removeAttribute("status"); %>
+
 </head>
-<body background="sfondo.jpg">
-<%
-    session.setAttribute("method", "callAction");
-    session.setAttribute("servlet","Auto");
-    session.setAttribute("mode", "resetAuto");
-    String role = (String) session.getAttribute("role");
-%>
 
-<div class="topnav">
-  <a class="active" href="#home">Home Azienda</a>
-  <a href="#news" onclick="myFunction()">Add Driver</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
-</div>
+<body>
 
-<br>
+    <div id="wrapper">
 
-<div id="myDIV" class="myDIV" align="center">
- <br>
-  <h4> Inserisci il codice dell'auto da rimuovere </h4>
+        <%@ include file = "header.jsp" %>
 
-    <form action="MainDispatcherServlet" method="post">
-       <table>
-           <tr>
-               <td>Id Codice Dispositivo:</td> <td><input type="text" name="cod_Dispositivo"></td>
-           </tr>
-            <tr>
-                 <td><td><input type="submit" value="Reset" name="bott"></td>
-            </tr>
-       </table>
-   </form>
-</div>
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Auto</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-9">
+                        <% if (status != null) { 
+                        if (status.equals("success")) { %>
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                Dispositivo resettato con successo
+                            </div>
+                            <% } else if (status.equals("error")) { %>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    Errore nel reset del dispositivo
+                                </div>
+                                <% } } %>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-automobile fa-fw"></i> Reset dispositivo
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <form action="MainDispatcherServlet" method="post" role="form">
+                                                <div class="form-group">
+                                                    <label>Codice del dispositivo da resettare</label>
+                                                    <input type="text" name="cod_Dispositivo" class="form-control">
+                                                </div>
+                                                <button type="submit" value="Auto:resetAuto" name="button" class="btn btn-primary">
+                                                    Resetta
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger">
+                                        <h3>Attenzione</h3>
+                                        Confermando il reset verranno cancellati tutti i dati legato all'auto attualmente associata al dispositivo
+                                    </div>
+                    </div>
+                    <%@ include file = "tabs.jsp" %>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="vendor/raphael/raphael.min.js"></script>
+    <script src="vendor/morrisjs/morris.min.js"></script>
+    <script src="data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="dist/js/sb-admin-2.js"></script>
+
 </body>
-</html>

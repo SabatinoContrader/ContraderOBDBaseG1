@@ -18,13 +18,13 @@ public class LogoutServlet extends HttpServlet
 
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        String scelta=request.getParameter("bott");
+        HttpSession session = request.getSession(true);
+        String mode = session.getAttribute("mode").toString();
 
-        switch (scelta)
+        switch (mode)
         {
             case "Logout":
             {
-                HttpSession session = request.getSession(true);
                 session.setAttribute("view","index.jsp");
                 session.setAttribute("role",null);
                 session.setAttribute("id",null);

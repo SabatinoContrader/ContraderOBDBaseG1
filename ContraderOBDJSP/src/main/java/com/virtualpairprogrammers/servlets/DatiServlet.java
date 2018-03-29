@@ -31,7 +31,6 @@ public class DatiServlet extends HttpServlet {
 
         switch (mode) {
             case "getError": {
-                System.out.println("Sei nella servlet dati");
                 List<Dati_dispositivo> lista;
                 Auto auto;
                 int cod_dispositivo= Integer.parseInt(session.getAttribute("cod_dispositivo").toString());
@@ -40,7 +39,7 @@ public class DatiServlet extends HttpServlet {
                 datiService = new DatiService();
                 lista = datiService.listaAllDatiDispositivo(cod_dispositivo);
                 session.setAttribute("auto", auto);
-                session.setAttribute("lista", lista);
+                session.setAttribute("listaDati", lista);
                 session.setAttribute("view", "viewNotificheDriver.jsp");
                 MainDispatcherServlet.getInstance(request).callView(request, response);
             }
