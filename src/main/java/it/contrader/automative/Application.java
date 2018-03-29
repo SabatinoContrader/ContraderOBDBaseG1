@@ -70,13 +70,14 @@ public class Application extends SpringBootServletInitializer {
     	Officina inserimentoOfficine[] = new Officina[1];
     	inserimentoOfficine[0] = new Officina(1, "Officina del Cazzo", "sda", "dasuid", "dgajsd", "36872136", "4124215", "73294", data1, "dhdkjas");
     	
-    	Utente inserimentoUtenti [] = new Utente[1];
-    	inserimentoUtenti[0] = new Utente(1, "dsad", "daj", "pippo", "paperino", 0, null, data1, 0, "721357");
+    	Utente inserimentoUtenti [] = new Utente[2];
+    	inserimentoUtenti[0] = new Utente(1, "dsad", "daj", "pippo", "paperino", 0, null, data1, 0, "4712384");
+    	inserimentoUtenti[1] = new Utente(2, "dsad", "daj", "admin", "admin", 0, inserimentoOfficine[0], data1, 1, "4712384");
 
     	
-    	Auto inserimentoAuto[] = new Auto[1];
+    	Auto inserimentoAuto[] = new Auto[2];
     	inserimentoAuto[0] = new Auto(1,"daj", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
-    	
+    	inserimentoAuto[1] = new Auto(2,"BMW", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
     	
     	Noleggio inserimentoNoleggio[] = new Noleggio[1];
     	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0],  data1,  data2, 84010, 82100,60000);

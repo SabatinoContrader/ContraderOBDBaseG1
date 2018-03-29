@@ -46,10 +46,11 @@ public class UtenteController {
 	        	case 0 :
 	        		List<Noleggio> listaNoleggiUtente = noleggioRepository.findByUtente(u);
 	        		model.addAttribute("autoUtente", listaNoleggiUtente);
-	        		break;
-	        		
-	        	case 1 : 
-	        		break;
+	        		return "logInEffettuato";
+				case 1 : 
+	        		List<Auto> listaAutoOfficina = autoRepository.findByOfficina(u.getOfficina());
+	        		model.addAttribute("autoOfficina", listaAutoOfficina);
+	        		return "logInEffettuatoOfficina";
 	        	}
 	        	
 	            return "logInEffettuato";
