@@ -113,14 +113,14 @@ CREATE TABLE dati_dispositivo (
   FOREIGN KEY (cod_dispositivo) REFERENCES automobile (cod_dispositivo)
 );
 
-INSERT INTO dati_dispositivo VALUES (1, 1, '04/07/18', 13444, 1.1, NULL, NULL),
-									(2, 1, '05/07/18', 13445, 1.1, NULL, NULL),
-                                    (3, 1, '06/07/18', 13446, 1.1, NULL, NULL),
+INSERT INTO dati_dispositivo VALUES (1, 1, '04/07/18', 13444, 1.1, NULL, 0),
+									(2, 1, '05/07/18', 13445, 1.1, NULL, 0),
+                                    (3, 1, '06/07/18', 13446, 1.1, NULL, 0),
                                     (4, 1, '07/07/18', 13447, 1.1, '992JN', 0),
-                                    (5, 3, '19/03/18', 10000, 1.1, NULL, NULL),
-                                    (6, 4, '19/03/18', 10000, 1.1, NULL, NULL),
+                                    (5, 3, '19/03/18', 10000, 1.1, NULL, 0),
+                                    (6, 4, '19/03/18', 10000, 1.1, NULL, 0),
                                     (7, 5, '19/03/18', 10000, 1.1, 'P6788', 0),
-                                    (8, 6, '19/03/18', 18000, 1.1, NULL, NULL);
+                                    (8, 6, '19/03/18', 18000, 1.1, NULL, 0);
                                     
 CREATE TABLE città (
   nome VARCHAR(25) NOT NULL,

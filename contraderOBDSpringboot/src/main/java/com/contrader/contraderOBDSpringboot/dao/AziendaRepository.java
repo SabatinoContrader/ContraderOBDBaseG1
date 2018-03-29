@@ -17,4 +17,6 @@ public interface AziendaRepository extends CrudRepository<AziendaEntity, Long> {
 
     List<AziendaEntity> findByCitta(String citta);
 
+    AziendaEntity save(AziendaEntity aziendaEntity);
+
 }

@@ -20,4 +20,8 @@ public class LoginService {
 
     return this.loginRepository.findByUsernameAndPassword(username, password);
     }
+
+    public LoginEntity save(LoginEntity loginEntity ){
+        return this.loginRepository.save(loginEntity);
+    }
 }

@@ -34,4 +34,5 @@ public class OfficinaService {
     public OfficinaEntity findByIdOfficina(long IdOfficina) {
         return this.officinaRepository.findByIdOfficina(IdOfficina);
     }
+
 }

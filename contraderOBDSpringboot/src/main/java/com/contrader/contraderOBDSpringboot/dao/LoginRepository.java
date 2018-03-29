@@ -12,4 +12,6 @@ public interface LoginRepository extends CrudRepository<LoginEntity, String> {
 
     LoginEntity findByUsernameAndPassword(String username, String password);
 
+    LoginEntity save(LoginEntity loginEntity);
+
 }

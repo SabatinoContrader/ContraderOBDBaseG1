@@ -1,6 +1,7 @@
 package com.contrader.contraderOBDSpringboot.dao;
 
 import com.contrader.contraderOBDSpringboot.model.AutoEntity;
+import com.contrader.contraderOBDSpringboot.model.DriverEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,14 +9,14 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface AutoRepository extends CrudRepository<AutoEntity, Long> {
+public interface DriverRepository extends CrudRepository<DriverEntity, Long> {
 
     long count();
 
-    AutoEntity save(AutoEntity autoEntity);
+    DriverEntity save(DriverEntity driverEntity);
 
-    AutoEntity findByCodDispositivo(int codDispositivo);
+    DriverEntity findByIdDriver(int idDriver);
 
-    void deleteByCodDispositivo(int codDispositivo);
+    void deleteByIdDriver(int idDriver);
 
 }

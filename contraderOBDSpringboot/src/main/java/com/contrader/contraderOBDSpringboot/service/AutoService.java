@@ -1,7 +1,6 @@
 package com.contrader.contraderOBDSpringboot.service;
 
 import com.contrader.contraderOBDSpringboot.dao.AutoRepository;
-import com.contrader.contraderOBDSpringboot.dao.AziendaRepository;
 import com.contrader.contraderOBDSpringboot.model.AutoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +23,13 @@ public class AutoService {
 
     public AutoEntity save(AutoEntity autoEntity) {
         return this.autoRepository.save(autoEntity);
+    }
+
+    public AutoEntity findByCodDispositivo(int codDispositivo){
+        return this.autoRepository.findByCodDispositivo(codDispositivo);
+    }
+
+    public void deleteByCodDispositivo(int codDispositivo) {
+        this.autoRepository.deleteByCodDispositivo(codDispositivo);
     }
 }

@@ -30,5 +30,10 @@ public class AziendaService {
     public List<AziendaEntity> findByCitta(String citta) {
         return this.aziendaRepository.findByCitta(citta);
     }
+
+    public AziendaEntity save(AziendaEntity aziendaEntity)
+    {
+        return this.aziendaRepository.save(aziendaEntity);
+    }
 }
 

@@ -82,7 +82,9 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="officinaAddAzienda.jsp">Aggiungi</a>
+                                <a href="#formAddAzienda" data-toggle="modal">
+                                    Aggiungi
+                                </a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -105,10 +107,10 @@
                                 <ul class="nav nav-third-level">
                                     <li>
                                         <a>
-                                            <form action="MainDispatcherServlet" method="post">
+                                            <form action="findAuto" method="post">
                                                 <fieldset>
-                                                    <input type="text" size="12" name="cod_dispositivo">
-                                                    <button type="submit" value="Auto:findAuto" name="button" class="btn btn-primary btn-xs">
+                                                    <input type="text" size="12" name="codDispositivo">
+                                                    <button type="submit" class="btn btn-primary btn-xs">
                                                         Cerca
                                                     </button>
                                                 </fieldset>
@@ -118,7 +120,23 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="officinaResetAuto.jsp">Reset dispositivo</a>
+                                <a href="#"> Reset dispositivo
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a>
+                                            <form action="/contraderOBDSpringBoot/resetAuto" method="post">
+                                                <fieldset>
+                                                    <input type="text" size="12" name="codDispositivo">
+                                                    <button type="submit" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="right" title="Verr&aacute; cancellata l'auto associata al dispositivo e tutti i dati ad essa riferiti">
+                                                        Reset
+                                                    </button>
+                                                </fieldset>
+                                            </form>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -129,10 +147,12 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="addDriver.jsp">Aggiungi</a>
-                            </li>
-                        </ul>
+                                <li>
+                                    <a href="#formAddDriver" data-toggle="modal">
+                                        Aggiungi
+                                    </a>
+                                </li>
+                            </ul>
                         <!-- /.nav-second-level -->
                     </li>
                 </c:when>
