@@ -19,6 +19,7 @@ import it.contrader.automative.model.Dispositivo;
 import it.contrader.automative.model.Guasto;
 import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
+import it.contrader.automative.model.Preventivo;
 import it.contrader.automative.model.TipologiaGuasto;
 import it.contrader.automative.model.Utente;
 import it.contrader.automative.serviceInterfaces.IAuto;
@@ -27,6 +28,7 @@ import it.contrader.automative.serviceInterfaces.IDispositivo;
 import it.contrader.automative.serviceInterfaces.IGuasto;
 import it.contrader.automative.serviceInterfaces.INoleggio;
 import it.contrader.automative.serviceInterfaces.IOfficina;
+import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.ITipologiaGuasto;
 import it.contrader.automative.serviceInterfaces.IUtente;
 
@@ -53,9 +55,10 @@ public class Application extends SpringBootServletInitializer {
 	private IDispositivo dispositivoService;
 	private IGuasto guastoService;
 	private ITipologiaGuasto tipologiaGuastoService;
+	private IPreventivo preventivoService;
 
 	@Autowired
-	public Application(IAuto autoService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService) {
+	public Application(IAuto autoService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService, IPreventivo preventivoService) {
 		this.autoService = autoService;
 		this.noleggioService = noleggioService;
 		this.utenteService = utenteService;
@@ -64,6 +67,7 @@ public class Application extends SpringBootServletInitializer {
 		this.dispositivoService = dispositivoService;
 		this.guastoService = guastoService;
 		this.tipologiaGuastoService = tipologiaGuastoService;
+		this.preventivoService=preventivoService;
 	}
     
     
@@ -117,6 +121,10 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoGuasti[1] = new Guasto(2, inserimentoTipologieGuasti[1], inserimentoDatiTelemetria[1], data2, inserimentoDispositivi[0], "Non Risolto");
     	inserimentoGuasti[2] = new Guasto(3, inserimentoTipologieGuasti[2], inserimentoDatiTelemetria[2], data2, inserimentoDispositivi[0], "Risolto");
 
+    	Preventivo inserimentoPreventivi[] = new Preventivo[1];
+    	inserimentoPreventivi[0] = new Preventivo(1, inserimentoAuto[0], inserimentoUtenti[0],  inserimentoOfficine[0], data1,"agjiej",0,8,"ooo");
+    	
+    	
     	//Effettuo gli inserimenti effettivi
     	
     	
@@ -151,7 +159,9 @@ public class Application extends SpringBootServletInitializer {
     	for(int i=0;i<inserimentoGuasti.length;i++){
     		inserimentoGuasti[i] = guastoService.insert(inserimentoGuasti[i]);
 		}
-    	
+    	for(int i=0;i<inserimentoPreventivi.length;i++){
+    		inserimentoPreventivi[i] = preventivoService.insert(inserimentoPreventivi[i]);
+		}
     	
 	}
     

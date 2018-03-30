@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.contrader.automative.model.Auto;
 import it.contrader.automative.model.Guasto;
 import it.contrader.automative.model.Noleggio;
+import it.contrader.automative.model.Preventivo;
 import it.contrader.automative.model.Utente;
 import it.contrader.automative.repositories.AutoRepository;
 import it.contrader.automative.repositories.DispositivoRepository;
 import it.contrader.automative.repositories.GuastoRepository;
 import it.contrader.automative.repositories.NoleggioRepository;
+import it.contrader.automative.repositories.PreventivoRepository;
 import it.contrader.automative.repositories.UtenteRepository;
 import it.contrader.automative.serviceInterfaces.INoleggio;
 import it.contrader.automative.serviceInterfaces.IUtente;
@@ -32,14 +34,16 @@ public class UtenteController {
 	 private NoleggioRepository noleggioRepository;
 	 private DispositivoRepository dispositivoRepository;
 	 private GuastoRepository guastoRepository;
+	 private PreventivoRepository preventivoRepository;
 	 
 	 @Autowired
-	    public UtenteController(IUtente IUtente, AutoRepository autoRepository, NoleggioRepository noleggioRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository) {
+	    public UtenteController(IUtente IUtente, AutoRepository autoRepository, NoleggioRepository noleggioRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository) {
 	        this.IUtente = IUtente;
 	        this.autoRepository = autoRepository;
 	        this.noleggioRepository = noleggioRepository;
 	        this.dispositivoRepository = dispositivoRepository;
 	        this.guastoRepository = guastoRepository;
+	        this.preventivoRepository = preventivoRepository;
 	    }
 	
 	
@@ -69,6 +73,8 @@ public class UtenteController {
 	        				
 	        			}
 	        		}
+	        		List<Preventivo> listaPreventivi = preventivoRepository.findByUtente(u);
+	        		model.addAttribute("preventivi",listaPreventivi);
 	        		model.addAttribute("guasti", guasti);
 	        		model.addAttribute("AlertsGuasti", listaGuasti);
 	        		return "utente_home";

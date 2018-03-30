@@ -369,13 +369,22 @@
 									<thead>
 									<tr>
 									<th>ID</th>
-									<th>Descrizione</th>
-									<th>ID Auto</th>
+									<th>Auto</th>
+									<th>Data</th>
+									<th>Dettagli</th>
 									<th></th>
 									</tr>
 									</thead>
 									<tbody>
-								
+								 <c:forEach items="${preventivi}" var="prev">
+<tr  >			
+			<td>${prev.getId()}</td>
+			<td>${prev.getAuto().getMarca()} ${prev.getAuto().getModello()}</td>
+			<td>${prev.getData()}</td>
+									 <td>${prev.getDettagli()}</td>
+									 <td></td>
+									 </tr>
+									 </c:forEach>
 									</tbody>
 									</table>
 									</div>
