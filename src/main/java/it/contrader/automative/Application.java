@@ -92,7 +92,9 @@ public class Application extends SpringBootServletInitializer {
 
     	
     	Auto inserimentoAuto[] = new Auto[2];
+
     	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
+
     	inserimentoAuto[1] = new Auto(2,"BMW", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
     	
     	Noleggio inserimentoNoleggio[] = new Noleggio[1];
@@ -100,7 +102,7 @@ public class Application extends SpringBootServletInitializer {
     	
     	Dispositivo inserimentoDispositivi[] = new Dispositivo[1];
     	inserimentoDispositivi[0] = new Dispositivo(1, "A0972", inserimentoAuto[0], data1, inserimentoOfficine[0]);
-    	
+
     	TipologiaGuasto inserimentoTipologieGuasti[] = new TipologiaGuasto[3];
     	inserimentoTipologieGuasti[0] = new TipologiaGuasto("C0004", "Cinghia di Trasmissione...");
     	inserimentoTipologieGuasti[1] = new TipologiaGuasto("A0004", "Pompa Idraulica...");
@@ -114,6 +116,7 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoGuasti[0] = new Guasto(1, inserimentoTipologieGuasti[0], inserimentoDatiTelemetria[0], data2, inserimentoDispositivi[0], "Non Risolto");
     	inserimentoGuasti[1] = new Guasto(2, inserimentoTipologieGuasti[1], inserimentoDatiTelemetria[1], data2, inserimentoDispositivi[0], "Non Risolto");
     	inserimentoGuasti[2] = new Guasto(3, inserimentoTipologieGuasti[2], inserimentoDatiTelemetria[2], data2, inserimentoDispositivi[0], "Risolto");
+
     	//Effettuo gli inserimenti effettivi
     	
     	

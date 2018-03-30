@@ -47,7 +47,7 @@ public class UtenteController {
 	    public String getUser(@RequestParam("email") String email, @RequestParam("pwd") String password, Model model){
 	        Utente u = IUtente.selectByEmail(email);
 	        if(u!=null && u.getPassword().equals(password)) {
-	        	
+
 	        	//Ritorno dati sull'utente che si è loggato
 	        	model.addAttribute("utente", u);
 	        	int guasti=0;
@@ -61,6 +61,7 @@ public class UtenteController {
 	        		List<Guasto> listaGuasti = new ArrayList();
 	        		for(int i = 0; i<listaNoleggiUtente.size(); i++) {
 	        			List<Guasto> g = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(listaNoleggiUtente.get(i).getAuto()));
+
 	        			for(int e=0; e<g.size(); e++) { 
 	        				//if(!g.get(e).getStatoRisoluzione().equals("Risolto")) 
 	        				if(!g.get(e).getStatoRisoluzione().equals("Risolto")) guasti++;
@@ -72,6 +73,7 @@ public class UtenteController {
 	        		model.addAttribute("AlertsGuasti", listaGuasti);
 	        		return "utente_home";
 	        		//return "logInEffettuato";
+
 				case 1 : 
 					//Auto dell'Officina
 	        		List<Auto> listaAutoOfficina = autoRepository.findByOfficina(u.getOfficina());
