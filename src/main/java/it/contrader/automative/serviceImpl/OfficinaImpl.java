@@ -3,7 +3,6 @@ package it.contrader.automative.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
 import it.contrader.automative.repositories.OfficinaRepository;
 import it.contrader.automative.serviceInterfaces.IOfficina;

@@ -14,12 +14,20 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
 import it.contrader.automative.model.Auto;
+import it.contrader.automative.model.DatiTelemetria;
+import it.contrader.automative.model.Dispositivo;
+import it.contrader.automative.model.Guasto;
 import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
+import it.contrader.automative.model.TipologiaGuasto;
 import it.contrader.automative.model.Utente;
 import it.contrader.automative.serviceInterfaces.IAuto;
+import it.contrader.automative.serviceInterfaces.IDatiTelemetria;
+import it.contrader.automative.serviceInterfaces.IDispositivo;
+import it.contrader.automative.serviceInterfaces.IGuasto;
 import it.contrader.automative.serviceInterfaces.INoleggio;
 import it.contrader.automative.serviceInterfaces.IOfficina;
+import it.contrader.automative.serviceInterfaces.ITipologiaGuasto;
 import it.contrader.automative.serviceInterfaces.IUtente;
 
 
@@ -41,19 +49,27 @@ public class Application extends SpringBootServletInitializer {
 	private INoleggio noleggioService;
 	private IUtente utenteService;
 	private IOfficina officinaService;
+	private IDatiTelemetria datiTelemetriaService;
+	private IDispositivo dispositivoService;
+	private IGuasto guastoService;
+	private ITipologiaGuasto tipologiaGuastoService;
 
 	@Autowired
-	public Application(IAuto autoService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService) {
+	public Application(IAuto autoService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService) {
 		this.autoService = autoService;
 		this.noleggioService = noleggioService;
 		this.utenteService = utenteService;
 		this.officinaService = officinaService;
+		this.datiTelemetriaService = datiTelemetriaService;
+		this.dispositivoService = dispositivoService;
+		this.guastoService = guastoService;
+		this.tipologiaGuastoService = tipologiaGuastoService;
 	}
     
     
     @PostConstruct
-	public void initializeDB(){
-		//PROCEDURA PER INSERIRE GLI ASSETS_CLASS NEL DB
+	public void inizializzazioneDB(){
+		//PROCEDURA PER POPOLARE IL DB
     	
     	
     	Calendar calendar = Calendar.getInstance();
@@ -82,6 +98,17 @@ public class Application extends SpringBootServletInitializer {
     	Noleggio inserimentoNoleggio[] = new Noleggio[1];
     	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0],  data1,  data2, 84010, 82100,60000);
     	
+    	Dispositivo inserimentoDispositivi[] = new Dispositivo[1];
+    	inserimentoDispositivi[0] = new Dispositivo(1, "A0972", inserimentoAuto[0], data1, inserimentoOfficine[0]);
+    	
+    	TipologiaGuasto inserimentoTipologieGuasti[] = new TipologiaGuasto[1];
+    	inserimentoTipologieGuasti[0] = new TipologiaGuasto("C0004", "Cinghia di Trasmissione...");
+    	
+    	DatiTelemetria inserimentoDatiTelemetria[] = new DatiTelemetria[1];
+    	inserimentoDatiTelemetria[0] = new DatiTelemetria(1, "36871231v 312371 23gy31t3 7881238 2313");
+    	
+    	Guasto inserimentoGuasti[] = new Guasto[1];
+    	inserimentoGuasti[0] = new Guasto(1, inserimentoTipologieGuasti[0], inserimentoDatiTelemetria[0], data2, inserimentoDispositivi[0], "Non Risolto");
     	
     	//Effettuo gli inserimenti effettivi
     	
@@ -100,6 +127,22 @@ public class Application extends SpringBootServletInitializer {
     	
     	for(int i=0;i<inserimentoNoleggio.length;i++){
     		inserimentoNoleggio[i] = noleggioService.insert(inserimentoNoleggio[i]);
+		}
+    	
+    	for(int i=0;i<inserimentoDispositivi.length;i++){
+    		inserimentoDispositivi[i] = dispositivoService.insert(inserimentoDispositivi[i]);
+		}
+    	
+    	for(int i=0;i<inserimentoTipologieGuasti.length;i++){
+    		inserimentoTipologieGuasti[i] = tipologiaGuastoService.insert(inserimentoTipologieGuasti[i]);
+		}
+    	
+    	for(int i=0;i<inserimentoDatiTelemetria.length;i++){
+    		inserimentoDatiTelemetria[i] = datiTelemetriaService.insert(inserimentoDatiTelemetria[i]);
+		}
+    	
+    	for(int i=0;i<inserimentoGuasti.length;i++){
+    		inserimentoGuasti[i] = guastoService.insert(inserimentoGuasti[i]);
 		}
     	
     	

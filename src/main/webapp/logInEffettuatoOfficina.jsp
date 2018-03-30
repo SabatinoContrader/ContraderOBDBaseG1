@@ -25,6 +25,19 @@
 	            	</c:forEach>
             	</table>
         </fieldset>
+        
+         <fieldset>
+            <legend align="center">Alerts auto dell'Officina:</legend>
+            	<table>
+	            	<c:forEach items = "${AlertsGuastiOfficina}" var="Guasto"> 
+		            	
+			                <tr>
+			                	<td>${Guasto.getDispositivo().getAuto().getMarca()}</td>
+			                </tr>
+		            	
+	            	</c:forEach>
+            	</table>
+        </fieldset>
     </form>
 </div>
 </body>
