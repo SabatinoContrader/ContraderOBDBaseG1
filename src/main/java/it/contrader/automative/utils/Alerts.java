@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import it.contrader.automative.model.Auto;
+import it.contrader.automative.model.Noleggio;
 
 public class Alerts {
 	
@@ -66,7 +67,33 @@ public class Alerts {
 		System.out.println();
 		System.out.println();
 	}
+
+	public static List<Noleggio> kmNoleggioInScadenza(List<Noleggio> listaNoleggio){
+		
+		List<Noleggio> lista = new ArrayList();
+		
+		//Metto in lista tutti i noleggio dove rimangono da percorrere solo 1/10 dei km a propria disposizione
+		for(int i=0; i<listaNoleggio.size(); i++) {
+			int kmFatti = listaNoleggio.get(i).getAuto().getKmAttuali() - listaNoleggio.get(i).getAuto().getKmInizioNoleggio();
+			if(kmFatti > ((listaNoleggio.get(i).getMaxKmNoleggio()/10)*9)) lista.add(listaNoleggio.get(i)); 
+				}
+		
+		return lista;
+		
+	}
 	
+	
+	public static void prova1(List<Noleggio> lista) {
+		
+		System.out.println();
+		System.out.println();
+		
+		if(lista.size() == 0) System.out.println("Nessuna auto in con Km in esaurimento");
+		else for(int i = 0; i<lista.size(); i++) System.out.println("Auto con Km in esaurimento: "+lista.get(i).getAuto().getMarca());
+		
+		System.out.println();
+		System.out.println();
+	}
 //	public static void main(String[] args) {
 //		// TODO Auto-generated method stub
 //

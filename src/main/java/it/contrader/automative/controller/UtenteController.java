@@ -69,6 +69,16 @@ public class UtenteController {
 	        		
 	        		//Prova con Scadenze (Spampa nella console le auto che stanno in scadenza e solo la prima scadenza che hanno)
 	        		Alerts.prova(listaAuto);
+	        		
+	        		//Ritorno lista dei noleggi con i km in scadenza
+	        		List<Noleggio> listaKmInScadenza = Alerts.kmNoleggioInScadenza(listaNoleggiUtente);
+	        		
+//	        		//Prendo solo i noleggio in corso - OPZIONALE
+//	        		List<Noleggio> listaKmInScadNoleggiInCorso = new ArrayList();
+//	        		for(int i=0; i<listaKmInScadenza.size(); i++) if(listaKmInScadenza.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis()))) listaKmInScadNoleggiInCorso.add(listaKmInScadenza.get(i));
+	        		
+	        		//Prova con Scadenze KM (Spampa nella console le auto che stanno in scadenza)
+	        		Alerts.prova1(listaKmInScadenza);
 	     //</Roba Nuova>  		
 	        		
 	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'utente loggato (Non risolti)
@@ -98,6 +108,15 @@ public class UtenteController {
 	      //<Roba Nuova> 
 	        		//Prova con Scadenze (Spampa nella console le auto che stanno in scadenza e solo la prima scadenza che hanno)
 	        		Alerts.prova(listaAutoOfficina);
+	        		
+	        		//Mi ricavo la lista dei noleggi dell'officina
+	        		List<Noleggio> listaNoleggiOff = noleggioRepository.findByOfficina(u.getOfficina());
+	        		
+	        		//Ritorno lista dei noleggi con i km in scadenza
+	        		List<Noleggio> listaKmInScadenzaAutoOfficina = Alerts.kmNoleggioInScadenza(listaNoleggiOff);
+	        		
+	        		//Prova con Scadenze KM (Spampa nella console le auto che stanno in scadenza)
+	        		Alerts.prova1(listaKmInScadenzaAutoOfficina);
 	      //</Roba Nuova>	
 	        		
 	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'officina loggata (Non risolti)

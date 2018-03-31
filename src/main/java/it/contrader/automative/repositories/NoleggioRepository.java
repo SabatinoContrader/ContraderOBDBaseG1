@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import it.contrader.automative.model.Noleggio;
+import it.contrader.automative.model.Officina;
 import it.contrader.automative.model.Utente;
 
 @Repository
@@ -17,4 +18,6 @@ public interface NoleggioRepository  extends CrudRepository<Noleggio, Long> {
 	Noleggio findById(int id);
 	
 	List<Noleggio> findByUtente(Utente u);
+	
+	List<Noleggio> findByOfficina(Officina o);
 }

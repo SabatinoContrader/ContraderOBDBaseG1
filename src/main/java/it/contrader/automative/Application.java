@@ -100,14 +100,17 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoUtenti[1] = new Utente(2, "dsad", "daj", "admin", "admin", 0, inserimentoOfficine[0], data1, 1, "4712384");
 
     	
-    	Auto inserimentoAuto[] = new Auto[2];
+    	Auto inserimentoAuto[] = new Auto[3];
 
     	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 4, "dgasjh", 32131, 1233, data3, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
 
     	inserimentoAuto[1] = new Auto(2,"BMW", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	Noleggio inserimentoNoleggio[] = new Noleggio[1];
-    	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0],  data1,  data2, 84010, 82100,60000);
+    	inserimentoAuto[2] = new Auto(3,"Alfa Romeo", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 10250, 1233, data2, data2, data2, data3, "berlina", 1, inserimentoOfficine[0]);
+    	
+    	Noleggio inserimentoNoleggio[] = new Noleggio[2];
+    	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0], inserimentoOfficine[0], data1,  data2, 84010, 82100,60000);
+    	inserimentoNoleggio[1] = new Noleggio(2, inserimentoUtenti[0], inserimentoAuto[2], inserimentoOfficine[0], data1,  data2, 84010, 82100,10000);
     	
     	Dispositivo inserimentoDispositivi[] = new Dispositivo[1];
     	inserimentoDispositivi[0] = new Dispositivo(1, "A0972", inserimentoAuto[0], data1, inserimentoOfficine[0]);
