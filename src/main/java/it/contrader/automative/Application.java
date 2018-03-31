@@ -78,12 +78,17 @@ public class Application extends SpringBootServletInitializer {
     	
     	Calendar calendar = Calendar.getInstance();
     	Calendar calendar2 = Calendar.getInstance();
+    	Calendar calendar3 = Calendar.getInstance();
+    	
     	
     	calendar.set(2016, 3, 1);
     	Date data1 = calendar.getTime();
     	
     	calendar2.set(2018, 9, 1);
     	Date data2 = calendar2.getTime();
+    	
+    	calendar3.set(2018, 3, 29);			//ATTENZIONE: in questo modo "3" non significa Marzo ma Aprile, ogni mese va messo così: (mese desiderato)-1
+    	Date data3 = calendar3.getTime();
     	
     	
     	
@@ -97,9 +102,9 @@ public class Application extends SpringBootServletInitializer {
     	
     	Auto inserimentoAuto[] = new Auto[2];
 
-    	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 4, "dgasjh", 32131, 1233, data3, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
 
-    	inserimentoAuto[1] = new Auto(2,"BMW", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[1] = new Auto(2,"BMW", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
     	Noleggio inserimentoNoleggio[] = new Noleggio[1];
     	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0],  data1,  data2, 84010, 82100,60000);

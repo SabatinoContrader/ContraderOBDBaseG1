@@ -23,6 +23,7 @@ import it.contrader.automative.repositories.PreventivoRepository;
 import it.contrader.automative.repositories.UtenteRepository;
 import it.contrader.automative.serviceInterfaces.INoleggio;
 import it.contrader.automative.serviceInterfaces.IUtente;
+import it.contrader.automative.utils.Alerts;
 
 
 @Controller
@@ -61,6 +62,15 @@ public class UtenteController {
 	        		List<Noleggio> listaNoleggiUtente = noleggioRepository.findByUtente(u);
 	        		model.addAttribute("autoUtente", listaNoleggiUtente);
 	        		
+	     //<Roba Nuova>   		
+	        		//Mi ricavo la lista auto da lista noleggi
+	        		List<Auto> listaAuto = new ArrayList();
+	        		for (int i = 0; i<listaNoleggiUtente.size(); i++) listaAuto.add(listaNoleggiUtente.get(i).getAuto());
+	        		
+	        		//Prova con Scadenze (Spampa nella console le auto che stanno in scadenza e solo la prima scadenza che hanno)
+	        		Alerts.prova(listaAuto);
+	     //</Roba Nuova>  		
+	        		
 	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'utente loggato (Non risolti)
 	        		List<Guasto> listaGuasti = new ArrayList();
 	        		for(int i = 0; i<listaNoleggiUtente.size(); i++) {
@@ -84,6 +94,11 @@ public class UtenteController {
 					//Auto dell'Officina
 	        		List<Auto> listaAutoOfficina = autoRepository.findByOfficina(u.getOfficina());
 	        		model.addAttribute("autoOfficina", listaAutoOfficina);
+	        	
+	      //<Roba Nuova> 
+	        		//Prova con Scadenze (Spampa nella console le auto che stanno in scadenza e solo la prima scadenza che hanno)
+	        		Alerts.prova(listaAutoOfficina);
+	      //</Roba Nuova>	
 	        		
 	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'officina loggata (Non risolti)
 	        		List<Guasto> listaGuastiAutoOff = new ArrayList();
