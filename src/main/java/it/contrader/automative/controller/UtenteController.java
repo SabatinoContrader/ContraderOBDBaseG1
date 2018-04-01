@@ -31,10 +31,12 @@ import it.contrader.automative.repositories.PreventivoRepository;
 import it.contrader.automative.repositories.UtenteRepository;
 import it.contrader.automative.serviceInterfaces.INoleggio;
 import it.contrader.automative.serviceInterfaces.IUtente;
+
 import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.IAppuntamento;
 import it.contrader.automative.utils.Alerts;
 import it.contrader.automative.utils.AutoScadenze;
+
 
 
 @Controller
@@ -87,6 +89,7 @@ public class UtenteController {
 	        		for (int i = 0; i<listaNoleggiUtente.size(); i++) listaAuto.add(listaNoleggiUtente.get(i).getAuto());
 	        		
 	        		//Prova con Scadenze (Spampa nella console le auto che stanno in scadenza e solo la prima scadenza che hanno)
+
 	        		//Alerts.prova(listaAuto);
 	        		// Recupero Auto che stanno in scadenza e cosa sta scadendo e li passo al model
 	        		List<AutoScadenze> lista = Alerts.listaAutoInScadenza(listaAuto);
@@ -100,8 +103,7 @@ public class UtenteController {
 //	        		List<Noleggio> listaKmInScadNoleggiInCorso = new ArrayList();
 //	        		for(int i=0; i<listaKmInScadenza.size(); i++) if(listaKmInScadenza.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis()))) listaKmInScadNoleggiInCorso.add(listaKmInScadenza.get(i));
 	        		
-	        		//Prova con Scadenze KM (Spampa nella console le auto che stanno in scadenza)
-	        		//Alerts.prova1(listaKmInScadenza);
+
 	     //</Roba Nuova>  		
 	        		
 	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'utente loggato (Non risolti)
@@ -135,6 +137,7 @@ public class UtenteController {
 	        	
 	      //<Roba Nuova> 
 	        		//Prova con Scadenze (Spampa nella console le auto che stanno in scadenza e solo la prima scadenza che hanno)
+
 	        		//Alerts.prova(listaAutoOfficina);
 	        		List<AutoScadenze> listaOff = Alerts.listaAutoInScadenza(listaAutoOfficina);
 	        		model.addAttribute("autoScadenze",listaOff);
@@ -148,8 +151,7 @@ public class UtenteController {
 	        		List<Noleggio> listaKmInScadenzaAutoOfficina = Alerts.kmNoleggioInScadenza(listaNoleggiOff);
 	        		model.addAttribute("kmScadenza",listaKmInScadenzaAutoOfficina);
 	        		
-	        		//Prova con Scadenze KM (Spampa nella console le auto che stanno in scadenza)
-	        		//Alerts.prova1(listaKmInScadenzaAutoOfficina);
+	        
 	      //</Roba Nuova>	
 	        		
 	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'officina loggata (Non risolti)

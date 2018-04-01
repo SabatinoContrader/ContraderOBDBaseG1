@@ -43,7 +43,7 @@
 														Benvenuto,&nbsp;
 													</span>
 													<span class="m-topbar__username">
-													${utente.getNome()}
+													${sessionScope.sessionModel.utente.getNome()}
 													</span>
 												</a>
 												<div class="m-dropdown__wrapper">
