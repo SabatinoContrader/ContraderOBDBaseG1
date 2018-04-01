@@ -6,8 +6,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,17 +23,12 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "preventivo")
-public class Preventivo implements Serializable {
+@Table(name = "appuntamento")
+public class Appuntamento implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "idauto")
-	private Auto auto;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "idUtente")
@@ -47,6 +40,9 @@ public class Preventivo implements Serializable {
 	
 	@Column
 	private Date Data;
+	
+	@Column
+	private String Ora;
 
 	@Column 
 	private String Dettagli;
@@ -55,8 +51,7 @@ public class Preventivo implements Serializable {
 	private int Stato;
 	
 	@Column 
-	private float Costo;
-	
-	@Column
 	private String Risposta;
+	
+	
 }

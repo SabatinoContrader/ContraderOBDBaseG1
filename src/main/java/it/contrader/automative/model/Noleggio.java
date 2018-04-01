@@ -31,6 +31,10 @@ public class Noleggio implements Serializable{
 	@JoinColumn(name = "idauto")
 	private Auto auto;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "idofficina")
+	private Officina officina;
+	
 //	@Id
 //	private int IdUtente;
 	

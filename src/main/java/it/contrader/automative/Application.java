@@ -13,6 +13,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
+import it.contrader.automative.model.Appuntamento;
 import it.contrader.automative.model.Auto;
 import it.contrader.automative.model.DatiTelemetria;
 import it.contrader.automative.model.Dispositivo;
@@ -22,6 +23,7 @@ import it.contrader.automative.model.Officina;
 import it.contrader.automative.model.Preventivo;
 import it.contrader.automative.model.TipologiaGuasto;
 import it.contrader.automative.model.Utente;
+import it.contrader.automative.serviceInterfaces.IAppuntamento;
 import it.contrader.automative.serviceInterfaces.IAuto;
 import it.contrader.automative.serviceInterfaces.IDatiTelemetria;
 import it.contrader.automative.serviceInterfaces.IDispositivo;
@@ -56,9 +58,10 @@ public class Application extends SpringBootServletInitializer {
 	private IGuasto guastoService;
 	private ITipologiaGuasto tipologiaGuastoService;
 	private IPreventivo preventivoService;
+	private IAppuntamento appuntamentoService;
 
 	@Autowired
-	public Application(IAuto autoService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService, IPreventivo preventivoService) {
+	public Application(IAuto autoService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService, IPreventivo preventivoService, IAppuntamento appuntamentoService) {
 		this.autoService = autoService;
 		this.noleggioService = noleggioService;
 		this.utenteService = utenteService;
@@ -67,7 +70,9 @@ public class Application extends SpringBootServletInitializer {
 		this.dispositivoService = dispositivoService;
 		this.guastoService = guastoService;
 		this.tipologiaGuastoService = tipologiaGuastoService;
+	
 		this.preventivoService=preventivoService;
+		this.appuntamentoService=appuntamentoService;
 	}
     
     
@@ -78,6 +83,8 @@ public class Application extends SpringBootServletInitializer {
     	
     	Calendar calendar = Calendar.getInstance();
     	Calendar calendar2 = Calendar.getInstance();
+    	Calendar calendar3 = Calendar.getInstance();
+    	
     	
     	calendar.set(2016, 3, 1);
     	Date data1 = calendar.getTime();
@@ -85,24 +92,30 @@ public class Application extends SpringBootServletInitializer {
     	calendar2.set(2018, 9, 1);
     	Date data2 = calendar2.getTime();
     	
+    	calendar3.set(2018, 3, 29);			//ATTENZIONE: in questo modo "3" non significa Marzo ma Aprile, ogni mese va messo così: (mese desiderato)-1
+    	Date data3 = calendar3.getTime();
+    	
     	
     	
     	Officina inserimentoOfficine[] = new Officina[1];
     	inserimentoOfficine[0] = new Officina(1, "Officina del Cazzo", "sda", "dasuid", "dgajsd", "36872136", "4124215", "73294", data1, "dhdkjas");
     	
     	Utente inserimentoUtenti [] = new Utente[2];
-    	inserimentoUtenti[0] = new Utente(1, "dsad", "daj", "pippo", "paperino", 0, null, data1, 0, "4712384");
+    	inserimentoUtenti[0] = new Utente(1, "dsad", "daj", "pippo", "paperino", 0, inserimentoOfficine[0], data1, 0, "4712384");
     	inserimentoUtenti[1] = new Utente(2, "dsad", "daj", "admin", "admin", 0, inserimentoOfficine[0], data1, 1, "4712384");
 
     	
-    	Auto inserimentoAuto[] = new Auto[2];
+    	Auto inserimentoAuto[] = new Auto[3];
 
-    	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 4, "dgasjh", 32131, 1233, data3, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
 
-    	inserimentoAuto[1] = new Auto(2,"BMW", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[1] = new Auto(2,"BMW", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 32131, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	Noleggio inserimentoNoleggio[] = new Noleggio[1];
-    	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0],  data1,  data2, 84010, 82100,60000);
+    	inserimentoAuto[2] = new Auto(3,"Alfa Romeo", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 10250, 1233, data2, data2, data2, data3, "berlina", 1, inserimentoOfficine[0]);
+    	
+    	Noleggio inserimentoNoleggio[] = new Noleggio[2];
+    	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0], inserimentoOfficine[0], data1,  data2, 84010, 82100,60000);
+    	inserimentoNoleggio[1] = new Noleggio(2, inserimentoUtenti[0], inserimentoAuto[2], inserimentoOfficine[0], data1,  data2, 84010, 82100,10000);
     	
     	Dispositivo inserimentoDispositivi[] = new Dispositivo[1];
     	inserimentoDispositivi[0] = new Dispositivo(1, "A0972", inserimentoAuto[0], data1, inserimentoOfficine[0]);
@@ -124,6 +137,8 @@ public class Application extends SpringBootServletInitializer {
     	Preventivo inserimentoPreventivi[] = new Preventivo[1];
     	inserimentoPreventivi[0] = new Preventivo(1, inserimentoAuto[0], inserimentoUtenti[0],  inserimentoOfficine[0], data1,"agjiej",0,8,"ooo");
     	
+    	Appuntamento inserimentoAppuntamenti[] = new Appuntamento[1];
+    	inserimentoAppuntamenti[0] = new Appuntamento(1, inserimentoUtenti[0],  inserimentoOfficine[0], data3,"10:00","dettagli appuntamento",0,"");
     	
     	//Effettuo gli inserimenti effettivi
     	
@@ -162,7 +177,9 @@ public class Application extends SpringBootServletInitializer {
     	for(int i=0;i<inserimentoPreventivi.length;i++){
     		inserimentoPreventivi[i] = preventivoService.insert(inserimentoPreventivi[i]);
 		}
-    	
+    	for(int i=0;i<inserimentoAppuntamenti.length;i++){
+    		inserimentoAppuntamenti[i] = appuntamentoService.insert(inserimentoAppuntamenti[i]);
+		}
 	}
     
 }

@@ -11,7 +11,7 @@
 		<title>
 		
 		
-			Home Cliente
+			Home Officina
 		</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,17 +43,17 @@
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
-	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
+	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >${sessionScope.sessionModel}<br><br>
 	<c:if test ="${sessionScope.sessionModel==null}" >
 		<c:redirect url="/"/>
 		 </c:if>
 	<c:if test ="${sessionScope.sessionModel!=null}" >
 		
 		<c:choose>
-
-	   <c:when test = "${sessionScope.sessionModel.utente.getRuolo()==1}">
-     <c:redirect url="/home_officina.jsp"/>
+ <c:when test = "${sessionScope.sessionModel.utente.getRuolo()==0}">
+       <c:redirect url="/utente_home.jsp"/>
       </c:when>
+	   
 		   <c:otherwise>
               
          </c:otherwise>
@@ -61,8 +61,6 @@
 		
 		
 		 </c:if>
-
-		 
 
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page">
@@ -212,7 +210,7 @@
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
 												<i class="fa fa-car fah3"  ></i>
-													AUTO UTENTE
+													AUTO 
 												</h3>
 											</div>
 										</div>
@@ -234,17 +232,14 @@
 									</tr>
 									</thead>
 									<tbody>
-									 <c:forEach items="${sessionScope.sessionModel.autoUtente}" var="auto">
+									 <c:forEach items="${sessionScope.sessionModel.autoOfficina}" var="auto">
 <tr>
-												<td>${auto.getAuto().getId()}</td>
-									 <td>${auto.getAuto().getMarca()}</td>
-									 <td>${auto.getAuto().getModello()}</td>
-									 <td>${auto.getAuto().getTarga()}</td>
-									 <td>${auto.getAuto().getNumeroTelaio()}</td>
-									 <td><ul class="fa-ul">
-  <li class="fa-li"><a class="ali richiedipreventivo"  data-marca="${auto.getAuto().getMarca()}"  data-modello="${auto.getAuto().getTarga()}" data-id="${auto.getAuto().getId()}" target="_blank"><i class="fa fa-file-o"  title="Richiedi Preventivo per questa auto"></i></a></li>
-
-</ul></td>
+												<td>${auto.getId()}</td>
+									 <td>${auto.getMarca()}</td>
+									 <td>${auto.getModello()}</td>
+									 <td>${auto.getTarga()}</td>
+									 <td>${auto.getNumeroTelaio()}</td>
+									 <td></td>
 									 </tr>
 									 </c:forEach>
 								
@@ -287,7 +282,7 @@
 									</thead>
 									<tbody>
 									
-									 <c:forEach items="${sessionScope.sessionModel.AlertsGuasti}" var="guasto">
+									 <c:forEach items="${sessionScope.sessionModel.AlertsGuastiOfficina}" var="guasto">
 <tr 
 <c:choose>
  <c:when test = "${fn:contains(guasto.getStatoRisoluzione(), 'Non Risolto')}">
@@ -308,11 +303,11 @@
   <li class="fa-li"><a class="ali showtelemetria" data-telemetria="${guasto.getTelemetria().getDati()}" data-marca="${guasto.getDispositivo().getAuto().getMarca()}" data-modello="${guasto.getDispositivo().getAuto().getModello()}"><i class="fa fa-info-circle"  title="Visualizza dati telemetria"></i></a></li>
   <c:choose>
   <c:when test = "${fn:contains(guasto.getStatoRisoluzione(), 'Non Risolto')}">
-        <li class="fa-li"><a class="ali" ><i class="fa fa-exclamation-triangle"  title="Guasto Risolto"></i></a></li>
+        <li class="fa-li"><a class="ali setrisolto" data-id="${guasto.getId()}" ><i class="fa fa-exclamation-triangle"  title="Guasto da risolvere"></i></a></li>
       </c:when>
 	  
 	   <c:otherwise>
-            <li class="fa-li"><a class="ali" ><i class="fa fa-check"  title="Guasto da risolvere"></i></a></li>
+            <li class="fa-li"><a class="ali" ><i class="fa fa-check"  title="Guasto Risolto"></i></a></li>
          </c:otherwise>
       </c:choose>
 
@@ -341,7 +336,7 @@
 												</h3>
 											</div>
 										</div>
-									<button class="btn btn-info btn-add" type="button" data-toggle="modal" data-target="#modalappuntamenti">Richiedi</button>
+								
 									</div>
 									<div class="m-portlet__body">
 										<!--begin: Datatable -->
@@ -355,6 +350,7 @@
 									<th>Dettagli</th>
 									<th>Stato</th>
 									<th>Risposta</th>
+									<th></th>
 									</tr>
 									</thead>
 									<tbody>
@@ -379,7 +375,10 @@
       </c:choose>
 		</td>
 			<td>${app.getRisposta()}</td>
-									
+									<td><ul class="fa-ul">
+  <li class="fa-li"><a class="ali rispondiappuntamento" data-id="${app.getId()}"><i class="fa fa-file-o"  title="Rispondi alla richiesta di appuntamento"></i></a></li>
+  
+  </ul></td>
 									 </tr>
 									 </c:forEach>
 									</tbody>
@@ -429,7 +428,10 @@
 									 <td>${prev.getDettagli()}</td>
 									  <td>${prev.getRisposta()}</td> 
 									  <td>${prev.getCosto()}&euro;</td>
-									 <td></td>
+									 <td><ul class="fa-ul">
+  <li class="fa-li"><a class="ali rispondipreventivo"  data-marca="${prev.getAuto().getMarca()}"  data-modello="${prev.getAuto().getTarga()}" data-id="${prev.getId()}" target="_blank"><i class="fa fa-file-o"  title="Rispondi alla richiesta di preventivo"></i></a></li>
+
+</ul></td>
 									 </tr>
 									 </c:forEach>
 									</tbody>
@@ -517,38 +519,41 @@
 	</div>
 	<!-- end:: Page -->
 <!-- begin::modal richiedi preventivo -->
-<div class="modal" tabindex="-1" role="dialog" id="modalrichiedipreventivo">
+<div class="modal" tabindex="-1" role="dialog" id="modalrispondipreventivo">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Richiedi preventivo per <span id="autorichiesta"></span></h5>
+        <h5 class="modal-title">Rispondi al preventivo per <span id="autorichiesta"></span></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form action="/inviapreventivo" method="POST">
+      <form action="/rispondipreventivo" method="POST">
+<div class="form-group">
 
+  <label for="costoprev">Costo:</label>
+  <input class="form-control"  id="costoprev" name="costoprev" type="number" required>
+</div>
+						
 						<div class="form-group">
-  <label for="dettagli">Descrizione Problema:</label>
-  <textarea class="form-control" rows="5" id="dettagli" name="dettagli"></textarea>
+  <label for="dettagli">Risposta:</label>
+  <textarea class="form-control" rows="5" id="dettagli" name="dettagli" required></textarea>
 </div>
 						
 							<input type="hidden"
 								class="form-control" id="email" value="${sessionScope.sessionModel.utente.getEmail()}"
 								name="email">
-							<input type="hidden"
-								class="form-control" id="idofficina" 
-								name="idofficina">
+							
 						<input type="hidden"
-								class="form-control" id="idauto" 
-								name="idauto">
+								class="form-control" id="idprev" 
+								name="idprev">
 								
   
 
       </div>
       <div class="modal-footer " style="text-align:center;" >
-       <button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
+       <button type="submit" class="btn btn-primary savebutton">Invia Preventivo</button>
 	     
 </form>
       </div>
@@ -562,39 +567,41 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Richiedi appuntamento</h5>
+        <h5 class="modal-title">Rispondi appuntamento</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form action="richiediappuntamento" method="POST">
+      <form action="rispondiappuntamento" method="POST">
 	
 						<div class="form-group">
-  <label for="ora">Orario:</label>
-  <input class="form-control" type="text" id="ora" name="ora" required>
+  <label for="stato">Rispondi:</label>
+  <select name="selectapp" id="selectapp" required class="form-control">
+  <option value="1" selected>Accetta appuntamento</option>
+  <option value="2">Rifiuta appuntamento</option>
+  </select>
+  
 </div>
 
 						<div class="form-group">
-  <label for="dettagliapp">Descrizione Problema:</label>
-  <textarea class="form-control" rows="5" id="dettagliapp" name="dettagliapp" required></textarea>
+  <label for="dettagliapp">Informazioni aggiuntive:</label>
+  <textarea class="form-control" rows="5" id="dettagliapp" name="dettagliapp"></textarea>
 </div>
 						
 							<input type="hidden"
 								class="form-control" id="emailapp" value="${sessionScope.sessionModel.utente.getEmail()}"
 								name="emailapp">
-							<input type="hidden"
-								class="form-control" id="idofficina""
-								name="idofficina">
+							
 						<input type="hidden"
-								class="form-control" id="idauto" 
-								name="idauto">
+								class="form-control" id="idapp" 
+								name="idapp">
 								
   
 
       </div>
       <div class="modal-footer " style="text-align:center;" >
-       <button type="submit" class="btn btn-primary savebutton btnfooter">Invia Richiesta</button>
+       <button type="submit" class="btn btn-primary savebutton btnfooter">Invia Risposta</button>
 	     
 </form>
       </div>
@@ -638,6 +645,39 @@
 </div>
 
 <!-- end::modal Dati Telemetria Guasto-->
+<!-- begin::modal SET RISOLTO GUASTO-->
+<div class="modal" tabindex="-1" role="dialog" id="modalsetrisoltoguasto">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Risolvi guasto? </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+  <form action="setrisoltoguasto" method="POST">
+
+			
+						
+							
+						<input type="hidden"
+								class="form-control" id="idguasto" 
+								name="idguasto">
+								
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+      <button type="submit" class="btn btn-primary savebutton btnfooter">Conferma</button>
+	     <button type="button" data-dismiss="modal" class="btn btn-primary savebutton btnfooter">Annulla</button>
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end::modal SET RISOLTO GUASTO-->
 	    <!-- begin::Scroll Top -->
 	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 		<i class="la la-arrow-up"></i>
@@ -655,18 +695,29 @@
 
 	<!--end::Page Snippets -->
 	<script>
-	$('.richiedipreventivo').on('click',function(){
+	$('.setrisolto').on('click',function(){
+		var id = $(this).data("id");
+		$('#idguasto').val(id);
+		$('#modalsetrisoltoguasto').modal("show");
+	});
+	
+	$('.rispondipreventivo').on('click',function(){
 	var marca = $(this).data("marca");
 	var modello = $(this).data("modello");
 	var id=$(this).data("id");
-	var idofficina =$(this).data("idofficina");
+	
 	$('#autorichiesta').html(marca+ " " +modello);
-	$('#idauto').val(id);
-	$('#idofficina').val(idofficina);
-	$('#modalrichiedipreventivo').modal("show");
+	$('#idprev').val(id);
+
+	$('#modalrispondipreventivo').modal("show");
 		
 		
 		
+	});
+	$('.rispondiappuntamento').on('click',function(){
+	var id=$(this).data("id");
+	$('#idapp').val(id);
+	$('#modalappuntamenti').modal("show");
 	});
 	$('.btnshow').on('click',function(){
 		var tipo = $(this).data("n");
