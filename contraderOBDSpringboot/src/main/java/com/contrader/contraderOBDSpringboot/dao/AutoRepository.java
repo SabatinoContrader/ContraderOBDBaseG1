@@ -16,6 +16,8 @@ public interface AutoRepository extends CrudRepository<AutoEntity, Long> {
 
     AutoEntity findByCodDispositivo(int codDispositivo);
 
+    AutoEntity findByTarga(String targa);
+
     void deleteByCodDispositivo(int codDispositivo);
 
 }

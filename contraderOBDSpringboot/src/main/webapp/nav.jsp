@@ -109,7 +109,7 @@
                                         <a>
                                             <form action="findAuto" method="post">
                                                 <fieldset>
-                                                    <input type="text" size="12" name="codDispositivo">
+                                                    <input type="text" size="12" name="findAuto">
                                                     <button type="submit" class="btn btn-primary btn-xs">
                                                         Cerca
                                                     </button>
@@ -147,12 +147,12 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#formAddDriver" data-toggle="modal">
-                                        Aggiungi
-                                    </a>
-                                </li>
-                            </ul>
+                            <li>
+                                <a href="#formAddDriver" data-toggle="modal">
+                                    Aggiungi
+                                </a>
+                            </li>
+                        </ul>
                         <!-- /.nav-second-level -->
                     </li>
                 </c:when>
@@ -216,7 +216,38 @@
                     </li>
                 </c:when>
                 <c:when test="${sessionScope.model.user.ruolo == 4 }">
-
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-calendar fa-fw"></i> Appuntamenti
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <form action="/contraderOBDSpringBoot/viewAppuntamentiDriver" method="POST" id="viewAppuntamentiDriver">
+                                    <input type="hidden" name="idDriver" value="${sessionScope.model.user.id}" />
+                                </form>
+                                <a href="javascript:{}" onclick="document.getElementById('viewAppuntamentiDriver').submit(); return false;">
+                                    Visualizza
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-euro fa-fw"></i> Preventivi
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <form action="/contraderOBDSpringBoot/viewPreventiviDriver" method="POST" id="viewPreventiviDriver">
+                                    <input type="hidden" name="idDriver" value="${sessionScope.model.user.id}" />
+                                </form>
+                                <a href="javascript:{}" onclick="document.getElementById('viewPreventiviDriver').submit(); return false;">
+                                    Visualizza
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </c:when>
             </c:choose>
         </ul>

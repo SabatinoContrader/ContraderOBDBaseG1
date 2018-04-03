@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,6 +46,14 @@ public class DriverEntity implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "idDriver")
-    private Set<AutoEntity> autoEntitySet;
+    private List<AutoEntity> autoEntitySet;
+
+    @OneToMany
+    @JoinColumn(name = "idDriver")
+    private List<AppuntamentoEntity> appuntamentoEntityList;
+
+    @OneToMany
+    @JoinColumn(name = "idDriver")
+    private List<PreventivoEntity> preventivoEntityList;
 
 }

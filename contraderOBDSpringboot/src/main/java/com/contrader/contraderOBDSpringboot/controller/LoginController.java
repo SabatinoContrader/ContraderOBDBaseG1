@@ -1,10 +1,7 @@
 package com.contrader.contraderOBDSpringboot.controller;
 
-import com.contrader.contraderOBDSpringboot.model.LoginEntity;
-import com.contrader.contraderOBDSpringboot.service.AutoService;
-import com.contrader.contraderOBDSpringboot.service.AziendaService;
-import com.contrader.contraderOBDSpringboot.service.LoginService;
-import com.contrader.contraderOBDSpringboot.service.OfficinaService;
+import com.contrader.contraderOBDSpringboot.model.*;
+import com.contrader.contraderOBDSpringboot.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -23,13 +20,19 @@ public class LoginController {
     private AziendaService aziendaService;
     private AutoService autoService;
     private OfficinaService officinaService;
+    private DriverService driverService;
+    private AppuntamentoService appuntamentoService;
+    private PreventivoService preventivoService;
 
     @Autowired
-    public LoginController(LoginService loginService, OfficinaService officinaService, AziendaService aziendaService, AutoService autoService) {
+    public LoginController(LoginService loginService, OfficinaService officinaService, AziendaService aziendaService, AutoService autoService, DriverService driverService, AppuntamentoService appuntamentoService, PreventivoService preventivoService) {
         this.loginService = loginService;
         this.officinaService = officinaService;
         this.aziendaService = aziendaService;
         this.autoService = autoService;
+        this.driverService = driverService;
+        this.appuntamentoService = appuntamentoService;
+        this.preventivoService = preventivoService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -64,11 +67,17 @@ public class LoginController {
                 long countAutoAll = autoService.countAll();
                 model.put("countAutoAll", countAutoAll);
             } else if (loginEntity.getRuolo() == 2) {
-
+                OfficinaEntity officinaEntity = officinaService.findByIdOfficina(loginEntity.getId());
+                long countAppuntamentoOfficina = appuntamentoService.countByOfficinaEntity(officinaEntity);
+                model.put("countAppuntamentoOfficina", countAppuntamentoOfficina);
+                long countPreventivoOfficina = preventivoService.countByOfficinaEntity(officinaEntity);
+                model.put("countPreventivoOfficina", countPreventivoOfficina);
             } else if (loginEntity.getRuolo() == 3) {
 
             } else if (loginEntity.getRuolo() == 4) {
-
+                DriverEntity driver = driverService.findByIdDriver(loginEntity.getId());
+                model.put("driver", driver);
+                model.put("color",colorPanel(driver.getAutoEntitySet()));
             }
             model.put("user", loginEntity);
             HttpSession session = request.getSession(true);
@@ -78,6 +87,48 @@ public class LoginController {
             return "index";
         }
 
+    }
+
+    public HashMap colorPanel(List<AutoEntity> autoEntitySet)
+    {
+        HashMap color = new HashMap();
+        for (AutoEntity autoEntity:autoEntitySet) {
+            List<DatiEntity> listaDati = autoEntity.getDatiEntitySet();
+            DatiEntity dato = listaDati.get(listaDati.size()-1);
+            Scanner scanner = new Scanner(autoEntity.getRevisione()).useDelimiter("/");
+            int gg_revisione = scanner.nextInt();
+            int mm_revisione = scanner.nextInt();
+            int aa_revisione = scanner.nextInt();
+            scanner = new Scanner(autoEntity.getTagliandoData()).useDelimiter("/");
+            int gg_tagliando = scanner.nextInt();
+            int mm_tagliando = scanner.nextInt();
+            int aa_tagliando = scanner.nextInt();
+            scanner = new Scanner(dato.getData()).useDelimiter("/");
+            int gg_dato = scanner.nextInt();
+            int mm_dato = scanner.nextInt();
+            int aa_dato = scanner.nextInt();
+            int revisione = gg_revisione + mm_revisione * 365 / 12 + aa_revisione * 365;
+            int tagliando = gg_tagliando + mm_tagliando * 365 / 12 + aa_tagliando * 365;
+            int data = gg_dato + mm_dato * 365 / 12 + aa_dato * 365;
+
+            int km = dato.getKm() - autoEntity.getTagliandoKm();
+
+            if (data - revisione > 365 + 365 / 12 * 11) {
+                color.put(autoEntity.getCodDispositivo(), "yellow");
+            }
+            else if (((data - tagliando) > 365 + 365 / 12 * 11) || km > 14500) {
+                color.put(autoEntity.getCodDispositivo(), "yellow");
+            }
+            else {
+                color.put(autoEntity.getCodDispositivo(), "primary");
+            }
+            for (DatiEntity datiEntity:autoEntity.getDatiEntitySet()) {
+                if(datiEntity.getCodErrore() != null)
+                    color.put(autoEntity.getCodDispositivo(), "red");
+            }
+
+        }
+        return color;
     }
 
 }

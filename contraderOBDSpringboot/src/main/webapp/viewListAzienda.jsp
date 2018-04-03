@@ -68,9 +68,9 @@
                                         </thead>
                                         <tbody>
                                                 <c:choose>
-                                                        <c:when test="${officinaEntityList.isEmpty()}">
+                                                        <c:when test="${aziendaEntityList.isEmpty()}">
                                                             <tr>
-                                                                <td colspan="2" align="center">Nessuna azienda registrata in questa città</td>
+                                                                <td colspan="2" align="center">Nessuna azienda registrata in questa citt&aacute;</td>
                                                             </tr>
                                                         </c:when>
                                                         <c:otherwise>

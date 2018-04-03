@@ -51,77 +51,134 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-lg-9">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <i class="fa fa-automobile fa-fw"></i>
-                                ${findAuto.casaCostruttrice} ${findAuto.modello}
+                    <%@ include file = "message.jsp" %>
+                        <div class="col-lg-9">
+                            <div class="panel panel-default">
+                                <c:if test="${findAuto != null}">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-automobile fa-fw"></i>
+                                        ${findAuto.casaCostruttrice} ${findAuto.modello}
+                                        <button class="btn btn-circle pull-right" data-toggle="modal" data-target="#formEditAuto" style="margin-top:-5px;">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <%@ include file = "modalEditAuto.jsp" %>
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-3">Codice dispositivo:</div>
+                                            <div class="col-md-3">${findAuto.codDispositivo}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">Targa:</div>
+                                            <div class="col-md-3">${findAuto.targa}</div>
+                                            <div class="col-md-3">Num. telaio:</div>
+                                            <div class="col-md-3">${findAuto.telaio}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">Casa costruttrice:</div>
+                                            <div class="col-md-3">${findAuto.casaCostruttrice}</div>
+                                            <div class="col-md-3">Modello:</div>
+                                            <div class="col-md-3">${findAuto.modello}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">Alimentazione:</div>
+                                            <div class="col-md-3">${findAuto.alimentazione}</div>
+                                            <div class="col-md-3">Cambio:</div>
+                                            <div class="col-md-3">
+                                                <c:choose>
+                                                    <c:when test="${findAuto.cambio == 'M'.charAt(0)}">
+                                                        Manuale
+                                                    </c:when>
+                                                    <c:when test="${findAuto.cambio == 'A'.charAt(0)}">
+                                                        Automatico
+                                                    </c:when>
+                                                </c:choose>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">Ultima revisione:</div>
+                                            <div class="col-md-3">${findAuto.revisione}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">Ultimo tagliando:</div>
+                                            <div class="col-md-9">${findAuto.tagliandoData} effettuato a ${findAuto.tagliandoKm} km </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table text-center">
+                                                <title>
+                                                    Dati del dispositivo
+                                                </title>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Data</th>
+                                                        <th class="text-center">Km</th>
+                                                        <th class="text-center">Livello olio</th>
+                                                        <th class="text-center">Errore</th>
+                                                        <th class="text-center">Stato</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    </tr>
+                                                    <c:if test="${findAuto.datiEntitySet.isEmpty()}">
+                                                        <tr>
+                                                            <td colspan="5">Nessun dato presente per quest'auto</td>
+                                                        </tr>
+                                                    </c:if>
+                                                    <c:forEach items="${findAuto.datiEntitySet}" var="dato">
+                                                        <tr>
+                                                            <td>
+                                                                ${dato.data}
+                                                            </td>
+                                                            <td>
+                                                                ${dato.km}
+                                                            </td>
+                                                            <td>
+                                                                ${dato.livelloOlio}
+                                                            </td>
+                                                            <td>
+                                                                ${dato.codErrore}
+                                                            </td>
+                                                            <td>
+                                                                <c:if test="${dato.codErrore != null}">
+                                                                    <c:choose>
+                                                                        <c:when test="${dato.stato == true}">
+                                                                            <button type="button" class="btn btn-success btn-circle btn-sm">
+                                                                                <i class="fa fa-check"></i>
+                                                                            </button>
+                                                                        </c:when>
+                                                                        <c:when test="${dato.stato == false}">
+                                                                            <form action="fixError" method="POST">
+                                                                                <button type="button" class="btn btn-danger btn-circle btn-sm">
+                                                                                    <i class="fa fa-times"></i>
+                                                                                </button>
+                                                                                <input type="hidden" name="n" value="${dato.n}">
+                                                                                <input type="hidden" name="codDispositivo" value="${findAuto.codDispositivo}">
+                                                                                <button type="submit" class="btn btn-circle btn-sm">
+                                                                                    <i class="fa fa-wrench"></i>
+                                                                                </button>
+                                                                            </form>
+                                                                        </c:when>
+                                                                    </c:choose>
+                                                                </c:if>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </c:if>
+                                <c:if test="${findAuto == null}">
+                                    <div class="panel-body">
+                                        Nessuna auto registrata
+                                    </div>
+                                </c:if>
+                                <!-- /.panel-body -->
                             </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                Codice dispositivo: ${findAuto.codDispositivo}
-                                <br> Targa: ${findAuto.targa}
-                                <br> Num. telaio: ${findAuto.telaio}
-                                <br> Casa costruttrice: ${findAuto.casaCostruttrice}
-                                <br> Modello: ${findAuto.modello}
-                                <br> Alimentazione: ${findAuto.alimentazione}
-                                <br> Cambio:
-                                <c:choose>
-                                    <c:when test="${findAuto.cambio == M}">
-                                        Manuale
-                                    </c:when>
-                                    <c:when test="${findAuto.cambio == A}">
-                                        Automatico
-                                    </c:when>
-                                </c:choose>
-                                <br> Ultima revisione: ${findAuto.revisione}
-                                <br> Ultimo tagliando: ${findAuto.tagliandoData} effettuato a ${findAuto.tagliandoKm} km
-                                <br>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <title>
-                                            Dati del dispositivo
-                                        </title>
-                                        <thead>
-                                            <tr>
-                                                <th>Data</th>
-                                                <th>Km</th>
-                                                <th>Livello olio</th>
-                                                <th>Errore</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            </tr>
-                                            <c:if test="${findAuto.datiEntitySet.isEmpty()}">
-                                                <tr>
-                                                    <td colspan="4" align="center">Nessun dato presente per quest'auto</td>
-                                                </tr>
-                                            </c:if>
-                                            <c:forEach items="${findAuto.datiEntitySet}" var="dato">
-                                                <tr>
-                                                    <td>
-                                                        ${dato.data}
-                                                    </td>
-                                                    <td>
-                                                        ${dato.km}
-                                                    </td>
-                                                    <td>
-                                                        ${dato.livelloOlio}
-                                                    </td>
-                                                    <td>
-                                                        ${dato.codErrore}
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- /.panel-body -->
+                            <!-- /.panel -->
                         </div>
-                        <!-- /.panel -->
-                    </div>
-                    <%@ include file = "tabs.jsp" %>
+                        <%@ include file = "tabs.jsp" %>
                 </div>
                 <!-- /.row -->
             </div>

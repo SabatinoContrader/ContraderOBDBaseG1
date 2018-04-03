@@ -51,21 +51,8 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <c:choose>
-                        <c:when test="${ success != null}">
-                            <div class="alert alert-success alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                ${success}
-                            </div>
-                        </c:when>
-                        <c:when test="${ error != null}">
-                            <div class="alert alert-danger alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                ${error}
-                            </div>
-                        </c:when>
-                    </c:choose>
-                    <%@ include file = "tabs.jsp" %>
+                    <%@ include file = "message.jsp" %>
+                        <%@ include file = "tabs.jsp" %>
                 </div>
                 <!-- /.row -->
             </div>

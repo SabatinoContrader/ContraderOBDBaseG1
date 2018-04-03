@@ -71,7 +71,7 @@
                                             <c:choose>
                                                 <c:when test="${officinaEntityList.isEmpty()}">
                                                     <tr>
-                                                        <td colspan="3" align="center">Nessuna officina registrata in questa città</td>
+                                                        <td colspan="3" align="center">Nessuna officina registrata in questa citt&aacute;</td>
                                                     </tr>
                                                 </c:when>
                                                 <c:otherwise>

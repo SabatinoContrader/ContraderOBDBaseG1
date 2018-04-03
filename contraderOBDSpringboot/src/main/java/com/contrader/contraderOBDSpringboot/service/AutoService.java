@@ -16,17 +16,20 @@ public class AutoService {
         this.autoRepository = autoRepository;
     }
 
-    public long countAll () {
-
-    return this.autoRepository.count();
+    public long countAll() {
+        return this.autoRepository.count();
     }
 
     public AutoEntity save(AutoEntity autoEntity) {
         return this.autoRepository.save(autoEntity);
     }
 
-    public AutoEntity findByCodDispositivo(int codDispositivo){
+    public AutoEntity findByCodDispositivo(int codDispositivo) {
         return this.autoRepository.findByCodDispositivo(codDispositivo);
+    }
+
+    public AutoEntity findByTarga(String targa) {
+        return this.autoRepository.findByTarga(targa);
     }
 
     public void deleteByCodDispositivo(int codDispositivo) {

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class OfficinaEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_officina")
-    private long idOfficina;
+    private int idOfficina;
 
     @Column(name="nome_officina")
     private String nomeOfficina;
@@ -35,6 +36,14 @@ public class OfficinaEntity implements Serializable {
     @OneToMany
     @JoinColumn(name = "idOfficina")
     private Set<AutoEntity> autoEntitySet;
+
+    @OneToMany
+    @JoinColumn(name = "idOfficina")
+    private List<AppuntamentoEntity> appuntamentoEntityList;
+
+    @OneToMany
+    @JoinColumn(name = "idOfficina")
+    private List<PreventivoEntity> preventivoEntityList;
 
 
 }

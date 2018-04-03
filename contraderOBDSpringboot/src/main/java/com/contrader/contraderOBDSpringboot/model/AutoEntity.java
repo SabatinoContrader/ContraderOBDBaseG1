@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Getter @Setter
@@ -66,7 +67,8 @@ public class AutoEntity implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "codDispositivo")
-    private Set<DatiEntity> datiEntitySet;
+    @OrderBy("data DESC")
+    private List<DatiEntity> datiEntitySet;
 
 
 }

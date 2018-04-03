@@ -34,11 +34,11 @@ CREATE TABLE driver (
   FOREIGN KEY (id_azienda) REFERENCES azienda (id_azienda)
 );
 
-INSERT INTO driver VALUES (1,'Antonio','Rossi', 'ASDFA230AAFRWE4R', 'email@email.it', '','Napoli', NULL),
-							(2,'Pippo','Demagistris','SLONGBLONGSERADM', 'email@email.it', '','Torino', NULL),
-							(3,'Carmine','Albero', 'RSSDFETEADFTSFDF','email@email.it', '','Modena', NULL),
-                            (4,'Alessia','Bardo','NGRONDNRONGGUNR', 'email@email.it', '','Benevento', NULL),
-                            (5,'Ginevra','Luce', 'GRUNCGRRUNCGRUNC','email@email.it', '','Roma', NULL);
+INSERT INTO driver VALUES (1,'Antonio','Rossi', 'ASDFA230AAFRWE4R', 'email@email.it', '3331234567','Napoli', NULL),
+							(2,'Pippo','Demagistris','SLONGBLONGSERADM', 'email@email.it', '3331234567','Torino', NULL),
+							(3,'Carmine','Albero', 'RSSDFETEADFTSFDF','email@email.it', '3331234567','Modena', NULL),
+                            (4,'Alessia','Bardo','NGRONDNRONGGUNR', 'email@email.it', '3331234567','Benevento', NULL),
+                            (5,'Ginevra','Luce', 'GRUNCGRRUNCGRUNC','email@email.it', '3331234567','Roma', NULL);
                             
 CREATE TABLE login (
   username VARCHAR(25) NOT NULL,
@@ -141,18 +141,21 @@ INSERT INTO città VALUES ('Benevento',82100,'BN','CAMPANIA'),
                         
 CREATE TABLE appuntamento (
   id_appuntamento INT(11) AUTO_INCREMENT NOT NULL,
+  cod_dispositivo INT(11) NOT NULL,
   id_officina INT(11) NOT NULL,
   id_driver INT(11) NOT NULL,
-  data VARCHAR(10) NOT NULL,
-  stato BIT(1) default NULL,
+  descrizione VARCHAR(200) DEFAULT NULL,
+  data VARCHAR(16) NOT NULL,
+  stato BIT(1) DEFAULT NULL,
   PRIMARY KEY (id_appuntamento),
+  FOREIGN KEY (cod_dispositivo) REFERENCES automobile (cod_dispositivo),
   FOREIGN KEY (id_officina) REFERENCES officina (id_officina),
   FOREIGN KEY (id_driver) REFERENCES driver (id_driver)
 );
 
-INSERT INTO appuntamento VALUES (1,1,1,'15/05/18', 0),
-								(2,1,2,'13/04/18', 0),
-								(3,2,2,'12/12/17', 0);
+INSERT INTO appuntamento VALUES (1,1,1,1,'Errore P77ST','15/05/18', NULL),
+								(2,1,1,2,'Tagliando','13/04/18', NULL),
+								(3,2,1,2,'Revisione','12/12/17', NULL);
                                 
 CREATE TABLE preventivo (
   id_preventivo INT(11) AUTO_INCREMENT NOT NULL,
@@ -163,14 +166,15 @@ CREATE TABLE preventivo (
   costo FLOAT DEFAULT NULL,
   stato BIT(1) DEFAULT NULL,
   PRIMARY KEY (id_preventivo),
+  FOREIGN KEY (cod_dispositivo) REFERENCES automobile (cod_dispositivo),
   FOREIGN KEY (id_officina) REFERENCES officina (id_officina),
-  FOREIGN KEY (cod_dispositivo) REFERENCES automobile (cod_dispositivo)
+  FOREIGN KEY (id_driver) REFERENCES driver (id_driver)
 );
 
-INSERT INTO preventivo VALUES 	(1,1,1,1,'FRENI NON FUNZIONANTI',NULL, NULL),
-								(2,2,2,2,'CAMBIO ROTTO',NULL, NULL),
-								(3,2,3,2,'SURRISCALDAMENTO ECCESSIVO MOTORE',NULL, NULL),
-								(4,1,2,2,'FRENI NON FUNZIONANTI',200,1),
+INSERT INTO preventivo VALUES 	(1,1,1,1,'FRENI NON FUNZIONANTI', NULL, NULL),
+								(2,2,2,2,'CAMBIO ROTTO', NULL, NULL),
+								(3,2,3,2,'SURRISCALDAMENTO ECCESSIVO MOTORE', NULL, NULL),
+								(4,1,2,2,'FRENI NON FUNZIONANTI', NULL, NULL),
 								(5,2,2,2,'CAMBIO ROTTO',300,1);
                                 
 CREATE TABLE offerta (

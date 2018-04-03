@@ -17,6 +17,6 @@ public interface OfficinaRepository extends CrudRepository<OfficinaEntity, Long>
 
     List<OfficinaEntity> findByCitta(String citta);
 
-    OfficinaEntity findByIdOfficina(long IdOfficina);
+    OfficinaEntity findByIdOfficina(int IdOfficina);
 
 }
