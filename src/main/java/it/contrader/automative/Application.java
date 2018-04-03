@@ -84,6 +84,7 @@ public class Application extends SpringBootServletInitializer {
     	Calendar calendar = Calendar.getInstance();
     	Calendar calendar2 = Calendar.getInstance();
     	Calendar calendar3 = Calendar.getInstance();
+    	Calendar calendar4 = Calendar.getInstance();
     	
     	
     	calendar.set(2016, 3, 1);
@@ -95,6 +96,8 @@ public class Application extends SpringBootServletInitializer {
     	calendar3.set(2018, 3, 29);			//ATTENZIONE: in questo modo "3" non significa Marzo ma Aprile, ogni mese va messo così: (mese desiderato)-1
     	Date data3 = calendar3.getTime();
     	
+    	calendar4.set(2018, 1, 15);
+    	Date data4 = calendar4.getTime();
     	
     	
     	Officina inserimentoOfficine[] = new Officina[1];
@@ -105,7 +108,7 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoUtenti[1] = new Utente(2, "dsad", "daj", "admin", "admin", 0, inserimentoOfficine[0], data1, 1, "4712384");
 
     	
-    	Auto inserimentoAuto[] = new Auto[3];
+    	Auto inserimentoAuto[] = new Auto[4];
 
     	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 4, "dgasjh", 32131, 1233, data3, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
 
@@ -113,9 +116,12 @@ public class Application extends SpringBootServletInitializer {
     	
     	inserimentoAuto[2] = new Auto(3,"Alfa Romeo", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 10250, 1233, data2, data2, data2, data3, "berlina", 1, inserimentoOfficine[0]);
     	
-    	Noleggio inserimentoNoleggio[] = new Noleggio[2];
+    	inserimentoAuto[3] = new Auto(4,"Lancia", "dgaj", "dgsajd", "dgsajd", 1600, 4, "dgasjh", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	
+    	Noleggio inserimentoNoleggio[] = new Noleggio[3];
     	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0], inserimentoOfficine[0], data1,  data2, 84010, 82100,60000);
     	inserimentoNoleggio[1] = new Noleggio(2, inserimentoUtenti[0], inserimentoAuto[2], inserimentoOfficine[0], data1,  data2, 84010, 82100,10000);
+    	inserimentoNoleggio[2] = new Noleggio(3, inserimentoUtenti[0], inserimentoAuto[3], inserimentoOfficine[0], data1,  data4, 84010, 82100,10000);
     	
     	Dispositivo inserimentoDispositivi[] = new Dispositivo[1];
     	inserimentoDispositivi[0] = new Dispositivo(1, "A0972", inserimentoAuto[0], data1, inserimentoOfficine[0]);

@@ -54,8 +54,10 @@ public class UtenteController {
 	 private AppuntamentoRepository appuntamentoRepository;
 	 private UtenteRepository utenteRepository;
 	 
+	 private INoleggio noleggioService;
+	 
 	 @Autowired
-	    public UtenteController(IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, UtenteRepository utenteRepository ,AutoRepository autoRepository, NoleggioRepository noleggioRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository) {
+	    public UtenteController(IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, UtenteRepository utenteRepository ,AutoRepository autoRepository, NoleggioRepository noleggioRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository, INoleggio noleggioService) {
 	        this.IUtente = IUtente;
 	        this.IPreventivo = IPreventivo;
 	        this.IAppuntamento=IAppuntamento;
@@ -66,6 +68,8 @@ public class UtenteController {
 	        this.guastoRepository = guastoRepository;
 	        this.preventivoRepository = preventivoRepository;
 	        this.appuntamentoRepository = appuntamentoRepository;
+	        
+	        this.noleggioService = noleggioService;
 	    }
 	
 	
@@ -153,6 +157,8 @@ public class UtenteController {
 	        		List<Noleggio> listaKmInScadenzaAutoOfficina = Alerts.kmNoleggioInScadenza(listaNoleggiOff);
 	        		model.addAttribute("kmScadenza",listaKmInScadenzaAutoOfficina);
 	        		
+	        		//Prova Recupero Lista Auto Disponibili al noleggio
+	        		provaRecuperoListaAutoDisp(listaAutoOfficina, listaNoleggiOff, noleggioService);
 	        
 	      //</Roba Nuova>	
 	        		
@@ -361,6 +367,19 @@ a.setRisposta("");
 	        	 
 	        	 
 	        }
+	    
+	    private void provaRecuperoListaAutoDisp(List<Auto> auto, List<Noleggio> noleggi, INoleggio servizioNoleggio) {
+	    	
+	    	List<Auto> lista = servizioNoleggio.autoNonPrenotate(noleggi, auto);
+	    	
+	    	System.out.println();
+	    	System.out.println();
+	    	
+	    	for(int i = 0; i<lista.size(); i++) System.out.println("Id Auto: "+lista.get(i).getId()+" Auto di marca: " + lista.get(i).getMarca());
+	    	
+	    	System.out.println();
+	    	System.out.println();
+	    }
 	    
 }
 	
