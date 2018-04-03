@@ -39,11 +39,11 @@
 		.ali{color:#575962 !important;cursor:pointer;}.fah3{font-size:24px;padding-right:10px;}
 		.btn-box{       border: none;margin-top: 20px;    width: 150px;    color: white !important;-webkit-appearance: button-bevel !important;}
 		#uloption{list-style: none;padding-left:0px;}.btn-left{background-color:#4c4e50 !important;}.btn-left-active{background-color:#ea202e !important}.showguasti,.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.showguasti,.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;} #datitel{padding-top: 20px;border: 1px solid black;min-height: 200px;padding-left: 10px;}.btnfooter{    margin-left: auto;    margin-right: auto;}.fa-ul > li{display:inline !important;}
-		#rightscadenzetable,#rightappuntamentitable,#rightguastitable,#rightpreventivitable{display:none;}</style>
+		#rightscadenzetable,#rightappuntamentitable,#rightguastitable,#rightpreventivitable,#rightutentitable{display:none;}.m-body{margin-top:-100px;}</style>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
-	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >${sessionScope.sessionModel}<br><br>
+	<body class="m-page--wide m-header--fixed m-header--fixed-mobile m-footer--push m-aside--offcanvas-default"  >
 	<c:if test ="${sessionScope.sessionModel==null}" >
 		<c:redirect url="/"/>
 		 </c:if>
@@ -189,6 +189,10 @@
 						
 						<p style="text-align:center;" class="smooth-scroll"><a class="btn btn-info btn-box btn-left-active btnshow" data-n="auto">Auto</a></p>
 						</li>
+						<li>
+						
+						<p style="text-align:center;" class="smooth-scroll"><a class="btn btn-info btn-box btn-left btnshow" data-n="utenti">Utenti</a></p>
+						</li>
 						<li><p style="text-align:center;" class="smooth-scroll"><a   id="buttonguasti" class="btn btn-info btn-box btn-left btnshow" data-n="guasti">Guasti</a></p></li>
 						<li><p style="text-align:center;" class="smooth-scroll"><a   id="buttonappuntamenti" class="btn btn-info btn-box btn-left btnshow" data-n="appuntamenti">Appuntamenti</a></p></li>
 						<li><p style="text-align:center;" class="smooth-scroll"><a   id="buttonpreventivi" class="btn btn-info btn-box btn-left btnshow" data-n="preventivi">Preventivi</a></p></li>
@@ -250,6 +254,67 @@
 									</div>
 								</div>
 							</div>
+							
+							
+							<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" id="rightutentitable">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+												<i class="fa fa-person fah3"  ></i>
+													Clienti
+												</h3>
+											</div>
+										</div>
+									
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+									<table class="table table-striped">
+									<thead>
+									<tr>
+									<th>ID</th>
+									<th>Nome</th>
+									<th>Cognome</th>
+									<th>Email</th>
+									<th>Telefono</th>
+									<th>Data Registrazione</th>
+									<th></th>
+									</tr>
+									</thead>
+									<tbody>
+								 <c:forEach items="${listaUtenti}" var="utenti">
+								 <c:if test="${utenti.getRuolo()==0}" >
+<tr  >			
+			<td>${utenti.getId()}</td>
+			<td>${utenti.getNome()}</td>
+		<td>${utenti.getCognome()}</td>
+		<td>${utenti.getEmail()}</td>
+		<td>${utenti.getTelefono()}</td>
+			<td>${utenti.getDataRegistrazione()}</td>
+									
+									 <td>
+									 <ul class="fa-ul">
+  <li class="fa-li"><a class="ali" href="listaautoutente?id=${utenti.getId()}" ><i class="fa fa-info-circle"  title="Visualizza auto cliente"></i></a></li>
+  <li class="fa-li"><a class="ali associaauto" data.id="=${utenti.getId()}" ><i class="fa fa-car"  title="Associa auto a cliente"></i></a></li>
+
+
+</ul></td>
+									 </tr>
+									 </c:if>
+									 </c:forEach>
+									</tbody>
+									</table>
+									</div>
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+							
+							
 							<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" id="rightguastitable">
 							<div class="m-portlet m-portlet--mobile ">
 									<div class="m-portlet__head">
@@ -412,6 +477,7 @@
 									<tr>
 									<th>ID</th>
 									<th>Auto</th>
+									<th>Targa</th>
 									<th>Data</th>
 									<th>Dettagli</th>
 									<th>Risposta</th>
@@ -424,6 +490,7 @@
 <tr  >			
 			<td>${prev.getId()}</td>
 			<td>${prev.getAuto().getMarca()} ${prev.getAuto().getModello()}</td>
+		<td>${prev.getAuto().getTarga()}</td>
 			<td>${prev.getData()}</td>
 									 <td>${prev.getDettagli()}</td>
 									  <td>${prev.getRisposta()}</td> 
@@ -678,6 +745,49 @@
 </div>
 
 <!-- end::modal SET RISOLTO GUASTO-->
+<!-- begin::modal SET RISOLTO GUASTO-->
+<div class="modal" tabindex="-1" role="dialog" id="modalassocia">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Noleggio</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+  <form action="associaauto" method="POST">
+	<div class="form-group">
+  <label for="selauto">Seleziona Auto:</label>
+  <select name="selauto" id="selauto" required class="form-control">
+   <c:forEach items="${sessionScope.sessionModel.autoOfficina}" var="auto">
+   <option value="${auto.getId()}" selected>${auto.getMarca()} ${auto.getModello()} - ${auto.getTarga()}</option>
+   
+									 </c:forEach>
+  
+  </select>
+  
+</div>
+		
+						
+							
+						<input type="hidden"
+								class="form-control" id="idguasto" 
+								name="idguasto">
+								
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+      <button type="submit" class="btn btn-primary savebutton btnfooter">Conferma</button>
+	     <button type="button" data-dismiss="modal" class="btn btn-primary savebutton btnfooter">Annulla</button>
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end::modal SET RISOLTO GUASTO-->
 	    <!-- begin::Scroll Top -->
 	<div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
 		<i class="la la-arrow-up"></i>
@@ -731,30 +841,42 @@
 			$('#rightpreventivitable').hide();
 			$('#rightappuntamentitable').hide();
 			$('#rightscadenzetable').hide();
+			$('#rightutentitable').hide();
 			$('#rightautotable').show(1000);
+		}else if(tipo=='utenti'){
+			$('#rightguastitable').hide();
+			$('#rightpreventivitable').hide();
+			$('#rightappuntamentitable').hide();
+			$('#rightscadenzetable').hide();
+			$('#rightautotable').hide();
+			$('#rightutentitable').show(1000);
 		}else 	if(tipo=='guasti'){
 			$('#rightautotable').hide();
 			$('#rightpreventivitable').hide();
 			$('#rightappuntamentitable').hide();
 			$('#rightscadenzetable').hide();
+			$('#rightutentitable').hide();
 			$('#rightguastitable').show(1000);
 		}else 	if(tipo=='appuntamenti'){
 			$('#rightguastitable').hide();
 			$('#rightpreventivitable').hide();
 			$('#rightautotable').hide();
 			$('#rightscadenzetable').hide();
+			$('#rightutentitable').hide();
 			$('#rightappuntamentitable').show(1000);
 		}else 	if(tipo=='preventivi'){
 			$('#rightguastitable').hide();
 			$('#rightautotable').hide();
 			$('#rightappuntamentitable').hide();
 			$('#rightscadenzetable').hide();
+			$('#rightutentitable').hide();
 			$('#rightpreventivitable').show(1000);
 		}else 	if(tipo=='scadenze'){
 			$('#rightguastitable').hide();
 			$('#rightautotable').hide();
 			$('#rightappuntamentitable').hide();
 			$('#rightpreventivitable').hide();
+			$('#rightutentitable').hide();
 			$('#rightscadenzetable').show(1000);
 		}
 		
@@ -770,6 +892,7 @@
 			$('#rightpreventivitable').hide();
 			$('#rightappuntamentitable').hide();
 			$('#rightscadenzetable').hide();
+			$('#rightutentitable').hide();
 			$('#rightguastitable').show(1000);
 			
 	});
@@ -784,6 +907,7 @@
 			$('#rightautotable').hide();
 			$('#rightappuntamentitable').hide();
 			$('#rightpreventivitable').hide();
+			$('#rightutentitable').hide();
 			$('#rightscadenzetable').show(1000);
 			
 	});
@@ -798,6 +922,7 @@
 			$('#rightautotable').hide();
 			$('#rightappuntamentitable').hide();
 			$('#rightscadenzetable').hide();
+			$('#rightutentitable').hide();
 			$('#rightpreventivitable').show(1000);
 			
 	});
@@ -812,6 +937,7 @@
 			$('#rightpreventivitable').hide();
 			$('#rightautotable').hide();
 			$('#rightscadenzetable').hide();
+			$('#rightutentitable').hide();
 			$('#rightappuntamentitable').show(1000);
 			
 	});
@@ -832,6 +958,14 @@
 			$('.guastorisolto').show();
 			
 		}
+	});
+	
+	$('.associaauto').on('click',function(){
+		var id = $(this).data("id");
+		$('#idasscliente').val(id);
+		
+		$('#modalassocia').modal("show");
+		
 	});
 	</script>
 

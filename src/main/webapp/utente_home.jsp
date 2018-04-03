@@ -305,14 +305,14 @@
 									 <td>${guasto.getDispositivo().getAuto().getTarga()}</td>
 									 <td>${guasto.getDispositivo().getAuto().getNumeroTelaio()}</td>
 									 <td><ul class="fa-ul">
-  <li class="fa-li"><a class="ali showtelemetria" data-telemetria="${guasto.getTelemetria().getDati()}" data-marca="${guasto.getDispositivo().getAuto().getMarca()}" data-modello="${guasto.getDispositivo().getAuto().getModello()}"><i class="fa fa-info-circle"  title="Visualizza dati telemetria"></i></a></li>
+  
   <c:choose>
   <c:when test = "${fn:contains(guasto.getStatoRisoluzione(), 'Non Risolto')}">
-        <li class="fa-li"><a class="ali" ><i class="fa fa-exclamation-triangle"  title="Guasto Risolto"></i></a></li>
+        <li class="fa-li"><a class="ali" ><i class="fa fa-exclamation-triangle"  title="Guasto da risolvere"></i></a></li>
       </c:when>
 	  
 	   <c:otherwise>
-            <li class="fa-li"><a class="ali" ><i class="fa fa-check"  title="Guasto da risolvere"></i></a></li>
+            <li class="fa-li"><a class="ali" ><i class="fa fa-check"  title="Guasto Risolto"></i></a></li>
          </c:otherwise>
       </c:choose>
 
@@ -413,6 +413,7 @@
 									<tr>
 									<th>ID</th>
 									<th>Auto</th>
+									<th>Targa</th>
 									<th>Data</th>
 									<th>Dettagli</th>
 									<th>Risposta</th>
@@ -425,6 +426,7 @@
 <tr  >			
 			<td>${prev.getId()}</td>
 			<td>${prev.getAuto().getMarca()} ${prev.getAuto().getModello()}</td>
+			<td>${prev.getAuto().getTarga()}</td>
 			<td>${prev.getData()}</td>
 									 <td>${prev.getDettagli()}</td>
 									  <td>${prev.getRisposta()}</td> 

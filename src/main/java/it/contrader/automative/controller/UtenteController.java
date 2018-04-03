@@ -52,12 +52,14 @@ public class UtenteController {
 	 private GuastoRepository guastoRepository;
 	 private PreventivoRepository preventivoRepository;
 	 private AppuntamentoRepository appuntamentoRepository;
+	 private UtenteRepository utenteRepository;
 	 
 	 @Autowired
-	    public UtenteController(IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, AutoRepository autoRepository, NoleggioRepository noleggioRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository) {
+	    public UtenteController(IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, UtenteRepository utenteRepository ,AutoRepository autoRepository, NoleggioRepository noleggioRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository) {
 	        this.IUtente = IUtente;
 	        this.IPreventivo = IPreventivo;
 	        this.IAppuntamento=IAppuntamento;
+	        this.utenteRepository = utenteRepository;
 	        this.autoRepository = autoRepository;
 	        this.noleggioRepository = noleggioRepository;
 	        this.dispositivoRepository = dispositivoRepository;
@@ -167,10 +169,12 @@ public class UtenteController {
 	        		}
 	        		List<Preventivo> listaPreventiviOfficina = preventivoRepository.findByOfficina(u.getOfficina());
 	        		List<Appuntamento> listaAppuntamentiOfficina = appuntamentoRepository.findByOfficina(u.getOfficina());
-	        		
+	        		List<Utente> listaUtenti = utenteRepository.findByOfficina(u.getOfficina());
 	        		
 	        		model.addAttribute("guasti", guasti);
 	        		model.addAttribute("AlertsGuastiOfficina", listaGuastiAutoOff);
+	        		model.addAttribute("listaUtenti",listaUtenti);
+	        	
 	        		session.setAttribute("appuntamenti", listaAppuntamentiOfficina);
 	        		session.setAttribute("preventivi", listaPreventiviOfficina);
 	        		session.setAttribute("sessionModel", model);
@@ -347,7 +351,16 @@ a.setRisposta("");
 	    	
 	    }
 	    
-	  
+	    @RequestMapping(value = "/listaautoutente", method = RequestMethod.GET)
+	    public String listaautoutente(@RequestParam("id") String id,Model model){
+	    		model.addAttribute(id);
+	    		Utente u = utenteRepository.findById(Integer.parseInt(id));
+	        	List<Noleggio> n = noleggioRepository.findByUtente(u);
+	        	model.addAttribute("listaNoleggio",n);
+				return "lista_auto_utente";
+	        	 
+	        	 
+	        }
 	    
 }
 	
