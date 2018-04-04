@@ -111,10 +111,22 @@ public class OfficinaController {
     @RequestMapping(value = "/addDriver", method = RequestMethod.POST)
     public String addDriver(Map<String, Object> model,
                             @ModelAttribute DriverEntity driverEntity,
-                            @RequestParam(name = "idDriver") int idDriver) {
+                            @RequestParam(name = "idDriver") int idDriver,
+                            @RequestParam(name = "idAzienda") Integer idAzienda) {
+        if( idAzienda != null) {
+            AziendaEntity aziendaEntity = aziendaService.findByIdAzienda(idAzienda);
+            driverEntity.setAziendaEntity(aziendaEntity);
+        }
         if (driverService.findByIdDriver(idDriver) == null) {
-
-            if (driverService.save(driverEntity) != null) {
+            DriverEntity driver = driverService.save(driverEntity);
+            if ( driver != null) {
+                int id = driver.getIdDriver();
+                LoginEntity loginEntity = new LoginEntity();
+                loginEntity.setUsername("D_0" + id);
+                loginEntity.setPassword("D_0" + id);
+                loginEntity.setRuolo(4);
+                loginEntity.setId(id);
+                loginService.save(loginEntity);
                 model.put("success", "Driver registrato con successo");
             } else {
                 model.put("error", "Errore nella registrazione del driver");

@@ -45,7 +45,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Officine</h1>
+                        <h1 class="page-header">Errori</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -54,7 +54,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-wrench fa-fw"></i> Elenco officine
+                                <i class="fa fa-warning fa-fw"></i> Elenco auto con errori
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -62,30 +62,35 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Nome</th>
-                                                <th>Indirizzo</th>
-                                                <th>Citt&aacute;</th>
+                                                <th>Auto</th>
+                                                <th>Targa</th>
+                                                <th>Driver</th>
+                                                <th>Officina</th>
+                                                <th>Codice errore</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:choose>
-                                                <c:when test="${officinaEntityList.isEmpty()}">
+                                                <c:when test="${listaErroriAzienda.isEmpty()}">
                                                     <tr>
-                                                        <td colspan="3" align="center">Nessuna officina registrata in questa citt&aacute;</td>
+                                                        <td colspan="5" align="center">Nessuna auto registrata</td>
                                                     </tr>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <c:forEach items="${officinaEntityList}" var="officina">
+                                                    <c:forEach items="${listaErroriAzienda}" var="errore">
                                                         <tr>
+                                                            <td>${errore.autoEntity.casaCostruttrice} ${errore.autoEntity.modello}</td>
+                                                            <td>${errore.autoEntity.targa}</td>
                                                             <td>
-                                                                ${officina.nomeOfficina}
+                                                                <c:if test="${errore.autoEntity.driverEntity != null}">
+                                                                    ${errore.autoEntity.driverEntity.cognome} ${errore.autoEntity.driverEntity.nome}
+                                                                </c:if>
+                                                                <c:if test="${errore.autoEntity.driverEntity == null}">
+                                                                    Non noleggiata
+                                                                </c:if>
                                                             </td>
-                                                            <td>
-                                                                ${officina.indirizzo}
-                                                            </td>
-                                                            <td>
-                                                                ${officina.citta}
-                                                            </td>
+                                                            <td>${errore.autoEntity.officinaEntity.nomeOfficina}</td>
+                                                            <td>${errore.codErrore}</td>
                                                         </tr>
                                                     </c:forEach>
                                                 </c:otherwise>

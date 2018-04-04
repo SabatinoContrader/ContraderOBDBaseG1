@@ -21,16 +21,20 @@ public class LoginController {
     private AutoService autoService;
     private OfficinaService officinaService;
     private DriverService driverService;
+    private DatiService datiService;
     private AppuntamentoService appuntamentoService;
     private PreventivoService preventivoService;
 
     @Autowired
-    public LoginController(LoginService loginService, OfficinaService officinaService, AziendaService aziendaService, AutoService autoService, DriverService driverService, AppuntamentoService appuntamentoService, PreventivoService preventivoService) {
+    public LoginController(LoginService loginService, OfficinaService officinaService, AziendaService aziendaService,
+                           AutoService autoService, DriverService driverService, AppuntamentoService appuntamentoService,
+                           DatiService datiService, PreventivoService preventivoService) {
         this.loginService = loginService;
         this.officinaService = officinaService;
         this.aziendaService = aziendaService;
         this.autoService = autoService;
         this.driverService = driverService;
+        this.datiService = datiService;
         this.appuntamentoService = appuntamentoService;
         this.preventivoService = preventivoService;
     }
@@ -73,6 +77,13 @@ public class LoginController {
                 long countPreventivoOfficina = preventivoService.countByOfficinaEntity(officinaEntity);
                 model.put("countPreventivoOfficina", countPreventivoOfficina);
             } else if (loginEntity.getRuolo() == 3) {
+                AziendaEntity aziendaEntity = aziendaService.findByIdAzienda(loginEntity.getId());
+                long countAutoAzienda = autoService.countByProprietario(loginEntity.getUsername());
+                model.put("countAutoAzienda", countAutoAzienda);
+                long countDriverAzienda = driverService.countByAziendaEntity(aziendaEntity);
+                model.put("countDriverAzienda", countDriverAzienda);
+                long countAutoAziendaError = datiService.countAutoAziendaError(loginEntity.getUsername());
+                model.put("countAutoAziendaError", countAutoAziendaError);
 
             } else if (loginEntity.getRuolo() == 4) {
                 DriverEntity driver = driverService.findByIdDriver(loginEntity.getId());
@@ -123,7 +134,7 @@ public class LoginController {
                 color.put(autoEntity.getCodDispositivo(), "primary");
             }
             for (DatiEntity datiEntity:autoEntity.getDatiEntitySet()) {
-                if(datiEntity.getCodErrore() != null)
+                if(datiEntity.getCodErrore() != null && datiEntity.isStato() == false)
                     color.put(autoEntity.getCodDispositivo(), "red");
             }
 

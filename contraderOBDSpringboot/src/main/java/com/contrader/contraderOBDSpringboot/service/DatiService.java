@@ -21,8 +21,16 @@ public class DatiService {
         this.datiRepository = datiRepository;
     }
 
-    public List<DatiEntity> findByAutoEntity(AutoEntity autoEntity){
+    public long countAutoAziendaError(String proprietario) {
+        return this.datiRepository.countByAutoEntityProprietarioAndCodErroreNotNull(proprietario);
+    }
+
+    public List<DatiEntity> findByAutoEntity(AutoEntity autoEntity) {
         return this.datiRepository.findByAutoEntity(autoEntity);
+    }
+
+    public List<DatiEntity> findAutoAziendaError(String proprietario) {
+        return this.datiRepository.findByAutoEntityProprietarioAndCodErroreNotNull(proprietario);
     }
 
     public void deleteByAutoEntity(AutoEntity autoEntity) {

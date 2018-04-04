@@ -164,30 +164,37 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="aziendaNoleggio.jsp">Noleggia</a>
-                            </li>
-                            <li>
-                                <a href="aziendaTerminaNoleggio.jsp">Termina noleggio</a>
-                            </li>
-                            <li>
                                 <a href="javascript:{}" onclick="document.getElementById('listAllAutoAzienda').submit(); return false;">
-                                    Visualizza tutte
+                                    Visualizza
                                 </a>
-                                <form action="MainDispatcherServlet" method="post" id="listAllAutoAzienda">
+                                <form action="viewAutoAzienda" method="post" id="listAllAutoAzienda">
                                     <fieldset>
-                                        <input type="hidden" value="Auto:listaAutoAzienda" name="button" class="btn btn-primary">
+                                        <input type="hidden" value="${sessionScope.model.user.username}" name="proprietario" class="btn btn-primary">
                                     </fieldset>
                                 </form>
+                            </li>
+                            <li>
+                                <a href="#formNoleggio" data-toggle="modal">
+                                    Noleggio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#formTerminaNoleggio" data-toggle="modal">
+                                    Termina noleggio
+                                </a>
                             </li>
                             <li>
                                 <a href="javascript:{}" onclick="document.getElementById('listAllAutoConErrori').submit(); return false;">
                                     Visualizza auto con errori
                                 </a>
-                                <form action="MainDispatcherServlet" method="post" id="listAllAutoConErrori">
+                                <form action="viewAutoError" method="post" id="listAllAutoConErrori">
                                     <fieldset>
-                                        <input type="hidden" value="Auto:autoConErrori" name="button" class="btn btn-primary">
+                                        <input type="hidden" value="${sessionScope.model.user.username}" name="proprietario" class="btn btn-primary">
                                     </fieldset>
                                 </form>
+                            </li>
+                            <li>
+                                <a href="/contraderOBDSpringBoot/preSetDisponibilita">Vedi Disponibilita Auto</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -199,17 +206,19 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="addDriver.jsp">Aggiungi</a>
-                            </li>
-                            <li>
-                                <a href="javascript:{}" onclick="document.getElementById('listAllDriver').submit(); return false;">
-                                    Visualizza tutti
+                                <a href="javascript:{}" onclick="document.getElementById('listAllDriverAzienda').submit(); return false;">
+                                    Visualizza
                                 </a>
-                                <form action="MainDispatcherServlet" method="post" id="listAllDriver">
+                                <form action="viewDriverAzienda" method="post" id="listAllDriverAzienda">
                                     <fieldset>
-                                        <input type="hidden" value="Driver:listaDriver" name="button" class="btn btn-primary">
+                                        <input type="hidden" value="${sessionScope.model.user.id}" name="idAzienda" class="btn btn-primary">
                                     </fieldset>
                                 </form>
+                            </li>
+                            <li>
+                                <a href="#formAddDriver" data-toggle="modal">
+                                    Aggiungi
+                                </a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

@@ -57,11 +57,11 @@
                         </div>
                     </div>
                     <c:choose>
-                        <c:when test = "${sessionScope.model.user.ruolo==3 }" >
-                            <input type="hidden" name="azienda" class="form-control" value="${sessionScope.model.user.id}">
+                        <c:when test = "${sessionScope.model.user.ruolo == 3 }" >
+                            <input type="hidden" name="idAzienda" class="form-control" value="${sessionScope.model.user.id}">
                         </c:when>
                         <c:otherwise>
-                            <input type="hidden" name="azienda" class="form-control" value="null">
+                            <input type="hidden" name="idAzienda" class="form-control" value="null">
                         </c:otherwise>
                     </c:choose>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>

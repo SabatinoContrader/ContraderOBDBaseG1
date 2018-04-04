@@ -15,7 +15,11 @@ import java.util.List;
 @Transactional
 public interface DatiRepository extends CrudRepository<DatiEntity, Long> {
 
+    long countByAutoEntityProprietarioAndCodErroreNotNull(String proprietario);
+
     List<DatiEntity> findByAutoEntity(AutoEntity autoEntity);
+
+    List<DatiEntity> findByAutoEntityProprietarioAndCodErroreNotNull(String proprietario);
 
     void deleteByAutoEntity(AutoEntity autoEntity);
 

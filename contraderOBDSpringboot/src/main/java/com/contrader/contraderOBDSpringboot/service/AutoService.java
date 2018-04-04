@@ -5,6 +5,8 @@ import com.contrader.contraderOBDSpringboot.model.AutoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AutoService {
@@ -20,6 +22,10 @@ public class AutoService {
         return this.autoRepository.count();
     }
 
+    public long countByProprietario(String proprietario) {
+        return this.autoRepository.countByProprietario(proprietario);
+    }
+
     public AutoEntity save(AutoEntity autoEntity) {
         return this.autoRepository.save(autoEntity);
     }
@@ -32,7 +38,19 @@ public class AutoService {
         return this.autoRepository.findByTarga(targa);
     }
 
+    public List<AutoEntity> findByProprietario (String proprietario) {
+        return this.autoRepository.findByProprietario(proprietario);
+    }
+
     public void deleteByCodDispositivo(int codDispositivo) {
         this.autoRepository.deleteByCodDispositivo(codDispositivo);
+    }
+
+    public void setNoleggiabile(int codDispositivo) {
+        this.autoRepository.setNoleggiabile(codDispositivo);
+    }
+
+    public void setNonNoleggiabile(int codDispositivo) {
+        this.autoRepository.setNonNoleggiabile(codDispositivo);
     }
 }

@@ -66,7 +66,7 @@
                                         </div>
                                     </c:if>
                                     <c:forEach items="${viewAuto.datiEntitySet}" var="dato">
-                                        <c:if test="${dato.codErrore != null}">
+                                        <c:if test="${dato.codErrore != null  && dato.stato == false}">
                                             <c:set var="errore" value="ok" />
                                             <div class="alert alert-danger">
                                                 <h2>ALERT! Errore: ${dato.codErrore} ricevuto in data ${dato.data}

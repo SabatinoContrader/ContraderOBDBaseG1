@@ -45,7 +45,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Officine</h1>
+                        <h1 class="page-header">Auto</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -54,7 +54,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-wrench fa-fw"></i> Elenco officine
+                                <i class="fa fa-automobile fa-fw"></i> Elenco auto
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -62,29 +62,55 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Nome</th>
-                                                <th>Indirizzo</th>
-                                                <th>Citt&aacute;</th>
+                                                <th>Auto</th>
+                                                <th>Targa</th>
+                                                <th>Driver</th>
+                                                <th>Officina</th>
+                                                <th>Disponibile</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:choose>
-                                                <c:when test="${officinaEntityList.isEmpty()}">
+                                                <c:when test="${listaAutoAzienda.isEmpty()}">
                                                     <tr>
-                                                        <td colspan="3" align="center">Nessuna officina registrata in questa citt&aacute;</td>
+                                                        <td colspan="5" align="center">Nessuna auto registrata</td>
                                                     </tr>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <c:forEach items="${officinaEntityList}" var="officina">
+                                                    <c:forEach items="${listaAutoAzienda}" var="auto">
                                                         <tr>
+                                                            <td>${auto.casaCostruttrice} ${auto.modello}</td>
+                                                            <td>${auto.targa}</td>
                                                             <td>
-                                                                ${officina.nomeOfficina}
+                                                                <c:if test="${auto.driverEntity != null}">
+                                                                    ${auto.driverEntity.cognome} ${auto.driverEntity.nome}
+                                                                </c:if>
+                                                                <c:if test="${auto.driverEntity == null}">
+                                                                    Non noleggiata
+                                                                </c:if>
                                                             </td>
+                                                            <td>${auto.officinaEntity.nomeOfficina}</td>
                                                             <td>
-                                                                ${officina.indirizzo}
-                                                            </td>
-                                                            <td>
-                                                                ${officina.citta}
+                                                                <c:if test="${auto.noleggiabile == false}">
+                                                                    <form action="setNoleggiabile" method="POST">
+                                                                        Non disponibile
+                                                                        <input type="hidden" name="codDispositivo" value="${auto.codDispositivo}">
+                                                                        <input type="hidden" value="${sessionScope.model.user.username}" name="proprietario" class="btn btn-primary">
+                                                                        <button type="submit" class="btn btn-circle btn-sm btn-success pull-right" data-toggle="tooltip" data-placement="top" title="Rendi disponibile">
+                                                                            <i class="fa fa-check"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </c:if>
+                                                                <c:if test="${auto.noleggiabile == true}">
+                                                                    <form action="setNonNoleggiabile" method="POST">
+                                                                        Disponibile
+                                                                        <input type="hidden" name="codDispositivo" value="${auto.codDispositivo}">
+                                                                        <input type="hidden" value="${sessionScope.model.user.username}" name="proprietario" class="btn btn-primary">
+                                                                        <button type="submit" class="btn btn-circle btn-sm btn-danger pull-right" data-toggle="tooltip" data-placement="top" title="Rendi non disponibile">
+                                                                            <i class="fa fa-times"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </c:if>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
