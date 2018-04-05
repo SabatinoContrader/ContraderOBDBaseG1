@@ -39,7 +39,8 @@
 		.ali{color:#575962 !important;cursor:pointer;}.fah3{font-size:24px;padding-right:10px;}
 		.btn-box{       border: none;margin-top: 20px;    width: 150px;    color: white !important;-webkit-appearance: button-bevel !important;}
 		#uloption{list-style: none;padding-left:0px;}.btn-left{background-color:#4c4e50 !important;}.btn-left-active{background-color:#ea202e !important}.showguasti,.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.showguasti,.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;} #datitel{padding-top: 20px;border: 1px solid black;min-height: 200px;padding-left: 10px;}.btnfooter{    margin-left: auto;    margin-right: auto;}.fa-ul > li{display:inline !important;}
-		#rightscadenzetable,#rightappuntamentitable,#rightguastitable,#rightpreventivitable,#rightutentitable{display:none;}.m-body{margin-top:-100px;}</style>
+		#rightscadenzetable,#rightappuntamentitable,#rightguastitable,#rightpreventivitable,#rightutentitable{display:none;}.m-body{margin-top:-30px;}.selectdata{display:inline;width:100px;margin-left:15px;}.fa-ul>li>a>i{    padding-left: 15px;}</style>
+		
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
@@ -286,7 +287,7 @@
 									</tr>
 									</thead>
 									<tbody>
-								 <c:forEach items="${listaUtenti}" var="utenti">
+								 <c:forEach items="${sessionScope.listaUtenti}" var="utenti">
 								 <c:if test="${utenti.getRuolo()==0}" >
 <tr  >			
 			<td>${utenti.getId()}</td>
@@ -294,12 +295,12 @@
 		<td>${utenti.getCognome()}</td>
 		<td>${utenti.getEmail()}</td>
 		<td>${utenti.getTelefono()}</td>
-			<td>${utenti.getDataRegistrazione()}</td>
+			<td>${utenti.getDataRegistrazione().getDate()}/${utenti.getDataRegistrazione().getMonth() + 1}/${utenti.getDataRegistrazione().getYear() + 1900}</td>
 									
 									 <td>
 									 <ul class="fa-ul">
   <li class="fa-li"><a class="ali" href="listaautoutente?id=${utenti.getId()}" ><i class="fa fa-info-circle"  title="Visualizza auto cliente"></i></a></li>
-  <li class="fa-li"><a class="ali associaauto" data.id="=${utenti.getId()}" ><i class="fa fa-car"  title="Associa auto a cliente"></i></a></li>
+  <li class="fa-li"><a class="ali associaauto" data-id="${utenti.getId()}" ><i class="fa fa-car"  title="Associa auto a cliente"></i></a></li>
 
 
 </ul></td>
@@ -359,7 +360,7 @@
          </c:otherwise>
       </c:choose>
 	  >						<td>${guasto.getTipologiaGuasto().getCodice()}</td>
-									 <td>${guasto.getData()}</td>
+									 <td>${guasto.getData().getDate()}/${guasto.getData().getMonth() + 1}/${guasto.getData().getYear() + 1900}</td>
 									 <td>${guasto.getDispositivo().getAuto().getMarca()}</td>
 									 <td>${guasto.getDispositivo().getAuto().getModello()}</td>
 									 <td>${guasto.getDispositivo().getAuto().getTarga()}</td>
@@ -422,7 +423,7 @@
 										 <c:forEach items="${sessionScope.appuntamenti}" var="app">
 <tr  >			
 <td>${app.getId()}</td>
-			<td>${app.getData()}  ${app.getOra()}</td>
+			<td>${app.getData().getDate()}/${app.getData().getMonth() + 1}/${app.getData().getYear() + 1900}  ${app.getOra()}</td>
 			<td>${app.getDettagli()}</td>
 			
 			 <td>
@@ -491,7 +492,7 @@
 			<td>${prev.getId()}</td>
 			<td>${prev.getAuto().getMarca()} ${prev.getAuto().getModello()}</td>
 		<td>${prev.getAuto().getTarga()}</td>
-			<td>${prev.getData()}</td>
+			<td>${prev.getData().getDate()}/${prev.getData().getMonth() + 1}/${prev.getData().getYear() + 1900}</td>
 									 <td>${prev.getDettagli()}</td>
 									  <td>${prev.getRisposta()}</td> 
 									  <td>${prev.getCosto()}&euro;</td>
@@ -541,7 +542,27 @@
 			<td>${scadenze.getAuto().getMarca()} ${scadenze.getAuto().getModello()}</td>
 			<td>
 			<c:forEach items="${scadenze.cosaStaPerScadere()}" var="tiposcad">
-			${tiposcad}<br>
+			${tiposcad} 
+			<c:choose>
+			 <c:when test = "${fn:contains(tiposcad, 'Bollo')}">
+     <span style="color:red"> ${scadenze.getAuto().getScadenzaBollo().getDate()}/${scadenze.getAuto().getScadenzaBollo().getMonth() + 1}/${scadenze.getAuto().getScadenzaBollo().getYear() + 1900}</span>
+      </c:when>
+	  
+	<c:when test = "${fn:contains(tiposcad, 'Revisione')}">
+    <span style="color:red">  ${scadenze.getAuto().getScadenzaRevisione().getDate()}/${scadenze.getAuto().getScadenzaRevisione().getMonth() + 1}/${scadenze.getAuto().getScadenzaRevisione().getYear() + 1900}</span>
+      </c:when>
+	  <c:when test = "${fn:contains(tiposcad, 'Assicurazione')}">
+    <span style="color:red">  ${scadenze.getAuto().getScadenzaAssicurazione().getDate()}/${scadenze.getAuto().getScadenzaAssicurazione().getMonth() + 1}/${scadenze.getAuto().getScadenzaAssicurazione().getYear() + 1900}</span>
+      </c:when>
+	
+	    <c:when test = "${fn:contains(tiposcad, 'Tagliando')}">
+     <span style="color:red"> ${scadenze.getAuto().getScadenzaTagliando().getDate()}/${scadenze.getAuto().getScadenzaTagliando().getMonth() + 1}/${scadenze.getAuto().getScadenzaTagliando().getYear() + 1900}</span>
+      </c:when>
+		   <c:otherwise>
+              
+         </c:otherwise>
+      </c:choose>
+			<br>
 			 </c:forEach>
 		</td>
 
@@ -758,22 +779,112 @@
       <div class="modal-body">
   <form action="associaauto" method="POST">
 	<div class="form-group">
-  <label for="selauto">Seleziona Auto:</label>
+  <label for="selauto" >Seleziona Auto:</label>
   <select name="selauto" id="selauto" required class="form-control">
    <c:forEach items="${sessionScope.sessionModel.autoOfficina}" var="auto">
-   <option value="${auto.getId()}" selected>${auto.getMarca()} ${auto.getModello()} - ${auto.getTarga()}</option>
+   <option value="${auto.getId()}" >${auto.getMarca()} ${auto.getModello()} - ${auto.getTarga()}</option>
    
 									 </c:forEach>
   
   </select>
   
+  
+  
+  
 </div>
+	<div class="form-group">
+  <label for="datainizio" style="display:block;">Seleziona Data Inizio:</label>
+  <select name="annoinizio" id="annoinizio" required class="form-control selectdata" >
+    <c:forEach begin="2018" end="2025" var="val">
+           
+            <option value="${val}" >${val}</option>
+        </c:forEach>
+  
+  </select>
+  
+    <select name="meseinizio" id="meseinizio" required class="form-control selectdata" style="width:150px;">
+   
+  <option value="0">Gennaio</option>
+    <option value="1">Febbraio</option>
+	  <option value="2">Marzo</option>
+	    <option value="3">Aprile</option>
+		<option value="4">Maggio</option>
+		  <option value="5">Giugno</option>
+		    <option value="6">Luglio</option>
+			  <option value="7">Agosto</option>
+			    <option value="8">Settembre</option>
+				  <option value="9">Ottobre</option>
+				    <option value="10">Novembre</option>
+					  <option value="11">Dicembre</option>
 		
-						
-							
+  </select>
+  
+  
+    <select name="giornoinizio" id="giornoinizio" required class="form-control selectdata" >
+    <c:forEach begin="1" end="31" var="val">
+           
+            <option value="${val}" >${val}</option>
+        </c:forEach>
+  
+  </select>
+  
+</div>
+<div class="form-group">
+  <label for="datafine" style="display:block;" >Seleziona Data Fine:</label>
+  <select name="annofine" id="annofine" required class="form-control selectdata">
+    <c:forEach begin="2018" end="2025" var="val">
+           
+            <option value="${val}" >${val}</option>
+        </c:forEach>
+  
+  </select>
+  
+    <select name="mesefine" id="mesefine" required class="form-control selectdata"  style="width:150px;">
+   
+  <option value="0">Gennaio</option>
+    <option value="1">Febbraio</option>
+	  <option value="2">Marzo</option>
+	    <option value="3">Aprile</option>
+		<option value="4">Maggio</option>
+		  <option value="5">Giugno</option>
+		    <option value="6">Luglio</option>
+			  <option value="7">Agosto</option>
+			    <option value="8">Settembre</option>
+				  <option value="9">Ottobre</option>
+				    <option value="10">Novembre</option>
+					  <option value="11">Dicembre</option>
+		
+  </select>
+  
+  
+    <select name="giornofine" id="giornofine" required class="form-control selectdata">
+    <c:forEach begin="1" end="31" var="val">
+           
+            <option value="${val}" >${val}</option>
+        </c:forEach>
+  
+  </select>
+  
+</div>
+
+		<div class="form-group">
+  <label for="capluogodiritiro">CAP luogo Ritiro:</label>
+  <input type="number" id="capluogodiritiro" name="capluogodiritiro" class="form-control" minLength="5" maxLength="5" required>
+  </div>
+		
+<div class="form-group">
+  <label for="capluogoconsegna">CAP luogo Consegna:</label>
+  <input type="number" id="capluogoconsegna" name="capluogoconsegna" class="form-control" minLength="5" maxLength="5" required>
+  </div>		
+	
+<div class="form-group">
+  <label for="maxkmnoleggio">Max km noleggio:</label>
+  <input type="number" id="maxkmnoleggio" name="maxkmnoleggio" class="form-control" required maxLength="11">
+  </div>		
+								
 						<input type="hidden"
-								class="form-control" id="idguasto" 
-								name="idguasto">
+								class="form-control" id="idasscliente" 
+								name="idasscliente">
 								
   
 

@@ -280,9 +280,9 @@ public class Controller {
 	        
 	    	Utente u = IUtente.selectByEmail(email);
 	        
+	        LogInUtente dati = new LogInUtente();
+	        
 	        if(u!=null && u.getPassword().equals(password)) {
-	        	
-	        	LogInUtente dati = new LogInUtente();
 	        	
 	        	int guasti=0;
 	        	
@@ -297,12 +297,11 @@ public class Controller {
 	        		
 	        		dati = new LogInUtente(u, (getAutoInScadenza(u.getId()).size() + getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).size() + getGuastiIrrisolti(u.getId()).size()), getAutoOfficina(u.getId()));
 	        		
-	        		return dati;
+	        	
 	        	}
 	        	
-	            return null;
-	        }else
-	            return null;
+	        }
+	        	return dati;
 	    }
 	
 	    
