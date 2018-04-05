@@ -1,0 +1,293 @@
+
+		<!-- begin:: Page -->
+		<div class="m-grid m-grid--hor m-grid--root m-page">
+		
+		<!-- begin::Body -->
+			<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+				<div class="m-grid__item m-grid__item--fluid m-wrapper">
+					<!-- BEGIN: Subheader -->
+					<div class="m-subheader ">
+						<div class="d-flex align-items-center">
+							<div class="mr-auto">
+								<h3 class="m-subheader__title ">
+									Dashboard
+								</h3>
+							</div>
+						
+						</div>
+					</div>
+					<!-- END: Subheader -->
+					<div class="m-content">
+						<!--begin:: Widgets/Stats-->
+						<div class="m-portlet ">
+							<div class="m-portlet__body  m-portlet__body--no-padding">
+								<div class="row m-row--no-padding m-row--col-separator-xl">
+									<div class="col-md-12 col-lg-6 col-xl-3">
+										<!--begin::Total Profit-->
+										<div class="m-widget24">
+											<div class="m-widget24__item">
+												<h4 class="m-widget24__title">
+													Guasti
+												</h4>
+												<br>
+												<span class="m-widget24__desc">
+													Non risolti rilevati dai dispositivi
+												</span>
+												<span class="m-widget24__stats m--font-brand">
+												22
+												</span>
+												<div class="m--space-10"></div>
+											<p style="text-align:center;" class="smooth-scroll"><a   style="background-color:#716aca !important" class="btn btn-info btn-box visualizzaguasti">Visualizza</a></p>
+											</div>
+										</div>
+										<!--end::Total Profit-->
+									</div>
+									<div class="col-md-12 col-lg-6 col-xl-3">
+										<!--begin::New Feedbacks-->
+										<div class="m-widget24">
+											<div class="m-widget24__item">
+												<h4 class="m-widget24__title">
+												Scadenze
+												</h4>
+												<br>
+												<span class="m-widget24__desc">
+													Tecnico-Amministrative
+												</span>
+												<span class="m-widget24__stats m--font-info">
+												
+													13
+												</span>
+												<div class="m--space-10"></div>
+												<p style="text-align:center;" class="smooth-scroll"><a   style="background-color:#36a3f7   !important" class="btn btn-info btn-box visualizzascadenze">Visualizza</a></p>
+											</div>
+										</div>
+										<!--end::New Feedbacks-->
+									</div>
+									<div class="col-md-12 col-lg-6 col-xl-3">
+										<!--begin::New Orders-->
+										<div class="m-widget24">
+											<div class="m-widget24__item">
+												<h4 class="m-widget24__title">
+													Richieste Preventivo
+												</h4>
+												<br>
+												<span class="m-widget24__desc">
+													Per riparazione auto
+												</span>
+												<span class="m-widget24__stats m--font-danger">
+												12
+												</span>
+												<div class="m--space-10"></div>
+												<p style="text-align:center;" class="smooth-scroll"><a  style="background-color:#f4516c  !important" class="btn btn-info btn-box visualizzapreventivi">Visualizza</a></p>
+											</div>
+										</div>
+										<!--end::New Orders-->
+									</div>
+									<div class="col-md-12 col-lg-6 col-xl-3">
+										<!--begin::New Users-->
+										<div class="m-widget24">
+											<div class="m-widget24__item">
+												<h4 class="m-widget24__title">
+													Appuntamenti
+												</h4>
+												<br>
+												<span class="m-widget24__desc">
+													Richiesti
+												</span>
+												<span class="m-widget24__stats m--font-success">
+												22
+												</span>
+												<div class="m--space-10"></div>
+												<p style="text-align:center;" class="smooth-scroll"><a  style="background-color:#34bfa3    !important" class="btn btn-info btn-box visualizzaappuntamenti">Visualizza</a></p>
+											</div>
+										</div>
+										<!--end::New Users-->
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end:: Widgets/Stats--> 
+
+						<!--begin:: section content-->
+						<div class="row">
+						
+					
+						
+												<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" id="rightautotable">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+												<i class="fa fa-car fah3"  ></i>
+													AUTO UTENTE
+												</h3>
+											</div>
+										</div>
+									
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+									<div class="table-responsive">
+									<table class="table table-striped">
+									<thead>
+									<tr>
+									<th>ID</th>
+									<th>Marca</th>
+									<th>Modello</th>
+									<th>Targa</th>
+									<th>Telaio</th>
+									<th></th>
+									</tr>
+									</thead>
+									<tbody>
+								
+									</tbody>
+									</table>
+									</div>
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+							
+						
+						</div>
+						<!--end:: seciont content-->
+						
+ 
+						
+  
+					  
+					</div>
+				</div>
+				<!--
+			</div>
+			-->
+		</div>
+
+	</div>
+	<!-- end:: Page -->
+<!-- begin::modal richiedi preventivo -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrichiedipreventivo">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Richiedi preventivo per <span id="autorichiesta"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="/inviapreventivo" method="POST">
+
+						<div class="form-group">
+  <label for="dettagli">Descrizione Problema:</label>
+  <textarea class="form-control" rows="5" id="dettagli" name="dettagli"></textarea>
+</div>
+						
+							<input type="hidden"
+								class="form-control" id="email" value="email"
+								name="email">
+							<input type="hidden"
+								class="form-control" id="idofficina" 
+								name="idofficina">
+						<input type="hidden"
+								class="form-control" id="idauto" 
+								name="idauto">
+								
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- end::modal richiedi preventivo-->
+<!-- begin::modal richiedi appuntamento -->
+<div class="modal" tabindex="-1" role="dialog" id="modalappuntamenti">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Richiedi appuntamento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="richiediappuntamento" method="POST">
+	
+						<div class="form-group">
+  <label for="ora">Orario:</label>
+  <input class="form-control" type="text" id="ora" name="ora" required>
+</div>
+
+						<div class="form-group">
+  <label for="dettagliapp">Descrizione Problema:</label>
+  <textarea class="form-control" rows="5" id="dettagliapp" name="dettagliapp" required></textarea>
+</div>
+						
+							<input type="hidden"
+								class="form-control" id="emailapp" value="email"
+								name="emailapp">
+							<input type="hidden"
+								class="form-control" id="idofficina""
+								name="idofficina">
+						<input type="hidden"
+								class="form-control" id="idauto" 
+								name="idauto">
+								
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary savebutton btnfooter">Invia Richiesta</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- end::modal richiedi preventivo-->
+<!-- begin::modal Dati Telemetria Guasto-->
+<div class="modal" tabindex="-1" role="dialog" id="modaldatitelemetria">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dati Telemetria </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+   <div class="m-widget24">
+											<div class="m-widget24__item">
+											
+												<h4 class="m-widget24__title" >
+												Auto: <span id="autotelemetria"></span>
+												</h4>
+												<br>
+												
+											
+												<div class="m--space-10"></div>
+												<p  id="datitel"></p>
+											</div>
+										</div>
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="submit" class="btn btn-primary btnfooter" data-dismiss="modal" aria-label="close">Chiudi</button>
+	     
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end::modal Dati Telemetria Guasto-->
+	 

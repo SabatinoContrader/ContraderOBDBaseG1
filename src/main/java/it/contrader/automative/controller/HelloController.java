@@ -10,12 +10,12 @@ import java.util.Map;
 @Controller
 public class HelloController {
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
+   /* @RequestMapping(value="/", method = RequestMethod.GET)
     public String hello (Map<String, Object> model) {
         model.put("Prova", "Ciao Mondo!");
         return "index01";
     }
-
+*/
 //    Model model;
 //    model.addAttribute("nomeVariabile", variabile);
 }

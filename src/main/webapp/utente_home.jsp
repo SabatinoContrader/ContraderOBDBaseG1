@@ -38,7 +38,7 @@
 		<style>.logo{max-width:150px;}.m-widget24 .m-widget24__item .m-widget24__stats{margin-top:-2.43rem !important;}.m-widget24 .m-widget24__item .m-widget24__title{margin-top:1.23rem !important;}#autorichiesta,#autotelemetria{color:red;font-style:capitalize;}
 		.ali{color:#575962 !important;cursor:pointer;}.fah3{font-size:24px;padding-right:10px;}
 		.btn-box{       border: none;margin-top: 20px;    width: 150px;    color: white !important;-webkit-appearance: button-bevel !important;}
-		#uloption{list-style: none;padding-left:0px;}.btn-left{background-color:#4c4e50 !important;}.btn-left-active{background-color:#ea202e !important}.showguasti,.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.showguasti,.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;} #datitel{padding-top: 20px;border: 1px solid black;min-height: 200px;padding-left: 10px;}.btnfooter{    margin-left: auto;    margin-right: auto;}.fa-ul > li{display:inline !important;}
+		#uloption{list-style: none;padding-left:0px;}.btn-left{background-color:#4c4e50 !important;}.btn-left-active{background-color:#ea202e !important}.showguasti,.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.showguasti,.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;} #datitel{padding-top: 20px;border: 1px solid black;min-height: 200px;padding-left: 10px;}.btnfooter{    margin-left: auto;    margin-right: auto;}.fa-ul > li{display:inline !important;}.fa-ul>li>a>i{    padding-left: 15px;}
 		#rightscadenzetable,#rightappuntamentitable,#rightguastitable,#rightpreventivitable{display:none;}</style>
 	</head>
 	<!-- end::Head -->
@@ -299,7 +299,8 @@
          </c:otherwise>
       </c:choose>
 	  >						<td>${guasto.getTipologiaGuasto().getCodice()}</td>
-									 <td>${guasto.getData()}</td>
+									 <td>${guasto.getData().getDate()}/${guasto.getData().getMonth() + 1}/${guasto.getData().getYear() + 1900}  </td>
+			<td>${app.getDettagli()}</td>
 									 <td>${guasto.getDispositivo().getAuto().getMarca()}</td>
 									 <td>${guasto.getDispositivo().getAuto().getModello()}</td>
 									 <td>${guasto.getDispositivo().getAuto().getTarga()}</td>
@@ -361,7 +362,7 @@
 										 <c:forEach items="${sessionScope.appuntamenti}" var="app">
 <tr  >			
 <td>${app.getId()}</td>
-			<td>${app.getData()}  ${app.getOra()}</td>
+			<td>${app.getData().getDate()}/${app.getData().getMonth() + 1}/${app.getData().getYear() + 1900}  ${app.getOra()}</td>
 			<td>${app.getDettagli()}</td>
 			
 			 <td>
@@ -427,7 +428,7 @@
 			<td>${prev.getId()}</td>
 			<td>${prev.getAuto().getMarca()} ${prev.getAuto().getModello()}</td>
 			<td>${prev.getAuto().getTarga()}</td>
-			<td>${prev.getData()}</td>
+			<td>${prev.getData().getDate()}/${prev.getAuto().getScadenzaTagliando().getMonth() + 1}/${prev.getAuto().getScadenzaTagliando().getYear() + 1900}</td>
 									 <td>${prev.getDettagli()}</td>
 									  <td>${prev.getRisposta()}</td> 
 									  <td>${prev.getCosto()}&euro;</td>
@@ -474,7 +475,25 @@
 			<td>${scadenze.getAuto().getMarca()} ${scadenze.getAuto().getModello()}</td>
 			<td>
 			<c:forEach items="${scadenze.cosaStaPerScadere()}" var="tiposcad">
-			${tiposcad}<br>
+			${tiposcad} <c:choose>
+			 <c:when test = "${fn:contains(tiposcad, 'Bollo')}">
+     <span style="color:red"> ${scadenze.getAuto().getScadenzaBollo().getDate()}/${scadenze.getAuto().getScadenzaBollo().getMonth() + 1}/${scadenze.getAuto().getScadenzaBollo().getYear() + 1900}</span>
+      </c:when>
+	  
+	<c:when test = "${fn:contains(tiposcad, 'Revisione')}">
+    <span style="color:red">  ${scadenze.getAuto().getScadenzaRevisione().getDate()}/${scadenze.getAuto().getScadenzaRevisione().getMonth() + 1}/${scadenze.getAuto().getScadenzaRevisione().getYear() + 1900}</span>
+      </c:when>
+	  <c:when test = "${fn:contains(tiposcad, 'Assicurazione')}">
+    <span style="color:red">  ${scadenze.getAuto().getScadenzaAssicurazione().getDate()}/${scadenze.getAuto().getScadenzaAssicurazione().getMonth() + 1}/${scadenze.getAuto().getScadenzaAssicurazione().getYear() + 1900}</span>
+      </c:when>
+	
+	    <c:when test = "${fn:contains(tiposcad, 'Tagliando')}">
+     <span style="color:red"> ${scadenze.getAuto().getScadenzaTagliando().getDate()}/${scadenze.getAuto().getScadenzaTagliando().getMonth() + 1}/${scadenze.getAuto().getScadenzaTagliando().getYear() + 1900}</span>
+      </c:when>
+		   <c:otherwise>
+              
+         </c:otherwise>
+      </c:choose><br>
 			 </c:forEach>
 		</td>
 

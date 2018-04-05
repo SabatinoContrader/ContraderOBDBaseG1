@@ -39,7 +39,7 @@
 		.ali{color:#575962 !important;cursor:pointer;}.fah3{font-size:24px;padding-right:10px;}
 		.btn-box{       border: none;margin-top: 20px;    width: 150px;    color: white !important;-webkit-appearance: button-bevel !important;}
 		#uloption{list-style: none;padding-left:0px;}.btn-left{background-color:#4c4e50 !important;}.btn-left-active{background-color:#ea202e !important}.showguasti,.btn-add:hover{color: #474343 !important;background-color: #f4f5f8 !important;}.showguasti,.btn-add{margin-top: 10px;color: #474343 !important;float:right;background-color: #f4f5f8;margin-right: 20px;border: none;padding: 12px;} #datitel{padding-top: 20px;border: 1px solid black;min-height: 200px;padding-left: 10px;}.btnfooter{    margin-left: auto;    margin-right: auto;}.fa-ul > li{display:inline !important;}
-		#rightscadenzetable,#rightappuntamentitable,#rightguastitable,#rightpreventivitable,#rightutentitable{display:none;}.m-body{margin-top:-100px;}</style>
+		#rightscadenzetable,#rightappuntamentitable,#rightguastitable,#rightpreventivitable,#rightutentitable{display:none;}.m-body{margin-top:-30px;}.fa-ul>li>a>i{    padding-left: 15px;}</style>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->

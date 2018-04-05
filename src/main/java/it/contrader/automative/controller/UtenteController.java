@@ -80,10 +80,11 @@ public class UtenteController {
 	    @RequestMapping(value = "/login", method = RequestMethod.POST)
 	    public LogInUtente getUser(@RequestParam("email") String email, @RequestParam("pwd") String password){
 	        Utente u = IUtente.selectByEmail(email);
+	        
+	        LogInUtente dati = new LogInUtente();
+	        
 	        if(u!=null && u.getPassword().equals(password)) {
 	        	//Ritorno dati sull'utente che si è loggato
-	        	
-	        	LogInUtente dati = new LogInUtente();
 	        	
 	        	int guasti=0;
 	        	
@@ -165,12 +166,11 @@ public class UtenteController {
 	        		
 	        		dati = new LogInUtente(u.getRuolo(), u, listaNoleggiOff, listaOff, listaKmInScadenzaAutoOfficina, listaGuastiAutoOff, guasti, listaAppuntamentiOfficina, listaPreventiviOfficina, listaAutoOfficina, listaUtenti);
 	        		
-	        		return dati;
+	        	
 	        	}
 	        	
-	            return null;
-	        }else
-	            return null;
+	        }
+	        	return dati;
 	    }
 	
 	    
