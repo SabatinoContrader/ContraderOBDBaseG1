@@ -11,9 +11,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import it.contrader.automative.model.Appuntamento;
 import it.contrader.automative.model.Auto;
@@ -36,10 +38,12 @@ import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.IAppuntamento;
 import it.contrader.automative.utils.Alerts;
 import it.contrader.automative.utils.AutoScadenze;
+import it.contrader.automative.utils.LogInUtente;
 
 
 
-@Controller
+@RestController
+@CrossOrigin(value = "*")
 //@RequestMapping("/login")
 public class UtenteController {
 
@@ -74,22 +78,20 @@ public class UtenteController {
 	
 	
 	    @RequestMapping(value = "/login", method = RequestMethod.POST)
-	    public String getUser(@RequestParam("email") String email, @RequestParam("pwd") String password, Model model
-	    		,HttpServletRequest request, HttpServletResponse response){
+	    public LogInUtente getUser(@RequestParam("email") String email, @RequestParam("pwd") String password){
 	        Utente u = IUtente.selectByEmail(email);
 	        if(u!=null && u.getPassword().equals(password)) {
-	        	 HttpSession session = request.getSession(true);
 	        	//Ritorno dati sull'utente che si è loggato
-	        	model.addAttribute("utente", u);
+	        	
+	        	LogInUtente dati = new LogInUtente();
+	        	
 	        	int guasti=0;
 	        	
 	        	switch (u.getRuolo()) {
 	        	case 0 :
 	        		//Ritorno I Noleggi del Cliente: dati sul noleggio + Auto
 	        		List<Noleggio> listaNoleggiUtente = noleggioRepository.findByUtente(u);
-	        		model.addAttribute("autoUtente", listaNoleggiUtente);
-	        		
-	     //<Roba Nuova>   		
+	        		 		
 	        		//Mi ricavo la lista auto da lista noleggi
 	        		List<Auto> listaAuto = new ArrayList();
 	        		for (int i = 0; i<listaNoleggiUtente.size(); i++) listaAuto.add(listaNoleggiUtente.get(i).getAuto());
@@ -99,18 +101,14 @@ public class UtenteController {
 	        		//Alerts.prova(listaAuto);
 	        		// Recupero Auto che stanno in scadenza e cosa sta scadendo e li passo al model
 	        		List<AutoScadenze> lista = Alerts.listaAutoInScadenza(listaAuto);
-	        		model.addAttribute("autoScadenze",lista);
 	        		
 	        		
 	        		//Ritorno lista dei noleggi con i km in scadenza
 	        		List<Noleggio> listaKmInScadenza = Alerts.kmNoleggioInScadenza(listaNoleggiUtente);
-	        		model.addAttribute("kmScadenza",listaKmInScadenza);
 //	        		//Prendo solo i noleggio in corso - OPZIONALE
 //	        		List<Noleggio> listaKmInScadNoleggiInCorso = new ArrayList();
 //	        		for(int i=0; i<listaKmInScadenza.size(); i++) if(listaKmInScadenza.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis()))) listaKmInScadNoleggiInCorso.add(listaKmInScadenza.get(i));
 	        		
-
-	     //</Roba Nuova>  		
 	        		
 	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'utente loggato (Non risolti)
 	        		List<Guasto> listaGuasti = new ArrayList();
@@ -127,40 +125,28 @@ public class UtenteController {
 	        		List<Preventivo> listaPreventivi = preventivoRepository.findByUtente(u);
 	        		List<Appuntamento> listaAppuntamenti = appuntamentoRepository.findByUtente(u);
 	        		//model.addAttribute("preventivi",listaPreventivi);
-	        		model.addAttribute("guasti", guasti);
-	        		model.addAttribute("AlertsGuasti", listaGuasti);
-	        		session.setAttribute("appuntamenti", listaAppuntamenti);
-	        		session.setAttribute("preventivi", listaPreventivi);
-	        		session.setAttribute("sessionModel", model);
-
-	        		return "utente_home";
-	        		//return "logInEffettuato";
+	        		
+	        		dati = new LogInUtente(u.getRuolo(), u, listaNoleggiUtente, lista, listaKmInScadenza, listaGuasti, guasti, listaAppuntamenti, listaPreventivi, null, null);
+	        		
+	        		return dati;
 
 				case 1 : 
 					//Auto dell'Officina
 	        		List<Auto> listaAutoOfficina = autoRepository.findByOfficina(u.getOfficina());
-	        		model.addAttribute("autoOfficina", listaAutoOfficina);
-	        	
-	      //<Roba Nuova> 
+	        
 	        		//Prova con Scadenze (Spampa nella console le auto che stanno in scadenza e solo la prima scadenza che hanno)
 
 	        		//Alerts.prova(listaAutoOfficina);
 	        		List<AutoScadenze> listaOff = Alerts.listaAutoInScadenza(listaAutoOfficina);
-	        		model.addAttribute("autoScadenze",listaOff);
-	        		
 	        		
 	        		//Mi ricavo la lista dei noleggi dell'officina
 	        		List<Noleggio> listaNoleggiOff = noleggioRepository.findByOfficina(u.getOfficina());
-	        		model.addAttribute("listaNoleggi",listaNoleggiOff);
 	        		
 	        		//Ritorno lista dei noleggi con i km in scadenza
 	        		List<Noleggio> listaKmInScadenzaAutoOfficina = Alerts.kmNoleggioInScadenza(listaNoleggiOff);
-	        		model.addAttribute("kmScadenza",listaKmInScadenzaAutoOfficina);
 	        		
 	        		//Prova Recupero Lista Auto Disponibili al noleggio
 	        		provaRecuperoListaAutoDisp(listaAutoOfficina, listaNoleggiOff, noleggioService);
-	        
-	      //</Roba Nuova>	
 	        		
 	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'officina loggata (Non risolti)
 	        		List<Guasto> listaGuastiAutoOff = new ArrayList();
@@ -177,19 +163,14 @@ public class UtenteController {
 	        		List<Appuntamento> listaAppuntamentiOfficina = appuntamentoRepository.findByOfficina(u.getOfficina());
 	        		List<Utente> listaUtenti = utenteRepository.findByOfficina(u.getOfficina());
 	        		
-	        		model.addAttribute("guasti", guasti);
-	        		model.addAttribute("AlertsGuastiOfficina", listaGuastiAutoOff);
-	        		model.addAttribute("listaUtenti",listaUtenti);
-	        	
-	        		session.setAttribute("appuntamenti", listaAppuntamentiOfficina);
-	        		session.setAttribute("preventivi", listaPreventiviOfficina);
-	        		session.setAttribute("sessionModel", model);
-	        		return "home_officina";
+	        		dati = new LogInUtente(u.getRuolo(), u, listaNoleggiOff, listaOff, listaKmInScadenzaAutoOfficina, listaGuastiAutoOff, guasti, listaAppuntamentiOfficina, listaPreventiviOfficina, listaAutoOfficina, listaUtenti);
+	        		
+	        		return dati;
 	        	}
 	        	
-	            return "logInEffettuato";
+	            return null;
 	        }else
-	            return "logInFallito";
+	            return null;
 	    }
 	
 	    
