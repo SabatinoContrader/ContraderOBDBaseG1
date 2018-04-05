@@ -18,21 +18,23 @@ import lombok.Setter;
 
 public class LogInUtente implements Serializable {
 
-	private int ruolo;				//0: Cliente; 1: Officina
+//	private int ruolo;				//0: Cliente; 1: Officina
 	
 	private Utente utente;	
+	private int numAlerts;			//Guasti, Scadenze Date, Km Noleggio, Risposte(non ancora implementato)
+	private List<Auto> listaAuto;
 	
-	private List<Noleggio> listaNoleggi;			//se è un Cliente ci saranno le sue auto altrimenti solo i noleggi dell'officina
-	private List<AutoScadenze> autoScadenze;
-	private List<Noleggio> listaKmInScadenza;
-	
-	private List<Guasto> listaGuasto;
-	private int numGuastiNonRisolti;
-	
-	private List<Appuntamento> listaAppuntamenti;
-	private List<Preventivo> listaPreventivi;
-	
-	private List<Auto> listaAutoOfficina;
-	private List<Utente> listaClientiOfficina;
+//	private List<Noleggio> listaNoleggi;			//se è un Cliente ci saranno le sue auto altrimenti solo i noleggi dell'officina
+//	private List<AutoScadenze> autoScadenze;
+//	private List<Noleggio> listaKmInScadenza;
+//	
+//	private List<Guasto> listaGuasto;
+//	private int numGuastiNonRisolti;
+//	
+//	private List<Appuntamento> listaAppuntamenti;
+//	private List<Preventivo> listaPreventivi;
+//	
+//	
+//	private List<Utente> listaClientiOfficina;
 	
 }

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +28,7 @@ import it.contrader.automative.repositories.AutoRepository;
 import it.contrader.automative.repositories.DispositivoRepository;
 import it.contrader.automative.repositories.GuastoRepository;
 import it.contrader.automative.repositories.NoleggioRepository;
+import it.contrader.automative.repositories.OfficinaRepository;
 import it.contrader.automative.repositories.PreventivoRepository;
 import it.contrader.automative.repositories.UtenteRepository;
 import it.contrader.automative.serviceInterfaces.INoleggio;
@@ -45,7 +45,7 @@ import it.contrader.automative.utils.LogInUtente;
 @RestController
 @CrossOrigin(value = "*")
 //@RequestMapping("/login")
-public class UtenteController {
+public class Controller {
 
 	 private IUtente IUtente;
 	 private IPreventivo IPreventivo;
@@ -57,11 +57,12 @@ public class UtenteController {
 	 private PreventivoRepository preventivoRepository;
 	 private AppuntamentoRepository appuntamentoRepository;
 	 private UtenteRepository utenteRepository;
+	 private OfficinaRepository officinaRepository;
 	 
 	 private INoleggio noleggioService;
 	 
 	 @Autowired
-	    public UtenteController(IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, UtenteRepository utenteRepository ,AutoRepository autoRepository, NoleggioRepository noleggioRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository, INoleggio noleggioService) {
+	    public Controller(IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, UtenteRepository utenteRepository ,AutoRepository autoRepository, NoleggioRepository noleggioRepository, OfficinaRepository officinaRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository, INoleggio noleggioService) {
 	        this.IUtente = IUtente;
 	        this.IPreventivo = IPreventivo;
 	        this.IAppuntamento=IAppuntamento;
@@ -72,16 +73,214 @@ public class UtenteController {
 	        this.guastoRepository = guastoRepository;
 	        this.preventivoRepository = preventivoRepository;
 	        this.appuntamentoRepository = appuntamentoRepository;
+	        this.officinaRepository = officinaRepository;
 	        
 	        this.noleggioService = noleggioService;
 	    }
 	
-	
+	 
+	 
+	 	//Lista Auto Cliente
+	 	@RequestMapping(value = "/autoCliente", method = RequestMethod.POST)
+	    public List<Auto> getAutoCliente(@RequestParam("id") int idUtente) {
+	 		
+	 		List<Auto> lista = new ArrayList();
+	 		
+	 		List<Noleggio> listaNoleggi = getNoleggiCliente(idUtente);
+	 		
+	 		for(int i = 0; i<listaNoleggi.size(); i++) lista.add(listaNoleggi.get(i).getAuto());
+	 		
+	 		return lista;
+	 		
+	 	}
+	 
+	 	//Lista Auto Officina
+	 	@RequestMapping(value = "/autoOfficina", method = RequestMethod.POST)
+	    public List<Auto> getAutoOfficina(@RequestParam("id") int idUtente) {
+	 		
+	 		return autoRepository.findByOfficina(utenteRepository.findById(idUtente).getOfficina());
+	 		
+	 	}
+	 	
+	 	//Lista Guasti Irrisolti (sia officina che cliente)
+	 	@RequestMapping(value = "/getGuastiIrrisolti", method = RequestMethod.POST)
+	    public List<Guasto> getGuastiIrrisolti(@RequestParam("id") int idUtente) {
+	 		
+	 		List<Guasto> listaGuasti = new ArrayList();
+	 		
+	 		Utente u = utenteRepository.findById(idUtente);
+	 		
+	 		List<Auto> listaAuto = new ArrayList();
+	 		if(u.getRuolo() == 0) listaAuto = getAutoCliente(idUtente);
+	 		else listaAuto = getAutoOfficina(idUtente);
+	 		
+    		for(int i = 0; i<listaAuto.size(); i++) {
+    			List<Guasto> g = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(listaAuto.get(i)));
+
+    			for(int e=0; e<g.size(); e++) { 
+    				//if(!g.get(e).getStatoRisoluzione().equals("Risolto")) 
+    				if(!g.get(e).getStatoRisoluzione().equals("Risolto")) listaGuasti.add(g.get(e));
+    				
+    			}
+    		}
+	 		
+    		return listaGuasti;
+	 	}
+
+	 	//Lista TUTTI Guasti (sia officina che cliente) 
+	 	@RequestMapping(value = "/getGuasti", method = RequestMethod.POST)
+	    public List<Guasto> getGuasti(@RequestParam("id") int idUtente) {
+	 		
+	 		List<Guasto> listaGuasti = new ArrayList();
+	 		
+	 		Utente u = utenteRepository.findById(idUtente);
+	 		
+	 		List<Auto> listaAuto = new ArrayList();
+	 		if(u.getRuolo() == 0) listaAuto = getAutoCliente(idUtente);
+	 		else listaAuto = getAutoOfficina(idUtente);
+	 		
+    		for(int i = 0; i<listaAuto.size(); i++) {
+    			List<Guasto> g = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(listaAuto.get(i)));
+
+    			for(int e=0; e<g.size(); e++) listaGuasti.add(g.get(e));
+    		}
+	 		
+    		return listaGuasti;
+	 	}
+	 	
+	 	//Lista Noleggi Officina
+	 	@RequestMapping(value = "/noleggiOfficina", method = RequestMethod.POST)
+	    public List<Noleggio> getNoleggiOfficina(@RequestParam("id") int idOfficina) {
+	 		
+	 		List<Noleggio> listaNoleggiOff = new ArrayList();
+	 		
+    		listaNoleggiOff = noleggioRepository.findByOfficina(officinaRepository.findById(idOfficina));
+	 		
+	 		return listaNoleggiOff;
+	 		
+	 	}
+	 	
+	 	//Lista Noleggi Cliente
+	 	@RequestMapping(value = "/noleggiCliente", method = RequestMethod.POST)
+	    public List<Noleggio> getNoleggiCliente(@RequestParam("id") int idUtente) {
+	 		
+	 		List<Noleggio> listaNoleggi = new ArrayList();
+	 		
+	 		listaNoleggi = noleggioRepository.findByUtente(utenteRepository.findById(idUtente));
+	 		
+	 		return listaNoleggi;
+	 		
+	 	}
+	 	
+	 	//Lista auto in scadenza (sia officina che cliente)
+	 	@RequestMapping(value = "/autoInScadenza", method = RequestMethod.POST)
+	    public List<AutoScadenze> getAutoInScadenza(@RequestParam("id") int idUtente) {
+	 		
+	 		List<AutoScadenze> lista = new ArrayList();
+	 		
+	 		Utente u = utenteRepository.findById(idUtente);
+	 		
+	 		List<Auto> listaAuto = new ArrayList();
+	 		if(u.getRuolo() == 0) listaAuto = getAutoCliente(idUtente);
+	 		else listaAuto = getAutoOfficina(idUtente);
+	 		
+	 		lista = Alerts.listaAutoInScadenza(listaAuto);
+	 		
+	 		return lista;
+	 		
+	 	}
+	 	
+	 	//Lista Noleggi con KmNoleggio in Scadenza dell'officina
+	 	@RequestMapping(value = "/kmInScadenzaOfficina", method = RequestMethod.POST)
+	    public List<Noleggio> getNoleggiKmInScadenzaOfficina(@RequestParam("id") int idOfficina) {
+	 		
+	 		List<Noleggio> listaKmInScadenza = new ArrayList();
+	 		
+	 		listaKmInScadenza = Alerts.kmNoleggioInScadenza(getNoleggiOfficina(idOfficina));
+	 		
+	 		return listaKmInScadenza;
+	 		
+	 	}
+	 	
+	 	//Lista Noleggi con KmNoleggio in Scadenza del cliente
+	 	@RequestMapping(value = "/kmInScadenzaCliente", method = RequestMethod.POST)
+	    public List<Noleggio> getNoleggiKmInScadenzaCliente(@RequestParam("id") int idUtente) {
+	 		
+	 		List<Noleggio> listaKmInScadenza = new ArrayList();
+	 		
+	 		listaKmInScadenza = Alerts.kmNoleggioInScadenza(getNoleggiCliente(idUtente));
+	 		
+	 		return listaKmInScadenza;
+	 		
+	 	}
+
+	 	//Lista Preventivi del Cliente
+	 	@RequestMapping(value = "/preventiviCliente", method = RequestMethod.POST)
+	    public List<Preventivo> getPreventiviCliente(@RequestParam("id") int idUtente) {
+	 		
+	 		List<Preventivo> listaPreventivi = new ArrayList();
+	 		
+	 		listaPreventivi = preventivoRepository.findByUtente(utenteRepository.findById(idUtente));
+	 		
+	 		return listaPreventivi;
+	 		
+	 	}
+	 	
+	 	//Lista Preventivi dell'Officina
+	 	@RequestMapping(value = "/preventiviOfficina", method = RequestMethod.POST)
+	    public List<Preventivo> getPreventiviOfficina(@RequestParam("id") int idOfficina) {
+	 		
+	 		List<Preventivo> listaPreventiviOfficina = new ArrayList();
+	 		
+	 		listaPreventiviOfficina = preventivoRepository.findByOfficina(officinaRepository.findById(idOfficina));
+	 		
+	 		return listaPreventiviOfficina;
+	 		
+	 	}
+	 	
+	 	//Lista Appuntamenti del Cliente
+	 	@RequestMapping(value = "/appuntamentiCliente", method = RequestMethod.POST)
+	    public List<Appuntamento> getAppuntamentiCliente(@RequestParam("id") int idUtente) {
+	 		
+	 		List<Appuntamento> listaAppuntamenti = new ArrayList();
+	 		
+	 		listaAppuntamenti = appuntamentoRepository.findByUtente(utenteRepository.findById(idUtente));
+	 		
+	 		return listaAppuntamenti;
+	 		
+	 	}
+	 	
+	 	//Lista Appuntamenti dell'Officina
+	 	@RequestMapping(value = "/appuntamentiOfficina", method = RequestMethod.POST)
+	    public List<Appuntamento> getAppuntamentiOfficina(@RequestParam("id") int idOfficina) {
+	 		
+	 		List<Appuntamento> listaAppuntamentiOfficina = new ArrayList();
+	 		
+	 		listaAppuntamentiOfficina = appuntamentoRepository.findByOfficina(officinaRepository.findById(idOfficina));
+	 		
+	 		return listaAppuntamentiOfficina;
+	 		
+	 	}
+	 	
+	 	//Lista Clienti dell'Officina
+	 	@RequestMapping(value = "/clientiOfficina", method = RequestMethod.POST)
+	    public List<Utente> getClientiOfficina(@RequestParam("id") int idOfficina) {
+	 		
+	 		List<Utente> listaUtenti = new ArrayList();
+	 		
+	 		listaUtenti = utenteRepository.findByOfficina(officinaRepository.findById(idOfficina));
+	 		
+	 		return listaUtenti;
+	 		
+	 	}
+
+	 	//LOGIN
 	    @RequestMapping(value = "/login", method = RequestMethod.POST)
 	    public LogInUtente getUser(@RequestParam("email") String email, @RequestParam("pwd") String password){
-	        Utente u = IUtente.selectByEmail(email);
+	        
+	    	Utente u = IUtente.selectByEmail(email);
+	        
 	        if(u!=null && u.getPassword().equals(password)) {
-	        	//Ritorno dati sull'utente che si è loggato
 	        	
 	        	LogInUtente dati = new LogInUtente();
 	        	
@@ -89,81 +288,14 @@ public class UtenteController {
 	        	
 	        	switch (u.getRuolo()) {
 	        	case 0 :
-	        		//Ritorno I Noleggi del Cliente: dati sul noleggio + Auto
-	        		List<Noleggio> listaNoleggiUtente = noleggioRepository.findByUtente(u);
-	        		 		
-	        		//Mi ricavo la lista auto da lista noleggi
-	        		List<Auto> listaAuto = new ArrayList();
-	        		for (int i = 0; i<listaNoleggiUtente.size(); i++) listaAuto.add(listaNoleggiUtente.get(i).getAuto());
 	        		
-	        		//Prova con Scadenze (Spampa nella console le auto che stanno in scadenza e solo la prima scadenza che hanno)
-
-	        		//Alerts.prova(listaAuto);
-	        		// Recupero Auto che stanno in scadenza e cosa sta scadendo e li passo al model
-	        		List<AutoScadenze> lista = Alerts.listaAutoInScadenza(listaAuto);
-	        		
-	        		
-	        		//Ritorno lista dei noleggi con i km in scadenza
-	        		List<Noleggio> listaKmInScadenza = Alerts.kmNoleggioInScadenza(listaNoleggiUtente);
-//	        		//Prendo solo i noleggio in corso - OPZIONALE
-//	        		List<Noleggio> listaKmInScadNoleggiInCorso = new ArrayList();
-//	        		for(int i=0; i<listaKmInScadenza.size(); i++) if(listaKmInScadenza.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis()))) listaKmInScadNoleggiInCorso.add(listaKmInScadenza.get(i));
-	        		
-	        		
-	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'utente loggato (Non risolti)
-	        		List<Guasto> listaGuasti = new ArrayList();
-	        		for(int i = 0; i<listaNoleggiUtente.size(); i++) {
-	        			List<Guasto> g = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(listaNoleggiUtente.get(i).getAuto()));
-
-	        			for(int e=0; e<g.size(); e++) { 
-	        				//if(!g.get(e).getStatoRisoluzione().equals("Risolto")) 
-	        				if(!g.get(e).getStatoRisoluzione().equals("Risolto")) guasti++;
-	        				listaGuasti.add(g.get(e));
-	        				
-	        			}
-	        		}
-	        		List<Preventivo> listaPreventivi = preventivoRepository.findByUtente(u);
-	        		List<Appuntamento> listaAppuntamenti = appuntamentoRepository.findByUtente(u);
-	        		//model.addAttribute("preventivi",listaPreventivi);
-	        		
-	        		dati = new LogInUtente(u.getRuolo(), u, listaNoleggiUtente, lista, listaKmInScadenza, listaGuasti, guasti, listaAppuntamenti, listaPreventivi, null, null);
+	        		dati = new LogInUtente(u, (getAutoInScadenza(u.getId()).size() + getNoleggiKmInScadenzaCliente(u.getId()).size() + getGuastiIrrisolti(u.getId()).size() ), getAutoCliente(u.getId()));
 	        		
 	        		return dati;
 
 				case 1 : 
-					//Auto dell'Officina
-	        		List<Auto> listaAutoOfficina = autoRepository.findByOfficina(u.getOfficina());
-	        
-	        		//Prova con Scadenze (Spampa nella console le auto che stanno in scadenza e solo la prima scadenza che hanno)
-
-	        		//Alerts.prova(listaAutoOfficina);
-	        		List<AutoScadenze> listaOff = Alerts.listaAutoInScadenza(listaAutoOfficina);
 	        		
-	        		//Mi ricavo la lista dei noleggi dell'officina
-	        		List<Noleggio> listaNoleggiOff = noleggioRepository.findByOfficina(u.getOfficina());
-	        		
-	        		//Ritorno lista dei noleggi con i km in scadenza
-	        		List<Noleggio> listaKmInScadenzaAutoOfficina = Alerts.kmNoleggioInScadenza(listaNoleggiOff);
-	        		
-	        		//Prova Recupero Lista Auto Disponibili al noleggio
-	        		provaRecuperoListaAutoDisp(listaAutoOfficina, listaNoleggiOff, noleggioService);
-	        		
-	        		//Ritorno guasti: auto, dispositivo, tipol. guasto, dati telematrici, data --> delle auto dell'officina loggata (Non risolti)
-	        		List<Guasto> listaGuastiAutoOff = new ArrayList();
-	        		for(int i = 0; i<listaAutoOfficina.size(); i++) {
-	        			List<Guasto> g = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(listaAutoOfficina.get(i)));
-	        			for(int e=0; e<g.size(); e++) {
-	        				
-	        				if(!g.get(e).getStatoRisoluzione().equals("Risolto"))guasti++;
-	        				listaGuastiAutoOff.add(g.get(e));
-	        				
-	        			}
-	        		}
-	        		List<Preventivo> listaPreventiviOfficina = preventivoRepository.findByOfficina(u.getOfficina());
-	        		List<Appuntamento> listaAppuntamentiOfficina = appuntamentoRepository.findByOfficina(u.getOfficina());
-	        		List<Utente> listaUtenti = utenteRepository.findByOfficina(u.getOfficina());
-	        		
-	        		dati = new LogInUtente(u.getRuolo(), u, listaNoleggiOff, listaOff, listaKmInScadenzaAutoOfficina, listaGuastiAutoOff, guasti, listaAppuntamentiOfficina, listaPreventiviOfficina, listaAutoOfficina, listaUtenti);
+	        		dati = new LogInUtente(u, (getAutoInScadenza(u.getId()).size() + getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).size() + getGuastiIrrisolti(u.getId()).size()), getAutoOfficina(u.getId()));
 	        		
 	        		return dati;
 	        	}
@@ -173,6 +305,11 @@ public class UtenteController {
 	            return null;
 	    }
 	
+	    
+	    
+	    
+	    
+	    
 	    
 	    
 	    @RequestMapping(value = "/inviapreventivo", method = RequestMethod.POST)
@@ -348,6 +485,29 @@ a.setRisposta("");
 	        	 
 	        	 
 	        }
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	    
 	    private void provaRecuperoListaAutoDisp(List<Auto> auto, List<Noleggio> noleggi, INoleggio servizioNoleggio) {
 	    	
