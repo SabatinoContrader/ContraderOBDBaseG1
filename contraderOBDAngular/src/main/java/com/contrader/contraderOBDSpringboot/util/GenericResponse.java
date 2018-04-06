@@ -1,0 +1,35 @@
+package com.contrader.contraderOBDSpringboot.util;
+
+/**
+ * Created by CorsoPc on 24/06/2017.
+ */
+
+public class GenericResponse<T> {
+    private T data;
+    private int statusCode;
+    private String message;
+
+    public GenericResponse(T data, String message, int statusCode) {
+        this.statusCode = statusCode;
+        this. message = message;
+        this.data = data;
+    }
+    public GenericResponse(T data, int statusCode){
+        this.statusCode = statusCode;
+        this. message = "";
+        this.data = data;
+    }
+    public GenericResponse(T data){
+        this.statusCode = 0;
+        this.message = null;
+        this.data = data;
+    }
+    public T getData(){return data;}
+    public void setData(T data){this.data = data;}
+
+    public int getStatusCode(){return statusCode;}
+    public void setStatusCode(int statusCode){this.statusCode = statusCode;}
+
+    public String getMessage(){return message;}
+    public void setMessage(String message){this.message = message;}
+}

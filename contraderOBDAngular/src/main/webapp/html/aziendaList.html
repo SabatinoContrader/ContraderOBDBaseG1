@@ -1,0 +1,51 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Azienda</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-briefcase fa-fw"></i> Elenco aziende
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table" id=myTable>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Citt&aacute;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="azienda in listAzienda">
+                                    <td>
+                                        {{azienda.nome}}
+                                    </td>
+                                    <td>
+                                        {{azienda.citta}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <tabs-component></tabs-component>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

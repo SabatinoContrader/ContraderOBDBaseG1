@@ -1,0 +1,111 @@
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+            <li>
+                <a href="#!/home">
+                    <i class="fa fa-home fa-fw"></i> Dashboard
+                </a>
+            </li>
+        </ul>
+        <ul ng-if="ruolo == 1" class="nav" id="side-menu">
+            <li>
+                <a href="#!/viewOfficina">
+                    <i class="fa fa-wrench fa-fw"></i> Visualizza officine
+                </a>
+            </li>
+            <li>
+                <a href="#!/viewAzienda">
+                    <i class="fa fa-briefcase fa-fw"></i> Visualizza aziende
+                </a>
+            </li>
+        </ul>
+        <ul ng-if="ruolo == 2" class="nav" id="side-menu">
+            <li>
+                <a href="#formAddAzienda" data-toggle="modal">
+                    <i class="fa fa-briefcase fa-fw"></i> Aggiungi azienda
+                </a>
+            </li>
+            <li>
+                <a href="#formAddAuto" data-toggle="modal">
+                    <i class="fa fa-automobile fa-fw"></i> Aggiungi auto
+                </a>
+            </li>
+            <li>
+                <a>
+                    <button ng-click="findAutoOfficina()" class="btn btn-primary btn-xs">
+                        Cerca
+                        <i class="fa fa-automobile fa-fw"></i>
+                    </button>
+                    <input type="text" size="12" ng-model="$ctrl.autoToFind">
+
+                </a>
+            </li>
+            <li>
+                <a>
+                    <form action="/contraderOBDSpringBoot/resetAuto" method="post">
+                        <fieldset>
+                            <button type="submit" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="right" title="Verr&aacute; cancellata l'auto associata al dispositivo e tutti i dati ad essa riferiti">
+                                Reset
+                                <i class="fa fa-automobile fa-fw"></i>
+                            </button>
+                            <input type="text" size="12" name="codDispositivo">
+                        </fieldset>
+                    </form>
+                </a>
+            </li>
+            <li>
+                <a href="#formAddDriver" data-toggle="modal">
+                    <i class="fa fa-user fa-fw"></i> Aggiungi driver
+                </a>
+            </li>
+        </ul>
+        <ul ng-if="ruolo == 3" class="nav" id="side-menu">
+            <li>
+                <a>
+                    <i class="fa fa-automobile fa-fw"></i> Visualizza auto
+                </a>
+            </li>
+            <li>
+                <a href="#formNoleggio" data-toggle="modal">
+                    <i class="fa fa-automobile fa-fw"></i> Noleggio
+                </a>
+            </li>
+            <li>
+                <a href="#formTerminaNoleggio" data-toggle="modal">
+                    <i class="fa fa-automobile fa-fw"></i> Termina noleggio
+                </a>
+            </li>
+            <li>
+                <a href="javascript:{}" onclick="document.getElementById('listAllAutoConErrori').submit(); return false;">
+                    <i class="fa fa-automobile fa-fw"></i> Visualizza auto con errori
+                </a>
+            </li>
+            <li>
+                <a href="/contraderOBDSpringBoot/preSetDisponibilita">
+                    <i class="fa fa-automobile fa-fw"></i> Vedi Disponibilita Auto
+                </a>
+            </li>
+            <li>
+                <a href="javascript:{}" onclick="document.getElementById('listAllDriverAzienda').submit(); return false;">
+                    <i class="fa fa-user fa-fw"></i> Aggiungi driver
+                </a>
+            </li>
+        </ul>
+        <!-- /.nav-second-level -->
+        </li>
+        </ul>
+        <ul ng-if="ruolo == 4" class="nav" id="side-menu">
+            <li>
+                <a href="#!/viewAppuntamento">
+                    <i class="fa fa-calendar fa-fw"></i> Appuntamenti
+                </a>
+            </li>
+            <li>
+                <a href="#!/viewPreventivo">
+                    <i class="fa fa-euro fa-fw"></i> Preventivi
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>

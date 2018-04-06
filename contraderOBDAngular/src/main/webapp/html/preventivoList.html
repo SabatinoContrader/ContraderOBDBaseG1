@@ -1,0 +1,149 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Preventivi</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-list-alt fa-fw"></i> Elenco preventivi
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table" ng-if="ruolo == 2">
+                            <thead>
+                                <tr>
+                                    <th>Auto</th>
+                                    <th>Contatto driver</th>
+                                    <th>Descrizione</th>
+                                    <th>Preventivo</th>
+                                    <th>Conferma</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="preventivo in listPreventivo">
+                                    <td>
+                                        <form>
+                                            <fieldset>
+                                                <input type="hidden" name="findAuto" value="${preventivo.autoEntity.codDispositivo}">
+                                                <button class="btn btn-circle" data-toggle="tooltip" data-placement="top" title="{{preventivo.autoEntity.casaCostruttrice}} {{preventivo.autoEntity.modello}}">
+                                                    <i class="fa fa-automobile"></i>
+                                                </button>
+                                            </fieldset>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        {{preventivo.driverEntity.cellulare}}
+                                    </td>
+                                    <td>
+                                        {{preventivo.descrizione}}
+                                    </td>
+                                    <td ng-if="preventivo.costo != null">
+                                        {{preventivo.costo}} &euro;
+                                    </td>
+                                    <td ng-if="preventivo.costo != null && preventivo.stato == true">
+                                        Accettato
+                                    </td>
+                                    <td ng-if="preventivo.costo != null && preventivo.stato == false">
+                                        Rifiutato
+                                    </td>
+                                    <td ng-if="preventivo.costo != null && preventivo.stato == null">
+                                        In attesa
+                                    </td>
+                                    <td colspan="2" ng-if="preventivo.costo == null">
+                                        <form>
+                                            <input type="hidden" name="idPreventivo" value="${preventivo.idPreventivo}">
+                                            <input type="hidden" name="idOfficina" value="${sessionScope.model.user.id}">
+                                            <input type="text" name="costo">
+                                            <button class="btn btn-primary btn-xs">
+                                                Conferma
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table" ng-show="ruolo == 4">
+                            <thead>
+                                <tr>
+                                    <th>Auto</th>
+                                    <th>Contatto officina</th>
+                                    <th>Descrizione</th>
+                                    <th>Prezzo</th>
+                                    <th>Conferma</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="preventivo in listPreventivo">
+                                    <td>
+                                        <form>
+                                            <fieldset>
+                                                <input type="hidden" name="codDispositivo" value="${preventivo.autoEntity.codDispositivo}">
+                                                <button class="btn btn-circle" data-toggle="tooltip" data-placement="top" title="${preventivo.autoEntity.casaCostruttrice} ${preventivo.autoEntity.modello}">
+                                                    <i class="fa fa-automobile"></i>
+                                                </button>
+                                            </fieldset>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        {{preventivo.officinaEntity.nomeOfficina}}
+                                    </td>
+                                    <td>
+                                        {{preventivo.descrizione}}
+                                    </td>
+                                    <td ng-if="preventivo.costo == null" colspan="2">
+                                        In attesa di risposta
+                                    </td>
+                                    <td ng-if="preventivo.costo != null">
+                                        {{preventivo.costo}} &euro;
+                                    </td>
+                                    <td ng-if="preventivo.costo != null && preventivo.stato == true">
+                                        Accettato
+                                    </td>
+                                    <td ng-if="preventivo.costo != null && preventivo.stato == false">
+                                        Rifiutato
+                                    </td>
+                                    <td ng-if="preventivo.costo != null && preventivo.stato == null">
+                                        <div class="col-md-3">
+                                            <form>
+                                                <input type="hidden" name="idPreventivo" value="${preventivo.idPreventivo}">
+                                                <input type="hidden" name="idDriver" value="${sessionScope.model.user.id}">
+                                                <button type="submit" class="btn btn-circle btn-sm btn-success">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <form>
+                                                <input type="hidden" name="idPreventivo" value="${preventivo.idPreventivo}">
+                                                <input type="hidden" name="idDriver" value="${sessionScope.model.user.id}">
+                                                <button type="submit" class="btn btn-circle btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <tabs-component></tabs-component>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

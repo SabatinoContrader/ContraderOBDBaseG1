@@ -1,0 +1,120 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Auto</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-automobile fa-fw"></i>
+                    {{auto.autoEntity.casaCostruttrice}} {{auto.autoEntity.modello}}
+                    <button class="btn btn-circle pull-right" data-toggle="modal" data-target="#formEditAuto" style="margin-top:-5px;">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">Codice dispositivo:</div>
+                        <div class="col-md-3">{{auto.autoEntity.codDispositivo}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Targa:</div>
+                        <div class="col-md-3">{{auto.autoEntity.targa}}</div>
+                        <div class="col-md-3">Num. telaio:</div>
+                        <div class="col-md-3">{{auto.autoEntity.telaio}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Casa costruttrice:</div>
+                        <div class="col-md-3">{{auto.autoEntity.casaCostruttrice}}</div>
+                        <div class="col-md-3">Modello:</div>
+                        <div class="col-md-3">{{auto.autoEntity.modello}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Alimentazione:</div>
+                        <div class="col-md-3">{{auto.autoEntity.alimentazione}}</div>
+                        <div class="col-md-3">Cambio:</div>
+                        <div class="col-md-3">
+                            <div ng-show="auto.autoEntity.cambio == 'M'.charAt(0)">
+                                Manuale
+                            </div>
+                            <div ng-show="auto.autoEntity.cambio == 'A'.charAt(0)">
+                                Automatico
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Ultima revisione:</div>
+                        <div class="col-md-3">{{auto.autoEntity.revisione}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Ultimo tagliando:</div>
+                        <div class="col-md-9">{{auto.autoEntity.tagliandoData}} effettuato a {{auto.autoEntity.tagliandoKm}} km </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-center" id=myTable>
+                            <title>
+                                Dati del dispositivo
+                            </title>
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Data</th>
+                                    <th class="text-center">Km</th>
+                                    <th class="text-center">Livello olio</th>
+                                    <th class="text-center">Errore</th>
+                                    <th class="text-center">Stato</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="dato in auto.datiEntityList">
+                                    <td>
+                                        {{dato.data}}
+                                    </td>
+                                    <td>
+                                        {{dato.km}}
+                                    </td>
+                                    <td>
+                                        {{dato.livelloOlio}}
+                                    </td>
+                                    <td>
+                                        {{dato.codErrore}}
+                                    </td>
+                                    <td ng-if="dato.codErrore != null">
+                                        <button ng-if="dato.stato == true" type="button" class="btn btn-success btn-circle btn-sm">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        <form ng-if="dato.stato == false">
+                                            <button type="button" class="btn btn-danger btn-circle btn-sm">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-circle btn-sm">
+                                                <i class="fa fa-wrench"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <tabs-component></tabs-component>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>
