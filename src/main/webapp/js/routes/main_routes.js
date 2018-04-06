@@ -63,8 +63,8 @@ app.config(function($routeProvider){
   .when('/', {
     templateUrl: 'html/login.html'
   }) .when('/home', {
-    templateUrl: 'html/home.html',
-    controller:'homePage'
+    templateUrl: 'html/home.html'
+ 
   })
   
 });

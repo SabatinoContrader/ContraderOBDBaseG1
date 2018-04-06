@@ -4,32 +4,34 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <title>Contrader OBD</title>
+	<!--begin::Web font -->
+		
 	
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
 	
-		<!--end::Page Vendors -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 	
-		 <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="materialize/css/materialize.css"/>
-    <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
-    <link rel="stylesheet" type="text/css" href="css/sign.css"/>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-route.min.js"></script>
+		
 <script src="js/app.js"></script>
 <script src="js/routes/main_routes.js"></script>
 
 <style>
 #main-container{margin-left:20%;width:60%;position:absolute;background-color:#a2a2a2;top:10px}#alerts-container{width:60%;margin-left:20%;height:100px;background-color:red;position:absolute;bottom:0;text-align:center}#palerts,.ptitolomenu{text-transform:uppercase;color:#fff;font-size:24px;text-align:center}#ulmenu{text-align:center;list-style:none;padding-left:0}#ulmenu li,#ulmenu li a{text-transform:uppercase;color:#fff;cursor:pointer;padding:10px;text-decoration:none}#ulmenu li:hover,#ulmenu li a:hover{color:red}.info-box{display:block;min-height:90px;background:#fff;width:100%;box-shadow:0 1px 1px rgba(0,0,0,0.1);border-radius:2px;margin-bottom:15px}.info-box-icon{border-top-left-radius:2px;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:2px;display:block;height:90px;text-align:center;font-size:45px;line-height:90px;background:rgba(0,0,0,0.2)}.bg-aqua{background-color:#00c0ef!important;color:#fff;font-size:22px}.content-header{position:relative;padding:15px 15px 0}footer{background-color:#a2a2a2;color:red;bottom:0;width:100%}footer a{color:#fff}.container .container-fluid{padding-top:50px;padding-bottom:50px}.card-container.card{max-width:350px;padding:40px}.btn{font-weight:700;height:36px;-moz-user-select:none;-webkit-user-select:none;user-select:none;cursor:default}.card{background-color:#F7F7F7;padding:20px 25px 30px;margin:0 auto 25px;margin-top:50px;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;-moz-box-shadow:0 2px 2px rgba(0,0,0,0.3);-webkit-box-shadow:0 2px 2px rgba(0,0,0,0.3);box-shadow:0 2px 2px rgba(0,0,0,0.3)}.profile-img-card{width:96px;height:96px;margin:0 auto 10px;display:block;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%}.profile-name-card{font-size:16px;font-weight:700;text-align:center;margin:10px 0 0;min-height:1em}.reauth-email{display:block;color:#404040;line-height:2;margin-bottom:10px;font-size:14px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}.form-signin #inputEmail,.form-signin #inputPassword{direction:ltr;height:44px;font-size:16px}.form-signin input[type=email],.form-signin input[type=password],.form-signin input[type=text],.form-signin button{width:100%;display:block;margin-bottom:10px;z-index:1;position:relative;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}.form-signin .form-control:focus{border-color:#6891a2;outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #6891a2;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #6891a2}.btn.btn-signin{background-color:#6891a2;padding:0;font-weight:700;font-size:14px;height:36px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;border:none;-o-transition:all .218s;-moz-transition:all .218s;-webkit-transition:all .218s;transition:all .218s}.btn.btn-signin:hover,.btn.btn-signin:active,.btn.btn-signin:focus{background-color:#0c6121}.forgot-password{color:#6891a2}.forgot-password:hover,.forgot-password:active,.forgot-password:focus{color:#0c6121}#titlogin{text-align:center;color:#5c7f8e;font-weight:700;font-size:32px}
-.sidebar-nav li a,.sidebar-nav li a:active,.sidebar-nav li a:focus{text-decoration:none}body{overflow-x:hidden}#wrapper{padding-left:0;-webkit-transition:all .5s ease;-moz-transition:all .5s ease;-o-transition:all .5s ease;transition:all .5s ease}#wrapper.toggled{padding-left:250px}#sidebar-wrapper{z-index:1000;position:fixed;left:250px;width:0;height:100%;margin-left:-250px;overflow-y:auto;background:#000;-webkit-transition:all .5s ease;-moz-transition:all .5s ease;-o-transition:all .5s ease;transition:all .5s ease}#wrapper.toggled #sidebar-wrapper{width:250px}#page-content-wrapper{width:100%;position:absolute;padding:15px}#wrapper.toggled #page-content-wrapper{position:absolute;margin-right:-250px}.sidebar-nav{position:absolute;top:0;width:250px;margin:0;padding:0;list-style:none}.sidebar-nav li{text-indent:20px;line-height:40px}.sidebar-nav li a{display:block;color:#999}.sidebar-nav li a:hover{text-decoration:none;color:#fff;background:rgba(255,255,255,.2)}.sidebar-nav>.sidebar-brand{height:65px;font-size:18px;line-height:60px}.sidebar-nav>.sidebar-brand a{color:#999}.sidebar-nav>.sidebar-brand a:hover{color:#fff;background:0 0}@media(min-width:768px){#wrapper{padding-left:0}#wrapper.toggled{padding-left:250px}#sidebar-wrapper{width:0}#wrapper.toggled #sidebar-wrapper{width:250px}#page-content-wrapper{padding:20px;position:relative}#wrapper.toggled #page-content-wrapper{position:relative;margin-right:0}}</style>
+.sidebar-nav li a,.sidebar-nav li a:active,.sidebar-nav li a:focus{text-decoration:none}body{overflow-x:hidden}#wrapper{padding-left:0;-webkit-transition:all .5s ease;-moz-transition:all .5s ease;-o-transition:all .5s ease;transition:all .5s ease}#wrapper.toggled{padding-left:250px}#sidebar-wrapper{z-index:1000;position:fixed;left:250px;width:0;height:100%;margin-left:-250px;overflow-y:auto;background:#000;-webkit-transition:all .5s ease;-moz-transition:all .5s ease;-o-transition:all .5s ease;transition:all .5s ease}#wrapper.toggled #sidebar-wrapper{width:250px}#page-content-wrapper{width:100%;position:absolute;padding:15px}#wrapper.toggled #page-content-wrapper{position:absolute;margin-right:-250px}.sidebar-nav{position:absolute;top:150px;width:250px;margin:0;padding:0;list-style:none}.sidebar-nav li{text-indent:20px;line-height:40px}.sidebar-nav li a{display:block;color:#999}.sidebar-nav li a:hover{text-decoration:none;color:#fff;background:rgba(255,255,255,.2)}.sidebar-nav>.sidebar-brand{height:65px;font-size:18px;line-height:60px}.sidebar-nav>.sidebar-brand a{color:#999}.sidebar-nav>.sidebar-brand a:hover{color:#fff;background:0 0}@media(min-width:768px){#wrapper{padding-left:0}#wrapper.toggled{padding-left:250px}#sidebar-wrapper{width:0}#wrapper.toggled #sidebar-wrapper{width:250px}#page-content-wrapper{padding:20px;position:relative}#wrapper.toggled #page-content-wrapper{position:relative;margin-right:0}}
+#demo3 a{    margin-left: 20px;}</style>
 
 
 </head>
-<body>
+<body ng-controller="mainController">
 
 <header>
 
@@ -45,33 +47,117 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a>
+                     <a  data-toggle="collapse" data-target="#demo3" style="cursor:pointer;color:#999;">Notifiche 
+					 <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumAlerts()}}</span><i class="fa fa-caret-down"></i></a>
+          <div class="collapse" id="demo3">
+            <a href="#SubMenu1" data-toggle="collapse" data-parent="#SubMenu1">Guasti </a>
+           <a href="#SubMenu1" data-toggle="collapse" data-parent="#SubMenu1">Scadenze  </a>
+            <a href="#SubMenu1"  data-toggle="collapse" data-parent="#SubMenu1">Scadenze Noleggi </a>
+          </div>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="#">Preventivi</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
+                    <a href="#">Appuntamenti</a>
                 </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+           
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper" >
-		<button type="button" id="menu-toggle">CLICCA</button>
+		
+		<!--begin:: Widgets/Stats-->
+						<div class="m-portlet " id="headercontent" style="display:none;">
+							<div class="m-portlet__body  m-portlet__body--no-padding">
+								<div class="row m-row--no-padding m-row--col-separator-xl">
+									<div class="col-md-12 col-lg-6 col-xl-3">
+										<!--begin::Total Profit-->
+										<div class="m-widget24">
+											<div class="m-widget24__item">
+												<h4 class="m-widget24__title">
+													Guasti
+												</h4>
+												<br>
+												<span class="m-widget24__desc">
+													Non risolti rilevati dai dispositivi
+												</span>
+												<span class="m-widget24__stats m--font-brand">
+												2
+												</span>
+												<div class="m--space-10"></div>
+											<p style="text-align:center;" class="smooth-scroll"><a   style="background-color:#716aca !important" class="btn btn-info btn-box visualizzaguasti">Visualizza</a></p>
+											</div>
+										</div>
+										<!--end::Total Profit-->
+									</div>
+									<div class="col-md-12 col-lg-6 col-xl-3">
+										<!--begin::New Feedbacks-->
+										<div class="m-widget24">
+											<div class="m-widget24__item">
+												<h4 class="m-widget24__title">
+												Scadenze
+												</h4>
+												<br>
+												<span class="m-widget24__desc">
+													Tecnico-Amministrative
+												</span>
+												<span class="m-widget24__stats m--font-info">
+												
+												2
+												</span>
+												<div class="m--space-10"></div>
+												<p style="text-align:center;" class="smooth-scroll"><a   style="background-color:#36a3f7   !important" class="btn btn-info btn-box visualizzascadenze">Visualizza</a></p>
+											</div>
+										</div>
+										<!--end::New Feedbacks-->
+									</div>
+									<div class="col-md-12 col-lg-6 col-xl-3">
+										<!--begin::New Orders-->
+										<div class="m-widget24">
+											<div class="m-widget24__item">
+												<h4 class="m-widget24__title">
+													Richieste Preventivo
+												</h4>
+												<br>
+												<span class="m-widget24__desc">
+													Per riparazione auto
+												</span>
+												<span class="m-widget24__stats m--font-danger">
+												22
+												</span>
+												<div class="m--space-10"></div>
+												<p style="text-align:center;" class="smooth-scroll"><a  style="background-color:#f4516c  !important" class="btn btn-info btn-box visualizzapreventivi">Visualizza</a></p>
+											</div>
+										</div>
+										<!--end::New Orders-->
+									</div>
+									<div class="col-md-12 col-lg-6 col-xl-3">
+										<!--begin::New Users-->
+										<div class="m-widget24">
+											<div class="m-widget24__item">
+												<h4 class="m-widget24__title">
+													Appuntamenti
+												</h4>
+												<br>
+												<span class="m-widget24__desc">
+													Richiesti
+												</span>
+												<span class="m-widget24__stats m--font-success">
+													22
+												</span>
+												<div class="m--space-10"></div>
+												<p style="text-align:center;" class="smooth-scroll"><a  style="background-color:#34bfa3    !important" class="btn btn-info btn-box visualizzaappuntamenti">Visualizza</a></p>
+											</div>
+										</div>
+										<!--end::New Users-->
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end:: Widgets/Stats--> 
             <div class="container-fluid"  ng-view>
                
             </div>
@@ -110,10 +196,19 @@
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="materialize/js/materialize.js"></script>
 
-<script src="js/controller/loginPage.js"></script>
+<script src="js/controller/mainController.js"></script>
+<script src="js/controller/homePage.js"></script>
+
 <!-- SERVICES, FACTORIES -->
 <script src="js/services/User/userREST.js"></script>
 <script src="js/services/User/userService.js"></script>
+<script>
+$(document).ready(function(){
+  
+});
+
+</script>
+
 </body>
 </html>
 
