@@ -80,9 +80,9 @@ public class Controller {
 	
 	 
 	 
-	 	//Lista Auto Cliente
-	 	@RequestMapping(value = "/autoCliente", method = RequestMethod.POST)
-	    public List<Auto> getAutoCliente(@RequestParam("id") int idUtente) {
+	 	//Lista tutte le Auto mai associate al Cliente 
+	 	@RequestMapping(value = "/autoNoleggiCliente", method = RequestMethod.POST)
+	    public List<Auto> getAutoNoleggiCliente(@RequestParam("id") int idUtente) {
 	 		
 	 		List<Auto> lista = new ArrayList();
 	 		
@@ -94,6 +94,20 @@ public class Controller {
 	 		
 	 	}
 	 
+	 	//Lista tutte le Auto attualmente in noleggio dal Cliente 
+	 	@RequestMapping(value = "/autoCliente", method = RequestMethod.POST)
+	    public List<Auto> getAutoCliente(@RequestParam("id") int idUtente) {
+	 		
+	 		List<Auto> lista = new ArrayList();
+	 		
+	 		List<Noleggio> listaNoleggi = getNoleggiCliente(idUtente);
+	 		
+	 		for(int i = 0; i<listaNoleggi.size(); i++) if(listaNoleggi.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis()))) lista.add(listaNoleggi.get(i).getAuto());
+	 		
+	 		return lista;
+	 		
+	 	}
+	 	
 	 	//Lista Auto Officina
 	 	@RequestMapping(value = "/autoOfficina", method = RequestMethod.POST)
 	    public List<Auto> getAutoOfficina(@RequestParam("id") int idUtente) {
@@ -297,7 +311,6 @@ public class Controller {
 	        		
 	        		dati = new LogInUtente(u, (getAutoInScadenza(u.getId()).size() + getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).size() + getGuastiIrrisolti(u.getId()).size()), getAutoOfficina(u.getId()));
 	        		
-	        	
 	        	}
 	        	
 	        }
