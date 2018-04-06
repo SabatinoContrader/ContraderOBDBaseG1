@@ -33,9 +33,26 @@ function($resource){
         id: '@id'
       }
     },
+	 preventiviofficina: {
+      method: 'POST',
+      url: baseUrl+'preventiviOfficina',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        id: '@id'
+      }
+    },
 	 appuntamenti: {
       method: 'POST',
       url: baseUrl+'appuntamentiCliente',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        id: '@id'
+      }
+    }
+	,
+	 scadenze: {
+      method: 'POST',
+      url: baseUrl+'autoInScadenza',
       headers:{'Content-Type': 'application/json; charset=UTF-8' },
 	  params: {
         id: '@id'

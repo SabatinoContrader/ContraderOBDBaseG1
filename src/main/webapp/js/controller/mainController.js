@@ -34,15 +34,18 @@ $scope.doLogin = function(){
 	}
 
 	$scope.preventivi = function(){
-	
+		let id;
+	if(this.user.getUser().ruolo==0){
+		id=this.user.getUser().id;
+	}
+	else{
+		 id=this.user.getUser().officina.id;
+	}
 		userService.preventivi({
-			id:this.user.getUser().id
+			id:id
 		},function(response){
 							 $location.path("/preventivi");
-			if(response.data!=null){
-					 
-			 $location.path("/preventivi");
-			}
+			
 			
 		});
 	}
@@ -53,12 +56,20 @@ $scope.doLogin = function(){
 			id:this.user.getUser().id
 		},function(response){
 							 $location.path("/appuntamenti");
-			if(response.data!=null){
-					 
-			 $location.path("/appuntamenti");
-			}
+			
 			
 		});
 	}
 
+	$scope.scadenze = function(){
+	
+		userService.scadenze({
+			id:this.user.getUser().id
+		},function(response){
+							 $location.path("/scadenze");
+		
+			
+		});
+	}
+	
 });

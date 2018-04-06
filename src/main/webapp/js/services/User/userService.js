@@ -6,6 +6,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 	  numAlert:{},
 	  userPreventivi:[],
 	   userAppuntamenti:[],
+	   userScadenzeAuto:[],
         doLogin: function(params, callback){
 		
      
@@ -42,6 +43,8 @@ app.service('userService', function (userREST,$location,$cookies) {
       });
     },
 	preventivi : function(params,callback){
+		
+		if(parent.userObj.ruolo==0){
 		userREST.preventivi(params).$promise.then(function(response){
 			
 			 if(response.data!=null){
@@ -50,6 +53,16 @@ app.service('userService', function (userREST,$location,$cookies) {
 			//	  $location.path("/preventivi");
 			 }
 		});
+		}else{
+			userREST.preventiviofficina(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userPreventivi=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+		}
 	},
 	appuntamenti : function(params,callback){
 		userREST.appuntamenti(params).$promise.then(function(response){
@@ -61,10 +74,21 @@ app.service('userService', function (userREST,$location,$cookies) {
 			 }
 		});
 	},
+	scadenze : function(params,callback){
+		userREST.scadenze(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userScadenzeAuto=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
 	 getAuto: function(){return parent.userAuto;},
 	 getUser: function() {return parent.userObj;},
 	 getUserPreventivi: function(){return parent.userPreventivi;},
 	 getUserAppuntamenti: function(){return parent.userAppuntamenti;},
+	 getUserScadenzeAuto: function(){return parent.userScadenzeAuto;},
 	 getNumAlerts: function(){return parent.numAlert;}
   }
 });

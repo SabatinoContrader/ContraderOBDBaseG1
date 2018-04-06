@@ -72,6 +72,10 @@ app.config(function($routeProvider){
     templateUrl: 'html/appuntamenti.html'
  
   })
+  .when('/scadenze', {
+    templateUrl: 'html/scadenze.html'
+ 
+  })
   
   
 });
