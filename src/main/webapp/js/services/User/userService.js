@@ -3,7 +3,9 @@ app.service('userService', function (userREST,$location,$cookies) {
   return{
 	  userObj: {},
 	  userAuto:[],
-	  numAlert:{},
+	  numGuasti:{},
+	  numScadenze:{},
+	  numKmNoleggio:{},
 	  userPreventivi:[],
 	   userAppuntamenti:[],
 	   userScadenzeAuto:[],
@@ -24,7 +26,9 @@ app.service('userService', function (userREST,$location,$cookies) {
 		  console.log("UTENTE: "+response.utente.cognome);*/
 		
 		  parent.userAuto=response.listaAuto;
-		parent.numAlert=response.numAlerts;
+		parent.numGuasti=response.numGuasti;
+		parent.numScadenze=response.numScadenze;
+		parent.numKmNoleggio=response.numKmNoleggio;
 		  $location.path("/home");
 		  $('#headercontent').show();
 		  $("#wrapper").toggleClass("toggled");
@@ -85,10 +89,16 @@ app.service('userService', function (userREST,$location,$cookies) {
 		});
 	},
 	 getAuto: function(){return parent.userAuto;},
-	 getUser: function() {return parent.userObj;},
+
+	
 	 getUserPreventivi: function(){return parent.userPreventivi;},
 	 getUserAppuntamenti: function(){return parent.userAppuntamenti;},
 	 getUserScadenzeAuto: function(){return parent.userScadenzeAuto;},
-	 getNumAlerts: function(){return parent.numAlert;}
+	 getUser() {return parent.userObj;},
+	 getNumAlerts: function(){return parent.numGuasti+parent.numScadenze+parent.numKmNoleggio;},
+	 getNumGuasti: function(){return parent.numGuasti;},
+	 getNumScadenze: function(){return parent.numScadenze;},
+	 getNumKmNoleggio: function(){return parent.numKmNoleggio;}
+	 
   }
 });

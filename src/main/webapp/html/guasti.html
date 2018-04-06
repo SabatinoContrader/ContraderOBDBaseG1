@@ -1,0 +1,29 @@
+
+	<div ng-controller="guasti">
+		<table class="table" id="myTable">
+			<thead>
+				<tr>
+					<th scope="col">Id Guasto</th>
+					<th scope="col">Stato Risoluzione</th>
+					<th scope="col">Descrizione Guasto</th>
+					<th scope="col">Data</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="oggetto in risposta.data">
+					<th scope="row">{{oggetto.id}}</th>
+					<td>{{oggetto.statoRisoluzione}}</td>
+					<td>{{oggetto.tipologiaGuasto.descrizione}}</td>
+					<td>{{oggetto.data | date:'dd-MM-yyyy'}}</td>
+				</tr>
+			</tbody>
+		</table>
+			<script> $(document).ready( function () {
+		$('#myTable').DataTable({
+		 searching: true,
+		ordering:  true,
+		pageLength:25,});
+	} );
+	</script>
+	</div>
+
