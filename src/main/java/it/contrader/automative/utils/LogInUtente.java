@@ -21,7 +21,9 @@ public class LogInUtente implements Serializable {
 //	private int ruolo;				//0: Cliente; 1: Officina
 	
 	private Utente utente;	
-	private int numAlerts;			//Guasti, Scadenze Date, Km Noleggio, Risposte(non ancora implementato)
+	private int numGuasti;			//Guasti, Scadenze Date, Km Noleggio, Risposte(non ancora implementato)
+	private int numScadenze;
+	private int numKmNoleggio;
 	private List<Auto> listaAuto;
 	
 //	private List<Noleggio> listaNoleggi;			//se è un Cliente ci saranno le sue auto altrimenti solo i noleggi dell'officina

@@ -12,8 +12,8 @@
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css">
-  <!--Pulling Awesome Font -->
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -43,15 +43,30 @@
 
   <div class="container-fluid">
     <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar" ng-if="user.isLogged">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="#">
-                <span data-feather="home"></span>
-                Dashboard
-                <span class="sr-only">(current)</span>
+              <a data-toggle="collapse" data-target="#demo3" style="cursor:pointer;color:#999;">Notifiche
+                <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumAlerts()}}</span>
+                <i class="fa fa-caret-down"></i>
               </a>
+              <div class="collapse" id="demo3">
+
+                <a ng-click="guasti()">Guasti
+                  <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumGuasti()}}</span>
+                </a>
+
+                <a ng-click="scadenze()">Scadenze
+                  <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumScadenze()}}</span>
+                </a>
+
+
+                <a ng-click="scadenzeNoleggi()">Scadenze Noleggi
+                  <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumKmNoleggio()}}</span>
+                </a>
+
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
@@ -126,31 +141,15 @@
     </div>
   </div>
 
-  <script>
-    $("#menu-toggle").click(function (e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
-
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
   <script src="bower_components/angular-messages/angular-messages.js"></script>
   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-  <script src="materialize/js/materialize.js"></script>
-
   <script src="js/controller/mainController.js"></script>
-  <script src="js/controller/homePage.js"></script>
 
   <!-- SERVICES, FACTORIES -->
   <script src="js/services/User/userREST.js"></script>
   <script src="js/services/User/userService.js"></script>
-  <script>
-    $(document).ready(function () {
-
-    });
-
-  </script>
 
 </body>
 

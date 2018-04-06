@@ -3,7 +3,14 @@ app.service('userService', function (userREST,$location,$cookies) {
   return{
 	  userObj: {},
 	  userAuto:[],
-	  numAlert:{},
+	  numGuasti:{},
+	  numScadenze:{},
+	  numKmNoleggio:{},
+	  userPreventivi:[],
+	   userAppuntamenti:[],
+	   userScadenzeAuto:[],
+	   userGuasti:[],
+	   scadenzeNoleggi:[],
         doLogin: function(params, callback){
 		
      
@@ -11,7 +18,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 		  if(response.utente!=null){
 //        if(callback !=null){
          // callback(response);
-		 userObj= response.utente;
+		 parent.userObj= response.utente;
 		// console.log(response);
 		 let now = new Date(),
             exp = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);  // this will set the expiration to 1 day
@@ -21,7 +28,9 @@ app.service('userService', function (userREST,$location,$cookies) {
 		  console.log("UTENTE: "+response.utente.cognome);*/
 		
 		  parent.userAuto=response.listaAuto;
-		parent.numAlert=response.numAlerts;
+		parent.numGuasti=response.numGuasti;
+		parent.numScadenze=response.numScadenze;
+		parent.numKmNoleggio=response.numKmNoleggio;
 		  $location.path("/home");
 		  $('#headercontent').show();
 		  $("#wrapper").toggleClass("toggled");
@@ -39,8 +48,89 @@ app.service('userService', function (userREST,$location,$cookies) {
         }
       });
     },
+	preventivi : function(params,callback){
+		
+		if(parent.userObj.ruolo==0){
+		userREST.preventivi(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userPreventivi=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+		}else{
+			userREST.preventiviofficina(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userPreventivi=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+		}
+	},
+	appuntamenti : function(params,callback){
+		userREST.appuntamenti(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userAppuntamenti=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+	scadenze : function(params,callback){
+		userREST.scadenze(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userScadenzeAuto=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+	guasti : function(params,callback){
+		userREST.guasti(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userGuasti=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+	scadenzeNoleggi : function(params,callback){
+		userREST.scadenzeNoleggi(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.scadenzeNoleggi=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+	scadenzeNoleggiOfficina : function(params,callback){
+		userREST.scadenzeNoleggiOfficina(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.scadenzeNoleggi=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
 	 getAuto: function(){return parent.userAuto;},
-	 getUser() {return this.userObj;},
-	 getNumAlerts: function(){return parent.numAlert;}
+	 getScadenzeNoleggi: function(){return parent.scadenzeNoleggi;},
+	getUserGuasti: function(){return parent.userGuasti;},
+	 getUserPreventivi: function(){return parent.userPreventivi;},
+	 getUserAppuntamenti: function(){return parent.userAppuntamenti;},
+	 getUserScadenzeAuto: function(){return parent.userScadenzeAuto;},
+	 getUser() {return parent.userObj;},
+	 getNumAlerts: function(){return parent.numGuasti+parent.numScadenze+parent.numKmNoleggio;},
+	 getNumGuasti: function(){return parent.numGuasti;},
+	 getNumScadenze: function(){return parent.numScadenze;},
+	 getNumKmNoleggio: function(){return parent.numKmNoleggio;}
+	 
   }
 });

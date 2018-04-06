@@ -65,6 +65,27 @@ app.config(function($routeProvider){
   }) .when('/home', {
     templateUrl: 'html/home.html'
  
+  }).when('/preventivi', {
+    templateUrl: 'html/preventivi.html'
+ 
+  }).when('/appuntamenti', {
+    templateUrl: 'html/appuntamenti.html'
+ 
+  })
+  .when('/scadenze', {
+    templateUrl: 'html/scadenze.html'
+ 
+  })
+  
+  
+  //Prova
+  .when('/guasti', {
+    templateUrl: 'html/guasti.html'
+ 
+  })
+  .when('/scadenzeNoleggi', {
+    templateUrl: 'html/scadenzeNoleggi.html'
+ 
   })
   
 });
