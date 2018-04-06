@@ -67,4 +67,14 @@ app.config(function($routeProvider){
  
   })
   
+  //Prova
+  .when('/guasti', {
+    templateUrl: 'prova/guasti.html'
+ 
+  })
+  .when('/scadenzeNoleggi', {
+    templateUrl: 'prova/scadenzeNoleggi.html'
+ 
+  })
+  
 });

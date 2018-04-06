@@ -11,7 +11,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 		  if(response.utente!=null){
 //        if(callback !=null){
          // callback(response);
-		 userObj= response.utente;
+		 parent.userObj= response.utente;
 		// console.log(response);
 		 let now = new Date(),
             exp = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);  // this will set the expiration to 1 day
@@ -40,7 +40,7 @@ app.service('userService', function (userREST,$location,$cookies) {
       });
     },
 	 getAuto: function(){return parent.userAuto;},
-	 getUser() {return this.userObj;},
+	 getUser() {return parent.userObj;},
 	 getNumAlerts: function(){return parent.numAlert;}
   }
 });

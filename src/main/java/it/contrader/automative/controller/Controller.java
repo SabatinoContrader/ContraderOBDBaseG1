@@ -306,13 +306,13 @@ public class Controller {
 	        	switch (u.getRuolo()) {
 	        	case 0 :
 	        		
-	        		dati = new LogInUtente(u, (getAutoInScadenza(u.getId()).getData().size() + getNoleggiKmInScadenzaCliente(u.getId()).getData().size() + getGuastiIrrisolti(u.getId()).getData().size() ), getAutoCliente(u.getId()).getData());
+	        		dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAutoCliente(u.getId()).getData());
 	        		
 	        		return dati;
 
 				case 1 : 
 	        		
-	        		dati = new LogInUtente(u, (getAutoInScadenza(u.getId()).getData().size() + getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size() + getGuastiIrrisolti(u.getId()).getData().size()), getAutoOfficina(u.getId()).getData());
+	        		dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAutoOfficina(u.getId()).getData());
 	        		
 	        	}
 	        	
