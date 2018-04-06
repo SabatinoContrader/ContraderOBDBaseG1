@@ -32,6 +32,14 @@ function($resource){
 	  params: {
         id: '@id'
       }
+    },
+	 appuntamenti: {
+      method: 'POST',
+      url: baseUrl+'appuntamentiCliente',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        id: '@id'
+      }
     }
   });
 }

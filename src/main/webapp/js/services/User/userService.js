@@ -5,6 +5,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 	  userAuto:[],
 	  numAlert:{},
 	  userPreventivi:[],
+	   userAppuntamenti:[],
         doLogin: function(params, callback){
 		
      
@@ -50,9 +51,20 @@ app.service('userService', function (userREST,$location,$cookies) {
 			 }
 		});
 	},
+	appuntamenti : function(params,callback){
+		userREST.appuntamenti(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userAppuntamenti=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
 	 getAuto: function(){return parent.userAuto;},
 	 getUser: function() {return parent.userObj;},
 	 getUserPreventivi: function(){return parent.userPreventivi;},
+	 getUserAppuntamenti: function(){return parent.userAppuntamenti;},
 	 getNumAlerts: function(){return parent.numAlert;}
   }
 });

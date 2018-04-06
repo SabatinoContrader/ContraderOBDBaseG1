@@ -68,6 +68,10 @@ app.config(function($routeProvider){
   }).when('/preventivi', {
     templateUrl: 'html/preventivi.html'
  
+  }).when('/appuntamenti', {
+    templateUrl: 'html/appuntamenti.html'
+ 
   })
+  
   
 });

@@ -46,5 +46,19 @@ $scope.doLogin = function(){
 			
 		});
 	}
+	
+		$scope.appuntamenti = function(){
+	
+		userService.appuntamenti({
+			id:this.user.getUser().id
+		},function(response){
+							 $location.path("/appuntamenti");
+			if(response.data!=null){
+					 
+			 $location.path("/appuntamenti");
+			}
+			
+		});
+	}
 
 });
