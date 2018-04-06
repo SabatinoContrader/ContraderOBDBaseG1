@@ -38,12 +38,8 @@ import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.IUtente;
 import it.contrader.automative.utils.Alerts;
 import it.contrader.automative.utils.AutoScadenze;
-
-import it.contrader.automative.utils.Constant;
-
 import it.contrader.automative.utils.GenericResponse;
 import it.contrader.automative.utils.LogInUtente;
-import javassist.expr.NewArray;
 
 
 

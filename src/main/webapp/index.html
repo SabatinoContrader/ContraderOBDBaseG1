@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -36,85 +36,43 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Vianello's Automotive</a>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-        <a class="nav-link" href="#" ng-if="user.isLogged">Sign out</a>
+        <a class="nav-link" ng-if="user.getLogged()" ng-click="logOut()">Sign out</a>
       </li>
     </ul>
   </nav>
 
-  <div class="container-fluid">
+  <div class="container-fluid" >
     <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar" ng-if="user.isLogged">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar" ng-if="user.getLogged()">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="#">
-                <span data-feather="home"></span>
-                Dashboard
-                <span class="sr-only">(current)</span>
+              <a data-toggle="collapse" data-target="#demo3" style="cursor:pointer;color:#999;" class="nav-link">Notifiche
+                <span class="badge badge-light " style="line-height: 40px;">{{user.getNumAlerts()}}</span>
+                <i class="fa fa-caret-down"></i>
               </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file"></span>
-                Orders
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="shopping-cart"></span>
-                Products
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="users"></span>
-                Customers
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="bar-chart-2"></span>
-                Reports
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="layers"></span>
-                Integrations
-              </a>
-            </li>
-          </ul>
+              <div class="collapse" id="demo3" style="padding-left:10%;padding-right:10%">
 
-          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Saved reports</span>
-            <a class="d-flex align-items-center text-muted" href="#">
-              <span data-feather="plus-circle"></span>
-            </a>
-          </h6>
-          <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Current month
-              </a>
+                <a style="cursor: pointer;" ng-click="guasti()">Guasti
+                  <span class="badge badge-light" style="float:right;">{{user.getNumGuasti()}}</span>
+                </a>
+                <br>
+                <a style="cursor: pointer;" ng-click="scadenze()">Scadenze
+                  <span class="badge badge-light" style="float:right;">{{user.getNumScadenze()}}</span>
+                </a>
+                <br>
+
+                <a style="cursor: pointer;" ng-click="scadenzeNoleggi()">Scadenze Noleggi
+                  <span class="badge badge-light" style="float:right;">{{user.getNumKmNoleggio()}}</span>
+                </a>
+
+              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Last quarter
-              </a>
+              <a class="nav-link" ng-click="preventivi()">Preventivi</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Social engagement
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Year-end sale
-              </a>
+              <a class="nav-link" ng-click="appuntamenti()">Appuntamenti</a>
             </li>
           </ul>
         </div>
@@ -127,7 +85,7 @@
   </div>
 
   <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
   <script src="bower_components/angular-messages/angular-messages.js"></script>
   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
   <script src="js/controller/mainController.js"></script>
