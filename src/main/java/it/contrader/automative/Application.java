@@ -107,28 +107,28 @@ public class Application extends SpringBootServletInitializer {
     	
     	Utente inserimentoUtenti [] = new Utente[5];
     	//id nome cognome email pass stato oggicina datareg ruolo telefono
-    	inserimentoUtenti[0] = new Utente(1, "Lorenzo", "Vitale", "lv@contrader,it", "password", 0, inserimentoOfficine[0], data1, 0, "3356724938");
+    	inserimentoUtenti[0] = new Utente(1, "Lorenzo", "Vitale", "lv@contrader.it", "password", 0, inserimentoOfficine[0], data1, 0, "3356724938");
     	inserimentoUtenti[1] = new Utente(2, "Carmine", "Villano", "officina1", "password", 0, inserimentoOfficine[0], data1, 1, "3372198453");
-    	inserimentoUtenti[2] = new Utente(3, "Camste", "Vizzo", "cv@contrader,it", "password", 0, inserimentoOfficine[0], data1, 0, "3359824938");
-    	inserimentoUtenti[3] = new Utente(4, "Antonio", "Pratico'", "ap@contrader,it", "password", 0, inserimentoOfficine[0], data1, 0, "3356793648");
-    	inserimentoUtenti[4] = new Utente(5, "Domenico", "Zollo", "dz@contrader,it", "password", 0, inserimentoOfficine[0], data1, 0, "33987624938");
+    	inserimentoUtenti[2] = new Utente(3, "Camste", "Vizzo", "cv@contrader.it", "password", 0, inserimentoOfficine[0], data1, 0, "3359824938");
+    	inserimentoUtenti[3] = new Utente(4, "Antonio", "Pratico'", "ap@contrader.it", "password", 0, inserimentoOfficine[0], data1, 0, "3356793648");
+    	inserimentoUtenti[4] = new Utente(5, "Domenico", "Zollo", "dz@contrader.it", "password", 0, inserimentoOfficine[0], data1, 0, "33987624938");
 
     	
     	Auto inserimentoAuto[] = new Auto[7];
     	//id marca modello targa num telaio cilindrata num porte alimentazione kmattuali kminiz noleggio datascadrev datascadtagl scadass scadbollo tipolauto danolegg officina
     	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 5, "Benzina", 32131, 1233, data3, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
 
-    	inserimentoAuto[1] = new Auto(2,"Opel", "Corsa", "AC874UP", "ANTU7637AMJO", 1600, 5, "Benzina", 32131, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[1] = new Auto(2,"Opel", "Corsa", "AC8744UP", "ANTU76737AMJO", 1600, 5, "Benzina", 32131, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[2] = new Auto(3,"Alfa Romeo", "Giulietta", "AC892KP", "UIEG7637AMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data2, data3, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[2] = new Auto(3,"Alfa Romeo", "Giulietta", "AC8923KP", "UIE7G7637AMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data2, data3, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[3] = new Auto(4,"Lancia", "Y", "YR792KP", "UIEG7664UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[3] = new Auto(4,"Lancia", "Y", "YR7922KP", "UIEG764764UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[4] = new Auto(5,"Fiat", "500L", "YU932KP", "UJSA4664UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[4] = new Auto(5,"Fiat", "500L", "YU93R1KP", "UJSA4664U5MJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[5] = new Auto(6,"Volvo", "XC60", "OIE52KP", "UWEB7664UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[5] = new Auto(6,"Volvo", "XC60", "OIE152KP", "UWEB7664UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[6] = new Auto(7,"Fiat", "Punto", "YR784SW", "LAEB1664UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[6] = new Auto(7,"Fiat", "Punto", "YR784SW", "LAEB16642UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
     	Noleggio inserimentoNoleggio[] = new Noleggio[3];
     	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0], inserimentoOfficine[0], data1,  data2, 84010, 82100,60000);
