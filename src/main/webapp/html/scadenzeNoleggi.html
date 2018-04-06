@@ -1,4 +1,4 @@
-<div ng-controller="scadenzeNoleggi">
+<div>
     <table class="table" id = "myTable">
         <thead>
             <tr>
@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="oggetto in risposta.data">
+            <tr ng-repeat="oggetto in user.getScadenzeNoleggi()">
                 <th scope="row">{{oggetto.utente.email}}</th>
                 <td>{{oggetto.auto.targa}}</td>
                 <td>{{oggetto.auto.marca}}</td>

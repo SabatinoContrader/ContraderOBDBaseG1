@@ -57,6 +57,30 @@ function($resource){
 	  params: {
         id: '@id'
       }
+    },
+	 guasti: {
+      method: 'POST',
+      url: baseUrl+'getGuasti',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        id: '@id'
+      }
+    },
+	 scadenzeNoleggi: {
+      method: 'POST',
+      url: baseUrl+'kmInScadenzaCliente',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        id: '@id'
+      }
+    },
+	 scadenzeNoleggiOfficina: {
+      method: 'POST',
+      url: baseUrl+'kmInScadenzaOfficina',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        id: '@id'
+      }
     }
   });
 }

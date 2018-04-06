@@ -72,4 +72,38 @@ $scope.doLogin = function(){
 		});
 	}
 	
+	$scope.guasti = function(){
+	
+		userService.guasti({
+			id:this.user.getUser().id
+		},function(response){
+							 $location.path("/guasti");
+			
+			
+		});
+	}
+	
+	$scope.scadenzeNoleggi = function(){
+	let id;
+	
+	if(this.user.getUser().ruolo==0){
+	userService.scadenzeNoleggi({
+			id:this.user.getUser().id
+		},function(response){
+							 $location.path("/scadenzeNoleggi");
+						
+		});
+	}
+	else{
+		 
+		 userService.scadenzeNoleggiOfficina({
+			id:this.user.getUser().officina.id
+		},function(response){
+							 $location.path("/scadenzeNoleggi");
+			
+			
+		});
+	}
+		
+	}
 });

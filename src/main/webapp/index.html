@@ -50,12 +50,12 @@
 					 <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumAlerts()}}</span><i class="fa fa-caret-down"></i></a>
           <div class="collapse" id="demo3">
 
-            <a href="#!guasti" data-toggle="collapse" data-parent="#SubMenu1">Guasti <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumGuasti()}}</span></a>
+            <a ng-click="guasti()">Guasti <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumGuasti()}}</span></a>
 			
            <a ng-click="scadenze()"  >Scadenze  <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumScadenze()}}</span></a>
 		   
 		   
-            <a href="#!scadenzeNoleggi"  data-toggle="collapse" data-parent="#SubMenu1">Scadenze Noleggi <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumKmNoleggio()}}</span></a>
+            <a ng-click="scadenzeNoleggi()">Scadenze Noleggi <span class="badge badge-light" style="float:right;    line-height: 40px;">{{user.getNumKmNoleggio()}}</span></a>
 
           </div>
                 </li>
