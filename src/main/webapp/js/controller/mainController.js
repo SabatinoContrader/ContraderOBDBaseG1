@@ -7,6 +7,7 @@ $scope.email = "caio";
 $scope.pwd ="password";*/
 this.email = $scope.email;
 this.pwd =$scope.pwd;
+this.user=$scope.user;
 $scope.doLogin = function(){
 	
 	userService.doLogin({
@@ -30,6 +31,20 @@ $scope.doLogin = function(){
     });
 	
 
+	}
+
+	$scope.preventivi = function(){
+	
+		userService.preventivi({
+			id:this.user.getUser().id
+		},function(response){
+							 $location.path("/preventivi");
+			if(response.data!=null){
+					 
+			 $location.path("/preventivi");
+			}
+			
+		});
 	}
 
 });

@@ -24,6 +24,14 @@ function($resource){
       params: {
         username: '@username'
       }
+    },
+	 preventivi: {
+      method: 'POST',
+      url: baseUrl+'preventiviCliente',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        id: '@id'
+      }
     }
   });
 }

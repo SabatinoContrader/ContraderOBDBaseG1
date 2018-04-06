@@ -65,6 +65,9 @@ app.config(function($routeProvider){
   }) .when('/home', {
     templateUrl: 'html/home.html'
  
+  }).when('/preventivi', {
+    templateUrl: 'html/preventivi.html'
+ 
   })
   
 });

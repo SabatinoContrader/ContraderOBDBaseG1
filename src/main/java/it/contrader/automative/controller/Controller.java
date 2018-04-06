@@ -32,13 +32,14 @@ import it.contrader.automative.repositories.NoleggioRepository;
 import it.contrader.automative.repositories.OfficinaRepository;
 import it.contrader.automative.repositories.PreventivoRepository;
 import it.contrader.automative.repositories.UtenteRepository;
-import it.contrader.automative.serviceInterfaces.INoleggio;
-import it.contrader.automative.serviceInterfaces.IUtente;
-
-import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.IAppuntamento;
+import it.contrader.automative.serviceInterfaces.INoleggio;
+import it.contrader.automative.serviceInterfaces.IPreventivo;
+import it.contrader.automative.serviceInterfaces.IUtente;
 import it.contrader.automative.utils.Alerts;
 import it.contrader.automative.utils.AutoScadenze;
+import it.contrader.automative.utils.Constant;
+import it.contrader.automative.utils.GenericResponse;
 import it.contrader.automative.utils.LogInUtente;
 
 
@@ -231,13 +232,13 @@ public class Controller {
 
 	 	//Lista Preventivi del Cliente
 	 	@RequestMapping(value = "/preventiviCliente", method = RequestMethod.POST)
-	    public List<Preventivo> getPreventiviCliente(@RequestParam("id") int idUtente) {
+	    public GenericResponse<List<Preventivo>> getPreventiviCliente(@RequestParam("id") int idUtente) {
 	 		
 	 		List<Preventivo> listaPreventivi = new ArrayList();
 	 		
 	 		listaPreventivi = preventivoRepository.findByUtente(utenteRepository.findById(idUtente));
 	 		
-	 		return listaPreventivi;
+	 		return new GenericResponse<>(listaPreventivi,Constant.SUCCESS_MSG,Constant.SUCCESS);
 	 		
 	 	}
 	 	

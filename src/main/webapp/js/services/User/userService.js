@@ -4,6 +4,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 	  userObj: {},
 	  userAuto:[],
 	  numAlert:{},
+	  userPreventivi:[],
         doLogin: function(params, callback){
 		
      
@@ -11,7 +12,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 		  if(response.utente!=null){
 //        if(callback !=null){
          // callback(response);
-		 userObj= response.utente;
+		 parent.userObj= response.utente;
 		// console.log(response);
 		 let now = new Date(),
             exp = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);  // this will set the expiration to 1 day
@@ -39,8 +40,19 @@ app.service('userService', function (userREST,$location,$cookies) {
         }
       });
     },
+	preventivi : function(params,callback){
+		userREST.preventivi(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userPreventivi=response.data;
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
 	 getAuto: function(){return parent.userAuto;},
-	 getUser() {return this.userObj;},
+	 getUser: function() {return parent.userObj;},
+	 getUserPreventivi: function(){return parent.userPreventivi;},
 	 getNumAlerts: function(){return parent.numAlert;}
   }
 });
