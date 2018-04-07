@@ -21,6 +21,7 @@ import lombok.Setter;
 public class Auto implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	@Column
