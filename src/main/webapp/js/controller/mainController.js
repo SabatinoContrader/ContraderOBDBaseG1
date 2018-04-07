@@ -53,9 +53,15 @@
 		}
 		
 			$scope.appuntamenti = function(){
-		
+		let id;
+		if(this.user.getUser().ruolo==0){
+			id=this.user.getUser().id;
+		}
+		else{
+			id=this.user.getUser().officina.id;
+		}
 			userService.appuntamenti({
-				id:this.user.getUser().id
+				id:id
 			},function(response){
 								$location.path("/appuntamenti");
 				
@@ -108,6 +114,20 @@
 		}
 			
 		}
+		
+		$scope.clienti = function(){
+		
+			userService.clienti({
+				id:this.user.getUser().officina.id
+			},function(response){
+								$location.path("/clienti");
+				
+				
+			});
+		}
+		
+		
+		
 		$scope.logOut = function(){
 			userService.logOut();
 			$location.path("/");

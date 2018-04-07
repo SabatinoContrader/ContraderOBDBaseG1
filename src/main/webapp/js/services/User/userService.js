@@ -9,6 +9,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 	  userPreventivi:[],
 	   userAppuntamenti:[],
 	   userScadenzeAuto:[],
+	   userClienti:[],
 	   userGuasti:[],
      scadenzeNoleggi:[],
      isLogged:false,
@@ -73,6 +74,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 		}
 	},
 	appuntamenti : function(params,callback){
+			if(parent.userObj.ruolo==0){
 		userREST.appuntamenti(params).$promise.then(function(response){
 			
 			 if(response.data!=null){
@@ -81,6 +83,17 @@ app.service('userService', function (userREST,$location,$cookies) {
 			//	  $location.path("/preventivi");
 			 }
 		});
+	}else{
+			userREST.appuntamentiofficina(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 parent.userAppuntamenti=response.data;
+				 console.log( parent.userAppuntamenti);
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+		}
 	},
 	scadenze : function(params,callback){
 		userREST.scadenze(params).$promise.then(function(response){
@@ -122,6 +135,19 @@ app.service('userService', function (userREST,$location,$cookies) {
 			 }
 		});
 	},
+	clienti : function(params,callback){
+		userREST.clienti(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 
+				 parent.userClienti=response.data;
+				 
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+		getUserClienti: function(){return parent.userClienti;},
 	 getAuto: function(){return parent.userAuto;},
 	 getScadenzeNoleggi: function(){return parent.scadenzeNoleggi;},
 	getUserGuasti: function(){return parent.userGuasti;},

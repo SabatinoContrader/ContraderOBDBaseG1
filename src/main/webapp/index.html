@@ -28,7 +28,9 @@
   <script src="js/app.js"></script>
   <script src="js/routes/main_routes.js"></script>
 
-
+<style>.nav-link{cursor:pointer;}.nav-link:hover{color:red !important;}.btn-group{padding:15px;}
+.btnmodal{margin:10px;}
+</style>
 </head>
 
 <body ng-controller="mainController">
@@ -48,25 +50,31 @@
           <ul class="nav flex-column">
             <li class="nav-item">
               <a data-toggle="collapse" data-target="#demo3" style="cursor:pointer;color:#999;" class="nav-link">Notifiche
-                <span class="badge badge-light " style="line-height: 40px;">{{user.getNumAlerts()}}</span>
+                <span class="badge badge-dark pull-right">{{user.getNumAlerts()}}</span>
                 <i class="fa fa-caret-down"></i>
               </a>
               <div class="collapse" id="demo3" style="padding-left:10%;padding-right:10%">
 
                 <a style="cursor: pointer;" ng-click="guasti()">Guasti
-                  <span class="badge badge-light" style="float:right;">{{user.getNumGuasti()}}</span>
+                  <span class="badge badge-dark" style="float:right;">{{user.getNumGuasti()}}</span>
                 </a>
                 <br>
                 <a style="cursor: pointer;" ng-click="scadenze()">Scadenze
-                  <span class="badge badge-light" style="float:right;">{{user.getNumScadenze()}}</span>
+                  <span class="badge badge-dark" style="float:right;">{{user.getNumScadenze()}}</span>
                 </a>
                 <br>
 
                 <a style="cursor: pointer;" ng-click="scadenzeNoleggi()">Scadenze Noleggi
-                  <span class="badge badge-light" style="float:right;">{{user.getNumKmNoleggio()}}</span>
+                  <span class="badge badge-dark" style="float:right;">{{user.getNumKmNoleggio()}}</span>
                 </a>
 
               </div>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" ng-click="clienti()">Clienti</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" ng-click="dispositivi()">Dispositivi</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" ng-click="preventivi()">Preventivi</a>

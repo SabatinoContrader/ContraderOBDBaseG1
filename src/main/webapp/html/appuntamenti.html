@@ -22,10 +22,12 @@
 												<i class="fa fa-calendar fah3"  ></i>
 													APPUNTAMENTI
 												</h3>
-															<div class="btn-group btn-group-lg">
-  <button type="button" class="btn btn-primary showpreventivi" data-n="0">In Attesa</button>
-  <button type="button" class="btn btn-primary showpreventivi" data-n="1">Risposti</button>
-  <button type="button" class="btn btn-primary showpreventivi" data-n="2">Tutti</button>
+															<div class="btn-group btn-group-lg" >
+  <button type="button" class="btn btn-primary showappuntamenti" data-n="0">In Attesa</button>
+  <button type="button" class="btn btn-primary showappuntamenti" data-n="1" ng-if="user.getUser().ruolo==0">Risposti</button>
+  <button type="button" class="btn btn-primary showappuntamenti" data-n="4" ng-if="user.getUser().ruolo==1">Confermati</button>
+  <button type="button" class="btn btn-primary showappuntamenti" data-n="2" ng-if="user.getUser().ruolo==1">Rifiutati</button>
+  <button type="button" class="btn btn-primary showappuntamenti" data-n="3">Tutti</button>
 </div>
 						
 											</div>
@@ -47,8 +49,9 @@
 									<th></th>
 									</tr>
 									</thead>
-									<tbody>
-								<tr ng-repeat="appun in user.getUserAppuntamenti()" ng-class="appun.stato==0 ? 'prevattesa' : 'prevrisposto'" >
+									<tbody><!--
+								ng-class="appun.stato==0 ? 'prevattesa' : 'prevrisposto'" -->
+								<tr ng-repeat="appun in user.getUserAppuntamenti()" ng-class="{'prevattesa':appun.stato==0,'prevrisposto':appun.stato==1&&user.getUser().ruolo==0,'prevconfermato':appun.stato==1&&user.getUser().ruolo==1,'prevrifiutato':appun.stato==2&&user.getUser().ruolo==1}">
 								<td>{{appun.data | date:'dd/MM/yyyy'}}</td>
 								<td>{{appun.ora}}</td>
 								<td>{{appun.dettagli}}</td>
@@ -56,8 +59,12 @@
 								
 								<td>
 								
-								<a class="ali" ng-if="appun.stato==1"><i class="fa fa-check"  title="Conferma appuntamento"></i></a>
-								<a class="ali" ng-if="appun.stato==0"><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
+								<a class="ali" ng-if="appun.stato==1&&user.getUser().ruolo==0"><i class="fa fa-check"  title="Conferma appuntamento"></i></a>
+								<a class="ali" ng-if="appun.stato==0&&user.getUser().ruolo==0"><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
+								
+								<a class="ali" ng-if="appun.stato==1&&user.getUser().ruolo==1"><i class="fa fa-check"  title="Appuntamento confermato"></i></a>
+								<a class="ali" ng-if="appun.stato==2&&user.getUser().ruolo==1"><i class="fa fa-check"  title="Appuntamento non confermato"></i></a>
+								<a class="ali" ng-if="appun.stato==0&&user.getUser().ruolo==1"><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
 								</td>
 
 								</tr>
@@ -139,18 +146,43 @@
 	pageLength:25,});
 } );
 
-$('.showpreventivi').on('click',function(){
-var n = $(this).data("n");
+$(document).on("click", ".showappuntamenti", function() {
+ var n = $(this).data("n");
 
 if(n=='0'){
+if($('.prevattesa').length>0){
 $('.prevrisposto').hide();
+$('.prevconfermato').hide();
+$('.prevrifiutato').hide();
 $('.prevattesa').show();
+}else alert('Non ci sono appuntamenti in attesa');
 }else if(n=='1'){
+if($('.prevrisposto').length>0){
 $('.prevattesa').hide();
+$('.prevconfermato').hide();
+$('.prevrifiutato').hide();
 $('.prevrisposto').show();
-}else{
+}else alert('Non ci sono appuntamenti che hanno ricevuto risposta');
+}else if(n=='2'){
+if($('.prevrifiutato').length>0){
+$('.prevattesa').hide();
+$('.prevconfermato').hide();
+$('.prevrisposto').hide();
+$('.prevrifiutato').show();
+}else alert('Non ci sono appuntamenti rifiutati');
+}else if(n=='3'){
 $('.prevattesa').show();
 $('.prevrisposto').show();
+$('.prevrifiutato').show();
+$('.prevconfermato').show();
+}else if(n=='4'){
+if($('.prevconfermato').length>0){
+$('.prevattesa').hide();
+$('.prevrifiutato').hide();
+$('.prevrisposto').hide();
+$('.prevconfermato').show();
+}else alert('Non ci sono appuntamenti confermati');
 }
 });
+
 </script>

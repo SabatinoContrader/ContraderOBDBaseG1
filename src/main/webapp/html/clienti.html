@@ -19,15 +19,10 @@
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
-												<i class="fa fa-car fah3"  ></i>
-													PREVENTIVI
+												<i class="fa fa-user fah3"  ></i>
+													Clienti
 												</h3>
-															<div class="btn-group btn-group-lg">
-  <button type="button" class="btn btn-primary showpreventivi" data-n="0">In Attesa</button>
-  <button type="button" class="btn btn-primary showpreventivi" data-n="1">Risposti</button>
-  <button type="button" class="btn btn-primary showpreventivi" data-n="2">Tutti</button>
-</div>
-						
+																			
 											</div>
 										</div>
 									
@@ -40,30 +35,32 @@
 									<thead>
 									<tr>
 									<th>ID</th>
-									<th>Marca</th>
-									<th>Modello</th>
-									<th>Targa</th>
-									<th>Telaio</th>
-									<th>Dettagli</th>
-									<th>Risposta</th>
-									<th>Costo</th>
+									<th>Nome</th>
+									<th>Cognome</th>
+									<th>Email</th>
+									<th>Telefono</th>
+									<th>Data Registrazione</th>
+							
 									<th></th>
 									</tr>
 									</thead>
 									<tbody>
-								<tr ng-repeat="prev in user.getUserPreventivi()" ng-class="prev.stato==0 ? 'prevattesa' : 'prevrisposto'" >
-								<td>{{prev.id}}</td>
-								<td>{{prev.auto.marca}}</td>
-								<td>{{prev.auto.modello}}</td>
-								<td>{{prev.auto.targa}}</td>
-								<td>{{prev.auto.numeroTelaio}}</td>
-								<td>{{prev.dettagli}}</td>
-								<td>{{prev.risposta}}</td>
-								<td><span ng-if="prev.costo>0">{{prev.costo}} &euro;</span></td>
+								<tr ng-repeat="clienti in user.getUserClienti()" ng-if="clienti.ruolo==0 && clienti.stato!=2">
+								<td>{{clienti.id}}</td>
+								<td>{{clienti.nome}}</td>
+								<td>{{clienti.cognome}}</td>
+								<td>{{clienti.email}}</td>
+								<td>{{clienti.telefono}}</td>
+								<td>{{clienti.dataRegistrazione | date:'dd/MM/yyyy'}}
+								
+								</td>
+								
+								
 								<td>
 								
-								<a class="ali" ng-if="prev.stato==1"><i class="fa fa-check"  title="accetta preventivo"></i></a>
-									<a class="ali" ng-if="prev.stato==0"><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
+								<a class="ali" ng-if="clienti.stato==1"><i class="fa fa-unlock-alt"  title="Sblocca cliente"></i></a>
+								<a class="ali" ng-if="clienti.stato==0"><i class="fa fa-ban"  title="Blocca cliente"></i></a>
+								<a class="ali" style="margin-left:10px;"><i class="fa fa-remove"  title="Rimuovi cliente"></i></a>
 								</td>
 
 								</tr>
@@ -144,23 +141,6 @@
     ordering:  true,
 	pageLength:25,});
 } );
-$(document).on("click", ".showpreventivi", function() {
 
-var n = $(this).data("n");
 
-if(n=='0'){
-if($('.prevattesa').length>0){
-$('.prevrisposto').hide();
-$('.prevattesa').show();
-}else alert('Non ci sono preventivi in attesa di risposta');
-}else if(n=='1'){
-if($('.prevrisposto').length>0){
-$('.prevattesa').hide();
-$('.prevrisposto').show();
-}else alert('Non ci sono preventivi in che hanno ricevuto risposta');
-}else{
-$('.prevattesa').show();
-$('.prevrisposto').show();
-}
-});
 </script>

@@ -48,7 +48,15 @@ function($resource){
 	  params: {
         id: '@id'
       }
-    }
+    },
+	 appuntamentiofficina: {
+      method: 'POST',
+      url: baseUrl+'appuntamentiOfficina',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        id: '@id'
+      }
+	 }
 	,
 	 scadenze: {
       method: 'POST',
@@ -81,7 +89,16 @@ function($resource){
 	  params: {
         id: '@id'
       }
+    },
+	 clienti: {
+      method: 'POST',
+      url: baseUrl+'clientiOfficina',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        id: '@id'
+      }
     }
+	
   });
 }
 

@@ -86,6 +86,9 @@ app.config(function($routeProvider){
   .when('/scadenzeNoleggi', {
     templateUrl: 'html/scadenzeNoleggi.html'
  
+  }).when('/clienti', {
+    templateUrl: 'html/clienti.html'
+ 
   })
   
 });

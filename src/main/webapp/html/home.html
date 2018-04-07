@@ -17,7 +17,7 @@
 										<div class="m-portlet__head-title">
 											<h3 class="m-portlet__head-text">
 												<i class="fa fa-car fah3"  ></i>
-												AUTO NOLEGGIATE
+												AUTO <span ng-if="user.getUser().ruolo==0">NOLEGGIATE</span>
 											</h3>
 										</div>
 									</div>
@@ -26,7 +26,7 @@
 								<div class="m-portlet__body">
 									<!--begin: Datatable -->
 									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-
+<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==1">Aggiungi Auto</button>
 									<table class="table table-striped" id="myTable">
 										<thead>
 											<tr>
@@ -191,6 +191,48 @@
 </div>
 
 <!-- end::modal Dati Telemetria Guasto-->
+
+<!-- begin::modal add auto -->
+<div class="modal" tabindex="-1" role="dialog" id="modaladdauto">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Richiedi preventivo per <span id="autorichiesta"></span></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="/inviapreventivo" method="POST">
+
+					<div class="form-group">
+						<label for="dettagli">Descrizione Problema:</label>
+						<textarea class="form-control" rows="5" id="dettagli" name="dettagli"></textarea>
+					</div>
+
+					<input type="hidden"
+					class="form-control" id="email" value="email"
+					name="email">
+					<input type="hidden"
+					class="form-control" id="idofficina"
+					name="idofficina">
+					<input type="hidden"
+					class="form-control" id="idauto"
+					name="idauto">
+
+
+
+				</div>
+				<div class="modal-footer " style="text-align:center;" >
+					<button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- end::modal add auto-->
 </div>
 <script> $(document).ready( function () {
 	$('#myTable').DataTable({
@@ -198,4 +240,7 @@
 		ordering:  true,
 		pageLength:25,});
 	} );
+	$(document).on("click", "#aggiungiauto", function() {
+	$('#modaladdauto').modal("show");
+	});
 </script>
