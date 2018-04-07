@@ -550,13 +550,12 @@ public class Controller {
 		
 		//Inserimento Dispositivo
 		@RequestMapping(value = "/inserisciDispositivo", method = RequestMethod.POST)
-		public void inserisciDispositivo(@RequestParam("idOfficina") int idOfficina, @RequestParam("codice") String codice, @RequestParam("idAuto") int idAuto) {
+		public void inserisciDispositivo(@RequestParam("idOfficina") int idOfficina, @RequestParam("codice") String codice) {
 	
 			Dispositivo d = new Dispositivo();
 	
 			d.setOfficina(officinaRepository.findById(idOfficina));
 			d.setCodice(codice);
-			d.setAuto(autoRepository.findById(idAuto));
 			d.setDataInstallazione(new Date(System.currentTimeMillis()));
 	
 			IDispositivo.insert(d);
