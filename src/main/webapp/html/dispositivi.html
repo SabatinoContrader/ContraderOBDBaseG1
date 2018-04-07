@@ -1,4 +1,4 @@
-<div >
+
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
 		
@@ -19,13 +19,13 @@
 										<div class="m-portlet__head-caption">
 											<div class="m-portlet__head-title">
 												<h3 class="m-portlet__head-text">
-												<i class="fa fa-car fah3"  ></i>
-													PREVENTIVI
+												<i class="fa fa-device fah3"  ></i>
+													DISPOSITIVI
 												</h3>
-															<div class="btn-group btn-group-lg">
-  <button type="button" class="btn btn-primary showpreventivi" data-n="0">In Attesa</button>
-  <button type="button" class="btn btn-primary showpreventivi" data-n="1">Risposti</button>
-  <button type="button" class="btn btn-primary showpreventivi" data-n="2">Tutti</button>
+															<div class="btn-group btn-group-lg" >
+  <button type="button" class="btn btn-primary showdispositivi" data-n="0">Installati</button>
+  <button type="button" class="btn btn-primary showdispositivi" data-n="1" >Non Installati</button>
+  <button type="button" class="btn btn-primary showdispositivi" data-n="2">Tutti</button>
 </div>
 						
 											</div>
@@ -40,30 +40,31 @@
 									<thead>
 									<tr>
 									<th>ID</th>
-									<th>Marca</th>
-									<th>Modello</th>
-									<th>Targa</th>
-									<th>Telaio</th>
-									<th>Dettagli</th>
-									<th>Risposta</th>
-									<th>Costo</th>
+									<th>Codice</th>
+									<th>Installato</th>
+									<th>Data Installazione</th>
+									<th>Marca auto</th>
+									<th>Modello auto</th>
+							<th>Targa auto</th>
+							<th>Telaio auto</th>
 									<th></th>
 									</tr>
 									</thead>
-									<tbody>
-								<tr ng-repeat="prev in user.getUserPreventivi()" ng-class="prev.stato==0 ? 'prevattesa' : 'prevrisposto'" >
-								<td>{{prev.id}}</td>
-								<td>{{prev.auto.marca}}</td>
-								<td>{{prev.auto.modello}}</td>
-								<td>{{prev.auto.targa}}</td>
-								<td>{{prev.auto.numeroTelaio}}</td>
-								<td>{{prev.dettagli}}</td>
-								<td>{{prev.risposta}}</td>
-								<td><span ng-if="prev.costo>0">{{prev.costo}} &euro;</span></td>
-								<td>
+									<tbody><!--
+								ng-class="appun.stato==0 ? 'prevattesa' : 'prevrisposto'" -->
+								<tr ng-repeat="dispositivo in user.getUserDispositivi()" ng-class="dispositivo.dataInstallazione!=null ? 'installato' : 'noninstallato'">
+								<td>{{dispositivo.id}}</td>
+								<td>{{dispositivo.codice}}</td>
+								<td><span ng-if="dispositivo.dataInstallazione!=null" >S&igrave;</span><span ng-if="dispositivo.dataInstallazione==null" >No</span></td>
+								<td>{{dispositivo.dataInstallazione | date:'dd/MM/yyyy'}}</td>
+								<td>{{dispositivo.auto.marca}}</td>
+								<td>{{dispositivo.auto.modello}}</td>
+								<td>{{dispositivo.auto.targa}}</td>
+								<td>{{dispositivo.auto.numeroTelaio}}</td>
 								
-								<a class="ali" ng-if="prev.stato==1"><i class="fa fa-check"  title="accetta preventivo"></i></a>
-									<a class="ali" ng-if="prev.stato==0"><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
+								<td>
+							
+								<a class="ali associadispositivo" data-id="{{dispositivo.id}}" ng-if="dispositivo.dataInstallazione==null||dispositivo.dataInstallazione==''" ><i class="fa fa-paperclip"  title="Associa dispositivo ad auto" ></i></a>
 								</td>
 
 								</tr>
@@ -133,7 +134,7 @@
     </div>
   </div>
 </div>
-</div>
+
 <!-- end::modal richiedi preventivo-->
 
 
@@ -144,23 +145,28 @@
     ordering:  true,
 	pageLength:25,});
 } );
-$(document).on("click", ".showpreventivi", function() {
+$(document).on("click", ".associadispositivo", function() {
 
-var n = $(this).data("n");
+});
+$(document).on("click", ".showdispositivi", function() {
+ var n = $(this).data("n");
 
 if(n=='0'){
-if($('.prevattesa').length>0){
-$('.prevrisposto').hide();
-$('.prevattesa').show();
-}else swal("Si e' verificato un'errore!", "Non ci sono preventivi in attesa di risposta", "info"); 
+if($('.installato').length>0){
+
+$('.noninstallato').hide();
+$('.installato').show();
+}else swal("Si e' verificato un'errore!", "Non ci sono dispositivi installati", "info");
 }else if(n=='1'){
-if($('.prevrisposto').length>0){
-$('.prevattesa').hide();
-$('.prevrisposto').show();
-}else swal("Si e' verificato un'errore!", "Non ci sono preventivi in che hanno ricevuto risposta", "info");  
-}else{
-$('.prevattesa').show();
-$('.prevrisposto').show();
+if($('.noninstallato').length>0){
+
+$('.installato').hide();
+$('.noninstallato').show();
+}else swal("Si e' verificato un'errore!", "Non ci sono dispositivi non installati", "info"); //alert('Non ci sono dispositivi non installati');
+}else if(n=='2'){
+$('.installato').show();
+$('.noninstallato').show();
 }
 });
+
 </script>

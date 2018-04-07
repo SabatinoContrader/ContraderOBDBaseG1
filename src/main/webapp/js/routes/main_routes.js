@@ -89,6 +89,9 @@ app.config(function($routeProvider){
   }).when('/clienti', {
     templateUrl: 'html/clienti.html'
  
+  }).when('/dispositivi', {
+    templateUrl: 'html/dispositivi.html'
+ 
   })
   
 });

@@ -12,6 +12,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 	   userClienti:[],
 	   userGuasti:[],
      scadenzeNoleggi:[],
+	 userDispositivi:[],
      isLogged:false,
         doLogin: function(params, callback){
 		
@@ -146,7 +147,19 @@ app.service('userService', function (userREST,$location,$cookies) {
 			//	  $location.path("/preventivi");
 			 }
 		});
+	},dispositivi : function(params,callback){
+		userREST.dispositivi(params).$promise.then(function(response){
+			
+			 if(response.data!=null){
+				 
+				 parent.userDispositivi=response.data;
+				 
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
 	},
+	getUserDispositivi: function(){return parent.userDispositivi;},
 		getUserClienti: function(){return parent.userClienti;},
 	 getAuto: function(){return parent.userAuto;},
 	 getScadenzeNoleggi: function(){return parent.scadenzeNoleggi;},

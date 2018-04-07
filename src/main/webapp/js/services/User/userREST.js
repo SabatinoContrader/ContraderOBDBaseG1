@@ -97,6 +97,14 @@ function($resource){
 	  params: {
         id: '@id'
       }
+    },
+	 dispositivi: {
+      method: 'POST',
+      url: baseUrl+'listaDispositiviOfficina',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        idOfficina: '@idOfficina'
+      }
     }
 	
   });

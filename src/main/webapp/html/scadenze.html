@@ -155,7 +155,7 @@ $('.scadtag').hide();
 $('.scadrev').hide();
 $('.scadass').hide();
 $('.scadbollo').show();
-}else alert('Non ci sono scadenza di tipo bollo');
+}else swal("Si e' verificato un'errore!", "Non ci sono scadenza di tipo bollo", "info");
 
 }else if(n=='1'){
 if($('.scadtag').length>0){
@@ -163,21 +163,21 @@ $('.scadbollo').hide();
 $('.scadrev').hide();
 $('.scadass').hide();
 $('.scadtag').show();
-}else alert('Non ci sono scadenza di tipo tagliando');
+}else swal("Si e' verificato un'errore!", "Non ci sono scadenza di tipo tagliando", "info");
 }else if(n=='2'){
 if($('.scadrev').length>0){
 $('.scadtag').hide();
 $('.scadbollo').hide();
 $('.scadass').hide();
 $('.scadrev').show();
-}else alert('Non ci sono scadenza di tipo revisione');
+}else swal("Si e' verificato un'errore!", "Non ci sono scadenza di tipo revisione", "info");
 }else if(n=='3'){
 if($('.scadass').length>0){
 $('.scadtag').hide();
 $('.scadrev').hide();
 $('.scadbollo').hide();
 $('.scadass').show();
-}else alert('Non ci sono scadenza di tipo assicurazione');
+}else swal("Si e' verificato un'errore!", "Non ci sono scadenza di tipo assicurazione", "info");
 }else{
 $('.scadtag').show();
 $('.scadrev').show();

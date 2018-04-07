@@ -155,21 +155,21 @@ $('.prevrisposto').hide();
 $('.prevconfermato').hide();
 $('.prevrifiutato').hide();
 $('.prevattesa').show();
-}else alert('Non ci sono appuntamenti in attesa');
+}else swal("Si e' verificato un'errore!", "Non ci sono appuntamenti in attesa", "info");   
 }else if(n=='1'){
 if($('.prevrisposto').length>0){
 $('.prevattesa').hide();
 $('.prevconfermato').hide();
 $('.prevrifiutato').hide();
 $('.prevrisposto').show();
-}else alert('Non ci sono appuntamenti che hanno ricevuto risposta');
+}else swal("Si e' verificato un'errore!", "Non ci sono appuntamenti che hanno ricevuto risposta", "info");   
 }else if(n=='2'){
 if($('.prevrifiutato').length>0){
 $('.prevattesa').hide();
 $('.prevconfermato').hide();
 $('.prevrisposto').hide();
 $('.prevrifiutato').show();
-}else alert('Non ci sono appuntamenti rifiutati');
+}else swal("Si e' verificato un'errore!", "Non ci sono appuntamenti rifiutati", "info");
 }else if(n=='3'){
 $('.prevattesa').show();
 $('.prevrisposto').show();
@@ -181,7 +181,7 @@ $('.prevattesa').hide();
 $('.prevrifiutato').hide();
 $('.prevrisposto').hide();
 $('.prevconfermato').show();
-}else alert('Non ci sono appuntamenti confermati');
+}else swal("Si e' verificato un'errore!", "Non ci sono appuntamenti confermati", "info");
 }
 });
 

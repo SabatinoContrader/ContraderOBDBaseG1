@@ -126,7 +126,16 @@
 			});
 		}
 		
+		$scope.dispositivi = function(){
 		
+			userService.dispositivi({
+				idOfficina:this.user.getUser().officina.id
+			},function(response){
+								$location.path("/dispositivi");
+				
+				
+			});
+		}
 		
 		$scope.logOut = function(){
 			userService.logOut();
