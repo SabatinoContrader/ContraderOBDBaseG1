@@ -1,12 +1,16 @@
-app.controller("loginPage", function($scope,userService){
-$scope.email = "caio";
-$scope.pwd ="password";
+app.controller("loginPage", function($scope,userService,$window,$location){
+
 $scope.doLogin = function(){
 	userService.doLogin({
       email: $scope.email,
       pwd: $scope.pwd
     },
-  function(response){
+  function(response){debugger;
+    if(response){
+      $window.sessionStorage.setItem("email",  response.utente.email);
+      $window.sessionStorage.setItem("password", response.utente.password);
+      $location.path("/home");
+    }
     /*if(response.statusCode==0){
       userService.init(response.data);
       $scope.user = userService;

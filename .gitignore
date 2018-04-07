@@ -4,6 +4,6 @@ out/
 .DS_Store
 target
 .project
-.settings/
 .tern-project
+.settings
 
