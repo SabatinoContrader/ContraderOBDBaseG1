@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.contrader.automative.model.Appuntamento;
 import it.contrader.automative.model.Auto;
+import it.contrader.automative.model.Dispositivo;
 import it.contrader.automative.model.Guasto;
 import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
@@ -51,6 +53,9 @@ public class Controller {
 	private IUtente IUtente;
 	private IPreventivo IPreventivo;
 	private IAppuntamento IAppuntamento;
+
+	private INoleggio noleggioService;
+
 	private AutoRepository autoRepository;
 	private NoleggioRepository noleggioRepository;
 	private DispositivoRepository dispositivoRepository;
@@ -60,7 +65,6 @@ public class Controller {
 	private UtenteRepository utenteRepository;
 	private OfficinaRepository officinaRepository;
 
-	private INoleggio noleggioService;
 
 	@Autowired
 	public Controller(IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, UtenteRepository utenteRepository ,AutoRepository autoRepository, NoleggioRepository noleggioRepository, OfficinaRepository officinaRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository, INoleggio noleggioService) {
@@ -320,135 +324,171 @@ public class Controller {
 	}
 
 
-	
+
 	//Operazioni Vecchio Sprint (le ho modificare per funzionare con Rest, sono modifiche banali quindi NON ho testato)
-	
-
-		//Inserimenti nel DB
-		@RequestMapping(value = "/inviapreventivo", method = RequestMethod.POST)
-		public void inviapreventivo(@RequestParam("email") String email, @RequestParam("dettagli") String dettagli, @RequestParam("idauto") String idauto)
-		{
-			Utente u = IUtente.selectByEmail(email);
-			Auto a = autoRepository.findById(Integer.parseInt(idauto));
-			Officina o = u.getOfficina();
-	
-			// create a java calendar instance
-			Calendar calendar = Calendar.getInstance();
-	
-			// get a java date (java.util.Date) from the Calendar instance.
-			// this java date will represent the current date, or "now".
-			java.util.Date currentDate = calendar.getTime();
-	
-			// now, create a java.sql.Date from the java.util.Date
-			java.sql.Date date = new java.sql.Date(currentDate.getTime());
-	
-	
-			//Creazione nuovo preventivo
-			Preventivo p = new Preventivo();
-			p.setAuto(a);
-			p.setUtente(u);
-			p.setOfficina(o);
-			p.setData(date);
-			p.setDettagli(dettagli);
-			p.setCosto(0);
-			p.setStato(0);
-			p.setRisposta("");
-	
-			// p = new Preventivo(a,u,o,date,dettagli,0,0,"");
-			// Inserimento preventivo creato in database
-	
-			IPreventivo.insert(p);
-	
-		}
-	
-		@RequestMapping(value = "/richiediappuntamento", method = RequestMethod.POST)
-		public void richiediappuntamento(@RequestParam("emailapp") String email, @RequestParam("dettagliapp") String dettagli, @RequestParam("ora") String ora)
-		{
-			Utente u = IUtente.selectByEmail(email);
-	
-			Officina o = u.getOfficina();
-	
-			// create a java calendar instance
-			Calendar calendar = Calendar.getInstance();
-	
-			// get a java date (java.util.Date) from the Calendar instance.
-			// this java date will represent the current date, or "now".
-			java.util.Date currentDate = calendar.getTime();
-	
-			// now, create a java.sql.Date from the java.util.Date
-			java.sql.Date date = new java.sql.Date(currentDate.getTime());
-	
-	
-			//Creazione nuovo appuntamento
-			Appuntamento a = new Appuntamento();
-			a.setUtente(u);
-			a.setOfficina(o);
-			a.setData(date);
-			a.setOra(ora);
-			a.setDettagli(dettagli);
-			a.setStato(0);
-			a.setRisposta("");
-			//	    	Appuntamento a = new Appuntamento(2,u,o,date,ora,dettagli,0,"");
-			// Inserimento appuntamento creato in database
-	
-			IAppuntamento.insert(a);
-		}
-	
-		@RequestMapping(value = "/rispondipreventivo", method = RequestMethod.POST)
-		public void rispondipreventivo(@RequestParam("email") String email, @RequestParam("dettagli") String dettagli, @RequestParam("costoprev") String costoprev, @RequestParam("idprev") String idprev)
-		{
-			Utente u = IUtente.selectByEmail(email);
-	
-			Officina o = u.getOfficina();
-			Preventivo p = preventivoRepository.findById(Integer.parseInt(idprev));
-			p.setStato(1);
-			p.setCosto(Float.parseFloat(costoprev));
-			p.setRisposta(dettagli);
-	
-			preventivoRepository.save(p);
-		}
-	
-		@RequestMapping(value = "/rispondiappuntamento", method = RequestMethod.POST)
-		public void rispondiappuntamento(@RequestParam("emailapp") String email, @RequestParam("dettagliapp") String dettagli, @RequestParam("idapp") String idapp, @RequestParam("selectapp") String stato)
-		{
-			Utente u = IUtente.selectByEmail(email);
-	
-			Officina o = u.getOfficina();
-			Appuntamento a = appuntamentoRepository.findById(Integer.parseInt(idapp));
-	
-			a.setStato(Integer.parseInt(stato));
-			a.setRisposta(dettagli);
-	
-			appuntamentoRepository.save(a);
-		}
-	
-		@RequestMapping(value = "/setrisoltoguasto", method = RequestMethod.POST)
-		public void setrisoltoguasto(@RequestParam("idguasto") String idguasto)
-		{
-			Guasto g = guastoRepository.findById(Integer.parseInt(idguasto));
-	
-			g.setStatoRisoluzione("Risolto");
-	
-	
-			guastoRepository.save(g);
-		}
-	
-		
-		//Ritorno Lista auto per singolo Utente
-		@RequestMapping(value = "/listaautoutente", method = RequestMethod.GET)
-		public GenericResponse<List<Noleggio>> listaautoutente(@RequestParam("id") String id){
-			
-			Utente u = utenteRepository.findById(Integer.parseInt(id));
-			List<Noleggio> n = noleggioRepository.findByUtente(u);
-			
-			return new GenericResponse<List<Noleggio>>(n);
-		}
 
 
-	
+	//Inserimenti nel DB
+	@RequestMapping(value = "/inviapreventivo", method = RequestMethod.POST)
+	public void inviapreventivo(@RequestParam("email") String email, @RequestParam("dettagli") String dettagli, @RequestParam("idauto") String idauto)
+	{
+		Utente u = IUtente.selectByEmail(email);
+		Auto a = autoRepository.findById(Integer.parseInt(idauto));
+		Officina o = u.getOfficina();
+
+		// create a java calendar instance
+		Calendar calendar = Calendar.getInstance();
+
+		// get a java date (java.util.Date) from the Calendar instance.
+		// this java date will represent the current date, or "now".
+		java.util.Date currentDate = calendar.getTime();
+
+		// now, create a java.sql.Date from the java.util.Date
+		java.sql.Date date = new java.sql.Date(currentDate.getTime());
+
+
+		//Creazione nuovo preventivo
+		Preventivo p = new Preventivo();
+		p.setAuto(a);
+		p.setUtente(u);
+		p.setOfficina(o);
+		p.setData(date);
+		p.setDettagli(dettagli);
+		p.setCosto(0);
+		p.setStato(0);
+		p.setRisposta("");
+
+		// p = new Preventivo(a,u,o,date,dettagli,0,0,"");
+		// Inserimento preventivo creato in database
+
+		IPreventivo.insert(p);
+
+	}
+
+	@RequestMapping(value = "/richiediappuntamento", method = RequestMethod.POST)
+	public void richiediappuntamento(@RequestParam("emailapp") String email, @RequestParam("dettagliapp") String dettagli, @RequestParam("ora") String ora)
+	{
+		Utente u = IUtente.selectByEmail(email);
+
+		Officina o = u.getOfficina();
+
+		// create a java calendar instance
+		Calendar calendar = Calendar.getInstance();
+
+		// get a java date (java.util.Date) from the Calendar instance.
+		// this java date will represent the current date, or "now".
+		java.util.Date currentDate = calendar.getTime();
+
+		// now, create a java.sql.Date from the java.util.Date
+		java.sql.Date date = new java.sql.Date(currentDate.getTime());
+
+
+		//Creazione nuovo appuntamento
+		Appuntamento a = new Appuntamento();
+		a.setUtente(u);
+		a.setOfficina(o);
+		a.setData(date);
+		a.setOra(ora);
+		a.setDettagli(dettagli);
+		a.setStato(0);
+		a.setRisposta("");
+		//	    	Appuntamento a = new Appuntamento(2,u,o,date,ora,dettagli,0,"");
+		// Inserimento appuntamento creato in database
+
+		IAppuntamento.insert(a);
+	}
+
+	@RequestMapping(value = "/rispondipreventivo", method = RequestMethod.POST)
+	public void rispondipreventivo(@RequestParam("email") String email, @RequestParam("dettagli") String dettagli, @RequestParam("costoprev") String costoprev, @RequestParam("idprev") String idprev)
+	{
+		Utente u = IUtente.selectByEmail(email);
+
+		Officina o = u.getOfficina();
+		Preventivo p = preventivoRepository.findById(Integer.parseInt(idprev));
+		p.setStato(1);
+		p.setCosto(Float.parseFloat(costoprev));
+		p.setRisposta(dettagli);
+
+		preventivoRepository.save(p);
+	}
+
+	@RequestMapping(value = "/rispondiappuntamento", method = RequestMethod.POST)
+	public void rispondiappuntamento(@RequestParam("emailapp") String email, @RequestParam("dettagliapp") String dettagli, @RequestParam("idapp") String idapp, @RequestParam("selectapp") String stato)
+	{
+		Utente u = IUtente.selectByEmail(email);
+
+		Officina o = u.getOfficina();
+		Appuntamento a = appuntamentoRepository.findById(Integer.parseInt(idapp));
+
+		a.setStato(Integer.parseInt(stato));
+		a.setRisposta(dettagli);
+
+		appuntamentoRepository.save(a);
+	}
+
+	@RequestMapping(value = "/setrisoltoguasto", method = RequestMethod.POST)
+	public void setrisoltoguasto(@RequestParam("idguasto") String idguasto)
+	{
+		Guasto g = guastoRepository.findById(Integer.parseInt(idguasto));
+
+		g.setStatoRisoluzione("Risolto");
+
+
+		guastoRepository.save(g);
+	}
+
+
+	//Ritorno Lista auto per singolo Utente
+	@RequestMapping(value = "/listaautoutente", method = RequestMethod.POST)
+	public GenericResponse<List<Noleggio>> listaautoutente(@RequestParam("id") int id){
+
+		Utente u = utenteRepository.findById(id);
+		List<Noleggio> n = noleggioRepository.findByUtente(u);
+
+		return new GenericResponse<List<Noleggio>>(n);
+	}
+
+
+
 	//Operazioni Nuove: Work in Progress....
 
-	
+	//Ritorno Lista dispositivi della singola officina
+		@RequestMapping(value = "/listaDispositiviOfficina", method = RequestMethod.POST)
+		public GenericResponse<List<Dispositivo>> listaDispositiviOfficina(@RequestParam("idOfficina") int idOfficina){
+
+			List<Dispositivo> lista = new ArrayList();
+			
+			Officina o = officinaRepository.findById(idOfficina);
+			
+			lista = dispositivoRepository.findByOfficina(o);
+			
+			return new GenericResponse<List<Dispositivo>>(lista);
+		}
+
+	//Inserimento Noleggio
+
+	@RequestMapping(value = "/inserisciNoleggio", method = RequestMethod.POST)
+	public void inserisciNoleggio(@RequestParam("idOfficina") int idOfficina, @RequestParam("idAuto") int idAuto, @RequestParam("CapLuogoDiRiconsegna") int CapLuogoDiRiconsegna,
+			@RequestParam("CapLuogoDiRitiro") int CapLuogoDiRitiro, @RequestParam("DataInizioNoleggio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date DataInizioNoleggio, 
+			@RequestParam("DataFineNoleggio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date DataFineNoleggio, @RequestParam("idUtente") int idUtente) {
+
+		Noleggio n = new Noleggio();
+		//Noleggio a = new Noleggio();
+
+		n.setAuto(autoRepository.findById(idAuto));
+		n.setCapLuogoDiRiconsegna(CapLuogoDiRiconsegna);
+		n.setCapLuogoDiRitiro(CapLuogoDiRitiro);
+		n.setDataInizioNoleggio(DataInizioNoleggio);
+		n.setDataFineNoleggio(DataFineNoleggio);
+		n.setOfficina(officinaRepository.findById(idOfficina));
+		n.setUtente(utenteRepository.findById(idUtente));
+
+
+		noleggioService.insert(n);
+
+	}
+
+
 }
 
 

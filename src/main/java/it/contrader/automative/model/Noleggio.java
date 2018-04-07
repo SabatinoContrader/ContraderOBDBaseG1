@@ -21,6 +21,7 @@ import lombok.Setter;
 public class Noleggio implements Serializable{
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
