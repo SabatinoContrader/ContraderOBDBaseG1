@@ -30,7 +30,7 @@
 									<div class="m-portlet__body">
 										<!--begin: Datatable -->
 									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-								
+								<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal"  ng-click="openmodalutenti()">Aggiungi utente</button>
 									<table class="table table-striped" id="myTable">
 									<thead>
 									<tr>
@@ -92,7 +92,7 @@
 	</div>
 	<!-- end:: Page -->
 <!-- begin::modal richiedi preventivo -->
-<div class="modal" tabindex="-1" role="dialog" id="modalrichiedipreventivo">
+<div class="modal" tabindex="-1" role="dialog" id="modalaggiungiutente">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -123,7 +123,7 @@
 
       </div>
       <div class="modal-footer " style="text-align:center;" >
-       <button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
+       <button type="button" class="btn btn-primary savebutton" ng-click="aggiungiUtente();">Invia Richiesta</button>
 	     
 </form>
       </div>
@@ -141,6 +141,9 @@
     ordering:  true,
 	pageLength:25,});
 } );
+$(document).on("click", "#openmodalutenti", function() {
 
+$('#modalaggiungiutente').modal("show");
+});
 
 </script>

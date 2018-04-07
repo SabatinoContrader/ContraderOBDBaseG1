@@ -35,7 +35,7 @@
 									<div class="m-portlet__body">
 										<!--begin: Datatable -->
 									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-								
+								<button type="button" id="openmodalpreventivo" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0">Richiedi Preventivo</button>
 									<table class="table table-striped" id="myTable">
 									<thead>
 									<tr>
@@ -106,27 +106,26 @@
       </div>
       <div class="modal-body">
       <form action="/inviapreventivo" method="POST">
+<div class="form-group">
+<label for="selauto">Seleziona Auto:</label>
+<select name="idauto" class="form-control" ng-model="idautoricprev">
+<option ng-repeat="auto in user.getAuto()" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}  -  {{auto.targa}}</option>
 
+</select>
+
+</div>
 						<div class="form-group">
   <label for="dettagli">Descrizione Problema:</label>
-  <textarea class="form-control" rows="5" id="dettagli" name="dettagli"></textarea>
+  <textarea class="form-control" rows="5" id="dettagli" name="dettagli" ng-model="dettagliricprev"></textarea>
 </div>
 						
-							<input type="hidden"
-								class="form-control" id="email" value="email"
-								name="email">
-							<input type="hidden"
-								class="form-control" id="idofficina" 
-								name="idofficina">
-						<input type="hidden"
-								class="form-control" id="idauto" 
-								name="idauto">
+							
 								
   
 
       </div>
       <div class="modal-footer " style="text-align:center;" >
-       <button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
+       <button type="button" class="btn btn-primary savebutton" ng-click="inviaRichiestaPreventivo(idautoricprev,dettagliricprev)">Invia Richiesta</button>
 	     
 </form>
       </div>
@@ -144,6 +143,10 @@
     ordering:  true,
 	pageLength:25,});
 } );
+$(document).on("click", "#openmodalpreventivo", function() {
+
+$('#modalrichiedipreventivo').modal("show");
+});
 $(document).on("click", ".showpreventivi", function() {
 
 var n = $(this).data("n");

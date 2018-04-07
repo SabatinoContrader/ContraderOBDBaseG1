@@ -13,6 +13,7 @@ app.service('userService', function (userREST,$location,$cookies) {
 	   userGuasti:[],
      scadenzeNoleggi:[],
 	 userDispositivi:[],
+	 userNoleggi:[],
      isLogged:false,
         doLogin: function(params, callback){
 		
@@ -147,7 +148,8 @@ app.service('userService', function (userREST,$location,$cookies) {
 			//	  $location.path("/preventivi");
 			 }
 		});
-	},dispositivi : function(params,callback){
+	},
+	dispositivi : function(params,callback){
 		userREST.dispositivi(params).$promise.then(function(response){
 			
 			 if(response.data!=null){
@@ -159,6 +161,71 @@ app.service('userService', function (userREST,$location,$cookies) {
 			 }
 		});
 	},
+	inviaRichiestaPreventivo : function(params,callback){
+		userREST.inviaRichiestaPreventivo(params).$promise.then(function(response){
+			callback(response);
+			 if(response.data!=null){
+				 
+			//	 parent.userDispositivi=response.data;
+				 
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+	getNoleggiOfficina : function(params,callback){
+		userREST.getNoleggiOfficina(params).$promise.then(function(response){
+			parent.userNoleggi = response.data;
+			callback(response);
+			 if(response.data!=null){
+				 
+			//	 parent.userDispositivi=response.data;
+				 
+				
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+	inviaRichiestaNoleggio : function(params,callback){
+		userREST.inviaRichiestaNoleggio(params).$promise.then(function(response){
+			callback(response);
+			 if(response.data!=null){
+				 
+			//	 parent.userDispositivi=response.data;
+				 
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+	rispondiAppuntamento : function(params,callback){
+			
+		userREST.rispondiAppuntamento(params).$promise.then(function(response){
+			callback(response);
+			 if(response.data!=null){
+				 
+			//	 parent.userDispositivi=response.data;
+				 
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+	inviaRichiestaAppuntamento : function(params,callback){
+		userREST.inviaRichiestaAppuntamento(params).$promise.then(function(response){
+			callback(response);
+			 if(response.data!=null){
+				 
+			//	 parent.userDispositivi=response.data;
+				 
+				callback(response);
+			//	  $location.path("/preventivi");
+			 }
+		});
+	},
+	
+	
+	getUserNoleggi: function(){return parent.userNoleggi;},
 	getUserDispositivi: function(){return parent.userDispositivi;},
 		getUserClienti: function(){return parent.userClienti;},
 	 getAuto: function(){return parent.userAuto;},

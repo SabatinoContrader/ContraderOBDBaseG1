@@ -105,6 +105,61 @@ function($resource){
 	  params: {
         idOfficina: '@idOfficina'
       }
+    },
+	 inviaRichiestaPreventivo: {
+      method: 'POST',
+      url: baseUrl+'inviapreventivo',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+        email: '@email',
+		dettagli:'@dettagli',
+		idauto:'@idauto'
+      }
+    },
+	 getNoleggiOfficina: {
+      method: 'POST',
+      url: baseUrl+'noleggiOfficina',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+       id:'@id'
+      }
+    },
+	inviaRichiestaNoleggio: {
+      method: 'POST',
+      url: baseUrl+'inserisciNoleggio',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+		  idOfficina: '@idOfficina',
+				idAuto:'@idAuto',
+				CapLuogoDiRiconsegna:'@CapLuogoDiRiconsegna',
+				CapLuogoDiRitiro:'@CapLuogoDiRitiro',
+				DataInizioNoleggio:'@DataInizioNoleggio',
+				DataFineNoleggio:'@DataFineNoleggio',
+				idUtente:'@idUtente'
+      }
+    },
+	rispondiAppuntamento: {
+      method: 'POST',
+      url: baseUrl+'rispondiappuntamento',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+				emailapp:'@email',
+				dettagliapp:'@dettagliapp',
+				idapp:'@idapp',
+				selectapp:'@selectapp'
+      }
+    },
+	inviaRichiestaAppuntamento: {
+      method: 'POST',
+      url: baseUrl+'richiediappuntamento',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+				emailapp:'@email',
+				dettagliapp:'@dettagliapp',
+				ora:'@ora',
+				dataAppuntamento:'@data'
+				
+      }
     }
 	
   });

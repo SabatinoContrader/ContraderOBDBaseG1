@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<link href="css/angular-datepicker.css" rel="stylesheet" type="text/css" />
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -24,12 +24,13 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-route.min.js"></script>
-
+ <script src="js/angular-datepicker.js"></script>
   <script src="js/app.js"></script>
   <script src="js/routes/main_routes.js"></script>
 
 <style>.nav-link{cursor:pointer;}.nav-link:hover{color:red !important;}.btn-group{padding:15px;}
 .btnmodal{margin:10px;}
+.ali{cursor:pointer !important;} .ali:hover{color:red !important;}
 </style>
 </head>
 
@@ -71,10 +72,16 @@
               </div>
             </li>
 			<li class="nav-item">
-              <a class="nav-link" ng-click="clienti()">Clienti</a>
+              <a class="nav-link" href="#!/home">Auto</a>
             </li>
 			<li class="nav-item">
-              <a class="nav-link" ng-click="dispositivi()">Dispositivi</a>
+              <a class="nav-link" ng-click="noleggi()" ng-if="user.getUser().ruolo==1">Noleggi</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" ng-click="clienti()" ng-if="user.getUser().ruolo==1">Clienti</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" ng-click="dispositivi()" ng-if="user.getUser().ruolo==1">Dispositivi</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" ng-click="preventivi()">Preventivi</a>

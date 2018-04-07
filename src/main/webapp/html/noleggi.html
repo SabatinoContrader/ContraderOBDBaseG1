@@ -17,7 +17,7 @@
 										<div class="m-portlet__head-title">
 											<h3 class="m-portlet__head-text">
 												<i class="fa fa-car fah3"  ></i>
-												AUTO <span ng-if="user.getUser().ruolo==0">NOLEGGIATE</span>
+												AUTO NOLEGGIATE</span>
 											</h3>
 										</div>
 									</div>
@@ -38,16 +38,24 @@
 												<th>Modello</th>
 												<th>Targa</th>
 												<th>Telaio</th>
+												<th>CAP Ritiro</th>
+												<th>CAP Consegna</th>
+												<th>Inizio noleggio</th>
+												<th>Fine noleggio</th>
 												<th></th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="auto in user.getAuto()">
-												<td>{{auto.id}}</td>
-												<td>{{auto.marca}}</td>
-												<td>{{auto.modello}}</td>
-												<td>{{auto.targa}}</td>
-												<td>{{auto.numeroTelaio}}</td>
+											<tr ng-repeat="noleggio in user.getUserNoleggi()">
+												<td>{{noleggio.auto.id}}</td>
+												<td>{{noleggio.auto.marca}}</td>
+												<td>{{noleggio.auto.modello}}</td>
+												<td>{{noleggio.auto.targa}}</td>
+												<td>{{noleggio.auto.numeroTelaio}}</td>
+												<td>{{noleggio.capLuogoDiRitiro}}</td>
+												<td>{{noleggio.capLuogoDiRiconsegna}}</td>
+												<td>{{noleggio.dataInizioNoleggio | date:'dd/MM/yyyy'}}</td>
+												<td>{{noleggio.dataFineNoleggio | date:'dd/MM/yyyy'}}</td>
 												<td></td>
 											</tr>
 										</tbody>

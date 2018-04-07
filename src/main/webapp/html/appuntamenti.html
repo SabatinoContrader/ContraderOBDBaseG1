@@ -37,7 +37,7 @@
 									<div class="m-portlet__body">
 										<!--begin: Datatable -->
 									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-								
+								<button type="button" id="openmodalappuntamento" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0">Richiedi Appuntamento</button>
 									<table class="table table-striped" id="myTable">
 									<thead>
 									<tr>
@@ -64,7 +64,7 @@
 								
 								<a class="ali" ng-if="appun.stato==1&&user.getUser().ruolo==1"><i class="fa fa-check"  title="Appuntamento confermato"></i></a>
 								<a class="ali" ng-if="appun.stato==2&&user.getUser().ruolo==1"><i class="fa fa-check"  title="Appuntamento non confermato"></i></a>
-								<a class="ali" ng-if="appun.stato==0&&user.getUser().ruolo==1"><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
+								<a class="ali rispondiappuntamento" ng-if="appun.stato==0&&user.getUser().ruolo==1" data-id="{{appun.id}}"><i class="fa fa-hourglass"  title="Rispondi alla richiesta di appuntamento"></i></a>
 								</td>
 
 								</tr>
@@ -95,12 +95,57 @@
 
 	</div>
 	<!-- end:: Page -->
-<!-- begin::modal richiedi preventivo -->
-<div class="modal" tabindex="-1" role="dialog" id="modalrichiedipreventivo">
+<!-- begin::modal richiedi appuntamento -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrichiediappuntamento">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Richiedi preventivo per <span id="autorichiesta"></span></h5>
+        <h5 class="modal-title">Richiedi appuntamento </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="/inviapreventivo" method="POST">
+<div class="form-group">
+					<label for="datainizio">Inserire Data </label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="dataappuntamento" type="text"/ class="form-control">
+</datepicker>
+					</div>
+			
+							<div class="form-group">
+  <label for="oraricappuntamento">Inserire Ora:</label>
+  <input class="form-control"  id="oraricappuntamento" name="oraricappuntamento" ng-model="oraricappuntamento"></textarea>
+</div>
+			
+					
+						<div class="form-group">
+  <label for="dettagliappuntamento">Descrizione Problema:</label>
+  <textarea class="form-control" rows="5" id="dettagliappuntamento" name="dettagliappuntamento" ng-model="dettagliricappuntamento"></textarea>
+</div>
+						
+							
+								
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="button" class="btn btn-primary savebutton" ng-click="inviaRichiestaAppuntamento(dataappuntamento,dettagliricappuntamento,oraricappuntamento)">Invia Richiesta</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- end::modal richiedi appuntamento-->
+<!-- begin::modal rispondi appuntamento -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrispondiappuntamento">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Risposta alla richiesta di appuntamento</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -109,34 +154,32 @@
       <form action="/inviapreventivo" method="POST">
 
 						<div class="form-group">
-  <label for="dettagli">Descrizione Problema:</label>
-  <textarea class="form-control" rows="5" id="dettagli" name="dettagli"></textarea>
+  <label for="dettagli">Risposta:</label>
+  <textarea class="form-control" rows="5" id="dettagli" name="dettagli" ng-model="dettagliapprisp"></textarea>
 </div>
 						
-							<input type="hidden"
-								class="form-control" id="email" value="email"
-								name="email">
-							<input type="hidden"
-								class="form-control" id="idofficina" 
-								name="idofficina">
-						<input type="hidden"
-								class="form-control" id="idauto" 
-								name="idauto">
-								
-  
+							
+								<input  type="text" style="display:none;" name="idapprisp" ng-model="idapprisp" id="idapprisp">
+  <div class="form-group">
+<label for="selstatoapp">Seleziona Azione:</label>
+<select name="idauto" class="form-control" ng-model="selectapp">
+<option value="1">Conferma appuntamento</option>
+<option value="2">Rifiuta appuntamento</option>
+</select>
+
+</div>
 
       </div>
       <div class="modal-footer " style="text-align:center;" >
-       <button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
+       <button type="button" class="btn btn-primary savebutton" ng-click="rispondiAppuntamento(dettagliapprisp,selectapp,idapprisp)">Invia Risposta</button>
 	     
 </form>
       </div>
     </div>
   </div>
 </div>
-
-<!-- end::modal richiedi preventivo-->
-
+</div>
+<!-- end::modal rispondi appuntamento-->
 
 	 </div>
 	<script> $(document).ready( function () {
@@ -145,6 +188,16 @@
     ordering:  true,
 	pageLength:25,});
 } );
+$(document).on("click", "#openmodalappuntamento", function() {
+
+$('#modalrichiediappuntamento').modal("show");
+});
+$(document).on("click", ".rispondiappuntamento", function() {
+var idapp=$(this).data("id");
+$('#idapprisp').val(idapp);
+$('#idapprisp').trigger('change');
+$('#modalrispondiappuntamento').modal("show");
+});
 
 $(document).on("click", ".showappuntamenti", function() {
  var n = $(this).data("n");

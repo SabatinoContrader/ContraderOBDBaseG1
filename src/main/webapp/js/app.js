@@ -2,5 +2,6 @@ var app = angular.module('app', [
 'ngRoute',
 'ngResource',
 'ngCookies',
-'ngMessages'
+'ngMessages',
+ '720kb.datepicker'
 ]);

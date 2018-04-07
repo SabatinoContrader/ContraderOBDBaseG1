@@ -153,7 +153,7 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoGuasti[2] = new Guasto(3, inserimentoTipologieGuasti[2], inserimentoDatiTelemetria[2], data2, inserimentoDispositivi[0], "Risolto");
 
     	Preventivo inserimentoPreventivi[] = new Preventivo[1];
-    	inserimentoPreventivi[0] = new Preventivo(1, inserimentoAuto[0], inserimentoUtenti[0],  inserimentoOfficine[0], data1,"agjiej",0,8,"ooo");
+    	inserimentoPreventivi[0] = new Preventivo(1, inserimentoAuto[0], inserimentoUtenti[0],  inserimentoOfficine[0], data1,"agjiej",1,8,"ooo");
     	
     	Appuntamento inserimentoAppuntamenti[] = new Appuntamento[1];
     	inserimentoAppuntamenti[0] = new Appuntamento(1, inserimentoUtenti[0],  inserimentoOfficine[0], data3,"10:00","dettagli appuntamento",0,"");

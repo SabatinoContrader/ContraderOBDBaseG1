@@ -137,6 +137,94 @@
 			});
 		}
 		
+		$scope.inviaRichiestaPreventivo = function(a,b){
+		
+			userService.inviaRichiestaPreventivo({
+				email:this.user.getUser().email,
+				idauto:a,
+				dettagli:b
+			},function(response){
+				$('#modalrichiedipreventivo').modal("hide");
+				swal("Complimenti!", "Richiesta di preventivo inviata correttamente", "success"); 
+								$location.path("/home");
+				
+				
+			});
+		}
+		
+		$scope.openmodalnoleggio = function(){
+			userService.getNoleggiOfficina({
+				id:this.user.getUser().officina.id
+			},function(response){
+			
+				console.log(response.data);
+				$scope.autonoleggio=response.data;
+				$('#modalnoleggioauto').modal("show");
+			});
+			
+		}
+		
+		$scope.inviaRichiestaNoleggio = function(a,b,c,d,e){
+		
+			userService.inviaRichiestaNoleggio({
+				idOfficina: this.user.getUser().officina.id,
+				idAuto:a,
+				CapLuogoDiRiconsegna:c,
+				CapLuogoDiRitiro:b,
+				DataInizioNoleggio:d,
+				DataFineNoleggio:e,
+				idUtente:this.user.getUser().id
+			},function(response){
+				$('#modalrichiedipreventivo').modal("hide");
+				swal("Complimenti!", "Richiesta di preventivo inviata correttamente", "success"); 
+								$location.path("/home");
+				
+				
+			});
+		}
+		
+		$scope.noleggi = function(){
+			userService.getNoleggiOfficina({
+				id:this.user.getUser().officina.id
+			},function(response){
+			$location.path("/noleggi");
+			});
+			
+		}
+		
+		$scope.rispondiAppuntamento = function(a,b,c){
+	
+			userService.rispondiAppuntamento({
+				email: this.user.getUser().email,
+				idapp:c,
+				dettagliapp:a,
+				selectapp:b,
+			},function(response){
+				$('#modalrispondiappuntamento').modal("hide");
+				swal("Complimenti!", "Risposta inviata correttamente", "success"); 
+								$location.path("/home");
+				
+				
+			});
+		}
+		
+		$scope.inviaRichiestaAppuntamento = function(a,b,c){
+	
+			userService.inviaRichiestaAppuntamento({
+				email: this.user.getUser().email,
+				dettagliapp:b,
+				data:a,
+				ora:c
+				
+			},function(response){
+				$('#modalrichiediappuntamento').modal("hide");
+				swal("Complimenti!", "Richiesta inviata correttamente", "success"); 
+								$location.path("/home");
+				
+				
+			});
+		}
+		
 		$scope.logOut = function(){
 			userService.logOut();
 			$location.path("/");

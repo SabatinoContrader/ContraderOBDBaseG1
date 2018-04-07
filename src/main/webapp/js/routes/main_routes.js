@@ -92,6 +92,9 @@ app.config(function($routeProvider){
   }).when('/dispositivi', {
     templateUrl: 'html/dispositivi.html'
  
+  }).when('/noleggi', {
+    templateUrl: 'html/noleggi.html'
+ 
   })
   
 });

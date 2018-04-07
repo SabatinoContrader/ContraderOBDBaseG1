@@ -366,13 +366,13 @@ public class Controller {
 	}
 
 	@RequestMapping(value = "/richiediappuntamento", method = RequestMethod.POST)
-	public void richiediappuntamento(@RequestParam("emailapp") String email, @RequestParam("dettagliapp") String dettagli, @RequestParam("ora") String ora)
+	public void richiediappuntamento(@RequestParam("emailapp") String email, @RequestParam("dettagliapp") String dettagli, @RequestParam("ora") String ora,@RequestParam("dataAppuntamento") @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataAppuntamento)
 	{
 		Utente u = IUtente.selectByEmail(email);
 
 		Officina o = u.getOfficina();
 
-		// create a java calendar instance
+		/*// create a java calendar instance
 		Calendar calendar = Calendar.getInstance();
 
 		// get a java date (java.util.Date) from the Calendar instance.
@@ -381,13 +381,13 @@ public class Controller {
 
 		// now, create a java.sql.Date from the java.util.Date
 		java.sql.Date date = new java.sql.Date(currentDate.getTime());
-
+*/
 
 		//Creazione nuovo appuntamento
 		Appuntamento a = new Appuntamento();
 		a.setUtente(u);
 		a.setOfficina(o);
-		a.setData(date);
+		a.setData(dataAppuntamento);
 		a.setOra(ora);
 		a.setDettagli(dettagli);
 		a.setStato(0);
