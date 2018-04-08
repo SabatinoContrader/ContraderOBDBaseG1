@@ -18,7 +18,7 @@ app.controller("mainController", function ($scope, userService, $location, $log,
 			email: email,
 			pwd: password
 		},
-			function (response) {debugger;
+			function (response) {
 				if (response) {
 					if (page) {
 						$location.path(""+page)
@@ -209,6 +209,97 @@ app.controller("mainController", function ($scope, userService, $location, $log,
 		});
 	}
 
+	$scope.aggiungiCliente = function (a, b, c, d, e) {
+
+		userService.aggiungiCliente({
+			cognome: b,
+			nome: a,
+			email: c,
+			password: d,
+			idOfficina:this.user.getUser().officina.id,
+			telefono:e
+		}, function (response) {
+			$('#modalaggiungiutente').modal("hide");
+			swal("Complimenti!", "Cliente aggiunto correttamente", "success");
+			$location.path("/home");
+
+
+		});
+	}
+
+	$scope.aggiungiAuto = function (a, b, c, d, e,f,g,h,i,l,m,n,o) {
+
+		userService.aggiungiAuto({
+			marca: a,
+			modello: b,
+			targa: c,
+			numeroTelaio: d,
+			cilindrata: e,
+			tipologiaAuto: f,
+			alimentazione: g,
+			numeroPorte: h,
+			kmAttuali:i,
+			idOfficina:this.user.getUser().officina.id,
+			scadenzaAssicurazione:l,
+			scadenzaBollo:m,
+			scadenzaRevisione:n,
+			scadenzaTagliando:o
+		}, function (response) {
+			$('#modaladdauto').modal("hide");
+			swal("Complimenti!", "Auto aggiunta correttamente", "success");
+			var email = $window.sessionStorage.getItem("email");
+	var password = $window.sessionStorage.getItem("password");
+	if (email && password) {
+		userService.doLogin({
+			email: email,
+			pwd: password
+		},
+			function (response) {
+				if (response) {
+					if (page) {
+						$location.path(""+page)
+					}
+				}
+			});
+	}
+		//	$location.path("/");
+
+		});
+	}	
+	
+		$scope.aggiungiDispositivo = function (a) {
+
+		userService.aggiungiDispositivo({
+			codice: a,
+			idOfficina:this.user.getUser().officina.id
+			
+		}, function (response) {
+			$('#modaladddispositivo').modal("hide");
+			swal("Complimenti!", "Dispositivo aggiunto correttamente", "success");
+			$location.path("/home");
+
+
+		});
+	}
+
+	
+	$scope.associaDispositivo = function (a,b) {
+		
+		userService.associaDispositivo({
+			idDispositivo: a,
+			idAuto:b
+		}, function (response) {
+
+$('#modalassociadispositivo').modal("hide");
+			swal("Complimenti!", "Dispositivo associato correttamente", "success");
+			$location.path("/home");
+			
+	
+		});
+
+	}
+
+	
 	$scope.logOut = function () {
 		userService.logOut();
 		$window.sessionStorage.clear();

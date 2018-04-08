@@ -160,8 +160,61 @@ function($resource){
 				dataAppuntamento:'@data'
 				
       }
-    }
+    },
+	aggiungiCliente: {
+      method: 'POST',
+      url: baseUrl+'inserisciCliente',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+				
+			cognome: '@cognome',
+			nome: '@nome',
+			email: '@email',
+			password: '@password',
+			idOfficina:'@idOfficina',
+			telefono:'@telefono'
+      }
+    },
+	aggiungiAuto: {
+      method: 'POST',
+      url: baseUrl+'inserisciAuto',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+			marca: '@marca',
+			modello: '@modello',
+			targa: '@targa',
+			numeroTelaio: '@numeroTelaio',
+			cilindrata:'@cilindrata',
+			tipologiaAuto:'@tipologiaAuto',
+			alimentazione: '@alimentazione',
+			numeroPorte: '@numeroPorte',
+			kmAttuali: '@kmAttuali',
+			idOfficina: '@idOfficina',
+			scadenzaAssicurazione: '@scadenzaAssicurazione',
+			scadenzaBollo: '@scadenzaBollo',
+			scadenzaRevisione: '@scadenzaRevisione',
+			scadenzaTagliando: '@scadenzaTagliando'
+      }
+    },
+	aggiungiDispositivo: {
+      method: 'POST',
+      url: baseUrl+'inserisciDispositivo',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+			idOfficina: '@idOfficina',
+			codice: '@codice'
+      }
+    },
+	associaDispositivo: {
+      method: 'POST',
+      url: baseUrl+'installazioneDispositivo',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+			idDispositivo: '@idDispositivo',
+			idAuto:'@idAuto'
+      }
 	
+	}
   });
 }
 

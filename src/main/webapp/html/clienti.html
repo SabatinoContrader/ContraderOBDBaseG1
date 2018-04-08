@@ -30,7 +30,7 @@
 									<div class="m-portlet__body">
 										<!--begin: Datatable -->
 									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-								<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal"  ng-click="openmodalutenti()">Aggiungi utente</button>
+								<button type="button" id="openmodalutenti" class="btn btn-default pull-left btnmodal" >Aggiungi cliente</button>
 									<table class="table table-striped" id="myTable">
 									<thead>
 									<tr>
@@ -96,34 +96,36 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Richiedi preventivo per <span id="autorichiesta"></span></h5>
+        <h5 class="modal-title">Aggiungi cliente</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
       <form action="/inviapreventivo" method="POST">
-
-						<div class="form-group">
-  <label for="dettagli">Descrizione Problema:</label>
-  <textarea class="form-control" rows="5" id="dettagli" name="dettagli"></textarea>
-</div>
-						
-							<input type="hidden"
-								class="form-control" id="email" value="email"
-								name="email">
-							<input type="hidden"
-								class="form-control" id="idofficina" 
-								name="idofficina">
-						<input type="hidden"
-								class="form-control" id="idauto" 
-								name="idauto">
-								
-  
-
+	<div class="form-group">
+	<label for="nomecliente">Nome:</label>
+	<input type="text" name="nomecliente" ng-model="nomeclienteadd" class="form-control" placeholder="Inserire nome...">
+	</div>
+	  <div class="form-group">
+	<label for="cognomecliente">Cognome:</label>
+	<input type="text" name="cognomecliente" ng-model="cognomeclienteadd" class="form-control" placeholder="Inserire cognome...">
+	</div>
+	 <div class="form-group">
+	<label for="emailcliente">Email:</label>
+	<input type="email" name="emailcliente" ng-model="emailclienteadd" class="form-control" placeholder="Inserire email...">
+	</div>
+	<div class="form-group">
+	<label for="passwordcliente">Password:</label>
+	<input type="text" name="passwordcliente" ng-model="passwordclienteadd" class="form-control" placeholder="Inserire password...">
+	</div>
+	<div class="form-group">
+	<label for="telefonocliente">Telefono:</label>
+	<input type="text" name="telefonocliente" ng-model="telefonoclienteadd" class="form-control" placeholder="Inserire telefono...">
+	</div>
       </div>
       <div class="modal-footer " style="text-align:center;" >
-       <button type="button" class="btn btn-primary savebutton" ng-click="aggiungiUtente();">Invia Richiesta</button>
+       <button type="button" class="btn btn-primary savebutton" ng-click="aggiungiCliente(nomeclienteadd,cognomeclienteadd,emailclienteadd,passwordclienteadd,telefonoclienteadd);">Salva Cliente</button>
 	     
 </form>
       </div>

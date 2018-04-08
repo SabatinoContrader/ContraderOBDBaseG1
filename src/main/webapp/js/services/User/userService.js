@@ -226,8 +226,55 @@ app.service('userService', function (userREST, $location, $cookies) {
 				}
 			});
 		},
+		aggiungiCliente: function (params, callback) {
+			userREST.aggiungiCliente(params).$promise.then(function (response) {
+				callback(response);
+				if (response.data != null) {
 
+					//	 parent.userDispositivi=response.data;
 
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
+		aggiungiAuto: function (params, callback) {
+			userREST.aggiungiAuto(params).$promise.then(function (response) {
+				callback(response);
+				if (response.data != null) {
+
+					//	 parent.userDispositivi=response.data;
+
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
+		aggiungiDispositivo: function (params, callback) {
+			userREST.aggiungiDispositivo(params).$promise.then(function (response) {
+				callback(response);
+				if (response.data != null) {
+
+					//	 parent.userDispositivi=response.data;
+
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
+		associaDispositivo: function (params, callback) {
+			userREST.associaDispositivo(params).$promise.then(function (response) {
+				callback(response);
+				if (response.data != null) {
+
+					//	 parent.userDispositivi=response.data;
+
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
+		
 		getUserNoleggi: function () { return parent.userNoleggi; },
 		getUserDispositivi: function () { return parent.userDispositivi; },
 		getUserClienti: function () { return parent.userClienti; },

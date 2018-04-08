@@ -167,7 +167,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Richiedi preventivo per <span id="autorichiesta"></span></h5>
+				<h5 class="modal-title">Aggiungi Auto</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -176,25 +176,77 @@
 				<form action="/inviapreventivo" method="POST">
 
 					<div class="form-group">
-						<label for="dettagli">Descrizione Problema:</label>
-						<textarea class="form-control" rows="5" id="dettagli" name="dettagli"></textarea>
+	<label for="marcaauto">Marca:</label>
+	<input type="text" name="marcaauto" ng-model="marcaautoadd" class="form-control" placeholder="Inserire marca...">
+	</div>
+
+<div class="form-group">
+	<label for="modelloauto">Modello:</label>
+	<input type="text" name="modelloauto" ng-model="modelloautoadd" class="form-control" placeholder="Inserire modello...">
+	</div>
+
+	<div class="form-group">
+	<label for="targaauto">Targa:</label>
+	<input type="text" name="targaauto" ng-model="targaautoadd" class="form-control" placeholder="Inserire targa...">
+	</div>
+	<div class="form-group">
+	<label for="telaioauto">Telaio:</label>
+	<input type="text" name="telaioauto" ng-model="telaioautoadd" class="form-control" placeholder="Inserire telaio...">
+	</div>
+
+	<div class="form-group">
+	<label for="cilindrataauto">Cilindrata:</label>
+	<input type="number" name="cilindrataauto" ng-model="cilindrataautoadd" class="form-control" placeholder="Inserire cilindrata...">
+	</div>
+	
+	<div class="form-group">
+	<label for="tipologiaauto">Tipologia auto (es. berlina,utilitaria,etc...):</label>
+	<input type="text" name="tipologiaauto" ng-model="tipologiaautoadd" class="form-control" placeholder="Inserire tipologia auto...">
+	</div>
+	<div class="form-group">
+	<label for="alimentazioneauto">Alimentazione:</label>
+	<input type="text" name="alimentazioneauto" ng-model="alimentazioneautoadd" class="form-control" placeholder="Inserire alimentazione...">
+	</div>
+			
+			<div class="form-group">
+	<label for="numeroporteauto">Numero porte:</label>
+	<input type="number" name="numeroporteauto" ng-model="numeroporteautoadd" class="form-control" placeholder="Inserire numero porte...">
+	</div>
+			<div class="form-group">
+	<label for="kmattualiauto">Km attuali:</label>
+	<input type="number" name="kmattualiauto" ng-model="kmattualiautoadd" class="form-control" placeholder="Inserire km attuali...">
+	</div>
+	
+	<div class="form-group">
+					<label for="scadenzaAssicurazione">Scadenza assicurazione:</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="scadenzaAssicurazioneadd" type="text"/ class="form-control">
+</datepicker>
 					</div>
-
-					<input type="hidden"
-					class="form-control" id="email" value="email"
-					name="email">
-					<input type="hidden"
-					class="form-control" id="idofficina"
-					name="idofficina">
-					<input type="hidden"
-					class="form-control" id="idauto"
-					name="idauto">
-
-
-
+					
+	<div class="form-group">
+					<label for="scadenzaBollo">Scadenza Bollo:</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="scadenzaBolloadd" type="text"/ class="form-control">
+</datepicker>
+					</div>				
+		
+	<div class="form-group">
+					<label for="scadenzaRevisione">Scadenza Revisione:</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="scadenzaRevisioneadd" type="text"/ class="form-control">
+</datepicker>
+					</div>
+	
+	<div class="form-group">
+					<label for="scadenzaTagliando">Scadenza Tagliando:</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="scadenzaTagliandoadd" type="text"/ class="form-control">
+</datepicker>
+					</div>
 				</div>
 				<div class="modal-footer " style="text-align:center;" >
-					<button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
+					<button type="button" class="btn btn-primary savebutton" ng-click="aggiungiAuto(marcaautoadd,modelloautoadd,targaautoadd,telaioautoadd,cilindrataautoadd,tipologiaautoadd,alimentazioneautoadd,numeroporteautoadd,kmattualiautoadd,scadenzaAssicurazioneadd,scadenzaBolloadd,scadenzaRevisioneadd,scadenzaTagliandoadd);">Salva auto</button>
 
 				</form>
 			</div>

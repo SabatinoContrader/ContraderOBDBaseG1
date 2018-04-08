@@ -35,7 +35,7 @@
 									<div class="m-portlet__body">
 										<!--begin: Datatable -->
 									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-								
+								<button type="button" id="openmodaldispositivo" class="btn btn-default pull-left btnmodal" >Aggiungi dispositivo</button>
 									<table class="table table-striped" id="myTable">
 									<thead>
 									<tr>
@@ -64,7 +64,7 @@
 								
 								<td>
 							
-								<a class="ali associadispositivo" data-id="{{dispositivo.id}}" ng-if="dispositivo.dataInstallazione==null||dispositivo.dataInstallazione==''" ><i class="fa fa-paperclip"  title="Associa dispositivo ad auto" ></i></a>
+								<a class="ali associadispositivo" data-id="{{dispositivo.id}}"  ng-if="dispositivo.dataInstallazione==null||dispositivo.dataInstallazione==''" ><i class="fa fa-paperclip"  title="Associa dispositivo ad auto" ></i></a>
 								</td>
 
 								</tr>
@@ -96,7 +96,7 @@
 	</div>
 	<!-- end:: Page -->
 <!-- begin::modal richiedi preventivo -->
-<div class="modal" tabindex="-1" role="dialog" id="modalrichiedipreventivo">
+<div class="modal" tabindex="-1" role="dialog" id="modaladddispositivo">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -109,25 +109,49 @@
       <form action="/inviapreventivo" method="POST">
 
 						<div class="form-group">
-  <label for="dettagli">Descrizione Problema:</label>
-  <textarea class="form-control" rows="5" id="dettagli" name="dettagli"></textarea>
+  <label for="codicedispositivoadd">Codice dispositivo:</label>
+ <input type="text" name="codicedispositivoadd" maxlength=5 ng-model="codicedispositivoadd" class="form-control">
 </div>
 						
-							<input type="hidden"
-								class="form-control" id="email" value="email"
-								name="email">
-							<input type="hidden"
-								class="form-control" id="idofficina" 
-								name="idofficina">
-						<input type="hidden"
-								class="form-control" id="idauto" 
-								name="idauto">
 								
   
 
       </div>
       <div class="modal-footer " style="text-align:center;" >
-       <button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
+       <button type="button" class="btn btn-primary savebutton" ng-click="aggiungiDispositivo(codicedispositivoadd)">Salva dispositivo</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end::modal richiedi preventivo-->
+<!-- begin::modal richiedi preventivo -->
+<div class="modal" tabindex="-1" role="dialog" id="modalassociadispositivo">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Associa dispositivo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="/inviapreventivo" method="POST">
+
+						<div class="form-group">
+				<label for="idauto">Selezionare auto</label>
+				<select name="idauto" ng-model="idautoassdisp" class="form-control">
+				<option ng-repeat="auto in user.getAuto()" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}  - {{auto.cilindrata}} {{auto.alimentazione}}</option>
+				</select>
+				</div>
+								
+  <input type="text" style="display:none;" id="idassdisp" name="idassdisp" ng-model="idassdisp">
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="button" class="btn btn-primary savebutton" ng-click="associaDispositivo(idassdisp,idautoassdisp)">Associa dispositivo</button>
 	     
 </form>
       </div>
@@ -137,7 +161,6 @@
 
 <!-- end::modal richiedi preventivo-->
 
-
 	 </div>
 	<script> $(document).ready( function () {
     $('#myTable').DataTable({
@@ -145,9 +168,18 @@
     ordering:  true,
 	pageLength:25,});
 } );
-$(document).on("click", ".associadispositivo", function() {
 
+$(document).on("click", ".associadispositivo", function() {
+$('#idassdisp').val($(this).data("id"));
+$('#idassdisp').trigger('change');
+$('#modalassociadispositivo').modal("show");
 });
+
+$(document).on("click", "#openmodaldispositivo", function() {
+$('#modaladddispositivo').modal("show");
+});
+
+
 $(document).on("click", ".showdispositivi", function() {
  var n = $(this).data("n");
 

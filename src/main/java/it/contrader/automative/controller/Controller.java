@@ -556,7 +556,8 @@ public class Controller {
 	
 			d.setOfficina(officinaRepository.findById(idOfficina));
 			d.setCodice(codice);
-			d.setDataInstallazione(new Date(System.currentTimeMillis()));
+			// Non serve inserire data di installazione se non si installa su nessuna auto
+		//	d.setDataInstallazione(new Date(System.currentTimeMillis()));
 	
 			IDispositivo.insert(d);
 	
@@ -569,9 +570,13 @@ public class Controller {
 			Dispositivo d = dispositivoRepository.findById(idDispositivo);
 	
 			d.setAuto(autoRepository.findById(idAuto));
+			// in fase di installazione dispositivo inserirsco la data di installazione
+			d.setDataInstallazione(new Date(System.currentTimeMillis()));
+			
 	
-			dispositivoRepository.delete(d);
-			IDispositivo.insert(d);
+		//  Faccio solo aggiornamento senza bisogno di cancellare e reinserire 
+		//	dispositivoRepository.delete(d);
+			dispositivoRepository.save(d);
 	
 		}
 	
