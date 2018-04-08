@@ -1,10 +1,7 @@
-app.controller('guasti', function ($scope, $http, userService) {
+app.controller('guasti', function ($scope, $http, userService, $location) {
 
-	userService.guasti({
+    userService.guasti({
         id: userService.getUser().id
     }, function (response) {
-        $location.path("/guasti");
-
-
     });
 });
