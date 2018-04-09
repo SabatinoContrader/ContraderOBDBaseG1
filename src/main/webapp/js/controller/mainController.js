@@ -361,6 +361,28 @@ $('#idautonoleggio').trigger('change');
 
 	}
 	
+		$scope.ticket = function () {
+	
+		userService.ticket({
+			id: this.user.getUser().officina.id
+		}, function (response) {
+			console.log($scope.user.getUserTicket());
+	$location.path("/ticket");
+	
+		});
+
+	}
+	
+	$scope.openticket=function(a){
+		
+$scope.singleticket=a;	
+		console.log(a.ticket.id);
+	$('#modalticket').modal("show");
+	
+	
+	}
+	
+	
 	
 	$scope.logOut = function () {
 		userService.logOut();

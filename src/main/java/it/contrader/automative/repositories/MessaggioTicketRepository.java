@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import it.contrader.automative.model.MessaggioTicket;
 import it.contrader.automative.model.Officina;
+import it.contrader.automative.model.Ticket;
 import it.contrader.automative.model.Utente;
 
 @Repository
@@ -16,8 +17,7 @@ import it.contrader.automative.model.Utente;
 public interface MessaggioTicketRepository extends CrudRepository<MessaggioTicket, Long> {
 
 	MessaggioTicket findById(int id);
-	
-	List<MessaggioTicket> findByUtente(Utente u);
-	List<MessaggioTicket> findByOfficina(Officina o);
+	List<MessaggioTicket> findByTicket(Ticket t);
+
 	
 }

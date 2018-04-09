@@ -22,6 +22,7 @@ import it.contrader.automative.model.Appuntamento;
 import it.contrader.automative.model.Auto;
 import it.contrader.automative.model.Dispositivo;
 import it.contrader.automative.model.Guasto;
+import it.contrader.automative.model.MessaggioTicket;
 import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
 import it.contrader.automative.model.Preventivo;
@@ -31,6 +32,7 @@ import it.contrader.automative.repositories.AppuntamentoRepository;
 import it.contrader.automative.repositories.AutoRepository;
 import it.contrader.automative.repositories.DispositivoRepository;
 import it.contrader.automative.repositories.GuastoRepository;
+import it.contrader.automative.repositories.MessaggioTicketRepository;
 import it.contrader.automative.repositories.NoleggioRepository;
 import it.contrader.automative.repositories.OfficinaRepository;
 import it.contrader.automative.repositories.PreventivoRepository;
@@ -46,6 +48,7 @@ import it.contrader.automative.utils.Alerts;
 import it.contrader.automative.utils.AutoScadenze;
 import it.contrader.automative.utils.GenericResponse;
 import it.contrader.automative.utils.LogInUtente;
+import it.contrader.automative.utils.TicketDTO;
 
 
 
@@ -72,10 +75,10 @@ public class Controller {
 	private UtenteRepository utenteRepository;
 	private OfficinaRepository officinaRepository;
 	private TicketRepository ticketRepository;
-
-
+	private MessaggioTicketRepository messaggioTicketRepository;
+	
 	@Autowired
-	public Controller(IAuto IAuto, IDispositivo IDispositivo, IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, UtenteRepository utenteRepository ,AutoRepository autoRepository, NoleggioRepository noleggioRepository,TicketRepository ticketRepository, OfficinaRepository officinaRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository, INoleggio noleggioService) {
+	public Controller(IAuto IAuto, IDispositivo IDispositivo, IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, UtenteRepository utenteRepository ,AutoRepository autoRepository,  MessaggioTicketRepository messaggioTicketRepository ,NoleggioRepository noleggioRepository,TicketRepository ticketRepository, OfficinaRepository officinaRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository, INoleggio noleggioService) {
 		this.IUtente = IUtente;
 		this.IPreventivo = IPreventivo;
 		this.IAppuntamento=IAppuntamento;
@@ -88,7 +91,7 @@ public class Controller {
 		this.preventivoRepository = preventivoRepository;
 		this.appuntamentoRepository = appuntamentoRepository;
 		this.officinaRepository = officinaRepository;
-
+		this.messaggioTicketRepository = messaggioTicketRepository;
 		this.noleggioService = noleggioService;
 		this.IAuto = IAuto;
 		this.IDispositivo = IDispositivo;
@@ -616,11 +619,16 @@ public class Controller {
 
 		//LISTA TICKET OFFICINA
 		@RequestMapping(value = "/ticketOfficina", method = RequestMethod.POST)
-		public GenericResponse<List<Ticket>> getTicketOfficina(@RequestParam("id") int idOfficina) {
+		public GenericResponse<List<TicketDTO>> getTicketOfficina(@RequestParam("id") int idOfficina) {
+			List<TicketDTO> listaTicketDTO = new ArrayList<TicketDTO>();
 			List<Ticket> listaTicket =  ticketRepository.findByOfficina(officinaRepository.findById(idOfficina));
-		
+			for (int i=0; i<listaTicket.size(); i++) {
+			List<MessaggioTicket> listaMessaggi = messaggioTicketRepository.findByTicket(listaTicket.get(i));
+			listaTicketDTO.add( new TicketDTO(listaTicket.get(i),listaMessaggi));
+			}
 			
-			return new GenericResponse<List<Ticket>>(listaTicket);
+			
+			return new GenericResponse<List<TicketDTO>>(listaTicketDTO);
 		}
 		
 		

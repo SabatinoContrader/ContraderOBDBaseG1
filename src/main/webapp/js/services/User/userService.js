@@ -14,6 +14,7 @@ app.service('userService', function (userREST, $location, $cookies) {
 		scadenzeNoleggi: [],
 		userDispositivi: [],
 		userNoleggi: [],
+		userTicket:[],
 		isLogged: false,
 		doLogin: function (params, callback) {
 
@@ -334,7 +335,21 @@ app.service('userService', function (userREST, $location, $cookies) {
 				}
 			});
 		},
+		ticket: function (params, callback) {
+			userREST.ticket(params).$promise.then(function (response) {debugger;
+				parent.userTicket=response.data;
+					
+				if (response.data != null) {
+					
+					//	 parent.userDispositivi=response.data;
+
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
 		
+		getUserTicket: function(){return parent.userTicket;},
 		getUserNoleggi: function () { return parent.userNoleggi; },
 		getUserDispositivi: function () { return parent.userDispositivi; },
 		getUserClienti: function () { return parent.userClienti; },

@@ -96,5 +96,10 @@ app.config(function($routeProvider){
     templateUrl: 'html/noleggi.html'
  
   })
+  .when('/ticket', {
+    templateUrl: 'html/ticket.html'
+ 
+  })
+  
   
 });

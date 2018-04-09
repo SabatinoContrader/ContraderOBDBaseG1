@@ -1,4 +1,5 @@
 <div >
+
 	<!-- begin:: Page -->
 	<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
 
@@ -7,7 +8,7 @@
 			<div class="m-grid__item m-grid__item--fluid m-wrapper">
 
 				<div class="m-content">
-
+	
 					<!--begin:: section content-->
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
@@ -34,34 +35,24 @@
 										<thead>
 											<tr>
 												<th>ID</th>
-												<th>Cliente</th>
-												<th>Marca</th>
-												<th>Modello</th>
-												<th>Targa</th>
-												<th>Telaio</th>
-												<th>CAP Ritiro</th>
-												<th>CAP Consegna</th>
-												<th>Inizio noleggio</th>
-												<th>Fine noleggio</th>
+												<th>Data</th>
+												<th>Oggetto</th>
+											
 												<th></th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="noleggio in user.getUserNoleggi()">
-												<td>{{noleggio.auto.id}}</td>
-												<td>{{noleggio.utente.nome}} {{noleggio.utente.cognome}}</td>
-												<td>{{noleggio.auto.marca}}</td>
-												<td>{{noleggio.auto.modello}}</td>
-												<td>{{noleggio.auto.targa}}</td>
-												<td>{{noleggio.auto.numeroTelaio}}</td>
-												<td>{{noleggio.capLuogoDiRitiro}}</td>
-												<td>{{noleggio.capLuogoDiRiconsegna}}</td>
-												<td>{{noleggio.dataInizioNoleggio | date:'dd/MM/yyyy'}}</td>
-												<td>{{noleggio.dataFineNoleggio | date:'dd/MM/yyyy'}}</td>
-												<td></td>
+											<tr ng-repeat="ticketa in user.getUserTicket()">
+												<td>{{ticketa.ticket.id}}</td>
+												<td>{{ticketa.ticket.data | date:'dd/MM/yyyy'}}</td>
+												<td>{{ticketa.ticket.oggetto}}</td>
+												<td>
+												<a class="ali openticket" ng-click="openticket(ticketa);"><i class="fa fa-envelope"  title="Apri ticket"></i></a>
+												</td>
 											</tr>
 										</tbody>
 									</table>
+									
 									<!--end: Datatable -->
 								</div>
 							</div>
@@ -84,135 +75,41 @@
 
 </div>
 <!-- end:: Page -->
+<!-- begin::modal ticket -->
+<div class="modal" tabindex="-1" role="dialog" id="modalticket">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ticket</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="/inviapreventivo" method="POST">
 
-<!-- begin::modal richiedi noleggio -->
-<div class="modal" tabindex="-1" role="dialog" id="modalnoleggioauto">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Richiedi auto in noleggio</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form action="richiediappuntamento" method="POST">
-
-				<div class="form-group">
-				<label for="idauto">Selezionare auto</label>
-				<select name="idauto" ng-model="idautoricnol" class="form-control">
-				<option ng-repeat="auto in autonoleggio" value="{{auto.auto.id}}">{{auto.auto.marca}} {{auto.auto.modello}}  - {{auto.auto.cilindrata}} {{auto.auto.alimentazione}}</option>
-				</select>
-				</div>
-				<div class="form-group">
-				<label for="capluogoritiro">Inserire CAP luogo ritiro</label>
-				<input class="form-control" type="number" name="luogoritiro" ng-model="capluogoritiro">
-				</div>
-				
-				<div class="form-group">
-				<label for="capluogoconsegna">Inserire CAP luogo consegna</label>
-				<input class="form-control" type="number" name="luogoconsegna" ng-model="capluogoconsegna">
-				</div>
-				
-					<div class="form-group">
-					<label for="datainizio">Inserire Data inizio noleggio</label>
-					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
-  <input ng-model="datainizionoleggio" type="text"/ class="form-control">
-</datepicker>
-					</div>
-					<div class="form-group">
-					<label for="datafine">Inserire Data fine noleggio</label>
-					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
-  <input ng-model="datafinenoleggio" type="text" class="form-control" />
-</datepicker>
-					</div>
-
-				</div>
-				<div class="modal-footer " style="text-align:center;" >
-					<button type="button" class="btn btn-primary savebutton btnfooter" ng-click="inviaRichiestaNoleggio(idautoricnol,capluogoritiro,capluogoconsegna,datainizionoleggio,datafinenoleggio)">Invia Richiesta</button>
-
-				</form>
-			</div>
-		</div>
-	</div>
+	  <p style="width: 100%;" ng-repeat="msg in singleticket.messaggioTicket">
+	  <span ng-if="msg.direzione==0" class="pull-left" style="width: 100%;"><span style="color:blue">Cliente</span>: {{msg.testo}}</span><span style="width: 100%; text-align: right;
+" ng-if="msg.direzione==1" class="pull-right"><span style="color:red">Officina</span>: {{msg.testo}}</span>
+	  </p>
+	
+			<div class="form-group">
+  <label for="messaggio">Messaggio:</label>
+  <textarea class="form-control" rows="5" id="messaggio" name="messaggio" ng-model="messaggio"></textarea>
 </div>
-</div>
-<!-- end::modal richiedi noleggio-->
-<!-- begin::modal Dati Telemetria Guasto-->
-<div class="modal" tabindex="-1" role="dialog" id="modaldatitelemetria">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Dati Telemetria </h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="m-widget24">
-					<div class="m-widget24__item">
+		
 
-						<h4 class="m-widget24__title" >
-							Auto: <span id="autotelemetria"></span>
-						</h4>
-						<br>
-						<div class="m--space-10"></div>
-						<p  id="datitel"></p>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer " style="text-align:center;" >
-				<button type="submit" class="btn btn-primary btnfooter" data-dismiss="modal" aria-label="close">Chiudi</button>
-
-
-			</div>
-		</div>
-	</div>
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="button" class="btn btn-primary savebutton">INVIA MESSAGGIO</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- end::modal Dati Telemetria Guasto-->
-
-<!-- begin::modal add auto -->
-<div class="modal" tabindex="-1" role="dialog" id="modaladdauto">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Richiedi preventivo per <span id="autorichiesta"></span></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form action="/inviapreventivo" method="POST">
-
-					<div class="form-group">
-						<label for="dettagli">Descrizione Problema:</label>
-						<textarea class="form-control" rows="5" id="dettagli" name="dettagli"></textarea>
-					</div>
-
-					<input type="hidden"
-					class="form-control" id="email" value="email"
-					name="email">
-					<input type="hidden"
-					class="form-control" id="idofficina"
-					name="idofficina">
-					<input type="hidden"
-					class="form-control" id="idauto"
-					name="idauto">
-
-
-
-				</div>
-				<div class="modal-footer " style="text-align:center;" >
-					<button type="submit" class="btn btn-primary savebutton">Invia Richiesta</button>
-
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-<!-- end::modal add auto-->
+<!-- end::modal ticket-->
 </div>
 <script> $(document).ready( function () {
 	$('#myTable').DataTable({
@@ -220,10 +117,5 @@
 		ordering:  true,
 		pageLength:25,});
 	} );
-	$(document).on("click", "#aggiungiauto", function() {
-	$('#modaladdauto').modal("show");
-	});
-	/*$(document).on("click", "#noleggioauto", function() {
-	$('#modalnoleggioauto').modal("show");
-	});*/
+	
 </script>
