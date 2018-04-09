@@ -274,6 +274,42 @@ app.service('userService', function (userREST, $location, $cookies) {
 				}
 			});
 		},
+		setGuastoRisolto: function (params, callback) {
+			userREST.setGuastoRisolto(params).$promise.then(function (response) {
+				callback(response);
+				if (response.data != null) {
+
+					//	 parent.userDispositivi=response.data;
+
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
+		statoPreventivo: function (params, callback) {
+			userREST.statoPreventivo(params).$promise.then(function (response) {
+				callback(response);
+				if (response.data != null) {
+
+					//	 parent.userDispositivi=response.data;
+
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
+		inviaRispostaPreventivo: function (params, callback) {
+			userREST.inviaRispostaPreventivo(params).$promise.then(function (response) {
+				callback(response);
+				if (response.data != null) {
+
+					//	 parent.userDispositivi=response.data;
+
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
 		
 		getUserNoleggi: function () { return parent.userNoleggi; },
 		getUserDispositivi: function () { return parent.userDispositivi; },

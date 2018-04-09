@@ -214,7 +214,38 @@ function($resource){
 			idAuto:'@idAuto'
       }
 	
+	},
+	setGuastoRisolto: {
+      method: 'POST',
+      url: baseUrl+'setrisoltoguasto',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+			idguasto: '@idGuasto'
+      }
+	
+	},
+	statoPreventivo: {
+      method: 'POST',
+      url: baseUrl+'accettapreventivo',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+			stato: '@stato',
+			idprev:'@idprev'
+      }
+	
+	},
+	inviaRispostaPreventivo: {
+      method: 'POST',
+      url: baseUrl+'rispondipreventivo',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+			dettagli: '@dettagli',
+			costoprev:'@costoprev',
+			idprev:'@idprev'
+      }
+	
 	}
+	
   });
 }
 
