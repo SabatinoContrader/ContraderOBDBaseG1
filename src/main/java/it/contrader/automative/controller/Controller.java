@@ -578,6 +578,7 @@ public class Controller {
 	
 		}
 	
+
 		//Accettazione/Rifiuto preventivo da parte di cliente
 		@RequestMapping(value = "/accettapreventivo", method = RequestMethod.POST)
 		public void accettapreventivo( @RequestParam("stato") String stato, @RequestParam("idprev") String idprev)
@@ -589,6 +590,26 @@ public class Controller {
 			preventivoRepository.save(p);
 		}
 	
+
+		
+		//Lista Auto Officina
+		@RequestMapping(value = "/autoSenzaDispositivo", method = RequestMethod.POST)
+		public GenericResponse<List<Auto>> getAutoSenzaDisp(@RequestParam("id") int idOfficina) {
+
+			List<Auto> listaAuto = autoRepository.findByOfficina(officinaRepository.findById(idOfficina));
+
+			List<Dispositivo> listaDispositiviOfficina = listaDispositiviOfficina(idOfficina).getData();
+			
+			List<Auto> listaAutoConDisp = new ArrayList();
+			for(int i = 0; i<listaDispositiviOfficina.size(); i++) if(!(listaDispositiviOfficina.get(i).getAuto() == null))listaAutoConDisp.add(listaDispositiviOfficina.get(i).getAuto());
+				
+			for (int i=0; i<listaAuto.size(); i++) {
+				for(int e = 0; e<listaAutoConDisp.size(); e++) if(listaAuto.get(i).equals(listaAutoConDisp.get(e))) listaAuto.remove(listaAuto.get(i));
+			}
+			
+			return new GenericResponse<List<Auto>>(listaAuto);
+		}
+
 
 }
 
