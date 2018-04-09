@@ -1,3 +1,4 @@
+
 app.controller('guasti', function ($scope, userService,$location) {
 	
 	$scope.setGuastoRisolto = function (a) {
