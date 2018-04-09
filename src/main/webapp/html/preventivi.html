@@ -1,3 +1,4 @@
+<style>.prevattesa,.legattesa{background-color:grey !important;}.prevrisposto,.legrisposti{background-color:yellow  !important;}.prevaccettato,.legaccettato{background-color:#7cfc00 !important;}.prevrifiutato,.legrifiutato{background-color:red !important;}</style>
 <div >
 		<!-- begin:: Page -->
 		<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
@@ -22,11 +23,15 @@
 												<i class="fa fa-car fah3"  ></i>
 													PREVENTIVI
 												</h3>
-															<div class="btn-group btn-group-lg">
-  <button type="button" class="btn btn-primary showpreventivi" data-n="0">In Attesa</button>
-  <button type="button" class="btn btn-primary showpreventivi" data-n="1">Risposti</button>
-  <button type="button" class="btn btn-primary showpreventivi" data-n="2">Tutti</button>
-</div>
+												<div class="col-md-3" style="margin:15px;">
+												Filtra per: <select class="form-control" id="showpreventivi">
+												<option value="0">In Attesa </option>
+												<option value="1">Risposti </option>
+												<option value="2">Accettati </option>
+												<option value="3">Rifiutati </option>
+												<option value="4">Tutti </option>
+												</select>
+												</div>
 						
 											</div>
 										</div>
@@ -51,7 +56,7 @@
 									</tr>
 									</thead>
 									<tbody>
-								<tr ng-repeat="prev in user.getUserPreventivi()" ng-class="prev.stato==0 ? 'prevattesa' : 'prevrisposto'" >
+								<tr ng-repeat="prev in user.getUserPreventivi()" ng-class="{'prevattesa':prev.stato==0,'prevrisposto':prev.stato==1,'prevaccettato':prev.stato==2,'prevrifiutato':prev.stato==3}">
 								<td>{{prev.id}}</td>
 								<td>{{prev.auto.marca}}</td>
 								<td>{{prev.auto.modello}}</td>
@@ -62,8 +67,8 @@
 								<td><span ng-if="prev.costo>0">{{prev.costo}} &euro;</span></td>
 								<td>
 								
-								<a class="ali" ng-if="prev.stato==1"><i class="fa fa-check"  title="accetta preventivo"></i></a>
-									<a class="ali" ng-if="prev.stato==0"><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
+								<a class="ali accettapreventivo" ng-if="prev.stato==1" data-id="{{prev.id}}"><i class="fa fa-check"  title="accetta/rifiuta preventivo"></i></a>
+									<a class="ali" ng-if="prev.stato==0" ng-class="user.getUser().ruolo==1 ? 'rispondiprev' :''" data-id="{{prev.id}}"><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
 								</td>
 
 								</tr>
@@ -132,38 +137,147 @@
     </div>
   </div>
 </div>
-</div>
+
 <!-- end::modal richiedi preventivo-->
 
+<!-- begin::modal accetta preventivo -->
+<div class="modal" tabindex="-1" role="dialog" id="modalaccettapreventivo">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Accetti il preventivo?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="/inviapreventivo" method="POST">
+<div class="form-group">
+<label for="statoprev">Seleziona Risposta:</label>
+<select name="statoprev" class="form-control" ng-model="statoprev">
+<option value="2">S&igrave;</option>
+<option value="3">No</option>
 
+</select>
+<input type="text" style="display:none;" id="idprevrisp" ng-model="idprevrisp">
+</div>
+					
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="button" class="btn btn-primary savebutton" ng-click="statoPreventivo(statoprev,idprevrisp)">Invia Risposta</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end::modal accetta preventivo-->
+<!-- begin::modal rispondi preventivo -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrispondipreventivo">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Rispondi alla richiesta di preventivo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="/inviapreventivo" method="POST">
+
+	  	<div class="form-group">
+  <label for="costorispprev">Costo:</label>
+  <input type="number" step=0.01 ng-model="costorispprev" class="form-control">
+  
+</div>
+						<div class="form-group">
+  <label for="rispostaprev">Dettagli preventivo:</label>
+  <textarea class="form-control" rows="5" id="rispostaprev" name="rispostaprev" ng-model="rispostaprev" placeholder="Inserire dettagli preventivo..."></textarea>
+</div>
+						
+							<input type="text" style="display:none;" id="idrispprev" ng-model="idrispprev">
+								
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="button" class="btn btn-primary savebutton" ng-click="inviaRispostaPreventivo(rispostaprev,costorispprev,idrispprev)">Invia Preventivo</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end::modal rispondi preventivo-->
 	 </div>
 	<script> $(document).ready( function () {
     $('#myTable').DataTable({
 	 searching: true,
     ordering:  true,
+	"dom": '<"toolbar">frtip',
 	pageLength:25,});
+	 $("div.toolbar").html('<div style="width:20px;height:10px;" class="legattesa"></div> Preventivi in attesa<br><div style="width:20px;height:10px;" class="legrisposti"></div> Preventivi risposti<br><div style="width:20px;height:10px;" class="legaccettato"></div> Preventivi accettati<br><div style="width:20px;height:10px;" class="legrifiutato"></div> Preventivi rifiutati<br>');
 } );
+$(document).on("click", ".accettapreventivo", function() {
+var idprevrisp=$(this).data("id");
+$('#idprevrisp').val(idprevrisp);
+$('#idprevrisp').trigger('change');
+$('#modalaccettapreventivo').modal("show");
+});
+
+$(document).on("click", ".rispondiprev", function() {
+var idrispprev=$(this).data("id");
+$('#idrispprev').val(idrispprev);
+$('#idrispprev').trigger('change');
+$('#modalrispondipreventivo').modal("show");
+});
+
+
 $(document).on("click", "#openmodalpreventivo", function() {
 
 $('#modalrichiedipreventivo').modal("show");
 });
-$(document).on("click", ".showpreventivi", function() {
+$(document).on("change", "#showpreventivi", function() {
 
-var n = $(this).data("n");
+var n = $(this).val();
 
 if(n=='0'){
 if($('.prevattesa').length>0){
 $('.prevrisposto').hide();
+$('.prevaccettato').hide();
+$('.prevrifiutato').hide();
 $('.prevattesa').show();
 }else swal("Si e' verificato un'errore!", "Non ci sono preventivi in attesa di risposta", "info"); 
 }else if(n=='1'){
 if($('.prevrisposto').length>0){
 $('.prevattesa').hide();
+$('.prevaccettato').hide();
+$('.prevrifiutato').hide();
 $('.prevrisposto').show();
 }else swal("Si e' verificato un'errore!", "Non ci sono preventivi in che hanno ricevuto risposta", "info");  
+}else if(n=='2'){
+if($('.prevaccettato').length>0){
+$('.prevattesa').hide();
+$('.prevrisposto').hide();
+$('.prevrifiutato').hide();
+$('.prevaccettato').show();
+}else swal("Si e' verificato un'errore!", "Non ci sono preventivi accettati", "info");  
+}else if(n=='3'){
+if($('.prevrifiutato').length>0){
+$('.prevattesa').hide();
+$('.prevrisposto').hide();
+$('.prevaccettato').hide();
+$('.prevrifiutato').show();
+}else swal("Si e' verificato un'errore!", "Non ci sono preventivi rifiutati", "info");  
 }else{
+$('.prevaccettato').show();
 $('.prevattesa').show();
 $('.prevrisposto').show();
+$('.prevrifiutato').show();
 }
 });
 </script>

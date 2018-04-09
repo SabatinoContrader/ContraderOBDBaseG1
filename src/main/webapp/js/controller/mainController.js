@@ -297,8 +297,39 @@ $('#modalassociadispositivo').modal("hide");
 	
 		});
 
-	}
+	},
+	$scope.statoPreventivo = function (a,b) {
+		
+		userService.statoPreventivo({
+			stato: a,
+			idprev:b
+		}, function (response) {
 
+$('#modalaccettapreventivo').modal("hide");
+			swal("Complimenti!", "Risposta inviata correttamente", "success");
+			$location.path("/home");
+			
+	
+		});
+
+	},
+		$scope.inviaRispostaPreventivo = function (a,b,c) {
+		
+		userService.inviaRispostaPreventivo({
+			dettagli: a,
+			costoprev:b,
+			idprev:c
+		}, function (response) {
+
+$('#modalrispondipreventivo').modal("hide");
+			swal("Complimenti!", "Risposta inviata correttamente", "success");
+			$location.path("/home");
+			
+	
+		});
+
+	}
+	
 	
 	$scope.logOut = function () {
 		userService.logOut();

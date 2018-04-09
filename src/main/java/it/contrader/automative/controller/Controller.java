@@ -406,11 +406,9 @@ public class Controller {
 		}
 	
 		@RequestMapping(value = "/rispondipreventivo", method = RequestMethod.POST)
-		public void rispondipreventivo(@RequestParam("email") String email, @RequestParam("dettagli") String dettagli, @RequestParam("costoprev") String costoprev, @RequestParam("idprev") String idprev)
+		public void rispondipreventivo( @RequestParam("dettagli") String dettagli, @RequestParam("costoprev") String costoprev, @RequestParam("idprev") String idprev)
 		{
-			Utente u = IUtente.selectByEmail(email);
-	
-			Officina o = u.getOfficina();
+			
 			Preventivo p = preventivoRepository.findById(Integer.parseInt(idprev));
 			p.setStato(1);
 			p.setCosto(Float.parseFloat(costoprev));
@@ -578,6 +576,17 @@ public class Controller {
 		//	dispositivoRepository.delete(d);
 			dispositivoRepository.save(d);
 	
+		}
+	
+		//Accettazione/Rifiuto preventivo da parte di cliente
+		@RequestMapping(value = "/accettapreventivo", method = RequestMethod.POST)
+		public void accettapreventivo( @RequestParam("stato") String stato, @RequestParam("idprev") String idprev)
+		{
+		
+			Preventivo p = preventivoRepository.findById(Integer.parseInt(idprev));
+			p.setStato(Integer.parseInt(stato));
+		
+			preventivoRepository.save(p);
 		}
 	
 
