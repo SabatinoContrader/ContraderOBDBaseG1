@@ -14,6 +14,7 @@
 			<thead>
 				<tr>
 					<th>Id Guasto</th>
+					<th>Codice Guasto</th>
 					<th>Stato Risoluzione</th>
 					<th>Descrizione Guasto</th>
 					<th>Data</th>
@@ -23,10 +24,13 @@
 			<tbody>
 				<tr ng-repeat="oggetto in user.getUserGuasti()">
 					<td>{{oggetto.id}}</td>
+					<td>{{oggetto.tipologiaGuasto.codice}}</td>
 					<td>{{oggetto.statoRisoluzione}}</td>
 					<td>{{oggetto.tipologiaGuasto.descrizione}}</td>
 					<td>{{oggetto.data | date:'dd-MM-yyyy'}}</td>
-					<td>	<a class="ali setguastorisolto" ng-if="oggetto.statoRisoluzione=='Non Risolto'&&user.getUser().ruolo==1" data-id="{{oggetto.id}}"><i class="fa fa-check"  title="Conferma guasto risolto" ></i></a>
+					<td>	
+					<a class="ali visualizzatelemetria" ng-if="user.getUser().ruolo==1" data-telemetria="{{oggetto.telemetria.dati}}"><i class="fa fa-info-circle"  title="Visualizza telemetria" ></i></a>
+					<a class="ali setguastorisolto" ng-if="oggetto.statoRisoluzione=='Non Risolto'&&user.getUser().ruolo==1" data-id="{{oggetto.id}}" style="margin-left:10px;"><i class="fa fa-check"  title="Conferma guasto risolto" ></i></a>
 					
 					</td>
 				</tr>
@@ -57,6 +61,30 @@
 </div>
 
 <!-- end::modal add auto-->
+
+		<!-- begin::modal telemetria -->
+<div class="modal" tabindex="-1" role="dialog" id="modaldatitelemetria">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Dati telemetria</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p id="datitelemetria"></p>
+			</div>
+			<div class="modal-footer " style="text-align:center;" >
+				
+					<button type="button" class="btn btn-primary savebutton" data-dismiss="modal">Chiudi</button>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- end::modal telemetria-->
 		</div>
 		
 			<script> $(document).ready( function () {
@@ -73,6 +101,11 @@ $('#idguastorisp').trigger('change');
 $('#modalsetguastorisolto').modal("show");
 });
 
+	$(document).on("click", ".visualizzatelemetria", function() {
+var dati=$(this).data("telemetria");
+$('#datitelemetria').html(dati);
+$('#modaldatitelemetria').modal("show");
+});
 	
 	</script>
 	

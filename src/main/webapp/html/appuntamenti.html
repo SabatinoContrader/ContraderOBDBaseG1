@@ -22,14 +22,18 @@
 												<i class="fa fa-calendar fah3"  ></i>
 													APPUNTAMENTI
 												</h3>
-															<div class="btn-group btn-group-lg" >
-  <button type="button" class="btn btn-primary showappuntamenti" data-n="0">In Attesa</button>
-  <button type="button" class="btn btn-primary showappuntamenti" data-n="1" ng-if="user.getUser().ruolo==0">Risposti</button>
-  <button type="button" class="btn btn-primary showappuntamenti" data-n="4" ng-if="user.getUser().ruolo==1">Confermati</button>
-  <button type="button" class="btn btn-primary showappuntamenti" data-n="2" ng-if="user.getUser().ruolo==1">Rifiutati</button>
-  <button type="button" class="btn btn-primary showappuntamenti" data-n="3">Tutti</button>
-</div>
-						
+												
+												<div class="col-md-3" style="margin:15px;">
+												Filtra per: <select class="form-control" id="showappuntamenti">
+												<option value="0">In Attesa </option>
+												<option value="1" ng-if="user.getUser().ruolo==0">Risposti</option>
+												<option value="4" ng-if="user.getUser().ruolo==1">Confermati</option>
+												<option value="2" ng-if="user.getUser().ruolo==1">Rifiutati</option>
+												<option value="3">Tutti </option>
+												</select>
+												</div>
+												
+												
 											</div>
 										</div>
 									
@@ -199,8 +203,8 @@ $('#idapprisp').trigger('change');
 $('#modalrispondiappuntamento').modal("show");
 });
 
-$(document).on("click", ".showappuntamenti", function() {
- var n = $(this).data("n");
+$(document).on("change", "#showappuntamenti", function() {
+ var n = $(this).val();
 
 if(n=='0'){
 if($('.prevattesa').length>0){

@@ -330,7 +330,21 @@ $('#modalrispondipreventivo').modal("hide");
 
 	}
 	
+	$scope.openmodalassociadispositivo = function (a) {
+		
+		$('#idassdisp').val(a);
+		$('#idassdisp').trigger('change');
+		userService.openmodalassociadispositivo({
+			id: this.user.getUser().officina.id
+		
+		}, function (response) {
+$scope.autosenzadispositivo = response.data;
+$('#modalassociadispositivo').modal("show");
+			
 	
+		});
+
+	}
 	
 	$scope.assnoleggio = function (a) {
 	
@@ -346,6 +360,7 @@ $('#idautonoleggio').trigger('change');
 		});
 
 	}
+	
 	
 	$scope.logOut = function () {
 		userService.logOut();

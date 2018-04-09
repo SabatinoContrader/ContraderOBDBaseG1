@@ -22,13 +22,17 @@
 												<i class="fa fa-bell fah3"  ></i>
 													Scadenze
 												</h3>
-															<div class="btn-group btn-group-lg">
-  <button type="button" class="btn btn-primary filterscadenza" data-n="0">Bollo</button>
-  <button type="button" class="btn btn-primary filterscadenza" data-n="1">Tagliando</button>
-  <button type="button" class="btn btn-primary filterscadenza" data-n="2">Revisione</button>
-  <button type="button" class="btn btn-primary filterscadenza" data-n="3">Assicurazione</button>
-   <button type="button" class="btn btn-primary filterscadenza" data-n="4">Tutti</button></div>						
-											</div>
+													
+											
+											<div class="col-md-3" style="margin:15px;">
+												Filtra per: <select class="form-control" id="filterscadenza">
+												<option value="0">Bollo </option>
+												<option value="1">Tagliando</option>
+												<option value="3">Assicurazione</option>
+												<option value="2">Revisione</option>
+												<option value="4">Tutti </option>
+												</select>
+												</div>
 										</div>
 									
 									</div>
@@ -145,9 +149,9 @@
     ordering:  true,
 	pageLength:25,});
 } );
-$(document).on("click", ".filterscadenza", function() {
+$(document).on("change", "#filterscadenza", function() {
 
-var n = $(this).data("n");
+var n = $(this).val();
 
 if(n=='0'){
 if($('.scadbollo').length>0){

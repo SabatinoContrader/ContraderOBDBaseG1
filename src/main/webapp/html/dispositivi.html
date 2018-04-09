@@ -22,11 +22,16 @@
 												<i class="fa fa-device fah3"  ></i>
 													DISPOSITIVI
 												</h3>
-															<div class="btn-group btn-group-lg" >
-  <button type="button" class="btn btn-primary showdispositivi" data-n="0">Installati</button>
-  <button type="button" class="btn btn-primary showdispositivi" data-n="1" >Non Installati</button>
-  <button type="button" class="btn btn-primary showdispositivi" data-n="2">Tutti</button>
-</div>
+												<div class="col-md-3" style="margin:15px;">
+												Filtra per: <select class="form-control" id="showdispositivi">
+												<option value="0">Installati </option>
+												<option value="1">Non Installati </option>
+												<option value="2">Tutti </option>
+											
+												</select>
+												</div>
+												
+														
 						
 											</div>
 										</div>
@@ -64,7 +69,7 @@
 								
 								<td>
 							
-								<a class="ali associadispositivo" data-id="{{dispositivo.id}}"  ng-if="dispositivo.dataInstallazione==null||dispositivo.dataInstallazione==''" ><i class="fa fa-paperclip"  title="Associa dispositivo ad auto" ></i></a>
+								<a class="ali"  ng-if="dispositivo.dataInstallazione==null||dispositivo.dataInstallazione==''" ng-click="openmodalassociadispositivo(dispositivo.id);"><i class="fa fa-paperclip"  title="Associa dispositivo ad auto" ></i></a>
 								</td>
 
 								</tr>
@@ -143,7 +148,7 @@
 						<div class="form-group">
 				<label for="idauto">Selezionare auto</label>
 				<select name="idauto" ng-model="idautoassdisp" class="form-control">
-				<option ng-repeat="auto in user.getAuto()" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}  - {{auto.cilindrata}} {{auto.alimentazione}}</option>
+				<option ng-repeat="auto in autosenzadispositivo" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}  - {{auto.cilindrata}} {{auto.alimentazione}}</option>
 				</select>
 				</div>
 								
@@ -168,20 +173,20 @@
     ordering:  true,
 	pageLength:25,});
 } );
-
+/*
 $(document).on("click", ".associadispositivo", function() {
 $('#idassdisp').val($(this).data("id"));
 $('#idassdisp').trigger('change');
 $('#modalassociadispositivo').modal("show");
 });
-
+*/
 $(document).on("click", "#openmodaldispositivo", function() {
 $('#modaladddispositivo').modal("show");
 });
 
 
-$(document).on("click", ".showdispositivi", function() {
- var n = $(this).data("n");
+$(document).on("change","#showdispositivi", function() {
+ var n = $(this).val();
 
 if(n=='0'){
 if($('.installato').length>0){

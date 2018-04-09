@@ -253,6 +253,15 @@ function($resource){
 			id: '@id'
       }
 	
+	},
+	openmodalassociadispositivo: {
+      method: 'POST',
+      url: baseUrl+'autoSenzaDispositivo',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+			id: '@id'
+      }
+	
 	}
 	
   });

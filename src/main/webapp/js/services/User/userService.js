@@ -176,6 +176,18 @@ app.service('userService', function (userREST, $location, $cookies) {
 				}
 			});
 		},
+		openmodalassociadispositivo: function (params, callback) {
+			userREST.openmodalassociadispositivo(params).$promise.then(function (response) {
+
+				if (response.data != null) {
+
+					parent.userDispositivi = response.data;
+
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
 		inviaRichiestaPreventivo: function (params, callback) {
 			userREST.inviaRichiestaPreventivo(params).$promise.then(function (response) {
 				callback(response);
