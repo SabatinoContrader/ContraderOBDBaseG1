@@ -148,7 +148,7 @@ app.controller("mainController", function ($scope, userService, $location, $log,
 
 	}
 
-	$scope.inviaRichiestaNoleggio = function (a, b, c, d, e) {
+	$scope.inviaRichiestaNoleggio = function (a, b, c, d, e,f) {
 
 		userService.inviaRichiestaNoleggio({
 			idOfficina: this.user.getUser().officina.id,
@@ -157,10 +157,10 @@ app.controller("mainController", function ($scope, userService, $location, $log,
 			CapLuogoDiRitiro: b,
 			DataInizioNoleggio: d,
 			DataFineNoleggio: e,
-			idUtente: this.user.getUser().id
+			idUtente: f
 		}, function (response) {
-			$('#modalrichiedipreventivo').modal("hide");
-			swal("Complimenti!", "Richiesta di preventivo inviata correttamente", "success");
+			$('#modalassegnanoleggio').modal("hide");
+			swal("Complimenti!", "Noleggio aggiunto correttamente", "success");
 			$location.path("/home");
 
 
@@ -297,7 +297,7 @@ $('#modalassociadispositivo').modal("hide");
 	
 		});
 
-	},
+	}
 	$scope.statoPreventivo = function (a,b) {
 		
 		userService.statoPreventivo({
@@ -312,7 +312,7 @@ $('#modalaccettapreventivo').modal("hide");
 	
 		});
 
-	},
+	}
 		$scope.inviaRispostaPreventivo = function (a,b,c) {
 		
 		userService.inviaRispostaPreventivo({
@@ -330,6 +330,22 @@ $('#modalrispondipreventivo').modal("hide");
 
 	}
 	
+	
+	
+	$scope.assnoleggio = function (a) {
+	
+$('#idautonoleggio').val(a);
+$('#idautonoleggio').trigger('change');
+
+		userService.getClientiOfficina({
+			id: this.user.getUser().officina.id
+		}, function (response) {
+	$('#modalassegnanoleggio').modal("show");
+			
+	
+		});
+
+	}
 	
 	$scope.logOut = function () {
 		userService.logOut();

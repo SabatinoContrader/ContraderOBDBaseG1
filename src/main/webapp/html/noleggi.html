@@ -34,6 +34,7 @@
 										<thead>
 											<tr>
 												<th>ID</th>
+												<th>Cliente</th>
 												<th>Marca</th>
 												<th>Modello</th>
 												<th>Targa</th>
@@ -48,6 +49,7 @@
 										<tbody>
 											<tr ng-repeat="noleggio in user.getUserNoleggi()">
 												<td>{{noleggio.auto.id}}</td>
+												<td>{{noleggio.utente.nome}} {{noleggio.utente.cognome}}</td>
 												<td>{{noleggio.auto.marca}}</td>
 												<td>{{noleggio.auto.modello}}</td>
 												<td>{{noleggio.auto.targa}}</td>

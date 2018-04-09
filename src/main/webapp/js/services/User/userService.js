@@ -152,6 +152,18 @@ app.service('userService', function (userREST, $location, $cookies) {
 				}
 			});
 		},
+		getClientiOfficina: function (params, callback) {
+			userREST.getClientiOfficina(params).$promise.then(function (response) {
+
+				if (response.data != null) {
+
+					parent.userClienti = response.data;
+
+					callback(response);
+					//	  $location.path("/preventivi");
+				}
+			});
+		},
 		dispositivi: function (params, callback) {
 			userREST.dispositivi(params).$promise.then(function (response) {
 

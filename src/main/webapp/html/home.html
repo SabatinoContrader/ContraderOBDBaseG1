@@ -27,7 +27,7 @@
 									<!--begin: Datatable -->
 									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
 <button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==1">Aggiungi Auto</button>
-<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>
+<!--<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>-->
 
 
 									<table class="table table-striped" id="myTable">
@@ -48,7 +48,9 @@
 												<td>{{auto.modello}}</td>
 												<td>{{auto.targa}}</td>
 												<td>{{auto.numeroTelaio}}</td>
-												<td></td>
+												<td>
+												<a  ng-if="user.getUser().ruolo==1" class="ali assegnanoleggio"  ng-click="assnoleggio(auto.id);"><i class="fa fa-car"  title="Assegna auto a noleggio"></i></a>
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -75,59 +77,6 @@
 </div>
 <!-- end:: Page -->
 
-<!-- begin::modal richiedi noleggio -->
-<div class="modal" tabindex="-1" role="dialog" id="modalnoleggioauto">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Richiedi auto in noleggio</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form action="richiediappuntamento" method="POST">
-
-				<div class="form-group">
-				<label for="idauto">Selezionare auto</label>
-				<select name="idauto" ng-model="idautoricnol" class="form-control">
-				<option ng-repeat="auto in autonoleggio" value="{{auto.auto.id}}">{{auto.auto.marca}} {{auto.auto.modello}}  - {{auto.auto.cilindrata}} {{auto.auto.alimentazione}}</option>
-				</select>
-				</div>
-				<div class="form-group">
-				<label for="capluogoritiro">Inserire CAP luogo ritiro</label>
-				<input class="form-control" type="number" name="luogoritiro" ng-model="capluogoritiro">
-				</div>
-				
-				<div class="form-group">
-				<label for="capluogoconsegna">Inserire CAP luogo consegna</label>
-				<input class="form-control" type="number" name="luogoconsegna" ng-model="capluogoconsegna">
-				</div>
-				
-					<div class="form-group">
-					<label for="datainizio">Inserire Data inizio noleggio</label>
-					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
-  <input ng-model="datainizionoleggio" type="text"/ class="form-control">
-</datepicker>
-					</div>
-					<div class="form-group">
-					<label for="datafine">Inserire Data fine noleggio</label>
-					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
-  <input ng-model="datafinenoleggio" type="text" class="form-control" />
-</datepicker>
-					</div>
-
-				</div>
-				<div class="modal-footer " style="text-align:center;" >
-					<button type="button" class="btn btn-primary savebutton btnfooter" ng-click="inviaRichiestaNoleggio(idautoricnol,capluogoritiro,capluogoconsegna,datainizionoleggio,datafinenoleggio)">Invia Richiesta</button>
-
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-<!-- end::modal richiedi noleggio-->
 <!-- begin::modal Dati Telemetria Guasto-->
 <div class="modal" tabindex="-1" role="dialog" id="modaldatitelemetria">
 	<div class="modal-dialog" role="document">
@@ -255,6 +204,62 @@
 </div>
 </div>
 <!-- end::modal add auto-->
+
+<!-- begin::modal assegna noleggio -->
+<div class="modal" tabindex="-1" role="dialog" id="modalassegnanoleggio">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Assegna noleggio</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="/inviapreventivo" method="POST">
+<div class="form-group">
+				<label for="capluogoritiro">Selezionare cliente</label>
+			<select class="form-control" name="clientenoleggio" ng-model="clientenoleggio">
+			<option ng-repeat="cliente in	user.getUserClienti()" value="{{cliente.id}}">{{cliente.nome}} {{cliente.cognome}}</option>
+				
+			</select>
+			</div>
+					<div class="form-group">
+				<label for="capluogoritiro">Inserire CAP luogo ritiro</label>
+				<input class="form-control" type="number" name="luogoritiro" ng-model="capluogoritiro">
+				</div>
+				
+				<div class="form-group">
+				<label for="capluogoconsegna">Inserire CAP luogo consegna</label>
+				<input class="form-control" type="number" name="luogoconsegna" ng-model="capluogoconsegna">
+				</div>
+				
+					<div class="form-group">
+					<label for="datainizio">Inserire Data inizio noleggio</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="datainizionoleggio" type="text"/ class="form-control">
+</datepicker>
+					</div>
+					<div class="form-group">
+					<label for="datafine">Inserire Data fine noleggio</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="datafinenoleggio" type="text" class="form-control" />
+</datepicker>
+					</div>
+					
+					<input type="text" style="display:none;" id="idautonoleggio" ng-model="idautonoleggio">
+				</div>
+				<div class="modal-footer " style="text-align:center;" >
+					<button type="button" class="btn btn-primary savebutton" ng-click="inviaRichiestaNoleggio(idautonoleggio,capluogoritiro,capluogoconsegna,datainizionoleggio,datafinenoleggio,clientenoleggio);">Salva</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- end::modal assegna noleggio-->
+
 </div>
 <script> $(document).ready( function () {
 	$('#myTable').DataTable({
@@ -265,6 +270,7 @@
 	$(document).on("click", "#aggiungiauto", function() {
 	$('#modaladdauto').modal("show");
 	});
+	
 	/*$(document).on("click", "#noleggioauto", function() {
 	$('#modalnoleggioauto').modal("show");
 	});*/

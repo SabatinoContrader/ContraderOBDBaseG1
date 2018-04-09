@@ -244,6 +244,15 @@ function($resource){
 			idprev:'@idprev'
       }
 	
+	},
+	getClientiOfficina: {
+      method: 'POST',
+      url: baseUrl+'clientiOfficina',
+      headers:{'Content-Type': 'application/json; charset=UTF-8' },
+	  params: {
+			id: '@id'
+      }
+	
 	}
 	
   });
