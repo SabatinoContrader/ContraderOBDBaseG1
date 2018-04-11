@@ -18,10 +18,12 @@ export class LoginComponent implements OnInit {
   }
 
   login():void{
+	
     this.loginService.login(this.email,this.password).subscribe(
       (response)=> {
           if(response){
             this.loginEntity = response;
+			
             console.log(this.loginEntity)
           }
       },

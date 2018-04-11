@@ -30,7 +30,7 @@ export class LoginService {
   public login(email: string, pwd: string): Observable<LoginEntity> {
     var formdata = new FormData();
     formdata.append("email", email);
-    formdata.append("password", pwd);
+    formdata.append("pwd", pwd);
     return this.http.post<LoginEntity>(`${this.urlBase}login`, formdata).pipe(
       tap((response) => console.log(response),
         catchError(this.handleError("login error", {})))
