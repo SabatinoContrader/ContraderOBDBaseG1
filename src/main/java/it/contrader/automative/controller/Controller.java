@@ -99,7 +99,7 @@ public class Controller {
 
 
 
-	//Lista tutte le Auto mai associate al Cliente 
+	//+ Lista tutte le Auto mai (anche noleggi scaduti) associate al Cliente (Utente)
 	@RequestMapping(value = "/autoNoleggiCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Auto>> getAutoNoleggiCliente(@RequestParam("id") int idUtente) {
 
@@ -113,7 +113,7 @@ public class Controller {
 
 	}
 
-	//Lista tutte le Auto attualmente in noleggio dal Cliente 
+	//+ Lista tutte le Auto "attualmente" in noleggio dal Cliente 
 	@RequestMapping(value = "/autoCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Auto>> getAutoCliente(@RequestParam("id") int idUtente) {
 
@@ -127,7 +127,7 @@ public class Controller {
 
 	}
 
-	//Lista Auto Officina
+	//+ Lista Auto Officina
 	@RequestMapping(value = "/autoOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Auto>> getAutoOfficina(@RequestParam("id") int idUtente) {
 
@@ -135,7 +135,7 @@ public class Controller {
 
 	}
 
-	//Lista Guasti Irrisolti (sia officina che cliente)
+	//+ Lista Guasti Irrisolti (sia officina che cliente) e esteso anche ad Amministratore Azienda e/o Dipendente
 	@RequestMapping(value = "/getGuastiIrrisolti", method = RequestMethod.POST)
 	public GenericResponse<List<Guasto>> getGuastiIrrisolti(@RequestParam("id") int idUtente) {
 
@@ -144,7 +144,7 @@ public class Controller {
 		Utente u = utenteRepository.findById(idUtente);
 
 		List<Auto> listaAuto = new ArrayList();
-		if(u.getRuolo() == 0) listaAuto = getAutoCliente(idUtente).getData();
+		if(u.getRuolo() == 0 || u.getRuolo() == 2) listaAuto = getAutoCliente(idUtente).getData();
 		else listaAuto = getAutoOfficina(idUtente).getData();
 
 		for(int i = 0; i<listaAuto.size(); i++) {
@@ -160,7 +160,7 @@ public class Controller {
 		return new GenericResponse<List<Guasto>>(listaGuasti);
 	}
 
-	//Lista TUTTI Guasti (sia officina che cliente) 
+	//+ Lista TUTTI Guasti (sia officina che cliente) e esteso anche ad Amministratore Azienda e/o Dipendente
 	@RequestMapping(value = "/getGuasti", method = RequestMethod.POST)
 	public GenericResponse<List<Guasto>> getGuasti(@RequestParam("id") int idUtente) {
 
@@ -169,7 +169,7 @@ public class Controller {
 		Utente u = utenteRepository.findById(idUtente);
 
 		List<Auto> listaAuto = new ArrayList();
-		if(u.getRuolo() == 0) listaAuto = getAutoCliente(idUtente).getData();
+		if(u.getRuolo() == 0 || u.getRuolo() == 2) listaAuto = getAutoCliente(idUtente).getData();
 		else listaAuto = getAutoOfficina(idUtente).getData();
 
 		for(int i = 0; i<listaAuto.size(); i++) {
@@ -181,7 +181,7 @@ public class Controller {
 		return new GenericResponse<List<Guasto>>(listaGuasti);
 	}
 
-	//Lista Noleggi Officina
+	//+ Lista Noleggi Officina
 	@RequestMapping(value = "/noleggiOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Noleggio>> getNoleggiOfficina(@RequestParam("id") int idOfficina) {
 
@@ -193,7 +193,7 @@ public class Controller {
 
 	}
 
-	//Lista Noleggi Cliente
+	//+ Lista Noleggi Cliente (Anche assegnate da azienda a dipendente)
 	@RequestMapping(value = "/noleggiCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Noleggio>> getNoleggiCliente(@RequestParam("id") int idUtente) {
 
@@ -205,7 +205,7 @@ public class Controller {
 
 	}
 
-	//Lista auto in scadenza (sia officina che cliente)
+	//+ Lista auto in scadenza (sia officina che cliente) e esteso anche ad Amministratore Azienda e/o Dipendente
 	@RequestMapping(value = "/autoInScadenza", method = RequestMethod.POST)
 	public GenericResponse<List<AutoScadenze>> getAutoInScadenza(@RequestParam("id") int idUtente) {
 
@@ -214,7 +214,7 @@ public class Controller {
 		Utente u = utenteRepository.findById(idUtente);
 
 		List<Auto> listaAuto = new ArrayList();
-		if(u.getRuolo() == 0) listaAuto = getAutoCliente(idUtente).getData();
+		if(u.getRuolo() == 0 || u.getRuolo() == 2) listaAuto = getAutoCliente(idUtente).getData();
 		else listaAuto = getAutoOfficina(idUtente).getData();
 
 		lista = Alerts.listaAutoInScadenza(listaAuto);
@@ -223,7 +223,7 @@ public class Controller {
 
 	}
 
-	//Lista Noleggi con KmNoleggio in Scadenza dell'officina
+	//+ Lista Noleggi con KmNoleggio in Scadenza dell'officina
 	@RequestMapping(value = "/kmInScadenzaOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Noleggio>> getNoleggiKmInScadenzaOfficina(@RequestParam("id") int idOfficina) {
 
@@ -235,7 +235,7 @@ public class Controller {
 
 	}
 
-	//Lista Noleggi con KmNoleggio in Scadenza del cliente
+	//+ Lista Noleggi con KmNoleggio in Scadenza del cliente (sia business che normale)
 	@RequestMapping(value = "/kmInScadenzaCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Noleggio>> getNoleggiKmInScadenzaCliente(@RequestParam("id") int idUtente) {
 
