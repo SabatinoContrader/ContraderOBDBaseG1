@@ -11,13 +11,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
 import { HomeOfficinaComponent } from './components/home-officina/home-officina.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeOfficinaComponent
+    HomeOfficinaComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,

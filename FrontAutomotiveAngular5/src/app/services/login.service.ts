@@ -27,12 +27,20 @@ export class LoginService {
     };
   }
 
-  public login(email: string, pwd: string): Observable<LoginEntity> {
+  isLogged():boolean{
+    if(typeof(Storage)!=="undefined"){
+      if(sessionStorage.getItem("loginEntity")){
+        return true;
+      }
+    }return false;
+  }
+
+   login(email: string, pwd: string): Observable<LoginEntity> {
     var formdata = new FormData();
     formdata.append("email", email);
     formdata.append("pwd", pwd);
     return this.http.post<LoginEntity>(`${this.urlBase}login`, formdata).pipe(
-      tap((response) => console.log(response),
+      tap((response) => console.log("Fetched LoginEntity"),
         catchError(this.handleError("login error", {})))
     );
   }
