@@ -21,7 +21,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.loginService.isLogged()) {
-      this.router.navigate(["home"]);
+		
+	if(JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo==1)
+      this.router.navigate(["homeofficina"]);
+  else
+	  if(JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo==0)
+      this.router.navigate(["homeutente"]);
     }
   }
 
@@ -35,7 +40,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('loginEntity', JSON.stringify(this.loginEntity));
 
           }
-          this.router.navigate(["home"]);
+          this.router.navigate(["homeofficina"]);
           console.log(this.loginEntity)
         }
       },

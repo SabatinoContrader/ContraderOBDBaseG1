@@ -10,8 +10,10 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
+import { OfficinaService } from './services/officina.service';
 import { HomeOfficinaComponent } from './components/home-officina/home-officina.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { HomeUtenteComponent } from './components/home-utente/home-utente.component';
 
 
 
@@ -20,7 +22,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     AppComponent,
     LoginComponent,
     HomeOfficinaComponent,
-    HomepageComponent
+    HomepageComponent,
+    HomeUtenteComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [LoginService],
+  providers: [LoginService,OfficinaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

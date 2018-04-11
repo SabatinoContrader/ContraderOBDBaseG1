@@ -17,7 +17,7 @@
 										<div class="m-portlet__head-title">
 											<h3 class="m-portlet__head-text">
 												<i class="fa fa-car fah3"  ></i>
-												AUTO <span>NOLEGGIATE</span>
+												AUTO 
 											</h3>
 											
 										</div>
@@ -43,12 +43,16 @@
 											</tr>
 										</thead>
 										<tbody>
-										<tr><td>efe</td>
-										<td>fefe</td>
-										<td>ggg</td>
-										<td>aa</td>
-										<td>ss</td>
-										<td>sss</td></tr>
+										<tr *ngFor="let autos of auto">
+										<td>{{autos.id}}</td>
+										<td>{{autos.marca}}</td>
+										<td>{{autos.modello}}</td>
+										<td>{{autos.targa}}</td>
+										<td>{{autos.numeroTelaio}}</td>
+										
+										<td>
+										<a  class="ali assegnanoleggio"  (click)="assnoleggio(autos.id);"><i class="fa fa-car"  title="Assegna auto a noleggio"></i></a>
+										</td></tr>
 										</tbody>
 									</table>
 									<!--end: Datatable -->
