@@ -6,7 +6,7 @@
                         alt="">
                     <form class="form-signin" >
                             <input type="text" id="email" class="form-control" placeholder="Nome Utente" autofocus name="email" [(ngModel)]=email  required minlength="4" appForbiddenName="bobbb" #emailt="ngModel">
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="pwd" [(ngModel)]=password  required minlength="6" #pwd="ngModel"> 
+                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="pwd" [(ngModel)]=password  required minlength="6" > 
 							<div *ngIf="emailt.invalid && (emailt.dirty || emailt.touched)"
      class="alert alert-danger">
 
@@ -16,9 +16,7 @@
   <div *ngIf="emailt.errors.minlength">
     Name must be at least 4 characters long.
   </div>
-    <div *ngIf="pwd.errors.minlength">
-    Name must be at least 4 characters long.
-  </div>
+    
   <div *ngIf="emailt.errors.appForbiddenName">
     Name cannot be Bob.
   </div>
