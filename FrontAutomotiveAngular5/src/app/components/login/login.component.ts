@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { LoginEntity } from '../../models/LoginEntity';
+import { AppRoutingModule } from '../../app-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,24 +12,33 @@ import { LoginEntity } from '../../models/LoginEntity';
 export class LoginComponent implements OnInit {
   email: string;
   password: string;
-  loginEntity:LoginEntity;
+  loginEntity: LoginEntity;
 
-  constructor(private loginService:LoginService) { }
-
-  ngOnInit() {
+  constructor(private loginService: LoginService, private router: Router) {
   }
 
-  login():void{
-    this.loginService.login(this.email,this.password).subscribe(
-      (response)=> {
-          if(response){
-            this.loginEntity = response;
-            console.log(this.loginEntity)
+  ngOnInit() {
+    if (this.loginService.isLogged()) {
+      this.router.navigate(["home"]);
+    }
+  }
+
+
+
+  login(): void {
+    this.loginService.login(this.email, this.password).subscribe(
+      (response) => {
+        if (response) {
+          this.loginEntity = response;
+          if (typeof (Storage) !== 'undefined') {
+            sessionStorage.setItem('loginEntity', JSON.stringify(this.loginEntity));
           }
+          this.router.navigate(["home"]);
+          console.log(this.loginEntity)
+        }
       },
       err => {
         console.log("Error occured");
       })
   }
-
 }
