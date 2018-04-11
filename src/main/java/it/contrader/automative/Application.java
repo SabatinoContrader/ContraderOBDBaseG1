@@ -15,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import it.contrader.automative.model.Appuntamento;
 import it.contrader.automative.model.Auto;
+import it.contrader.automative.model.Azienda;
 import it.contrader.automative.model.DatiTelemetria;
 import it.contrader.automative.model.Dispositivo;
 import it.contrader.automative.model.Guasto;
@@ -25,6 +26,7 @@ import it.contrader.automative.model.TipologiaGuasto;
 import it.contrader.automative.model.Utente;
 import it.contrader.automative.serviceInterfaces.IAppuntamento;
 import it.contrader.automative.serviceInterfaces.IAuto;
+import it.contrader.automative.serviceInterfaces.IAzienda;
 import it.contrader.automative.serviceInterfaces.IDatiTelemetria;
 import it.contrader.automative.serviceInterfaces.IDispositivo;
 import it.contrader.automative.serviceInterfaces.IGuasto;
@@ -50,6 +52,7 @@ public class Application extends SpringBootServletInitializer {
     
     
 	private IAuto autoService;
+	private IAzienda aziendaService;
 	private INoleggio noleggioService;
 	private IUtente utenteService;
 	private IOfficina officinaService;
@@ -61,7 +64,7 @@ public class Application extends SpringBootServletInitializer {
 	private IAppuntamento appuntamentoService;
 
 	@Autowired
-	public Application(IAuto autoService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService, IPreventivo preventivoService, IAppuntamento appuntamentoService) {
+	public Application(IAuto autoService, IAzienda aziendaService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService, IPreventivo preventivoService, IAppuntamento appuntamentoService) {
 		this.autoService = autoService;
 		this.noleggioService = noleggioService;
 		this.utenteService = utenteService;
@@ -70,6 +73,8 @@ public class Application extends SpringBootServletInitializer {
 		this.dispositivoService = dispositivoService;
 		this.guastoService = guastoService;
 		this.tipologiaGuastoService = tipologiaGuastoService;
+		
+		this.aziendaService = aziendaService;
 	
 		this.preventivoService=preventivoService;
 		this.appuntamentoService=appuntamentoService;
@@ -100,40 +105,48 @@ public class Application extends SpringBootServletInitializer {
     	Date data4 = calendar4.getTime();
     	
     	
+    	
+    	
+    	
+    	Azienda inserimentoAziende[] = new Azienda[1];
+    	inserimentoAziende[0] = new Azienda(1, "Contrader", "Sabatino", "Autorino", "923019301", "via dei Longobardi, 9", "Benevento");
+    	
     	Officina inserimentoOfficine[] = new Officina[1];
     	//denominazione, nomereferente, cognome ref, email, telefono, latitudine, longitudine, data inserimento, citta
-    	inserimentoOfficine[0] = new Officina(1, "Officina Meccanica Di Carmine Villano", "Carmine", "Villano", "officinacarminevillano@gmail.com", "08296524351", "3123.312.123.45", "3123.1234.6765.22", data1, "Benevento");
+    	inserimentoOfficine[0] = new Officina(1, "Officina Meccanica Di Carmine Villano", "Carmine", "Villano", "officinacarminevillano@gmail.com", "08296524351", "via Torre della Catena, 76", data1, "Benevento");
     	
     	
-    	Utente inserimentoUtenti [] = new Utente[5];
-    	//id nome cognome email pass stato oggicina datareg ruolo telefono
-    	inserimentoUtenti[0] = new Utente(1, "Lorenzo", "Vitale", "lv@contrader.it", "password", 0, inserimentoOfficine[0], data1, 0, "3356724938");
-    	inserimentoUtenti[1] = new Utente(2, "Carmine", "Villano", "officina1", "password", 0, inserimentoOfficine[0], data1, 1, "3372198453");
-    	inserimentoUtenti[2] = new Utente(3, "Camste", "Vizzo", "cv@contrader.it", "password", 0, inserimentoOfficine[0], data1, 0, "3359824938");
-    	inserimentoUtenti[3] = new Utente(4, "Antonio", "Pratico'", "ap@contrader.it", "password", 0, inserimentoOfficine[0], data1, 0, "3356793648");
-    	inserimentoUtenti[4] = new Utente(5, "Domenico", "Zollo", "dz@contrader.it", "password", 0, inserimentoOfficine[0], data1, 0, "33987624938");
+    	Utente inserimentoUtenti [] = new Utente[6];
+    	//id nome cognome email pass stato officina azienda datareg ruolo telefono citta
+    	inserimentoUtenti[0] = new Utente(1, "Lorenzo", "Vitale", "lv@contrader.it", "password", 0, inserimentoOfficine[0], null, data1, 0, "3356724938", "Benevento");
+    	inserimentoUtenti[1] = new Utente(2, "Carmine", "Villano", "officina1", "password", 0, inserimentoOfficine[0], null, data1, 1, "3372198453", "Benevento");
+    	inserimentoUtenti[2] = new Utente(3, "Camste", "Vizzo", "cv@contrader.it", "password", 0, inserimentoOfficine[0], null, data1, 0, "3359824938", "Benevento");
+    	inserimentoUtenti[3] = new Utente(4, "Antonio", "Pratico'", "ap@contrader.it", "password", 0, inserimentoOfficine[0], inserimentoAziende[0], data1, 0, "3356793648", "Benevento");
+    	inserimentoUtenti[4] = new Utente(5, "Domenico", "Zollo", "dz@contrader.it", "password", 0, inserimentoOfficine[0], inserimentoAziende[0], data1, 0, "33987624938", "Roma");
+    	inserimentoUtenti[5] = new Utente(6, "Sabatino", "Autorino", "sabatino@contrader.it", "password", 0, inserimentoOfficine[0], inserimentoAziende[0], data1, 2, "33952624938", "Benevento");
 
     	
     	Auto inserimentoAuto[] = new Auto[7];
     	//id marca modello targa num telaio cilindrata num porte alimentazione kmattuali kminiz noleggio datascadrev datascadtagl scadass scadbollo tipolauto danolegg officina
-    	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 5, "Benzina", 32131, 1233, data3, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 80, "Manuale", 5, "Benzina", 32131, 1233, data3, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
 
-    	inserimentoAuto[1] = new Auto(2,"Opel", "Corsa", "AC8744UP", "ANTU76737AMJO", 1600, 5, "Benzina", 32131, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[1] = new Auto(2,"Opel", "Corsa", "AC8744UP", "ANTU76737AMJO", 1600, 80, "Automatico", 5, "Benzina", 32131, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[2] = new Auto(3,"Alfa Romeo", "Giulietta", "AC8923KP", "UIE7G7637AMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data2, data3, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[2] = new Auto(3,"Alfa Romeo", "Giulietta", "AC8923KP", "UIE7G7637AMJO", 1600, 80, "Automatico", 5, "Benzina", 10250, 1233, data2, data2, data2, data3, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[3] = new Auto(4,"Lancia", "Y", "YR7922KP", "UIEG764764UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[3] = new Auto(4,"Lancia", "Y", "YR7922KP", "UIEG764764UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[4] = new Auto(5,"Fiat", "500L", "YU93R1KP", "UJSA4664U5MJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[4] = new Auto(5,"Fiat", "500L", "YU93R1KP", "UJSA4664U5MJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[5] = new Auto(6,"Volvo", "XC60", "OIE152KP", "UWEB7664UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[5] = new Auto(6,"Volvo", "XC60", "OIE152KP", "UWEB7664UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[6] = new Auto(7,"Fiat", "Punto", "YR784SW", "LAEB16642UMJO", 1600, 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[6] = new Auto(7,"Fiat", "Punto", "YR784SW", "LAEB16642UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	Noleggio inserimentoNoleggio[] = new Noleggio[3];
-    	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0], inserimentoOfficine[0], data1,  data2, 84010, 82100,60000);
-    	inserimentoNoleggio[1] = new Noleggio(2, inserimentoUtenti[0], inserimentoAuto[2], inserimentoOfficine[0], data1,  data2, 84010, 82100,10000);
-    	inserimentoNoleggio[2] = new Noleggio(3, inserimentoUtenti[0], inserimentoAuto[3], inserimentoOfficine[0], data1,  data4, 84010, 82100,10000);
+    	Noleggio inserimentoNoleggio[] = new Noleggio[4];
+    	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0], inserimentoOfficine[0], null, data1,  data2, 84010, 82100,60000);
+    	inserimentoNoleggio[1] = new Noleggio(2, inserimentoUtenti[0], inserimentoAuto[2], inserimentoOfficine[0], null, data1,  data2, 84010, 82100,10000);
+    	inserimentoNoleggio[2] = new Noleggio(3, inserimentoUtenti[5], inserimentoAuto[3], inserimentoOfficine[0], inserimentoAziende[0], data1,  data4, 84010, 82100,10000);
+    	inserimentoNoleggio[3] = new Noleggio(4, inserimentoUtenti[4], inserimentoAuto[4], inserimentoOfficine[0], inserimentoAziende[0], data1,  data4, 84010, 82100,10000);
     	
     	Dispositivo inserimentoDispositivi[] = new Dispositivo[1];
     	inserimentoDispositivi[0] = new Dispositivo(1, "A0972", inserimentoAuto[0], data1, inserimentoOfficine[0]);
@@ -160,6 +173,9 @@ public class Application extends SpringBootServletInitializer {
     	
     	//Effettuo gli inserimenti effettivi
     	
+    	for(int i=0;i<inserimentoAziende.length;i++){
+    		inserimentoAziende[i] = aziendaService.insert(inserimentoAziende[i]);
+		}
     	
     	for(int i=0;i<inserimentoOfficine.length;i++){
     		inserimentoOfficine[i] = officinaService.insert(inserimentoOfficine[i]);

@@ -40,6 +40,12 @@ public class Auto implements Serializable {
 	private int cilindrata;
 	
 	@Column
+	private int potenza;
+	
+	@Column
+	private String cambio;
+	
+	@Column
 	private int numeroPorte;
 	
 	@Column

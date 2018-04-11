@@ -1,17 +1,18 @@
 package it.contrader.automative.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.ArrayList;
 
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -19,10 +20,11 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "officina")
-public class Officina implements Serializable {
+@Table(name = "azienda")
+public class Azienda implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	@Column
@@ -35,19 +37,12 @@ public class Officina implements Serializable {
 	private String cognomeReferente;
 	
 	@Column
-	private String email;
-	
-	@Column
-	private String telefono;
+	private String partitaIva;
 	
 	@Column
 	private String indirizzo;
 	
 	@Column
-	private Date dataInserimento;
-	
-	@Column
 	private String citta;
-	
 
 }

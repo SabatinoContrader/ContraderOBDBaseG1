@@ -25,8 +25,8 @@ public class Noleggio implements Serializable{
 	private int id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "idutente")
-	private Utente utente;
+	@JoinColumn(name = "idguidatore")
+	private Utente guidatore;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "idauto")
@@ -36,11 +36,9 @@ public class Noleggio implements Serializable{
 	@JoinColumn(name = "idofficina")
 	private Officina officina;
 	
-//	@Id
-//	private int IdUtente;
-	
-//	@Id
-//	private int IdAuto;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "idazienda")
+	private Azienda azienda;
 	
 	@Column
 	private Date DataInizioNoleggio;
