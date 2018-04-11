@@ -9,12 +9,14 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,
