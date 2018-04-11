@@ -134,7 +134,7 @@ public class Application extends SpringBootServletInitializer {
     	
     	inserimentoAuto[2] = new Auto(3,"Alfa Romeo", "Giulietta", "AC8923KP", "UIE7G7637AMJO", 1600, 80, "Automatico", 5, "Benzina", 10250, 1233, data2, data2, data2, data3, "berlina", 1, inserimentoOfficine[0]);
     	
-    	inserimentoAuto[3] = new Auto(4,"Lancia", "Y", "YR7922KP", "UIEG764764UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	inserimentoAuto[3] = new Auto(4,"Lancia", "Y", "YR7922KP", "UIEG764764UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data3, "berlina", 1, inserimentoOfficine[0]);
     	
     	inserimentoAuto[4] = new Auto(5,"Fiat", "500L", "YU93R1KP", "UJSA4664U5MJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
@@ -142,11 +142,12 @@ public class Application extends SpringBootServletInitializer {
     	
     	inserimentoAuto[6] = new Auto(7,"Fiat", "Punto", "YR784SW", "LAEB16642UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
-    	Noleggio inserimentoNoleggio[] = new Noleggio[4];
+    	Noleggio inserimentoNoleggio[] = new Noleggio[5];
     	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0], inserimentoOfficine[0], null, data1,  data2, 84010, 82100,60000);
     	inserimentoNoleggio[1] = new Noleggio(2, inserimentoUtenti[0], inserimentoAuto[2], inserimentoOfficine[0], null, data1,  data2, 84010, 82100,10000);
-    	inserimentoNoleggio[2] = new Noleggio(3, inserimentoUtenti[5], inserimentoAuto[3], inserimentoOfficine[0], inserimentoAziende[0], data1,  data4, 84010, 82100,10000);
+    	inserimentoNoleggio[2] = new Noleggio(3, inserimentoUtenti[5], inserimentoAuto[3], inserimentoOfficine[0], inserimentoAziende[0], data1,  data2, 84010, 82100,10000);
     	inserimentoNoleggio[3] = new Noleggio(4, inserimentoUtenti[4], inserimentoAuto[4], inserimentoOfficine[0], inserimentoAziende[0], data1,  data4, 84010, 82100,10000);
+    	inserimentoNoleggio[4] = new Noleggio(5, inserimentoUtenti[3], inserimentoAuto[1], inserimentoOfficine[0], null, data1,  data2, 84010, 82100,10000);
     	
     	Dispositivo inserimentoDispositivi[] = new Dispositivo[1];
     	inserimentoDispositivi[0] = new Dispositivo(1, "A0972", inserimentoAuto[0], data1, inserimentoOfficine[0]);
