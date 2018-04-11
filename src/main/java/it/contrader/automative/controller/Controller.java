@@ -199,7 +199,7 @@ public class Controller {
 
 		List<Noleggio> listaNoleggi = new ArrayList();
 
-		listaNoleggi = noleggioRepository.findByUtente(utenteRepository.findById(idUtente));
+		listaNoleggi = noleggioRepository.findByGuidatore(utenteRepository.findById(idUtente));
 
 		return new GenericResponse<List<Noleggio>>(listaNoleggi);
 
@@ -455,7 +455,7 @@ public class Controller {
 		public GenericResponse<List<Noleggio>> listaautoutente(@RequestParam("id") int id){
 	
 			Utente u = utenteRepository.findById(id);
-			List<Noleggio> n = noleggioRepository.findByUtente(u);
+			List<Noleggio> n = noleggioRepository.findByGuidatore(u);
 	
 			return new GenericResponse<List<Noleggio>>(n);
 		}
@@ -492,7 +492,7 @@ public class Controller {
 			n.setDataInizioNoleggio(DataInizioNoleggio);
 			n.setDataFineNoleggio(DataFineNoleggio);
 			n.setOfficina(officinaRepository.findById(idOfficina));
-			n.setUtente(utenteRepository.findById(idUtente));
+			n.setGuidatore(utenteRepository.findById(idUtente));
 	
 	
 			noleggioService.insert(n);

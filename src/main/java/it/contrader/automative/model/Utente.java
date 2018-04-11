@@ -55,14 +55,21 @@ public class Utente implements Serializable {
 	@JoinColumn(name = "idOfficina")
 	private Officina officina;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "idAzienda")
+	private Azienda azienda;
+	
 	@Column
 	private Date dataRegistrazione;
 	
 	@Column
-	private int ruolo;
+	private int ruolo;			//0: cliente normale/dipendente azienda; 1: Officina; 2: Admin Azienda/Cliente Business; 3: Admin/Owner
 	
 	@Column
 	private String telefono;
+	
+	@Column
+	private String citta;
 	
 //
 //	@OneToOne(fetch=FetchType.EAGER)

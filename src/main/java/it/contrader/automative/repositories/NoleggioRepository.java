@@ -17,7 +17,7 @@ public interface NoleggioRepository  extends CrudRepository<Noleggio, Long> {
 
 	Noleggio findById(int id);
 	
-	List<Noleggio> findByUtente(Utente u);
+	List<Noleggio> findByGuidatore(Utente u);
 	
 	List<Noleggio> findByOfficina(Officina o);
 	
