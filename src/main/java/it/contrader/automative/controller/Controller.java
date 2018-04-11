@@ -98,6 +98,11 @@ public class Controller {
 	}
 
 
+	// '+' : Revisionati
+	// '!' : Dovrebbero funzionare
+	// '?' : Saltato per ora
+	// '?!' : Saltato per ora ma dovrebbe funzionare
+	
 
 	//+ Lista tutte le Auto mai (anche noleggi scaduti) associate al Cliente (Utente)
 	@RequestMapping(value = "/autoNoleggiCliente", method = RequestMethod.POST)
@@ -247,7 +252,7 @@ public class Controller {
 
 	}
 
-	//Lista Preventivi del Cliente
+	//?! Lista Preventivi del Cliente
 	@RequestMapping(value = "/preventiviCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Preventivo>> getPreventiviCliente(@RequestParam("id") int idUtente) {
 
@@ -260,7 +265,7 @@ public class Controller {
 
 	}
 
-	//Lista Preventivi dell'Officina
+	//! Lista Preventivi dell'Officina
 	@RequestMapping(value = "/preventiviOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Preventivo>> getPreventiviOfficina(@RequestParam("id") int idOfficina) {
 
@@ -272,7 +277,7 @@ public class Controller {
 
 	}
 
-	//Lista Appuntamenti del Cliente
+	//?! Lista Appuntamenti del Cliente
 	@RequestMapping(value = "/appuntamentiCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Appuntamento>> getAppuntamentiCliente(@RequestParam("id") int idUtente) {
 
@@ -284,7 +289,7 @@ public class Controller {
 
 	}
 
-	//Lista Appuntamenti dell'Officina
+	//! Lista Appuntamenti dell'Officina
 	@RequestMapping(value = "/appuntamentiOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Appuntamento>> getAppuntamentiOfficina(@RequestParam("id") int idOfficina) {
 
@@ -296,7 +301,7 @@ public class Controller {
 
 	}
 
-	//Lista Clienti dell'Officina
+	//! Lista Clienti NORMALI dell'Officina
 	@RequestMapping(value = "/clientiOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Utente>> getClientiOfficina(@RequestParam("id") int idOfficina) {
 
@@ -304,11 +309,30 @@ public class Controller {
 
 		listaUtenti = utenteRepository.findByOfficina(officinaRepository.findById(idOfficina));
 
+		//Rimuovi i clienti aziendali
+		for (int i = 0; i<listaUtenti.size(); i++) if(listaUtenti.get(i).getRuolo() == 2) listaUtenti.remove(i);
+		
 		return new GenericResponse<List<Utente>>(listaUtenti);
 
 	}
+	
+	//! Lista Clienti Business (Aziende) dell'Officina
+		@RequestMapping(value = "/clientiAziendeOfficina", method = RequestMethod.POST)
+		public GenericResponse<List<Utente>> getClientiAziendeOfficina(@RequestParam("id") int idOfficina) {
 
-	//LOGIN
+			List<Utente> listaUtenti = new ArrayList();
+			List<Utente> aziende = new ArrayList();
+
+			listaUtenti = utenteRepository.findByOfficina(officinaRepository.findById(idOfficina));
+
+			//Rimuovi i clienti aziendali
+			for (int i = 0; i<listaUtenti.size(); i++) if(listaUtenti.get(i).getRuolo() == 2) aziende.add(listaUtenti.get(i));
+			
+			return new GenericResponse<List<Utente>>(aziende);
+
+		}
+
+	//+ LOGIN
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public LogInUtente getUser(@RequestParam("email") String email, @RequestParam("pwd") String password){
 
@@ -325,12 +349,14 @@ public class Controller {
 
 				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAutoCliente(u.getId()).getData());
 
-				return dati;
 
 			case 1 : 
 
 				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAutoOfficina(u.getId()).getData());
 
+			case 2 :
+
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAutoCliente(u.getId()).getData());
 			}
 
 		}
