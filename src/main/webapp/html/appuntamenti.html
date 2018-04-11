@@ -1,0 +1,245 @@
+
+		<!-- begin:: Page -->
+		<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
+		
+		<!-- begin::Body -->
+			<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+				<div class="m-grid__item m-grid__item--fluid m-wrapper">
+					
+					<div class="m-content">
+					
+						<!--begin:: section content-->
+						<div class="row">
+						
+					
+						
+												<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
+								<div class="m-portlet m-portlet--mobile ">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h3 class="m-portlet__head-text">
+												<i class="fa fa-calendar fah3"  ></i>
+													APPUNTAMENTI
+												</h3>
+												
+												<div class="col-md-3" style="margin:15px;">
+												Filtra per: <select class="form-control" id="showappuntamenti">
+												<option value="0">In Attesa </option>
+												<option value="1" ng-if="user.getUser().ruolo==0">Risposti</option>
+												<option value="4" ng-if="user.getUser().ruolo==1">Confermati</option>
+												<option value="2" ng-if="user.getUser().ruolo==1">Rifiutati</option>
+												<option value="3">Tutti </option>
+												</select>
+												</div>
+												
+												
+											</div>
+										</div>
+									
+									</div>
+									<div class="m-portlet__body">
+										<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+								<button type="button" id="openmodalappuntamento" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0">Richiedi Appuntamento</button>
+									<table class="table table-striped" id="myTable">
+									<thead>
+									<tr>
+									<th>Data</th>
+									<th>Ora</th>
+									<th>Dettagli</th>
+									<th>Risposta</th>
+							
+									<th></th>
+									</tr>
+									</thead>
+									<tbody><!--
+								ng-class="appun.stato==0 ? 'prevattesa' : 'prevrisposto'" -->
+								<tr ng-repeat="appun in user.getUserAppuntamenti()" ng-class="{'prevattesa':appun.stato==0,'prevrisposto':appun.stato==1&&user.getUser().ruolo==0,'prevconfermato':appun.stato==1&&user.getUser().ruolo==1,'prevrifiutato':appun.stato==2&&user.getUser().ruolo==1}">
+								<td>{{appun.data | date:'dd/MM/yyyy'}}</td>
+								<td>{{appun.ora}}</td>
+								<td>{{appun.dettagli}}</td>
+								<td>{{appun.risposta}}</td>
+								
+								<td>
+								
+								<a class="ali" ng-if="appun.stato==1&&user.getUser().ruolo==0"><i class="fa fa-check"  title="Conferma appuntamento"></i></a>
+								<a class="ali" ng-if="appun.stato==0&&user.getUser().ruolo==0"><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
+								
+								<a class="ali" ng-if="appun.stato==1&&user.getUser().ruolo==1"><i class="fa fa-check"  title="Appuntamento confermato"></i></a>
+								<a class="ali" ng-if="appun.stato==2&&user.getUser().ruolo==1"><i class="fa fa-check"  title="Appuntamento non confermato"></i></a>
+								<a class="ali rispondiappuntamento" ng-if="appun.stato==0&&user.getUser().ruolo==1" data-id="{{appun.id}}"><i class="fa fa-hourglass"  title="Rispondi alla richiesta di appuntamento"></i></a>
+								</td>
+
+								</tr>
+								
+								
+									</tbody>
+									</table>
+								
+										<!--end: Datatable -->
+									</div>
+								</div>
+							</div>
+							
+						
+						</div>
+						<!--end:: seciont content-->
+						
+ 
+						
+  
+					  
+					</div>
+				</div>
+				<!--
+			</div>
+			-->
+		</div>
+
+	</div>
+	<!-- end:: Page -->
+<!-- begin::modal richiedi appuntamento -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrichiediappuntamento">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Richiedi appuntamento </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="/inviapreventivo" method="POST">
+<div class="form-group">
+					<label for="datainizio">Inserire Data </label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="dataappuntamento" type="text"/ class="form-control">
+</datepicker>
+					</div>
+			
+							<div class="form-group">
+  <label for="oraricappuntamento">Inserire Ora:</label>
+  <input class="form-control"  id="oraricappuntamento" name="oraricappuntamento" ng-model="oraricappuntamento"></textarea>
+</div>
+			
+					
+						<div class="form-group">
+  <label for="dettagliappuntamento">Descrizione Problema:</label>
+  <textarea class="form-control" rows="5" id="dettagliappuntamento" name="dettagliappuntamento" ng-model="dettagliricappuntamento"></textarea>
+</div>
+						
+							
+								
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="button" class="btn btn-primary savebutton" ng-click="inviaRichiestaAppuntamento(dataappuntamento,dettagliricappuntamento,oraricappuntamento)">Invia Richiesta</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- end::modal richiedi appuntamento-->
+<!-- begin::modal rispondi appuntamento -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrispondiappuntamento">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Risposta alla richiesta di appuntamento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="/inviapreventivo" method="POST">
+
+						<div class="form-group">
+  <label for="dettagli">Risposta:</label>
+  <textarea class="form-control" rows="5" id="dettagli" name="dettagli" ng-model="dettagliapprisp"></textarea>
+</div>
+						
+							
+								<input  type="text" style="display:none;" name="idapprisp" ng-model="idapprisp" id="idapprisp">
+  <div class="form-group">
+<label for="selstatoapp">Seleziona Azione:</label>
+<select name="idauto" class="form-control" ng-model="selectapp">
+<option value="1">Conferma appuntamento</option>
+<option value="2">Rifiuta appuntamento</option>
+</select>
+
+</div>
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="button" class="btn btn-primary savebutton" ng-click="rispondiAppuntamento(dettagliapprisp,selectapp,idapprisp)">Invia Risposta</button>
+	     
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- end::modal rispondi appuntamento-->
+
+	 </div>
+	<script> $(document).ready( function () {
+    $('#myTable').DataTable({
+	 searching: true,
+    ordering:  true,
+	pageLength:25,});
+} );
+$(document).on("click", "#openmodalappuntamento", function() {
+
+$('#modalrichiediappuntamento').modal("show");
+});
+$(document).on("click", ".rispondiappuntamento", function() {
+var idapp=$(this).data("id");
+$('#idapprisp').val(idapp);
+$('#idapprisp').trigger('change');
+$('#modalrispondiappuntamento').modal("show");
+});
+
+$(document).on("change", "#showappuntamenti", function() {
+ var n = $(this).val();
+
+if(n=='0'){
+if($('.prevattesa').length>0){
+$('.prevrisposto').hide();
+$('.prevconfermato').hide();
+$('.prevrifiutato').hide();
+$('.prevattesa').show();
+}else swal("Si e' verificato un'errore!", "Non ci sono appuntamenti in attesa", "info");   
+}else if(n=='1'){
+if($('.prevrisposto').length>0){
+$('.prevattesa').hide();
+$('.prevconfermato').hide();
+$('.prevrifiutato').hide();
+$('.prevrisposto').show();
+}else swal("Si e' verificato un'errore!", "Non ci sono appuntamenti che hanno ricevuto risposta", "info");   
+}else if(n=='2'){
+if($('.prevrifiutato').length>0){
+$('.prevattesa').hide();
+$('.prevconfermato').hide();
+$('.prevrisposto').hide();
+$('.prevrifiutato').show();
+}else swal("Si e' verificato un'errore!", "Non ci sono appuntamenti rifiutati", "info");
+}else if(n=='3'){
+$('.prevattesa').show();
+$('.prevrisposto').show();
+$('.prevrifiutato').show();
+$('.prevconfermato').show();
+}else if(n=='4'){
+if($('.prevconfermato').length>0){
+$('.prevattesa').hide();
+$('.prevrifiutato').hide();
+$('.prevrisposto').hide();
+$('.prevconfermato').show();
+}else swal("Si e' verificato un'errore!", "Non ci sono appuntamenti confermati", "info");
+}
+});
+
+</script>

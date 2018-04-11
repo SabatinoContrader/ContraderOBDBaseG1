@@ -1,0 +1,277 @@
+<div >
+	<!-- begin:: Page -->
+	<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
+
+		<!-- begin::Body -->
+		<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+			<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+				<div class="m-content">
+
+					<!--begin:: section content-->
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
+							<div class="m-portlet m-portlet--mobile ">
+								<div class="m-portlet__head">
+									<div class="m-portlet__head-caption">
+										<div class="m-portlet__head-title">
+											<h3 class="m-portlet__head-text">
+												<i class="fa fa-car fah3"  ></i>
+												AUTO <span ng-if="user.getUser().ruolo==0">NOLEGGIATE</span>
+											</h3>
+										</div>
+									</div>
+
+								</div>
+								<div class="m-portlet__body">
+									<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==1">Aggiungi Auto</button>
+<!--<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>-->
+
+
+									<table class="table table-striped" id="myTable">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Marca</th>
+												<th>Modello</th>
+												<th>Targa</th>
+												<th>Telaio</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="auto in user.getAuto()">
+												<td>{{auto.id}}</td>
+												<td>{{auto.marca}}</td>
+												<td>{{auto.modello}}</td>
+												<td>{{auto.targa}}</td>
+												<td>{{auto.numeroTelaio}}</td>
+												<td>
+												<a  ng-if="user.getUser().ruolo==1" class="ali assegnanoleggio"  ng-click="assnoleggio(auto.id);"><i class="fa fa-car"  title="Assegna auto a noleggio"></i></a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<!--end: Datatable -->
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<!--end:: seciont content-->
+
+
+
+
+
+				</div>
+			</div>
+			<!--
+		</div>
+	-->
+</div>
+
+</div>
+<!-- end:: Page -->
+
+<!-- begin::modal Dati Telemetria Guasto-->
+<div class="modal" tabindex="-1" role="dialog" id="modaldatitelemetria">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Dati Telemetria </h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="m-widget24">
+					<div class="m-widget24__item">
+
+						<h4 class="m-widget24__title" >
+							Auto: <span id="autotelemetria"></span>
+						</h4>
+						<br>
+						<div class="m--space-10"></div>
+						<p  id="datitel"></p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer " style="text-align:center;" >
+				<button type="submit" class="btn btn-primary btnfooter" data-dismiss="modal" aria-label="close">Chiudi</button>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- end::modal Dati Telemetria Guasto-->
+
+<!-- begin::modal add auto -->
+<div class="modal" tabindex="-1" role="dialog" id="modaladdauto">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Aggiungi Auto</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="/inviapreventivo" method="POST">
+
+					<div class="form-group">
+	<label for="marcaauto">Marca:</label>
+	<input type="text" name="marcaauto" ng-model="marcaautoadd" class="form-control" placeholder="Inserire marca...">
+	</div>
+
+<div class="form-group">
+	<label for="modelloauto">Modello:</label>
+	<input type="text" name="modelloauto" ng-model="modelloautoadd" class="form-control" placeholder="Inserire modello...">
+	</div>
+
+	<div class="form-group">
+	<label for="targaauto">Targa:</label>
+	<input type="text" name="targaauto" ng-model="targaautoadd" class="form-control" placeholder="Inserire targa...">
+	</div>
+	<div class="form-group">
+	<label for="telaioauto">Telaio:</label>
+	<input type="text" name="telaioauto" ng-model="telaioautoadd" class="form-control" placeholder="Inserire telaio...">
+	</div>
+
+	<div class="form-group">
+	<label for="cilindrataauto">Cilindrata:</label>
+	<input type="number" name="cilindrataauto" ng-model="cilindrataautoadd" class="form-control" placeholder="Inserire cilindrata...">
+	</div>
+	
+	<div class="form-group">
+	<label for="tipologiaauto">Tipologia auto (es. berlina,utilitaria,etc...):</label>
+	<input type="text" name="tipologiaauto" ng-model="tipologiaautoadd" class="form-control" placeholder="Inserire tipologia auto...">
+	</div>
+	<div class="form-group">
+	<label for="alimentazioneauto">Alimentazione:</label>
+	<input type="text" name="alimentazioneauto" ng-model="alimentazioneautoadd" class="form-control" placeholder="Inserire alimentazione...">
+	</div>
+			
+			<div class="form-group">
+	<label for="numeroporteauto">Numero porte:</label>
+	<input type="number" name="numeroporteauto" ng-model="numeroporteautoadd" class="form-control" placeholder="Inserire numero porte...">
+	</div>
+			<div class="form-group">
+	<label for="kmattualiauto">Km attuali:</label>
+	<input type="number" name="kmattualiauto" ng-model="kmattualiautoadd" class="form-control" placeholder="Inserire km attuali...">
+	</div>
+	
+	<div class="form-group">
+					<label for="scadenzaAssicurazione">Scadenza assicurazione:</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="scadenzaAssicurazioneadd" type="text"/ class="form-control">
+</datepicker>
+					</div>
+					
+	<div class="form-group">
+					<label for="scadenzaBollo">Scadenza Bollo:</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="scadenzaBolloadd" type="text"/ class="form-control">
+</datepicker>
+					</div>				
+		
+	<div class="form-group">
+					<label for="scadenzaRevisione">Scadenza Revisione:</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="scadenzaRevisioneadd" type="text"/ class="form-control">
+</datepicker>
+					</div>
+	
+	<div class="form-group">
+					<label for="scadenzaTagliando">Scadenza Tagliando:</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="scadenzaTagliandoadd" type="text"/ class="form-control">
+</datepicker>
+					</div>
+				</div>
+				<div class="modal-footer " style="text-align:center;" >
+					<button type="button" class="btn btn-primary savebutton" ng-click="aggiungiAuto(marcaautoadd,modelloautoadd,targaautoadd,telaioautoadd,cilindrataautoadd,tipologiaautoadd,alimentazioneautoadd,numeroporteautoadd,kmattualiautoadd,scadenzaAssicurazioneadd,scadenzaBolloadd,scadenzaRevisioneadd,scadenzaTagliandoadd);">Salva auto</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- end::modal add auto-->
+
+<!-- begin::modal assegna noleggio -->
+<div class="modal" tabindex="-1" role="dialog" id="modalassegnanoleggio">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Assegna noleggio</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="/inviapreventivo" method="POST">
+<div class="form-group">
+				<label for="capluogoritiro">Selezionare cliente</label>
+			<select class="form-control" name="clientenoleggio" ng-model="clientenoleggio">
+			<option ng-repeat="cliente in	user.getUserClienti()" value="{{cliente.id}}">{{cliente.nome}} {{cliente.cognome}}</option>
+				
+			</select>
+			</div>
+					<div class="form-group">
+				<label for="capluogoritiro">Inserire CAP luogo ritiro</label>
+				<input class="form-control" type="number" name="luogoritiro" ng-model="capluogoritiro">
+				</div>
+				
+				<div class="form-group">
+				<label for="capluogoconsegna">Inserire CAP luogo consegna</label>
+				<input class="form-control" type="number" name="luogoconsegna" ng-model="capluogoconsegna">
+				</div>
+				
+					<div class="form-group">
+					<label for="datainizio">Inserire Data inizio noleggio</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="datainizionoleggio" type="text"/ class="form-control">
+</datepicker>
+					</div>
+					<div class="form-group">
+					<label for="datafine">Inserire Data fine noleggio</label>
+					<datepicker date-format="dd/MM/yyyy" date-week-start-day="1" datepicker-mobile="false">
+  <input ng-model="datafinenoleggio" type="text" class="form-control" />
+</datepicker>
+					</div>
+					
+					<input type="text" style="display:none;" id="idautonoleggio" ng-model="idautonoleggio">
+				</div>
+				<div class="modal-footer " style="text-align:center;" >
+					<button type="button" class="btn btn-primary savebutton" ng-click="inviaRichiestaNoleggio(idautonoleggio,capluogoritiro,capluogoconsegna,datainizionoleggio,datafinenoleggio,clientenoleggio);">Salva</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- end::modal assegna noleggio-->
+
+</div>
+<script> $(document).ready( function () {
+	$('#myTable').DataTable({
+		searching: true,
+		ordering:  true,
+		pageLength:25,});
+	} );
+	$(document).on("click", "#aggiungiauto", function() {
+	$('#modaladdauto').modal("show");
+	});
+	
+	/*$(document).on("click", "#noleggioauto", function() {
+	$('#modalnoleggioauto').modal("show");
+	});*/
+</script>

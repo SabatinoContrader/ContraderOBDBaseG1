@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-cloak>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>Contrader OBD</title>
+  <!--begin::Web font -->
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="css/angular-datepicker.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+  <style>
+    .nav-link {
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: red !important;
+    }
+
+    .btn-group {
+      padding: 15px;
+    }
+
+    .btnmodal {
+      margin: 10px;
+    }
+
+    .ali {
+      cursor: pointer !important;
+    }
+
+    .ali:hover {
+      color: red !important;
+    }
+
+    main {
+      margin-top: 50px;
+      margin-bottom: 100px;
+    }
+  </style>
+</head>
+
+<body ng-controller="mainController">
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" ng-href="{{user.getLogged() ? '#!/home' : '#!/'}}">Vianello's Automotive</a>
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" ng-if="user.getLogged()" ng-click="logOut()" href>Sign out</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar" ng-if="user.getLogged()">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a data-toggle="collapse" data-target="#demo3" style="cursor:pointer;color:#999;" class="nav-link">Notifiche
+                <span class="badge badge-dark pull-right">{{user.getNumAlerts()}}</span>
+                <i class="fa fa-caret-down"></i>
+              </a>
+              <div class="collapse" id="demo3" style="padding-left:10%;padding-right:10%">
+
+                <a style="cursor: pointer;" href="#!/guasti">Guasti
+                  <span class="badge badge-dark" style="float:right;">{{user.getNumGuasti()}}</span>
+                </a>
+                <br>
+                <a style="cursor: pointer;" ng-click="scadenze()">Scadenze
+                  <span class="badge badge-dark" style="float:right;">{{user.getNumScadenze()}}</span>
+                </a>
+                <br>
+
+                <a style="cursor: pointer;" ng-click="scadenzeNoleggi()">Scadenze Noleggi
+                  <span class="badge badge-dark" style="float:right;">{{user.getNumKmNoleggio()}}</span>
+                </a>
+
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!/home">Auto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ng-click="noleggi()" ng-if="user.getUser().ruolo==1">Noleggi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ng-click="clienti()" ng-if="user.getUser().ruolo==1">Clienti</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ng-click="dispositivi()" ng-if="user.getUser().ruolo==1">Dispositivi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ng-click="preventivi()">Preventivi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ng-click="appuntamenti()">Appuntamenti</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" ng-click="ticket()">Messaggi</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div ng-view> </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-route.min.js"></script>
+  <script src="js/angular-datepicker.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/routes/main_routes.js"></script>
+
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="js/controller/mainController.js"></script>
+
+  <!-- SERVICES, FACTORIES -->
+  <script src="js/services/User/userREST.js"></script>
+  <script src="js/services/User/userService.js"></script>
+  <script src="js/controller/loginPage.js"></script>
+  <script src="js/controller/guasti.js"></script>
+
+
+
+
+</body>
+
+</html>
