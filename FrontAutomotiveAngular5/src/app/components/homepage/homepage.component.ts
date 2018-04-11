@@ -11,7 +11,7 @@ export class HomepageComponent implements OnInit {
 
   constructor(private loginService:LoginService,private router:Router) {}
 
-  ngOnInit() {debugger;
+  ngOnInit() {
     if (!this.loginService.isLogged()) {
       this.router.navigate(["login"]);
     }
