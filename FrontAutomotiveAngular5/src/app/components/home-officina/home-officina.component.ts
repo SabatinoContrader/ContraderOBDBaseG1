@@ -6,6 +6,11 @@ import { OfficinaService } from '../../services/officina.service';
 import { Router} from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module';
 import { TopbarComponent } from '../topbar/topbar.component';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+
+const now = new Date();
+
+
 @Component({
 	providers:[TopbarComponent],
   selector: 'app-home-officina',
@@ -17,10 +22,13 @@ export class HomeOfficinaComponent implements OnInit {
 	 officina: Officina;
 	auto:any;
 	utente:LoginEntity;
-	
+	scadenzaAssicurazioneadd: NgbDateStruct;
+	//date:{}={year: number, month: number};
+  
   constructor(private topbar:TopbarComponent,private loginService:LoginService, private officinaService:OfficinaService,private router:Router) {
 
   }
+	
 
  ngOnInit() {
 	 

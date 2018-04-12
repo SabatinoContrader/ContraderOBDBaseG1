@@ -12,12 +12,15 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
 import { OfficinaService } from './services/officina.service';
 import { AutoService } from './services/auto.service';
+import { GuastiService } from './services/guasti.service';
 import { HomeOfficinaComponent } from './components/home-officina/home-officina.component';
 import { HomeUtenteComponent } from './components/home-utente/home-utente.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppuntamentoService } from './services/appuntamento.service';
 import { PreventivoService } from './services/preventivo.service';
+import { GuastiComponent } from './components/guasti/guasti.component';
+
 
 
 
@@ -28,7 +31,8 @@ import { PreventivoService } from './services/preventivo.service';
     HomeOfficinaComponent,
     HomeUtenteComponent,
     TopbarComponent,
-    NavbarComponent
+    NavbarComponent,
+    GuastiComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,11 @@ import { PreventivoService } from './services/preventivo.service';
     AngularFontAwesomeModule,
     NgbModule.forRoot()
   ],
+<<<<<<< HEAD
   providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, PreventivoService],
+=======
+  providers: [LoginService,OfficinaService,GuastiService,AutoService],
+>>>>>>> c42123ca8ee186df9c9b71b6ffca49eb276e0729
   bootstrap: [AppComponent]
 })
 export class AppModule { }

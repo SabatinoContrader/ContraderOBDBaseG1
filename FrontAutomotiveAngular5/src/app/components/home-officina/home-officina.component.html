@@ -27,7 +27,7 @@
 								<div class="m-portlet__body">
 									<!--begin: Datatable -->
 									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal">Aggiungi Auto</button>
+<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal" data-toggle="modal" data-target="#modaladdauto">Aggiungi Auto</button>
 <!--<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>-->
 
 <div class="table-responsive">
@@ -75,6 +75,98 @@
 		</div>
 	-->
 </div>
-
 </div>
 <!-- end:: Page -->
+<!-- begin::modal add auto -->
+<div class="modal" tabindex="-1" role="dialog" id="modaladdauto">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Aggiungi Auto</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			
+<pre *ngIf="date">Month: {{ date.month }}</pre>
+<pre>Model: {{ scadenzaAssicurazioneadd | json }}
+
+.coso {{scadenzaAssicurazioneadd.year}}</pre>
+					<div class="form-group">
+	<label for="marcaauto">Marca:</label>
+	<input type="text" name="marcaauto" [(ngModel)]="marcaautoadd" class="form-control" placeholder="Inserire marca...">
+	</div>
+
+<div class="form-group">
+	<label for="modelloauto">Modello:</label>
+	<input type="text" name="modelloauto" [(ngModel)]="modelloautoadd" class="form-control" placeholder="Inserire modello...">
+	</div>
+
+	<div class="form-group">
+	<label for="targaauto">Targa:</label>
+	<input type="text" name="targaauto" [(ngModel)]="targaautoadd" class="form-control" placeholder="Inserire targa...">
+	</div>
+	<div class="form-group">
+	<label for="telaioauto">Telaio:</label>
+	<input type="text" name="telaioauto" [(ngModel)]="telaioautoadd" class="form-control" placeholder="Inserire telaio...">
+	</div>
+
+	<div class="form-group">
+	<label for="cilindrataauto">Cilindrata:</label>
+	<input type="number" name="cilindrataauto" [(ngModel)]="cilindrataautoadd" class="form-control" placeholder="Inserire cilindrata...">
+	</div>
+	
+	<div class="form-group">
+	<label for="tipologiaauto">Tipologia auto (es. berlina,utilitaria,etc...):</label>
+	<input type="text" name="tipologiaauto" [(ngModel)]="tipologiaautoadd" class="form-control" placeholder="Inserire tipologia auto...">
+	</div>
+	<div class="form-group">
+	<label for="alimentazioneauto">Alimentazione:</label>
+	<input type="text" name="alimentazioneauto" [(ngModel)]="alimentazioneautoadd" class="form-control" placeholder="Inserire alimentazione...">
+	</div>
+			
+			<div class="form-group">
+	<label for="numeroporteauto">Numero porte:</label>
+	<input type="number" name="numeroporteauto" [(ngModel)]="numeroporteautoadd" class="form-control" placeholder="Inserire numero porte...">
+	</div>
+			<div class="form-group">
+	<label for="kmattualiauto">Km attuali:</label>
+	<input type="number" name="kmattualiauto" [(ngModel)]="kmattualiautoadd" class="form-control" placeholder="Inserire km attuali...">
+	</div>
+	
+	<div class="form-group">
+	
+	<form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" [(ngModel)]="scadenzaAssicurazioneadd" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<hr/>
+<pre>Model: {{ scadenzaAssicurazioneadd | json }}</pre>
+				
+					
+			
+					</div>
+	</div>
+				
+				<div class="modal-footer " style="text-align:center;" >
+					<button type="button" class="btn btn-primary savebutton">Salva auto</button>
+
+				
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end::modal add auto-->
+
+

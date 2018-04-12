@@ -11,6 +11,7 @@ import { AppRoutingModule } from '../../app-routing.module';
 })
 export class TopbarComponent implements OnInit {
 	utente:LoginEntity;
+	scadenze:number;
   constructor(private loginService:LoginService,private router:Router) { }
   
  ngOnInit() {
@@ -18,7 +19,7 @@ export class TopbarComponent implements OnInit {
     if (this.loginService.isLogged()) {
 		 
 		this.utente=JSON.parse(sessionStorage.getItem("loginEntity"));
-	
+	this.scadenze=this.utente.numScadenze+this.utente.numKmNoleggio;
     }
   }
 
