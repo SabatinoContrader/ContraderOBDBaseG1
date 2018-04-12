@@ -371,7 +371,7 @@ public class Controller {
 		return lista;
 	}
 	
-	
+	//Situazione Auto
 	@RequestMapping(value = "/situazioneAuto", method = RequestMethod.POST)
 	public HashMap<String, String> situazioneAuto(@RequestParam("id") int idAuto){
 		
