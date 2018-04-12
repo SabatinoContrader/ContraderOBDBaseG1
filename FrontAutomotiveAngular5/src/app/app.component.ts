@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from './services/login.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,9 +9,8 @@ import { LoginService } from './services/login.service';
 export class AppComponent {
 	
 	constructor(public loginService:LoginService){}
-	
-	
-	
+  
+
 
 
 }
