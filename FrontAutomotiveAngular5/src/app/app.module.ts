@@ -12,10 +12,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
 import { OfficinaService } from './services/officina.service';
+import { AutoService } from './services/auto.service';
+import { GuastiService } from './services/guasti.service';
 import { HomeOfficinaComponent } from './components/home-officina/home-officina.component';
 import { HomeUtenteComponent } from './components/home-utente/home-utente.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { GuastiComponent } from './components/guasti/guasti.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -26,7 +31,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HomeOfficinaComponent,
     HomeUtenteComponent,
     TopbarComponent,
-    NavbarComponent
+    NavbarComponent,
+    GuastiComponent
   ],
   imports: [
     BrowserModule,
@@ -34,9 +40,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    NgbModule.forRoot()
   ],
-  providers: [LoginService,OfficinaService],
+  providers: [LoginService,OfficinaService,GuastiService,AutoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
