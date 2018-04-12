@@ -5,10 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { ENVIROMENT } from '../models/enviroment';
 import { Auto } from '../models/Auto';
-<<<<<<< HEAD
 import { NotificaAutoDTO } from '../models/NotificaAutoDTO';
-=======
->>>>>>> c42123ca8ee186df9c9b71b6ffca49eb276e0729
 
 @Injectable()
 export class AutoService {
@@ -16,13 +13,8 @@ export class AutoService {
   private urlBase = ENVIROMENT.url;
 
   constructor(private http: HttpClient) { }
-<<<<<<< HEAD
 
   private handleError<T>(operation = 'operation', result?: T) {
-=======
-  
-    private handleError<T>(operation = 'operation', result?: T) {
->>>>>>> c42123ca8ee186df9c9b71b6ffca49eb276e0729
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
@@ -35,7 +27,6 @@ export class AutoService {
       return of(result as T);
     };
   }
-<<<<<<< HEAD
 
   getNotifiche(id: any): Observable<any> {
     var formdata = new FormData();
@@ -46,7 +37,6 @@ export class AutoService {
     );
   }
 
-=======
   
   
 // METHOD TO ADD Auto
@@ -76,5 +66,4 @@ export class AutoService {
     );
   }
   
->>>>>>> c42123ca8ee186df9c9b71b6ffca49eb276e0729
 }

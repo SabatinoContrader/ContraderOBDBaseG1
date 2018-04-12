@@ -43,11 +43,7 @@ import { GuastiComponent } from './components/guasti/guasti.component';
     AngularFontAwesomeModule,
     NgbModule.forRoot()
   ],
-<<<<<<< HEAD
-  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, PreventivoService],
-=======
-  providers: [LoginService,OfficinaService,GuastiService,AutoService],
->>>>>>> c42123ca8ee186df9c9b71b6ffca49eb276e0729
+  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, PreventivoService, GuastiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
