@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.loginService.isLogged()) {
-      this.router.navigate(["home"]);
+      this.router.navigate(["homeutente"]);
     }
   }
 
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('loginEntity', JSON.stringify(this.loginEntity));
 
           }
-          this.router.navigate(["home"]);
+          this.router.navigate(["homeutente"]);
           console.log(this.loginEntity)
         }
       },
