@@ -525,20 +525,20 @@ public class Controller {
 			case 0 :
 
 				List<Auto> listaAutoCliente = getAutoCliente(u.getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), statoAuto(listaAutoCliente, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAppuntamentiCliente(u.getId()).getData().size(), getPreventiviCliente(u.getId()).getData().size(), statoAuto(listaAutoCliente, u));
 				break;
 
 			case 1 : 
 
 				List<Auto> listaAutoOfficina = getAutoOfficina(u.getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), statoAuto(listaAutoOfficina, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAppuntamentiCliente(u.getId()).getData().size(), getPreventiviCliente(u.getId()).getData().size(), statoAuto(listaAutoOfficina, u));
 				break;
 			case 2 :
 
 				System.out.println("\n\n");
 				System.out.println(u.getAzienda().getId());
 				List<Auto> listaAutoAzienda = getAutoAzienda(u.getAzienda().getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), statoAuto(listaAutoAzienda, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAppuntamentiCliente(u.getId()).getData().size(), getPreventiviCliente(u.getId()).getData().size(), statoAuto(listaAutoAzienda, u));
 				break;
 			}
 
