@@ -531,7 +531,7 @@ public class Controller {
 			case 1 : 
 
 				List<Auto> listaAutoOfficina = getAutoOfficina(u.getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAppuntamentiCliente(u.getId()).getData().size(), getPreventiviCliente(u.getId()).getData().size(), statoAuto(listaAutoOfficina, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAppuntamentiOfficina(u.getOfficina().getId()).getData().size(), getPreventiviOfficina(u.getOfficina().getId()).getData().size(), statoAuto(listaAutoOfficina, u));
 				break;
 			case 2 :
 
