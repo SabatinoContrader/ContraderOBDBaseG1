@@ -3,6 +3,7 @@ package it.contrader.automative.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -266,20 +267,22 @@ public class Controller {
 		}
 	
 	
-	
+	//! Lista auto con status associato
 	public List<StatoAuto> statoAuto(List<Auto> listaAuto, Utente u){
 		
 		List<StatoAuto> lista = new ArrayList();
 		
 		List<Auto> rimanenti = new ArrayList();
 		List<Auto> rimanenti1 = new ArrayList();
+		List<Auto> rimanenti2 = new ArrayList();
 		
 		//Cerco auto con guasti
 		List<Guasto> autoConGuasti = new ArrayList();
 		if(listaAuto.size() != 0) { autoConGuasti = getGuastiIrrisolti(u.getId()).getData();}
+		System.out.println("\n\narrivato000\n\n");
 		
 		if((autoConGuasti.size() != 0)){
-			
+			System.out.println("\n\narrivato001\n\n");
 			for(int i=0; i<listaAuto.size(); i++){
 				
 				boolean trovato = false;
@@ -290,21 +293,21 @@ public class Controller {
 						trovato = true;
 						lista.add(new StatoAuto(listaAuto.get(i), "Danger"));
 						
-						autoConGuasti.remove(e);
+						//autoConGuasti.remove(e);
 					}
 				}
 				
 				if(!trovato) rimanenti.add(listaAuto.get(i));
 			}
 			
-		}
+		} else rimanenti = listaAuto;
 		
 		
 		List<AutoScadenze> autoInScadenza = new ArrayList();
 		if(rimanenti.size() != 0) { autoInScadenza = getAutoInScadenza(u.getId()).getData();}
 		
 		if((autoInScadenza.size() != 0)){
-
+			System.out.println("\n\narrivato002\n\n");
 			for(int i=0; i<rimanenti.size(); i++){
 
 				boolean trovato = false;
@@ -315,18 +318,21 @@ public class Controller {
 						trovato = true;
 						lista.add(new StatoAuto(rimanenti.get(i), "Warning"));
 						
-						autoInScadenza.remove(e);
+						//autoInScadenza.remove(e);
 					}
 				}
 
 				if(!trovato) rimanenti1.add(rimanenti.get(i));
 			}
 
-		}
+		} else rimanenti1 = rimanenti;
 		
 		
 		List<Auto> kmScadenza = new ArrayList();
 		if(rimanenti1.size() != 0) { 
+			
+			System.out.println("\n\narrivato\n\n");
+			
 			if((u.getRuolo() == 0) || (u.getRuolo() == 2)) {
 				List<Noleggio> n = getNoleggiKmInScadenzaCliente(u.getId()).getData();
 				for(int i = 0; i<n.size(); i++) kmScadenza.add(n.get(i).getAuto());
@@ -334,10 +340,11 @@ public class Controller {
 				List<Noleggio> n = getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData();
 				for(int i = 0; i<n.size(); i++) kmScadenza.add(n.get(i).getAuto());
 			}
-		}
+		} else rimanenti2 = rimanenti1;
 
 		if((kmScadenza.size() != 0)){
 
+			System.out.println("\n\narrivato 2\n\n");
 			for(int i=0; i<rimanenti1.size(); i++){
 
 				boolean trovato = false;
@@ -348,18 +355,48 @@ public class Controller {
 						trovato = true;
 						lista.add(new StatoAuto(rimanenti1.get(i), "Warning"));
 						
-						kmScadenza.remove(e);
+						//kmScadenza.remove(e);
 					}
 				}
 
-				if(!trovato) lista.add(new StatoAuto(rimanenti1.get(i), "Success"));
+				if(!trovato) rimanenti2.add(rimanenti1.get(i));
 			}
 
 		}
 		
+		
+		
+		for(int i = 0; i<rimanenti2.size(); i++) lista.add(new StatoAuto(rimanenti2.get(i), "Success"));
+		
 		return lista;
 	}
 	
+	
+	@RequestMapping(value = "/situazioneAuto", method = RequestMethod.POST)
+	public HashMap<String, String> situazioneAuto(@RequestParam("id") int idAuto){
+		
+		HashMap<String, String> problemi = new HashMap<String, String>();
+		
+		Auto a = autoRepository.findById(idAuto);
+		List<Guasto> guasti = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(a));
+		for(int i=0; i<guasti.size(); i++) problemi.put("danger", guasti.get(i).getTipologiaGuasto().getCodice());
+		
+		List<Auto> auto = new ArrayList();
+		auto.add(a);
+		List<AutoScadenze> scadenze = Alerts.listaAutoInScadenza(auto);
+		if(scadenze != null) {
+			for(int i=0; i<scadenze.get(0).cosaStaPerScadere().size(); i++) problemi.put("warning", scadenze.get(0).cosaStaPerScadere().get(i));
+			for(int i=0; i<scadenze.get(0).cosaEScaduto().size(); i++) problemi.put("warning", scadenze.get(0).cosaEScaduto().get(i)+" (Scaduto)");
+		}
+		
+		List<Noleggio> listaKmInScadenza = new ArrayList();
+		listaKmInScadenza = Alerts.kmNoleggioInScadenza(noleggioRepository.findByAuto(a));
+		for(int i=0; i<listaKmInScadenza.size(); i++) problemi.put("warning", "Km del Noleggio in Scadenza");
+		 
+		if(problemi.isEmpty()) problemi.put("success", "Nessun Problema");
+		
+		return problemi;
+	}
 	
 	
 	
