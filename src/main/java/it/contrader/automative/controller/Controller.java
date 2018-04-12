@@ -52,6 +52,7 @@ import it.contrader.automative.utils.Alerts;
 import it.contrader.automative.utils.AutoScadenze;
 import it.contrader.automative.utils.GenericResponse;
 import it.contrader.automative.utils.LogInUtente;
+import it.contrader.automative.utils.ProblemiAuto;
 import it.contrader.automative.utils.StatoAuto;
 import it.contrader.automative.utils.TicketDTO;
 
@@ -370,35 +371,38 @@ public class Controller {
 		
 		return lista;
 	}
+		
 	
 	//Situazione Auto
-	@RequestMapping(value = "/situazioneAuto", method = RequestMethod.POST)
-	public HashMap<String, String> situazioneAuto(@RequestParam("id") int idAuto){
-		
-		HashMap<String, String> problemi = new HashMap<String, String>();
-		
-		Auto a = autoRepository.findById(idAuto);
-		List<Guasto> guasti = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(a));
-		for(int i=0; i<guasti.size(); i++) problemi.put("danger", guasti.get(i).getTipologiaGuasto().getCodice());
-		
-		List<Auto> auto = new ArrayList();
-		auto.add(a);
-		List<AutoScadenze> scadenze = Alerts.listaAutoInScadenza(auto);
-		if(scadenze != null) {
-			for(int i=0; i<scadenze.get(0).cosaStaPerScadere().size(); i++) problemi.put("warning", scadenze.get(0).cosaStaPerScadere().get(i));
-			for(int i=0; i<scadenze.get(0).cosaEScaduto().size(); i++) problemi.put("warning", scadenze.get(0).cosaEScaduto().get(i)+" (Scaduto)");
+		@RequestMapping(value = "/situazioneAuto", method = RequestMethod.POST)
+		public GenericResponse<List<ProblemiAuto>> situazioneAuto1(@RequestParam("id") int idAuto){
+			
+			List<ProblemiAuto> problemi = new ArrayList();
+			
+			Auto a = autoRepository.findById(idAuto);
+			
+			List<Guasto> guasti = new ArrayList();
+			List<Guasto> g = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(a));
+			for(int e=0; e<g.size(); e++) if(!g.get(e).getStatoRisoluzione().equals("Risolto")) guasti.add(g.get(e));
+			
+			for(int i=0; i<guasti.size(); i++) problemi.add(new ProblemiAuto("danger", guasti.get(i).getTipologiaGuasto().getCodice()));
+			
+			List<Auto> auto = new ArrayList();
+			auto.add(a);
+			List<AutoScadenze> scadenze = Alerts.listaAutoInScadenza(auto);
+			if(scadenze != null) {
+				for(int i=0; i<scadenze.get(0).cosaStaPerScadere().size(); i++) problemi.add(new ProblemiAuto("warning", scadenze.get(0).cosaStaPerScadere().get(i)));
+				for(int i=0; i<scadenze.get(0).cosaEScaduto().size(); i++) problemi.add(new ProblemiAuto("warning", scadenze.get(0).cosaEScaduto().get(i)+" (Scaduto)"));
+			}
+			
+			List<Noleggio> listaKmInScadenza = new ArrayList();
+			listaKmInScadenza = Alerts.kmNoleggioInScadenza(noleggioRepository.findByAuto(a));
+			for(int i=0; i<listaKmInScadenza.size(); i++) problemi.add(new ProblemiAuto("warning", "Km del Noleggio in Scadenza"));
+			 
+			if(problemi.isEmpty()) problemi.add(new ProblemiAuto("success", "Nessun Problema"));
+			
+			return new GenericResponse<List<ProblemiAuto>>(problemi);
 		}
-		
-		List<Noleggio> listaKmInScadenza = new ArrayList();
-		listaKmInScadenza = Alerts.kmNoleggioInScadenza(noleggioRepository.findByAuto(a));
-		for(int i=0; i<listaKmInScadenza.size(); i++) problemi.put("warning", "Km del Noleggio in Scadenza");
-		 
-		if(problemi.isEmpty()) problemi.put("success", "Nessun Problema");
-		
-		return problemi;
-	}
-	
-	
 	
 	
 	//+ Lista Noleggi con KmNoleggio in Scadenza dell'officina
