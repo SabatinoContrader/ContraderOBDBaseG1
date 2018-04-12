@@ -13,10 +13,6 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
 import { OfficinaService } from './services/officina.service';
 import { HomeOfficinaComponent } from './components/home-officina/home-officina.component';
-<<<<<<< HEAD
-=======
-import { HomepageComponent } from './components/homepage/homepage.component';
->>>>>>> 9064245da25eefd953e98c6b7996f93fe7946375
 import { HomeUtenteComponent } from './components/home-utente/home-utente.component';
 
 
@@ -26,10 +22,6 @@ import { HomeUtenteComponent } from './components/home-utente/home-utente.compon
     AppComponent,
     LoginComponent,
     HomeOfficinaComponent,
-<<<<<<< HEAD
-=======
-    HomepageComponent,
->>>>>>> 9064245da25eefd953e98c6b7996f93fe7946375
     HomeUtenteComponent
   ],
   imports: [

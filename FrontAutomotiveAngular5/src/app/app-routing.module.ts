@@ -9,11 +9,8 @@ const routes: Routes = [
   { path: '', redirectTo:"/login", pathMatch:'full' },
   { path: 'login', component: LoginComponent },
   { path: 'homeofficina', component: HomeOfficinaComponent },
-<<<<<<< HEAD
   { path: 'homeutente', component: HomeUtenteComponent}
 
-=======
->>>>>>> 9064245da25eefd953e98c6b7996f93fe7946375
 ];
 
 
