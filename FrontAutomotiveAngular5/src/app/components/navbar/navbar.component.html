@@ -98,15 +98,15 @@
               </ul>
               <ul class="navbar-nav sidenav-toggler">
                 <li class="nav-item">
-                  <a class="nav-link text-center" onclick="toggleSidebar()">
+                  <a class="nav-link text-center" id="sidenavToggler">
                     <i class="fa fa-fw fa-angle-left"></i>
                   </a>
                 </li>
               </ul>
-              <ul class="navbar-nav ml-auto">
+              <ul class="navbar-nav ml-auto"  *ngIf="userIsLogged">
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                    <i class="fa fa-fw fa-sign-out"></i>Login</a>
                 </li>
               </ul>
             </div>
