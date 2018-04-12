@@ -14,6 +14,8 @@ import { LoginService } from './services/login.service';
 import { OfficinaService } from './services/officina.service';
 import { HomeOfficinaComponent } from './components/home-officina/home-officina.component';
 import { HomeUtenteComponent } from './components/home-utente/home-utente.component';
+import { TopbarComponent } from './components/topbar/topbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 
@@ -22,7 +24,9 @@ import { HomeUtenteComponent } from './components/home-utente/home-utente.compon
     AppComponent,
     LoginComponent,
     HomeOfficinaComponent,
-    HomeUtenteComponent
+    HomeUtenteComponent,
+    TopbarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

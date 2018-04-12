@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         if (response) {
           this.loginEntity = response;
+		  console.log(response);
           if (typeof (Storage) !== 'undefined') {
             sessionStorage.setItem('loginEntity', JSON.stringify(this.loginEntity));
 
