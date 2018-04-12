@@ -7,7 +7,7 @@ import { LoginService } from './services/login.service';
 })
 export class AppComponent {
 	
-	constructor(private loginService:LoginService){}
+	constructor(public loginService:LoginService){}
 	
 	
 	

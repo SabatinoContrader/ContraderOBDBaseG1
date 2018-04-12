@@ -31,7 +31,7 @@ export class HomeOfficinaComponent implements OnInit {
 	if(this.utente.utente.ruolo==1){
 		this.topbar.ngOnInit();
       this.router.navigate(["homeofficina"]);
-	  this.auto=this.utente.listaAuto;
+	  this.auto=this.utente.statoAuto;
 	 console.log(this.auto);
 	}
   else

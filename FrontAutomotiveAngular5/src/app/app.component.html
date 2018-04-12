@@ -1,7 +1,7 @@
 			<app-navbar></app-navbar>
 			  <div class="content-wrapper">
             <div class="container-fluid">
-             <app-topbar ></app-topbar>
+             <app-topbar *ngIf="loginService.isLogged()"></app-topbar>
 		
               <!-- Area Chart Example-->
               <div class="card mb-3">
