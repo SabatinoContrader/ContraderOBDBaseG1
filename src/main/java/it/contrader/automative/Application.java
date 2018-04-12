@@ -164,9 +164,10 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoTipologieGuasti[2] = new TipologiaGuasto("B0003", "Danno meccenico Idraulica...");
     	
     	DatiTelemetria inserimentoDatiTelemetria[] = new DatiTelemetria[3];
-    	inserimentoDatiTelemetria[0] = new DatiTelemetria(1, "36871231v 312371 23gy31t3 7881238 2313");
-    	inserimentoDatiTelemetria[1] = new DatiTelemetria(2, "12V 5A 59Watt");
-    	inserimentoDatiTelemetria[2] = new DatiTelemetria(3, "12V 5A 59Watt");
+    	inserimentoDatiTelemetria[0] = new DatiTelemetria(1,12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[1] = new DatiTelemetria(2,12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[2] = new DatiTelemetria(3,12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+
     	Guasto inserimentoGuasti[] = new Guasto[3];
     	inserimentoGuasti[0] = new Guasto(1, inserimentoTipologieGuasti[0], inserimentoDatiTelemetria[0], data2, inserimentoDispositivi[0], "Non Risolto");
     	inserimentoGuasti[1] = new Guasto(2, inserimentoTipologieGuasti[1], inserimentoDatiTelemetria[1], data2, inserimentoDispositivi[0], "Non Risolto");
