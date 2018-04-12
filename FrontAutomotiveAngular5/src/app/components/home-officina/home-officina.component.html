@@ -89,10 +89,8 @@
 			</div>
 			<div class="modal-body">
 			
-<pre *ngIf="date">Month: {{ date.month }}</pre>
-<pre>Model: {{ scadenzaAssicurazioneadd | json }}
 
-.coso {{scadenzaAssicurazioneadd.year}}</pre>
+
 					<div class="form-group">
 	<label for="marcaauto">Marca:</label>
 	<input type="text" name="marcaauto" [(ngModel)]="marcaautoadd" class="form-control" placeholder="Inserire marca...">
@@ -118,12 +116,12 @@
 	</div>
 	
 	<div class="form-group">
-	<label for="tipologiaauto">Tipologia auto (es. berlina,utilitaria,etc...):</label>
-	<input type="text" name="tipologiaauto" [(ngModel)]="tipologiaautoadd" class="form-control" placeholder="Inserire tipologia auto...">
+	<label for="tipologiaautoadd">Tipologia auto (es. berlina,utilitaria,etc...):</label>
+	<input type="text" name="tipologiaautoadd" [(ngModel)]="tipologiaautoadd" class="form-control" placeholder="Inserire tipologia auto...">
 	</div>
 	<div class="form-group">
-	<label for="alimentazioneauto">Alimentazione:</label>
-	<input type="text" name="alimentazioneauto" [(ngModel)]="alimentazioneautoadd" class="form-control" placeholder="Inserire alimentazione...">
+	<label for="alimentazioneautoadd">Alimentazione:</label>
+	<input type="text" name="alimentazioneautoadd" [(ngModel)]="alimentazioneautoadd" class="form-control" placeholder="Inserire alimentazione...">
 	</div>
 			
 			<div class="form-group">
@@ -135,13 +133,26 @@
 	<input type="number" name="kmattualiauto" [(ngModel)]="kmattualiautoadd" class="form-control" placeholder="Inserire km attuali...">
 	</div>
 	
-	<div class="form-group">
+		<div class="form-group">
+	<label for="cambio">Cambio:</label>
+	<input type="text" name="cambio" [(ngModel)]="cambio" class="form-control" placeholder="Inserire tipo cambio...">
+	</div>
 	
+		<div class="form-group">
+	<label for="potenza">Potenza:</label>
+	<input type="text" name="potenza" [(ngModel)]="potenza" class="form-control" placeholder="Inserire potenza...">
+	</div>
+	
+	
+	
+	
+	<div class="form-group">
+	<label for="scadenzaAssicurazioneadd">Scadenza Assicurazione</label>
 	<form class="form-inline">
   <div class="form-group">
     <div class="input-group">
       <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" [(ngModel)]="scadenzaAssicurazioneadd" ngbDatepicker #d="ngbDatepicker">
+             name="scadenzaAssicurazioneadd" [(ngModel)]="scadenzaAssicurazioneadd" ngbDatepicker #d="ngbDatepicker">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
           <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
@@ -150,17 +161,62 @@
     </div>
   </div>
 </form>
+</div>
 
-<hr/>
-<pre>Model: {{ scadenzaAssicurazioneadd | json }}</pre>
-				
-					
-			
-					</div>
+	<div class="form-group">
+	<label for="scadenzaBolloadd">Scadenza Bollo</label>
+	<form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="scadenzaBolloadd" [(ngModel)]="scadenzaBolloadd" ngbDatepicker #dd="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="dd.toggle()" type="button">
+          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
+
+	<div class="form-group">
+	<label for="scadenzaTagliandoadd">Scadenza Tagliando</label>
+	<form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="scadenzaTagliandoadd" [(ngModel)]="scadenzaTagliandoadd" ngbDatepicker #ddd="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="ddd.toggle()" type="button">
+          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
+
+	<div class="form-group">
+	<label for="scadenzaRevisioneadd">Scadenza Revisione</label>
+	<form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="scadenzaRevisioneadd" [(ngModel)]="scadenzaRevisioneadd" ngbDatepicker #dddd="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="dddd.toggle()" type="button">
+          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
 	</div>
 				
 				<div class="modal-footer " style="text-align:center;" >
-					<button type="button" class="btn btn-primary savebutton">Salva auto</button>
+					<button type="button" class="btn btn-primary savebutton" (click)="insertAuto();">Salva auto</button>
 
 				
 			</div>
