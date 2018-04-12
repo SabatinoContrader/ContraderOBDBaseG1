@@ -26,12 +26,12 @@ export class PreventivoService {
     };
   }
 
-  chiediPreventivo(email: string, dettagli: string, idauto: any): void {
+  chiediPreventivo(email: string, dettagli: string, idauto: any): Observable<void> {
     var formdata = new FormData();
     formdata.append("email", email);
     formdata.append("dettagli", dettagli);
     formdata.append("idauto", idauto  );
-    this.http.post(`${this.urlBase}inviapreventivo`, formdata).pipe(
+    return this.http.post<void>(`${this.urlBase}inviapreventivo`, formdata).pipe(
       tap((response) => { console.log("Fetched RichiestaPreventivo"); console.log(response) },
         catchError(this.handleError("notifiche error", {})))
     );

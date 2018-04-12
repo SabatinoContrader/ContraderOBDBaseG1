@@ -26,13 +26,13 @@ export class AppuntamentoService {
     };
   }
 
-  chiediAppuntamento(emailapp: string, dettagliapp: string, ora:string, dataAppuntamento: string): void {
+  chiediAppuntamento(emailapp: string, dettagliapp: string, ora: string, dataAppuntamento: string): Observable<void> {
     var formdata = new FormData();
     formdata.append("emailapp", emailapp);
     formdata.append("dettagliapp", dettagliapp);
     formdata.append("ora", ora);
     formdata.append("dataAppuntamento", dataAppuntamento);
-    this.http.post(`${this.urlBase}richiediappuntamento`, formdata).pipe(
+    return this.http.post<void>(`${this.urlBase}richiediappuntamento`, formdata).pipe(
       tap((response) => { console.log("Fetched RichiestaAppuntamento"); console.log(response) },
         catchError(this.handleError("notifiche error", {})))
     );

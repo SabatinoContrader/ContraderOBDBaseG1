@@ -20,6 +20,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppuntamentoService } from './services/appuntamento.service';
 import { PreventivoService } from './services/preventivo.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
+import { PreventivoComponent } from './components/preventivo/preventivo.component';
+import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
 
 
 
@@ -32,7 +34,9 @@ import { GuastiComponent } from './components/guasti/guasti.component';
     HomeUtenteComponent,
     TopbarComponent,
     NavbarComponent,
-    GuastiComponent
+    GuastiComponent,
+    PreventivoComponent,
+    AppuntamentoComponent
   ],
   imports: [
     BrowserModule,
