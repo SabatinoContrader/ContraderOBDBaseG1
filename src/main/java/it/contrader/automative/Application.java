@@ -132,7 +132,7 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoUtenti[5] = new Utente(6, "Sabatino", "Autorino", "sabatino@contrader.it", "password", 0, inserimentoOfficine[0], inserimentoAziende[0], data1, 2, "33952624938", "Benevento");
 
     	
-    	Auto inserimentoAuto[] = new Auto[7];
+    	Auto inserimentoAuto[] = new Auto[8];
     	//id marca modello targa num telaio cilindrata num porte alimentazione kmattuali kminiz noleggio datascadrev datascadtagl scadass scadbollo tipolauto danolegg officina
     	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 80, "Manuale", 5, "Benzina", 32131, 1233, data3, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
 
@@ -147,6 +147,8 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoAuto[5] = new Auto(6,"Volvo", "XC60", "OIE152KP", "UWEB7664UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
     	inserimentoAuto[6] = new Auto(7,"Fiat", "Punto", "YR784SW", "LAEB16642UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	
+    	inserimentoAuto[7] = new Auto(8,"Fiat", "500", "YN284SW", "JWEB16641LMJO", 1600, 80, "Automatico", 5, "Diesel", 10250, 1233, data2, data2, data2, data2, "Utilitaria", 1, inserimentoOfficine[0]);
     	
     	Noleggio inserimentoNoleggio[] = new Noleggio[5];
     	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0], inserimentoOfficine[0], null, data1,  data2, 84010, 82100,60000);

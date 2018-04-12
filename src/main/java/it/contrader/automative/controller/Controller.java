@@ -389,7 +389,7 @@ public class Controller {
 		List<Auto> auto = new ArrayList();
 		auto.add(a);
 		List<AutoScadenze> scadenze = Alerts.listaAutoInScadenza(auto);
-		if(scadenze != null) {
+		if(scadenze.size() != 0) {
 			for(int i=0; i<scadenze.get(0).cosaStaPerScadere().size(); i++) problemi.add(new ProblemiAuto("warning", scadenze.get(0).cosaStaPerScadere().get(i)+" in Scadenza"));
 			for(int i=0; i<scadenze.get(0).cosaEScaduto().size(); i++) problemi.add(new ProblemiAuto("warning", scadenze.get(0).cosaEScaduto().get(i)+" Scaduto"));
 		}
@@ -403,6 +403,8 @@ public class Controller {
 		return new GenericResponse<List<ProblemiAuto>>(problemi);
 	}
 
+	
+	
 
 	//+ Lista Noleggi con KmNoleggio in Scadenza dell'officina
 	@RequestMapping(value = "/kmInScadenzaOfficina", method = RequestMethod.POST)
