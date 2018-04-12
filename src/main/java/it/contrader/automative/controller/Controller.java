@@ -51,6 +51,7 @@ import it.contrader.automative.utils.Alerts;
 import it.contrader.automative.utils.AutoScadenze;
 import it.contrader.automative.utils.GenericResponse;
 import it.contrader.automative.utils.LogInUtente;
+import it.contrader.automative.utils.StatoAuto;
 import it.contrader.automative.utils.TicketDTO;
 
 
@@ -235,6 +236,134 @@ public class Controller {
 
 	}
 
+	
+	
+	
+	
+	//+ Lista Auto Azienda
+		@RequestMapping(value = "/autoAzienda", method = RequestMethod.POST)
+		public GenericResponse<List<Auto>> getAutoAzienda(@RequestParam("id") int idAzienda) {
+
+			List<Auto> listaAuto = new ArrayList();
+			List<Noleggio> noleggi = getNoleggiAzienda(idAzienda).getData();
+					
+			for(int i = 0; i<noleggi.size(); i++) listaAuto.add(noleggi.get(i).getAuto());
+			
+			return new GenericResponse<List<Auto>>(listaAuto);
+
+		}
+	
+	//+ Lista Noleggi Azienda
+		@RequestMapping(value = "/noleggiAzienda", method = RequestMethod.POST)
+		public GenericResponse<List<Noleggio>> getNoleggiAzienda(@RequestParam("id") int idAzienda) {
+
+			List<Noleggio> listaNoleggiAzienda = new ArrayList();
+
+			listaNoleggiAzienda = noleggioRepository.findByAzienda(aziendaRepository.findById(idAzienda));
+
+			return new GenericResponse<List<Noleggio>>(listaNoleggiAzienda);
+
+		}
+	
+	
+	
+	public List<StatoAuto> statoAuto(List<Auto> listaAuto, Utente u){
+		
+		List<StatoAuto> lista = new ArrayList();
+		
+		List<Auto> rimanenti = new ArrayList();
+		List<Auto> rimanenti1 = new ArrayList();
+		
+		//Cerco auto con guasti
+		List<Guasto> autoConGuasti = new ArrayList();
+		if(listaAuto.size() != 0) { autoConGuasti = getGuastiIrrisolti(u.getId()).getData();}
+		
+		if((autoConGuasti.size() != 0)){
+			
+			for(int i=0; i<listaAuto.size(); i++){
+				
+				boolean trovato = false;
+				
+				for(int e=0; e<autoConGuasti.size() &&  !trovato; e++) {
+					
+					if(listaAuto.get(i).equals(autoConGuasti.get(e).getDispositivo().getAuto())){
+						trovato = true;
+						lista.add(new StatoAuto(listaAuto.get(i), "Danger"));
+						
+						autoConGuasti.remove(e);
+					}
+				}
+				
+				if(!trovato) rimanenti.add(listaAuto.get(i));
+			}
+			
+		}
+		
+		
+		List<AutoScadenze> autoInScadenza = new ArrayList();
+		if(rimanenti.size() != 0) { autoInScadenza = getAutoInScadenza(u.getId()).getData();}
+		
+		if((autoInScadenza.size() != 0)){
+
+			for(int i=0; i<rimanenti.size(); i++){
+
+				boolean trovato = false;
+
+				for(int e=0; e<autoInScadenza.size() &&  !trovato; e++) {
+
+					if(listaAuto.get(i).equals(autoInScadenza.get(e).getAuto())){
+						trovato = true;
+						lista.add(new StatoAuto(rimanenti.get(i), "Warning"));
+						
+						autoInScadenza.remove(e);
+					}
+				}
+
+				if(!trovato) rimanenti1.add(rimanenti.get(i));
+			}
+
+		}
+		
+		
+		List<Auto> kmScadenza = new ArrayList();
+		if(rimanenti1.size() != 0) { 
+			if((u.getRuolo() == 0) || (u.getRuolo() == 2)) {
+				List<Noleggio> n = getNoleggiKmInScadenzaCliente(u.getId()).getData();
+				for(int i = 0; i<n.size(); i++) kmScadenza.add(n.get(i).getAuto());
+			} else {
+				List<Noleggio> n = getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData();
+				for(int i = 0; i<n.size(); i++) kmScadenza.add(n.get(i).getAuto());
+			}
+		}
+
+		if((kmScadenza.size() != 0)){
+
+			for(int i=0; i<rimanenti1.size(); i++){
+
+				boolean trovato = false;
+
+				for(int e=0; e<kmScadenza.size() &&  !trovato; e++) {
+
+					if(rimanenti1.get(i).equals(kmScadenza.get(e))){
+						trovato = true;
+						lista.add(new StatoAuto(rimanenti1.get(i), "Warning"));
+						
+						kmScadenza.remove(e);
+					}
+				}
+
+				if(!trovato) lista.add(new StatoAuto(rimanenti1.get(i), "Success"));
+			}
+
+		}
+		
+		return lista;
+	}
+	
+	
+	
+	
+	
 	//+ Lista Noleggi con KmNoleggio in Scadenza dell'officina
 	@RequestMapping(value = "/kmInScadenzaOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Noleggio>> getNoleggiKmInScadenzaOfficina(@RequestParam("id") int idOfficina) {
@@ -354,16 +483,22 @@ public class Controller {
 			switch (u.getRuolo()) {
 			case 0 :
 
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAutoCliente(u.getId()).getData());
-
+				List<Auto> listaAutoCliente = getAutoCliente(u.getId()).getData();
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), statoAuto(listaAutoCliente, u));
+				break;
 
 			case 1 : 
 
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAutoOfficina(u.getId()).getData());
-
+				List<Auto> listaAutoOfficina = getAutoOfficina(u.getId()).getData();
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), statoAuto(listaAutoOfficina, u));
+				break;
 			case 2 :
 
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAutoCliente(u.getId()).getData());
+				System.out.println("\n\n");
+				System.out.println(u.getAzienda().getId());
+				List<Auto> listaAutoAzienda = getAutoAzienda(u.getAzienda().getId()).getData();
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), statoAuto(listaAutoAzienda, u));
+				break;
 			}
 
 		}

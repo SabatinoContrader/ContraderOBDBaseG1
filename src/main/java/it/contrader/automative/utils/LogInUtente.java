@@ -24,7 +24,13 @@ public class LogInUtente implements Serializable {
 	private int numGuasti;			//Guasti, Scadenze Date, Km Noleggio, Risposte(non ancora implementato)
 	private int numScadenze;
 	private int numKmNoleggio;
-	private List<Auto> listaAuto;
+	//private List<Auto> listaAuto;
+	
+	private List<StatoAuto> statoAuto;
+	
+	//guasto: danger; scadenza (a): warning; tutto il resto: success
+	
+	
 	
 //	private List<Noleggio> listaNoleggi;			//se è un Cliente ci saranno le sue auto altrimenti solo i noleggi dell'officina
 //	private List<AutoScadenze> autoScadenze;
