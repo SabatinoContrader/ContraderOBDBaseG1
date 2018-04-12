@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { LoginEntity } from '../../models/LoginEntity';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { HomeOfficinaComponent } from '../../components/home-officina/home-officina.component';
 import { AppRoutingModule } from '../../app-routing.module';
 
@@ -16,12 +16,17 @@ export class LoginComponent implements OnInit {
   loginEntity: LoginEntity;
 
 
-  constructor(private loginService:LoginService, private router:Router) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
 
   ngOnInit() {
     if (this.loginService.isLogged()) {
-      this.router.navigate(["homeutente"]);
+
+      if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 1)
+        this.router.navigate(["homeofficina"]);
+      else
+        if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 0)
+          this.router.navigate(["homeutente"]);
     }
   }
 
@@ -35,7 +40,11 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('loginEntity', JSON.stringify(this.loginEntity));
 
           }
-          this.router.navigate(["homeutente"]);
+          if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 1)
+            this.router.navigate(["homeofficina"]);
+          else
+            if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 0)
+              this.router.navigate(["homeutente"]);
           console.log(this.loginEntity)
         }
       },
