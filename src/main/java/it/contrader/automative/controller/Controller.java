@@ -290,7 +290,7 @@ public class Controller {
 					
 					if(listaAuto.get(i).equals(autoConGuasti.get(e).getDispositivo().getAuto())){
 						trovato = true;
-						lista.add(new StatoAuto(listaAuto.get(i), "Danger"));
+						lista.add(new StatoAuto(listaAuto.get(i), "danger"));
 						
 						//autoConGuasti.remove(e);
 					}
@@ -314,7 +314,7 @@ public class Controller {
 
 					if(listaAuto.get(i).equals(autoInScadenza.get(e).getAuto())){
 						trovato = true;
-						lista.add(new StatoAuto(rimanenti.get(i), "Warning"));
+						lista.add(new StatoAuto(rimanenti.get(i), "warning"));
 						
 						//autoInScadenza.remove(e);
 					}
@@ -348,7 +348,7 @@ public class Controller {
 
 					if(rimanenti1.get(i).equals(kmScadenza.get(e))){
 						trovato = true;
-						lista.add(new StatoAuto(rimanenti1.get(i), "Warning"));
+						lista.add(new StatoAuto(rimanenti1.get(i), "warning"));
 						
 						//kmScadenza.remove(e);
 					}

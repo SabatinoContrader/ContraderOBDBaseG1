@@ -3,8 +3,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -18,8 +17,11 @@ import { HomeOfficinaComponent } from './components/home-officina/home-officina.
 import { HomeUtenteComponent } from './components/home-utente/home-utente.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { AppuntamentoService } from './services/appuntamento.service';
+import { PreventivoService } from './services/preventivo.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { PreventivoComponent } from './components/preventivo/preventivo.component';
+import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
 
 
 
@@ -32,7 +34,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HomeUtenteComponent,
     TopbarComponent,
     NavbarComponent,
-    GuastiComponent
+    GuastiComponent,
+    PreventivoComponent,
+    AppuntamentoComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AngularFontAwesomeModule,
     NgbModule.forRoot()
   ],
-  providers: [LoginService,OfficinaService,GuastiService,AutoService],
+  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, PreventivoService, GuastiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
