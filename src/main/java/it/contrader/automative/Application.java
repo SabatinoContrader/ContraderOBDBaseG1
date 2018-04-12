@@ -132,7 +132,7 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoUtenti[5] = new Utente(6, "Sabatino", "Autorino", "sabatino@contrader.it", "password", 0, inserimentoOfficine[0], inserimentoAziende[0], data1, 2, "33952624938", "Benevento");
 
     	
-    	Auto inserimentoAuto[] = new Auto[7];
+    	Auto inserimentoAuto[] = new Auto[8];
     	//id marca modello targa num telaio cilindrata num porte alimentazione kmattuali kminiz noleggio datascadrev datascadtagl scadass scadbollo tipolauto danolegg officina
     	inserimentoAuto[0] = new Auto(1,"Fiat", "Panda", "AN374MP", "ANRH7348AMGO", 1600, 80, "Manuale", 5, "Benzina", 32131, 1233, data3, data2, data2, data2, "berlina", 1, inserimentoOfficine[0]);
 
@@ -147,6 +147,8 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoAuto[5] = new Auto(6,"Volvo", "XC60", "OIE152KP", "UWEB7664UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
     	
     	inserimentoAuto[6] = new Auto(7,"Fiat", "Punto", "YR784SW", "LAEB16642UMJO", 1600, 80, "Manuale", 5, "Benzina", 10250, 1233, data2, data2, data3, data2, "berlina", 1, inserimentoOfficine[0]);
+    	
+    	inserimentoAuto[7] = new Auto(8,"Fiat", "500", "YN284SW", "JWEB16641LMJO", 1600, 80, "Automatico", 5, "Diesel", 10250, 1233, data2, data2, data2, data2, "Utilitaria", 1, inserimentoOfficine[0]);
     	
     	Noleggio inserimentoNoleggio[] = new Noleggio[5];
     	inserimentoNoleggio[0] = new Noleggio(1, inserimentoUtenti[0], inserimentoAuto[0], inserimentoOfficine[0], null, data1,  data2, 84010, 82100,60000);
@@ -164,9 +166,10 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoTipologieGuasti[2] = new TipologiaGuasto("B0003", "Danno meccenico Idraulica...");
     	
     	DatiTelemetria inserimentoDatiTelemetria[] = new DatiTelemetria[3];
-    	inserimentoDatiTelemetria[0] = new DatiTelemetria(1, "36871231v 312371 23gy31t3 7881238 2313");
-    	inserimentoDatiTelemetria[1] = new DatiTelemetria(2, "12V 5A 59Watt");
-    	inserimentoDatiTelemetria[2] = new DatiTelemetria(3, "12V 5A 59Watt");
+    	inserimentoDatiTelemetria[0] = new DatiTelemetria(1,12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[1] = new DatiTelemetria(2,12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[2] = new DatiTelemetria(3,12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+
     	Guasto inserimentoGuasti[] = new Guasto[3];
     	inserimentoGuasti[0] = new Guasto(1, inserimentoTipologieGuasti[0], inserimentoDatiTelemetria[0], data2, inserimentoDispositivi[0], "Non Risolto");
     	inserimentoGuasti[1] = new Guasto(2, inserimentoTipologieGuasti[1], inserimentoDatiTelemetria[1], data2, inserimentoDispositivi[0], "Non Risolto");
