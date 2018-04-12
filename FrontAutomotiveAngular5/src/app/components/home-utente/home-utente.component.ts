@@ -21,7 +21,7 @@ export class HomeUtenteComponent implements OnInit {
   autoNotificata: Auto;
   notificheAuto: NotificaAutoDTO[];
   notifica: NotificaAutoDTO;
-  data: string = this.data;
+  data: NgbDateStruct = this.data;
   ora: string = this.ora;
   dettagli: string = this.dettagli;
 
@@ -44,11 +44,12 @@ export class HomeUtenteComponent implements OnInit {
   }
 
   chiediAppuntamento(): void {
-    this.appuntamentoService.chiediAppuntamento(JSON.parse(sessionStorage.getItem("loginEntity")).utente.email, this.dettagli, this.ora, this.data);
+    console.log("funzione chiediAppuntamento");
+    this.appuntamentoService.chiediAppuntamento(JSON.parse(sessionStorage.getItem("loginEntity")).utente.email, this.dettagli, this.ora, (this.data.day + "/" + this.data.month + "/" + this.data.year)).subscribe();
   }
 
   chiediPreventivo(): void {
-    this.preventivoService.chiediPreventivo(JSON.parse(sessionStorage.getItem("loginEntity")).utente.email, this.dettagli, this.autoNotificata.id);
+    this.preventivoService.chiediPreventivo(JSON.parse(sessionStorage.getItem("loginEntity")).utente.email, this.dettagli, this.autoNotificata.id).subscribe();
   }
 
   constructor(private autoService: AutoService, private router: Router, private appuntamentoService: AppuntamentoService, private preventivoService: PreventivoService) { }

@@ -48,7 +48,7 @@
               <div class="modal-body">
                 <div *ngFor="let notifica of notificheAuto " class="alert alert-{{notifica.key}}">
                   <p>{{notifica.value}}</p>
-                  <div *ngIf="notifica.key != 'success' && notifica.value != ('Km del Noleggio in Scadenza' || 'Bollo in Scadenza')">
+                  <div *ngIf="notifica.key != 'success' && notifica.value != 'Km del Noleggio in Scadenza' && notifica.value !='Bollo in Scadenza' ">
                     <button class="btn btn-secondary btn-sm" (click)="formAppuntamento(notifica)" data-dismiss="modal" data-toggle="modal" data-target="#chiediAppuntamentoModal">
                       <i class="fa fa-fw fa-calendar"></i>
                     </button>
@@ -80,22 +80,33 @@
               </div>
               <div class="modal-body">
                 <form class="form">
-                  <form class="form-inline">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                        <div class="input-group-append">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Data</label>
+                        <div>
+                          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="data" ngbDatepicker #d="ngbDatepicker">
                           <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
                             <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
                           </button>
                         </div>
                       </div>
                     </div>
-                  </form>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Ora</label>
+                        <input type="text" placeholder="hh:mm" [(ngModel)]="ora" [ngModelOptions]="{standalone: true}" class="form-control">
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <label>Dettagli</label>
-                      <textarea class="form-control" [(ngModel)]="dettagli" [ngModelOptions]="{standalone: true}"></textarea>
+                      <div class="form-group">
+                        <label>Dettagli</label>
+                        <textarea class="form-control" [(ngModel)]="dettagli" [ngModelOptions]="{standalone: true}"></textarea>
+                      </div>
                     </div>
                   </div>
                 </form>
