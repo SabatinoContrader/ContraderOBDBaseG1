@@ -1,4 +1,4 @@
-<div >
+
 	<!-- begin:: Page -->
 	<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
 
@@ -17,7 +17,7 @@
 										<div class="m-portlet__head-title">
 											<h3 class="m-portlet__head-text">
 												<i class="fa fa-car fah3"  ></i>
-												AUTO <span>NOLEGGIATE</span>
+												AUTO 
 											</h3>
 											
 										</div>
@@ -30,7 +30,7 @@
 <button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal">Aggiungi Auto</button>
 <!--<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>-->
 
-
+<div class="table-responsive">
 									<table class="table table-striped" id="myTable">
 										<thead>
 											<tr>
@@ -43,14 +43,19 @@
 											</tr>
 										</thead>
 										<tbody>
-										<tr><td>efe</td>
-										<td>fefe</td>
-										<td>ggg</td>
-										<td>aa</td>
-										<td>ss</td>
-										<td>sss</td></tr>
+										<tr *ngFor="let autos of auto">
+										<td>{{autos.auto.id}}</td>
+										<td>{{autos.auto.marca}}</td>
+										<td>{{autos.auto.modello}}</td>
+										<td>{{autos.auto.targa}}</td>
+										<td>{{autos.auto.numeroTelaio}}</td>
+										
+										<td>
+										<a  class="ali assegnanoleggio"  (click)="assnoleggio(autos.id);"><i class="fa fa-car"  title="Assegna auto a noleggio"></i></a>
+										</td></tr>
 										</tbody>
 									</table>
+									</div>
 									<!--end: Datatable -->
 								</div>
 							</div>

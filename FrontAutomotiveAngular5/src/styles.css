@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+ .ali {
+      cursor: pointer !important;
+    }
+
+    .ali:hover {
+      color: red !important;
+    }
+.container-fluid{margin-top:100px;}

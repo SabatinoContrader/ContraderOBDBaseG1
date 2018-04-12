@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import it.contrader.automative.model.Auto;
+import it.contrader.automative.model.Azienda;
 import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
 import it.contrader.automative.model.Utente;
@@ -20,6 +22,10 @@ public interface NoleggioRepository  extends CrudRepository<Noleggio, Long> {
 	List<Noleggio> findByGuidatore(Utente u);
 	
 	List<Noleggio> findByOfficina(Officina o);
+	
+	List<Noleggio> findByAzienda(Azienda a);
+	
+	List<Noleggio> findByAuto(Auto a);
 	
 	
 }

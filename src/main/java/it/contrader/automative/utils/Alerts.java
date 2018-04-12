@@ -83,6 +83,7 @@ public class Alerts {
 	}
 	
 	
+	
 	public static void prova1(List<Noleggio> lista) {
 		
 		System.out.println();

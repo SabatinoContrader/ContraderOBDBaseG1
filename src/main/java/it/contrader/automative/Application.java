@@ -22,6 +22,7 @@ import it.contrader.automative.model.Guasto;
 import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
 import it.contrader.automative.model.Preventivo;
+import it.contrader.automative.model.Promozione;
 import it.contrader.automative.model.TipologiaGuasto;
 import it.contrader.automative.model.Utente;
 import it.contrader.automative.serviceInterfaces.IAppuntamento;
@@ -33,6 +34,7 @@ import it.contrader.automative.serviceInterfaces.IGuasto;
 import it.contrader.automative.serviceInterfaces.INoleggio;
 import it.contrader.automative.serviceInterfaces.IOfficina;
 import it.contrader.automative.serviceInterfaces.IPreventivo;
+import it.contrader.automative.serviceInterfaces.IPromozione;
 import it.contrader.automative.serviceInterfaces.ITipologiaGuasto;
 import it.contrader.automative.serviceInterfaces.IUtente;
 
@@ -62,9 +64,10 @@ public class Application extends SpringBootServletInitializer {
 	private ITipologiaGuasto tipologiaGuastoService;
 	private IPreventivo preventivoService;
 	private IAppuntamento appuntamentoService;
+	private IPromozione promozioneService;
 
 	@Autowired
-	public Application(IAuto autoService, IAzienda aziendaService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService, IPreventivo preventivoService, IAppuntamento appuntamentoService) {
+	public Application(IPromozione promozioneService, IAuto autoService, IAzienda aziendaService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService, IPreventivo preventivoService, IAppuntamento appuntamentoService) {
 		this.autoService = autoService;
 		this.noleggioService = noleggioService;
 		this.utenteService = utenteService;
@@ -73,6 +76,7 @@ public class Application extends SpringBootServletInitializer {
 		this.dispositivoService = dispositivoService;
 		this.guastoService = guastoService;
 		this.tipologiaGuastoService = tipologiaGuastoService;
+		this.promozioneService = promozioneService;
 		
 		this.aziendaService = aziendaService;
 	
@@ -115,6 +119,8 @@ public class Application extends SpringBootServletInitializer {
     	//denominazione, nomereferente, cognome ref, email, telefono, latitudine, longitudine, data inserimento, citta
     	inserimentoOfficine[0] = new Officina(1, "Officina Meccanica Di Carmine Villano", "Carmine", "Villano", "officinacarminevillano@gmail.com", "08296524351", "via Torre della Catena, 76", data1, "Benevento");
     	
+    	Promozione inserimentoPromozioni[] = new Promozione[1];
+    	inserimentoPromozioni[0] = new Promozione(1, "Promozione 1", "Descrizione promozione .........", data4, data2, inserimentoOfficine[0]);
     	
     	Utente inserimentoUtenti [] = new Utente[6];
     	//id nome cognome email pass stato officina azienda datareg ruolo telefono citta
@@ -172,6 +178,10 @@ public class Application extends SpringBootServletInitializer {
     	Appuntamento inserimentoAppuntamenti[] = new Appuntamento[1];
     	inserimentoAppuntamenti[0] = new Appuntamento(1, inserimentoUtenti[0],  inserimentoOfficine[0], data3,"10:00","dettagli appuntamento",0,"");
     	
+    	
+    	
+    	
+    	
     	//Effettuo gli inserimenti effettivi
     	
     	for(int i=0;i<inserimentoAziende.length;i++){
@@ -180,6 +190,10 @@ public class Application extends SpringBootServletInitializer {
     	
     	for(int i=0;i<inserimentoOfficine.length;i++){
     		inserimentoOfficine[i] = officinaService.insert(inserimentoOfficine[i]);
+		}
+    	
+    	for(int i=0;i<inserimentoPromozioni.length;i++){
+    		inserimentoPromozioni[i] = promozioneService.insert(inserimentoPromozioni[i]);
 		}
     	
     	for(int i=0;i<inserimentoUtenti.length;i++){
