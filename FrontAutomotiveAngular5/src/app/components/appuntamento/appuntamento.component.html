@@ -111,12 +111,12 @@
 </div>
 <!-- end:: Page -->
 <!-- Modal Appuntamento -->
-<div *ngIf="autoNotificata && notifica" class="modal fade" id="chiediAppuntamentoModal" tabindex="-1" role="dialog" aria-labelledby="notificheModalLabel"
+<div class="modal fade" id="chiediAppuntamentoModal" tabindex="-1" role="dialog" aria-labelledby="notificheModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="notificheModalLabel">{{autoNotificata.marca}} {{autoNotificata.modello}}</h5>
+        <h5 class="modal-title" id="notificheModalLabel">Richiedi un appuntamento</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">
             <i class="fa fa-fw fa-times"></i>
@@ -125,12 +125,6 @@
       </div>
       <div class="modal-body">
         <form class="form">
-          <div class="form-group">
-            <label>Seleziona un'auto</label>
-            <select [(ngModel)]="idAuto" [ngModelOptions]="{standalone: true}">
-              <option *ngFor="let auto of listaAutoUtente" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}</option>
-            </select>
-          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">

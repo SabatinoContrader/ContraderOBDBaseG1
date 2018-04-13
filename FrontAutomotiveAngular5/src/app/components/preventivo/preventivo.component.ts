@@ -4,18 +4,13 @@ import { PreventivoService } from '../../services/preventivo.service';
 import { AutoService } from '../../services/auto.service';
 import { Utente } from '../../models/Utente';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
 import * as $ from 'jquery';
 import { Preventivo } from '../../models/Preventivo';
 import { Auto } from '../../models/Auto';
 declare var jquery: any;
 declare var $: any;
-=======
 import swal from 'sweetalert2';
-		
-declare var jquery:any;
-declare var $ :any;
->>>>>>> 70de8059ded49e6e573b2598ce6396d1179c6813
+
 @Component({
   selector: 'app-preventivo',
   templateUrl: './preventivo.component.html',
@@ -31,6 +26,7 @@ export class PreventivoComponent implements OnInit {
   costorispprev: number;
   idAuto: number = this.idAuto;
   dettagli: string = this.dettagli;
+  risp: string;
 
   constructor(private preventivoService: PreventivoService, private router: Router, private autoService: AutoService) { }
 
@@ -57,7 +53,12 @@ export class PreventivoComponent implements OnInit {
   }
 
   chiediPreventivo(): void {
-    this.preventivoService.chiediPreventivo(this.utente.email, this.dettagli, this.idAuto).subscribe();
+    this.preventivoService.chiediPreventivo(this.utente.email, this.dettagli, this.idAuto)
+      .subscribe((response) => {
+        swal("Success", "Preventivo richiesto con successo", "success");
+        $('#chiediPreventivoModal').modal("hide");
+        this.loadPreventiviUtente();
+      });
   }
 
   rispondiPreventivo(): void {
@@ -65,7 +66,6 @@ export class PreventivoComponent implements OnInit {
     this.preventivoService.rispondiPreventivo(this.rispostaprev, this.costorispprev, this.idrispprev).subscribe(
 
       (response) => {
-<<<<<<< HEAD
         console.log(response);
         /* if (response) {
            
@@ -77,23 +77,8 @@ export class PreventivoComponent implements OnInit {
             $('#modaladdauto').modal("hide");
          }*/
         this.loadPreventiviOfficina();
-        alert('preventivo inviato correttamente');
+        swal("Complimenti", "Preventivo inviato correttamente", "success");
         $('#modalrispondipreventivo').modal("hide");
-=======
-		  console.log(response);
-       /* if (response) {
-          
-		  this.loginEntity = response;
-		sessionStorage.setItem('loginEntity', JSON.stringify(this.loginEntity));
-		this.auto = response.statoAuto;
-		console.log(response.statoAuto);
-		  alert('Auto inserita correttamente');
-           $('#modaladdauto').modal("hide");
-        }*/
-		 this.loadPreventiviOfficina();
-		swal("Complimenti", "Preventivo inviato correttamente", "success");
-		$('#modalrispondipreventivo').modal("hide");
->>>>>>> 70de8059ded49e6e573b2598ce6396d1179c6813
       },
       err => {
         console.log("Error occured");
@@ -146,6 +131,12 @@ export class PreventivoComponent implements OnInit {
         console.log(response);
         if (response) {
           console.log(this.listaPreventivi);
+          if (stato == 2)
+            this.risp = "accettato";
+          if (stato == 3)
+            this.risp = "rifiutato";
+          swal("Successo", "Il preventivo è stato " + this.risp + " con successo", "success");
+          this.loadPreventiviUtente();
         }
       },
       err => {

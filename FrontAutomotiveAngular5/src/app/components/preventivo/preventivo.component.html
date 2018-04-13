@@ -61,14 +61,12 @@
 													<span *ngIf="preventivo.stato != 0">{{preventivo.costo}} &euro;</span>
 												</td>
 												<td>
-													<p *ngIf="preventivo.stato != 0 && preventivo.stato != 1">
-														<a *ngIf="preventivo.stato == 2" class="accettato">
-															<i class="fa fa-check" title="Accettato"></i>
-														</a>
-														<a *ngIf="preventivo.stato == 3" class="rifiutato">
-															<i class="fa fa-times" title="Rifiutato"></i>
-														</a>
-													</p>
+													<a *ngIf="preventivo.stato == 2" class="accettato">
+														<i class="fa fa-check" title="Accettato"></i>
+													</a>
+													<a *ngIf="preventivo.stato == 3" class="rifiutato">
+														<i class="fa fa-times" title="Rifiutato"></i>
+													</a>
 													<a class="ali rispondipreventivo" (click)="openModalRispondiPreventivo(preventivo.id);" *ngIf="preventivo.stato==0" [ngClass]="utente.ruolo==1 ? 'rispondiprev' :''">
 														<i class="fa fa-hourglass" title="Richiesta in attesa di risposta"></i>
 													</a>
@@ -92,22 +90,18 @@
 													<span *ngIf="preventivo.stato != 0">{{preventivo.costo}} &euro;</span>
 												</td>
 												<td>
-													<p *ngIf="preventivo.stato != 0 && preventivo.stato != 1">
-														<a *ngIf="preventivo.stato == 2" class="accettato">
-															<i class="fa fa-check" title="Accettato"></i>
-														</a>
-														<a *ngIf="preventivo.stato == 3" class="rifiutato">
-															<i class="fa fa-times" title="Rifiutato"></i>
-														</a>
-													</p>
-													<span *ngIf="preventivo.stato == 1">
-														<a class="ali-green" (click)="accettaPreventivo(preventivo.id, 2);" *ngIf="preventivo.stato==1">
-															<i class="fa fa-check" title="Accetta"></i>
-														</a>
-														<a class="ali" (click)="accettaPreventivo(preventivo.id, 3);" *ngIf="preventivo.stato==1">
-															<i class="fa fa-times" title="Rifiuta"></i>
-														</a>
-													</span>
+													<a *ngIf="preventivo.stato == 2" class="accettato">
+														<i class="fa fa-check" title="Accettato"></i>
+													</a>
+													<a *ngIf="preventivo.stato == 3" class="rifiutato">
+														<i class="fa fa-times" title="Rifiutato"></i>
+													</a>
+													<a class="ali-green" (click)="accettaPreventivo(preventivo.id, 2);" *ngIf="preventivo.stato==1">
+														<i class="fa fa-check" title="Accetta"></i>
+													</a>
+													<a class="ali" (click)="accettaPreventivo(preventivo.id, 3);" *ngIf="preventivo.stato==1">
+														<i class="fa fa-times" title="Rifiuta"></i>
+													</a>
 												</td>
 											</tr>
 										</tbody>

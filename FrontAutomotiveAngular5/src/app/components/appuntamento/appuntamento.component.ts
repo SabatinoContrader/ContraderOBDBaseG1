@@ -18,8 +18,6 @@ export class AppuntamentoComponent implements OnInit {
 
   listaAppuntamenti: Appuntamento[];
   utente: Utente;
-  listaAutoUtente: Auto[];
-  idAuto: number = this.idAuto;
   dettagli: string = this.dettagli;
   data: NgbDateStruct = this.data;
   ora: string = this.ora;
@@ -31,12 +29,7 @@ export class AppuntamentoComponent implements OnInit {
   ngOnInit() {
     this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
     if (this.utente.ruolo == 0) {
-
-
-      this.appuntamentoService.getAppuntamenti(this.utente.id)
-        .subscribe(
-          response => { this.listaAppuntamenti = response.data }
-        );
+      this.loadAppuntamentiCliente();
 
     } else if (this.utente.ruolo == 1) {
 
@@ -88,4 +81,21 @@ export class AppuntamentoComponent implements OnInit {
         response => { console.log("RISOPIs: " + response.data); this.listaAppuntamenti = response.data }
       );
   }
+  loadAppuntamentiCliente(): void {
+    this.appuntamentoService.getAppuntamenti(this.utente.id)
+      .subscribe(
+        response => { this.listaAppuntamenti = response.data }
+      );
+  }
+
+  chiediAppuntamento(): void {
+    this.appuntamentoService.chiediAppuntamento(this.utente.email, this.dettagli, this.ora, (this.data.day + "/" + this.data.month + "/" + this.data.year))
+      .subscribe((response) => {
+        swal("Success", "Appuntamento richiesto con successo", "success");
+        $('#chiediAppuntamentoModal').modal("hide");
+        this.loadAppuntamentiCliente();
+      });
+  }
+}
+
 }
