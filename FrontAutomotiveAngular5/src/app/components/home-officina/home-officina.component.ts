@@ -9,7 +9,8 @@ import { Router} from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module';
 import { TopbarComponent } from '../topbar/topbar.component';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import * as $ from 'jquery';
+import swal from 'sweetalert2';
+
 declare var jquery:any;
 declare var $ :any;
 const now = new Date();
@@ -84,7 +85,9 @@ export class HomeOfficinaComponent implements OnInit {
 		sessionStorage.setItem('loginEntity', JSON.stringify(this.utente));
 		this.auto = response.statoAuto;
 		console.log(response.statoAuto);
-		  alert('Auto inserita correttamente');
+
+		swal("Complimenti", "Auto inserita correttamente", "success");
+
            $('#modaladdauto').modal("hide");
 
         }

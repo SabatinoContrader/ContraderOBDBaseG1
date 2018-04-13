@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -45,7 +46,8 @@ import { AppuntamentoComponent } from './components/appuntamento/appuntamento.co
     AppRoutingModule,
     HttpClientModule,
     AngularFontAwesomeModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    SweetAlert2Module.forRoot()
   ],
   providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, PreventivoService, GuastiService],
   bootstrap: [AppComponent]

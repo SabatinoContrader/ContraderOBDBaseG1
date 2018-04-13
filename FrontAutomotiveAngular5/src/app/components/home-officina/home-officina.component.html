@@ -26,7 +26,7 @@
 							<div class="m-portlet__body">
 								<!--begin: Datatable -->
 								<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-								<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal" data-toggle="modal" data-target="#modaladdauto">Aggiungi Auto</button>
+								<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modaladdauto">Aggiungi Auto</button>
 								<!--<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>-->
 
 								<div class="table-responsive">
@@ -103,6 +103,16 @@
 					<label for="modelloauto">Modello:</label>
 					<input type="text" name="modelloauto" [(ngModel)]="modelloautoadd" class="form-control" placeholder="Inserire modello...">
 				</div>
+<div class="form-group">
+					<label for="targaautoadd">Targa:</label>
+					<input type="text" name="targaautoadd" [(ngModel)]="targaautoadd" class="form-control" placeholder="Inserire targa...">
+				</div>
+
+				<div class="form-group">
+					<label for="telaioautoadd">Numero Telaio:</label>
+					<input type="text" name="telaioautoadd" [(ngModel)]="telaioautoadd" class="form-control" placeholder="Inserire numero telaio...">
+				</div>
+
 
 
 	<div class="form-group">
