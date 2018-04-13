@@ -125,6 +125,12 @@
           <span class="nav-link-text">Dashboard</span>
         </a>
       </li>
+	  <li *ngIf="utente" class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+        <a *ngIf="utente.ruolo==1" class="nav-link" href="/clienti">
+          <i class="fa fa-fw fa-user"></i>
+          <span class="nav-link-text">Clienti</span>
+        </a>
+      </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
         <a class="nav-link" href="/appuntamenti">
           <i class="fa fa-fw fa-calendar"></i>

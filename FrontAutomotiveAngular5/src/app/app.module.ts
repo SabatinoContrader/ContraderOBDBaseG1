@@ -20,10 +20,12 @@ import { TopbarComponent } from './components/topbar/topbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppuntamentoService } from './services/appuntamento.service';
 import { PreventivoService } from './services/preventivo.service';
+import { ClientiService } from './services/clienti.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
 import { DataTablesModule } from 'angular-datatables';
+import { ClientiComponent } from './components/clienti/clienti.component';
 
 
 
@@ -37,7 +39,8 @@ import { DataTablesModule } from 'angular-datatables';
     NavbarComponent,
     GuastiComponent,
     PreventivoComponent,
-    AppuntamentoComponent
+    AppuntamentoComponent,
+    ClientiComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,7 @@ import { DataTablesModule } from 'angular-datatables';
     SweetAlert2Module.forRoot(),
 	 DataTablesModule
   ],
-  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, PreventivoService, GuastiService],
+  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
