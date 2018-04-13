@@ -116,34 +116,37 @@
   <div class="collapse navbar-collapse" id="navbarResponsive" *ngIf="userIsLogged()">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
       <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-        <a *ngIf="utente.ruolo==0" class="nav-link" href="/homeutente">
+        <a *ngIf="getRuolo()==0" class="nav-link" href="/homeutente">
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
-        <a *ngIf="utente.ruolo==1" class="nav-link" href="/homeofficina">
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/homeofficina">
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
       </li>
-	  <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-        <a *ngIf="utente.ruolo==1" class="nav-link" href="/clienti">
+	  <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Clienti">
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/clienti">
           <i class="fa fa-fw fa-user"></i>
           <span class="nav-link-text">Clienti</span>
         </a>
       </li>
+
 	   <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
         <a *ngIf="utente.ruolo==1" class="nav-link" href="/dispositivo">
           <i class="fa fa-fw fa-user"></i>
           <span class="nav-link-text">Dispositivi</span>
         </a>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Appuntamenti">
+
         <a class="nav-link" href="/appuntamenti">
           <i class="fa fa-fw fa-calendar"></i>
           <span class="nav-link-text">Appuntamenti</span>
         </a>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Preventivi">
         <a class="nav-link" href="/preventivi">
           <i class="fa fa-fw fa-euro"></i>
           <span class="nav-link-text">Preventivi</span>
