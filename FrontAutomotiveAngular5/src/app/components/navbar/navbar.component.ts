@@ -25,16 +25,19 @@ export class NavbarComponent implements OnInit {
 
   logOut():void{
     var self = this;
-      swal({
-        title: "Are you sure?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, exit!"
-      }).then(function(){
+    swal({
+      title: 'Are you sure?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, exit!'
+    }).then((result) => {
+      if (result.value) {
         sessionStorage.clear();
         self.router.navigate(["/"]);
-      }, function (dismiss) {});
+      }
+    })
   };
   ngOnInit() {
 
