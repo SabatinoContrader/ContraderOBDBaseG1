@@ -34,7 +34,7 @@
 									<table class="table table-striped" id="myTable">
 										<thead>
 											<tr>
-												<th>ID</th>
+											<!--	<th>ID</th> -->
 												<th>Marca</th>
 												<th>Modello</th>
 												<th>Targa</th>
@@ -44,7 +44,7 @@
 										</thead>
 										<tbody>
 										<tr *ngFor="let autos of auto">
-										<td>{{autos.auto.id}}</td>
+										<!--<td>{{autos.auto.id}}</td>-->
 										<td>{{autos.auto.marca}}</td>
 										<td>{{autos.auto.modello}}</td>
 										<td>{{autos.auto.targa}}</td>
@@ -140,7 +140,7 @@
 	
 		<div class="form-group">
 	<label for="potenza">Potenza:</label>
-	<input type="text" name="potenza" [(ngModel)]="potenza" class="form-control" placeholder="Inserire potenza...">
+	<input type="number" name="potenza" [(ngModel)]="potenza" class="form-control" placeholder="Inserire potenza...">
 	</div>
 	
 	
@@ -155,7 +155,7 @@
              name="scadenzaAssicurazioneadd" [(ngModel)]="scadenzaAssicurazioneadd" ngbDatepicker #d="ngbDatepicker">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          <i class="fa fa-calendar" style="width: 1.2rem; height: 1rem; cursor: pointer;"> </i>
         </button>
       </div>
     </div>
@@ -172,7 +172,7 @@
              name="scadenzaBolloadd" [(ngModel)]="scadenzaBolloadd" ngbDatepicker #dd="ngbDatepicker">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" (click)="dd.toggle()" type="button">
-          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+       <i class="fa fa-calendar" style="width: 1.2rem; height: 1rem; cursor: pointer;"> </i>
         </button>
       </div>
     </div>
@@ -189,7 +189,7 @@
              name="scadenzaTagliandoadd" [(ngModel)]="scadenzaTagliandoadd" ngbDatepicker #ddd="ngbDatepicker">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" (click)="ddd.toggle()" type="button">
-          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+         <i class="fa fa-calendar" style="width: 1.2rem; height: 1rem; cursor: pointer;"> </i>
         </button>
       </div>
     </div>
@@ -206,7 +206,7 @@
              name="scadenzaRevisioneadd" [(ngModel)]="scadenzaRevisioneadd" ngbDatepicker #dddd="ngbDatepicker">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" (click)="dddd.toggle()" type="button">
-          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          <i class="fa fa-calendar" style="width: 1.2rem; height: 1rem; cursor: pointer;"> </i>
         </button>
       </div>
     </div>

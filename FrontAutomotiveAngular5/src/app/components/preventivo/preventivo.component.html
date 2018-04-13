@@ -1,3 +1,124 @@
-<p>
-  preventivo works!
-</p>
+
+	<!-- begin:: Page -->
+	<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
+
+		<!-- begin::Body -->
+		<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+			<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+				<div class="m-content">
+
+					<!--begin:: section content-->
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
+							<div class="m-portlet m-portlet--mobile ">
+								<div class="m-portlet__head">
+									<div class="m-portlet__head-caption">
+										<div class="m-portlet__head-title">
+											<h3 class="m-portlet__head-text">
+												<i class="fa fa-car fah3"  ></i>
+												PREVENTIVI 
+											</h3>
+											
+										</div>
+									</div>
+
+								</div>
+								<div class="m-portlet__body">
+									<!--begin: Datatable -->
+									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal" *ngIf="utente.ruolo==0">Richiedi Preventivo</button>
+<!--<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>-->
+
+<div class="table-responsive">
+									<table class="table table-striped" id="myTable">
+										<thead>
+											<tr>
+											<!--	<th>ID</th> -->
+											<th>Data</th>
+												<th>Marca</th>
+												<th>Modello</th>
+												<th>Targa</th>
+												<th>Telaio</th>
+												<th>Dettagli</th>
+												<th>Risposta</th>
+												<th>Costo</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr *ngFor="let preventivo of listaPreventivi">
+										<td>{{preventivo.data | date:'dd/MM/yyyy'}}</td>
+										<!--<td>{{autos.auto.id}}</td>-->
+										<td>{{preventivo.auto.marca}}</td>
+										<td>{{preventivo.auto.modello}}</td>
+										<td>{{preventivo.auto.targa}}</td>
+										<td>{{preventivo.auto.numeroTelaio}}</td>
+										<td>{{preventivo.dettagli}}</td>
+										<td>{{preventivo.risposta}}</td>
+											<td>{{preventivo.costo}}</td>
+										<td>
+										<a class="ali rispondipreventivo" (click)="openModalRispondiPreventivo(preventivo.id);" *ngIf="preventivo.stato==0" [ngClass]="utente.ruolo==1 ? 'rispondiprev' :''" ><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
+									
+										</td></tr>
+										</tbody>
+									</table>
+									</div>
+									<!--end: Datatable -->
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<!--end:: seciont content-->
+
+
+
+
+
+				</div>
+			</div>
+			<!--
+		</div>
+	-->
+</div>
+</div>
+<!-- end:: Page -->
+
+<!-- begin::modal rispondi preventivo -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrispondipreventivo">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Rispondi alla richiesta di preventivo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+	  	<div class="form-group">
+  <label for="costorispprev">Costo:</label>
+  <input type="number" step=0.01 [(ngModel)]="costorispprev" class="form-control">
+  
+</div>
+						<div class="form-group">
+  <label for="rispostaprev">Dettagli preventivo:</label>
+  <textarea class="form-control" rows="5" id="rispostaprev" name="rispostaprev" [(ngModel)]="rispostaprev" placeholder="Inserire dettagli preventivo..."></textarea>
+</div>
+						
+							<input type="text" style="display:none;" id="idrispprev" [(ngModel)]="idrispprev">
+								
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="button" class="btn btn-primary savebutton" (click)="rispondiPreventivo()">Invia Preventivo</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end::modal rispondi preventivo-->

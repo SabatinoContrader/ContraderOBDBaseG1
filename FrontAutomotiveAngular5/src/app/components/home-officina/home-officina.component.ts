@@ -9,7 +9,9 @@ import { Router} from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module';
 import { TopbarComponent } from '../topbar/topbar.component';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-
+import * as $ from 'jquery';
+declare var jquery:any;
+declare var $ :any;
 const now = new Date();
 
 
@@ -76,22 +78,21 @@ export class HomeOfficinaComponent implements OnInit {
       (response) => {
 		  console.log(response);
         if (response) {
-          this.auto=[];
-			this.auto=response.statoAuto;
-
-		  console.log(this.auto);
-          // $('#modaladdauto').modal("hide");
+          
+		  this.utente = response;
+		sessionStorage.setItem('loginEntity', JSON.stringify(this.utente));
+		this.auto = response.statoAuto;
+		console.log(response.statoAuto);
+		  alert('Auto inserita correttamente');
+           $('#modaladdauto').modal("hide");
         }
-      },
-      err => {
-        console.log("Error occured");
-      })
-       console.log(response);
       },
       err => {
         console.log("Error occured");
       });
   
-  }
+  });
+
+}
 
 }
