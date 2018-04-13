@@ -115,7 +115,11 @@
   <div  class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-        <a class="nav-link" href="/homeutente">
+        <a *ngIf="utente.ruolo==0" class="nav-link" href="/homeutente">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span class="nav-link-text">Dashboard</span>
+        </a>
+		  <a *ngIf="utente.ruolo==1" class="nav-link" href="/homeofficina">
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>

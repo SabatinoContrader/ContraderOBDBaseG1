@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PreventivoService } from '../../services/preventivo.service';
 import {Utente} from '../../models/Utente';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
+
 declare var jquery:any;
 declare var $ :any;
 @Component({
