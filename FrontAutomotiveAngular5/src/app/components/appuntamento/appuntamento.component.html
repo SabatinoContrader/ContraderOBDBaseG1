@@ -11,6 +11,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
             <div class="m-portlet m-portlet--mobile ">
+              <button *ngIf="utente.ruolo == 0" type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#chiediAppuntamentoModal">Richiedi Appuntamento</button>
               <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
                   <div class="m-portlet__head-title">
@@ -48,8 +49,12 @@
                         </td>
                         <td>
                           <p *ngIf="appuntamento.stato == 0"></p>
-                          <p *ngIf="appuntamento.stato == 1"><i class="fa fa-check fah3"></i></p>
-                          <p *ngIf="appuntamento.stato == 2"><i class="fa fa-times fah3"></i></p>
+                          <p *ngIf="appuntamento.stato == 1">
+                            <i class="fa fa-check fah3"></i>
+                          </p>
+                          <p *ngIf="appuntamento.stato == 2">
+                            <i class="fa fa-times fah3"></i>
+                          </p>
                         </td>
                       </tr>
                     </tbody>
@@ -76,3 +81,67 @@
   </div>
 </div>
 <!-- end:: Page -->
+<!-- Modal Appuntamento -->
+<div *ngIf="autoNotificata && notifica" class="modal fade" id="chiediAppuntamentoModal" tabindex="-1" role="dialog" aria-labelledby="notificheModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificheModalLabel">{{autoNotificata.marca}} {{autoNotificata.modello}}</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fa fa-fw fa-times"></i>
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form">
+          <div class="form-group">
+            <label>Seleziona un'auto</label>
+            <select [(ngModel)]="idAuto" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let auto of listaAutoUtente" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="data">Data</label>
+                <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd" name="data" [(ngModel)]="data" ngbDatepicker #d="ngbDatepicker">
+                      <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                        <i class="fa fa-fw fa-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Ora</label>
+                <input type="text" placeholder="hh:mm" [(ngModel)]="ora" [ngModelOptions]="{standalone: true}" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Dettagli</label>
+                <textarea class="form-control" [(ngModel)]="dettagli" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="chiediAppuntamento()">Conferma</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
