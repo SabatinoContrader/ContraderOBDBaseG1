@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PreventivoService } from '../../services/preventivo.service';
 import {Utente} from '../../models/Utente';
 import { Router } from '@angular/router';
-
+import swal from 'sweetalert2';
+		
 declare var jquery:any;
 declare var $ :any;
 @Component({
@@ -43,7 +44,7 @@ costorispprev:number;
            $('#modaladdauto').modal("hide");
         }*/
 		 this.loadPreventiviOfficina();
-		alert('preventivo inviato correttamente');
+		swal("Complimenti", "Preventivo inviato correttamente", "success");
 		$('#modalrispondipreventivo').modal("hide");
       },
       err => {

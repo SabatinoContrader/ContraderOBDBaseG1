@@ -36,7 +36,7 @@
                         <th></th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="utente.ruolo==0">
                       <tr *ngFor="let appuntamento of listaAppuntamenti">
                         <td>{{appuntamento.data | date: 'dd/MM/yyyy'}}</td>
                         <td>{{appuntamento.ora}}</td>
@@ -51,6 +51,29 @@
                           <p *ngIf="appuntamento.stato == 1"><i class="fa fa-check fah3"></i></p>
                           <p *ngIf="appuntamento.stato == 2"><i class="fa fa-times fah3"></i></p>
                         </td>
+				
+                      </tr>
+                    </tbody>
+					  <tbody *ngIf="utente.ruolo==1">
+                      <tr *ngFor="let appuntamento of listaAppuntamenti">
+                        <td>{{appuntamento.data | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{appuntamento.ora}}</td>
+                        <td>{{appuntamento.officina.denominazione}}</td>
+                        <td>{{appuntamento.dettagli}}</td>
+                        <td>
+                          <p *ngIf="appuntamento.stato == 0">In attesa di risposta</p>
+                          <p *ngIf="appuntamento.stato != 0">{{appuntamento.risposta}}</p>
+                        </td>
+                        <td>
+						
+							<a class="ali rispondiappuntamento" *ngIf="appuntamento.stato == 0" (click)="openModalRispondiAppuntamento(appuntamento.id);" ><i class="fa fa-hourglass"  title="Richiesta in attesa di risposta"></i></a>
+							
+							
+                        
+                          <p *ngIf="appuntamento.stato == 1"><i class="fa fa-check fah3" title="Appuntamento confermato"></i></p>
+                          <p *ngIf="appuntamento.stato == 2"><i class="fa fa-times fah3"title="Appuntamento rifiutato"></i></p>
+                        </td>
+				
                       </tr>
                     </tbody>
                   </table>
@@ -76,3 +99,44 @@
   </div>
 </div>
 <!-- end:: Page -->
+
+<!-- begin::modal rispondi preventivo -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrispondiappuntamento">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Rispondi alla richiesta di appuntamento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+					<div class="form-group">
+  <label for="statoappuntamento">Seleziona Risposta:</label>
+  <select class="form-control" id="statoappuntamento" name="statoappuntamento" [(ngModel)]="statoappuntamento">
+  <option value="1">Accetta Appuntamento</option>
+  <option value="2">Rifiuta Appuntamento</option>
+  </select>
+  
+</div>
+	
+					<div class="form-group">
+  <label for="rispostaapp">Dettaglia Risposta:</label>
+  <textarea class="form-control" rows="5" id="rispostaapp" name="rispostaapp" [(ngModel)]="rispostaapp" placeholder="Inserire dettagli risposta appuntamento..."></textarea>
+</div>
+						
+							<input type="text" style="display:none;" id="idrispapp" [(ngModel)]="idrispapp">
+								
+  
+
+      </div>
+      <div class="modal-footer " style="text-align:center;" >
+       <button type="button" class="btn btn-primary savebutton" (click)="rispondiAppuntamento()">Invia Preventivo</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end::modal rispondi preventivo-->

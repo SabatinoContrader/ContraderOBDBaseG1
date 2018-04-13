@@ -85,6 +85,7 @@ export class HomeOfficinaComponent implements OnInit {
 		sessionStorage.setItem('loginEntity', JSON.stringify(this.utente));
 		this.auto = response.statoAuto;
 		console.log(response.statoAuto);
+
 		swal("Complimenti", "Auto inserita correttamente", "success");
 
            $('#modaladdauto').modal("hide");

@@ -115,7 +115,7 @@
 
   <div class="collapse navbar-collapse" id="navbarResponsive" *ngIf="userIsLogged()">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+      <li  *ngIf="utente" class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
         <a *ngIf="utente.ruolo==0" class="nav-link" href="/homeutente">
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
