@@ -27,6 +27,7 @@ public class DatiTelemetria implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	//latitudine, longitudine, data
 
 	@Column
 	private int rpm; //engine rpm

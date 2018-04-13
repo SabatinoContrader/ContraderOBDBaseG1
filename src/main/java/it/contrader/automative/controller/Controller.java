@@ -826,7 +826,7 @@ public class Controller {
 		a.setPotenza(potenza);
 
 		IAuto.insert(a);
-
+		
 	}
 
 	//! Inserimento Dispositivo
@@ -908,6 +908,43 @@ public class Controller {
 	}
 
 
+	
+	//Richiesta lista delle auto a noleggio o noleggiabili (disponibili o occupate) di una officina
+	@RequestMapping(value = "/autoNoleggiabili", method = RequestMethod.POST)
+	public GenericResponse<List<Auto>> autoNoleggiabili(@RequestParam("idOfficina") int idOfficina, @RequestParam("noleggiabili") int noleggiabili){
+		
+		List<Auto> lista = new ArrayList();
+
+		//Auto non noleggiabili (già a noleggio)
+
+		List<Noleggio> tempNoleggiate = noleggioRepository.findByOfficina(officinaRepository.findById(idOfficina));
+
+		for(int i=0; i<tempNoleggiate.size(); i++) if(tempNoleggiate.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis()))) lista.add(tempNoleggiate.get(i).getAuto());
+
+		
+		if(noleggiabili == 1) { //vogliamo quelle che non sono a noleggio
+
+			List<Auto> autoOfficina = autoRepository.findByOfficina(officinaRepository.findById(idOfficina));
+			
+			List<Auto> trovati = new ArrayList();
+			
+			for(int i=0; i<autoOfficina.size(); i++){
+				
+				boolean trovato = true;
+				
+				for(int e = 0; e<lista.size() && trovato; e++) if(autoOfficina.get(i).equals(lista.get(e))) trovato = false;
+				
+				if(trovato) trovati.add(autoOfficina.get(i));
+			}
+			
+			lista = null;
+			lista = trovati;
+		}
+		
+		
+		return new GenericResponse<List<Auto>>(lista);
+		
+	}
 
 }
 

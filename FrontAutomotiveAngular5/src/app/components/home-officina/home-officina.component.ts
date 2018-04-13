@@ -78,6 +78,7 @@ export class HomeOfficinaComponent implements OnInit {
       (response) => {
 		  console.log(response);
         if (response) {
+
           
 		  this.utente = response;
 		sessionStorage.setItem('loginEntity', JSON.stringify(this.utente));
@@ -85,6 +86,7 @@ export class HomeOfficinaComponent implements OnInit {
 		console.log(response.statoAuto);
 		  alert('Auto inserita correttamente');
            $('#modaladdauto').modal("hide");
+
         }
       },
       err => {
