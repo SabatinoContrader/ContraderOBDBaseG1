@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { ENVIROMENT } from '../models/enviroment';
+import { Appuntamento } from '../models/Appuntamento';
 
 @Injectable()
 export class AppuntamentoService {
@@ -34,6 +35,15 @@ export class AppuntamentoService {
     formdata.append("dataAppuntamento", dataAppuntamento);
     return this.http.post<void>(`${this.urlBase}richiediappuntamento`, formdata).pipe(
       tap((response) => { console.log("Fetched RichiestaAppuntamento"); console.log(response) },
+        catchError(this.handleError("notifiche error", {})))
+    );
+  }
+
+  getAppuntamenti(id: any): Observable<any> {
+    var formdata = new FormData();
+    formdata.append("id", id);
+    return this.http.post<any>(`${this.urlBase}appuntamentiCliente`, formdata).pipe(
+      tap((response) => { console.log("Fetched ListaAppuntamentiCliente"); console.log(response) },
         catchError(this.handleError("notifiche error", {})))
     );
   }
