@@ -16,9 +16,7 @@ export class NavbarComponent implements OnInit {
   session = JSON.parse(sessionStorage.getItem("loginEntity"));
   utente: LoginEntity;
  
- if(session){
-  this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
- }
+
 
 
   userIsLogged():boolean{
@@ -29,6 +27,9 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(["/"]);
   };
   ngOnInit() {
+    if(this.session){
+      this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
+     }
   }
 
 }
