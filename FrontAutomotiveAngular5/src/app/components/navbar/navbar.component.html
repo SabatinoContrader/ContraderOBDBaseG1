@@ -116,17 +116,17 @@
   <div class="collapse navbar-collapse" id="navbarResponsive" *ngIf="userIsLogged()">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
       <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-        <a *ngIf="utente.ruolo==0" class="nav-link" href="/homeutente">
+        <a *ngIf="getRuolo()==0" class="nav-link" href="/homeutente">
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
-        <a *ngIf="utente.ruolo==1" class="nav-link" href="/homeofficina">
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/homeofficina">
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
       </li>
 	  <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Clienti">
-        <a *ngIf="utente.ruolo==1" class="nav-link" href="/clienti">
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/clienti">
           <i class="fa fa-fw fa-user"></i>
           <span class="nav-link-text">Clienti</span>
         </a>
