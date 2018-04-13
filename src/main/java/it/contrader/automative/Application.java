@@ -1,8 +1,10 @@
 package it.contrader.automative;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -37,6 +39,7 @@ import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.IPromozione;
 import it.contrader.automative.serviceInterfaces.ITipologiaGuasto;
 import it.contrader.automative.serviceInterfaces.IUtente;
+import it.contrader.dispositivo.main.WorkerThread;
 
 
 @SpringBootApplication
@@ -45,6 +48,15 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+        
+//        List<Thread> threads = new ArrayList();
+//		
+//		for(int i = 0; i<5; i++) {
+//			
+//			threads.add(new WorkerThread(i+1)); 
+//			threads.get(i).start();
+//			
+//			}
     }
 
     @Override
@@ -166,9 +178,9 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoTipologieGuasti[2] = new TipologiaGuasto("B0003", "Danno meccenico Idraulica...");
     	
     	DatiTelemetria inserimentoDatiTelemetria[] = new DatiTelemetria[3];
-    	inserimentoDatiTelemetria[0] = new DatiTelemetria(1,12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
-    	inserimentoDatiTelemetria[1] = new DatiTelemetria(2,12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
-    	inserimentoDatiTelemetria[2] = new DatiTelemetria(3,12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[0] = new DatiTelemetria(1, 40.1313333, 14.1312112, 12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[1] = new DatiTelemetria(2, 40.1313333, 14.1312112, 12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[2] = new DatiTelemetria(3, 40.1313333, 14.1312112, 12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
 
     	Guasto inserimentoGuasti[] = new Guasto[3];
     	inserimentoGuasti[0] = new Guasto(1, inserimentoTipologieGuasti[0], inserimentoDatiTelemetria[0], data2, inserimentoDispositivi[0], "Non Risolto");

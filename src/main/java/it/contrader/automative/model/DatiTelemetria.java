@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import it.contrader.automative.utils.Posizione;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,8 +28,21 @@ public class DatiTelemetria implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	//latitudine, longitudine, data
-
+	//latitudine, longitudine
+	
+	//	<Inventati/Aggiunti>
+	
+	@Column
+	private double latitudine;
+	
+	@Column
+	private double longitudine;
+	
+//	@Column
+//	private int pressionePneumatici;
+	
+	//	</Inventati/Aggiunti>
+	
 	@Column
 	private int rpm; //engine rpm
 	
@@ -164,7 +178,6 @@ public class DatiTelemetria implements Serializable {
 	@Column
 	private int exhaust_gas_temperature;  // in celsius
 	
-	
 	@Column
 	private int ambiant_air_temperature; // in celsius
 	
@@ -173,7 +186,6 @@ public class DatiTelemetria implements Serializable {
 	
 	@Column
 	private int catalyst_temperature_bank_2;
-	
 	
 	@Column
 	private int dtc_count;
