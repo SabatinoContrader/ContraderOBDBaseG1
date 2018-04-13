@@ -80,7 +80,7 @@ export class HomeOfficinaComponent implements OnInit {
 			this.auto=response.statoAuto;
 
 		  console.log(this.auto);
-          // $('#modaladdauto').modal("hide");
+          
         }
       },
       err => {

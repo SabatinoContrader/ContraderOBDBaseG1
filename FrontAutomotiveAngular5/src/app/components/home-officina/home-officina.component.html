@@ -1,36 +1,35 @@
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
 
-	<!-- begin:: Page -->
-	<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
+	<!-- begin::Body -->
+	<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+		<div class="m-grid__item m-grid__item--fluid m-wrapper">
 
-		<!-- begin::Body -->
-		<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
-			<div class="m-grid__item m-grid__item--fluid m-wrapper">
+			<div class="m-content">
 
-				<div class="m-content">
+				<!--begin:: section content-->
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
+						<div class="m-portlet m-portlet--mobile ">
+							<div class="m-portlet__head">
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h3 class="m-portlet__head-text">
+											<i class="fa fa-car fah3"></i>
+											AUTO
+										</h3>
 
-					<!--begin:: section content-->
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
-							<div class="m-portlet m-portlet--mobile ">
-								<div class="m-portlet__head">
-									<div class="m-portlet__head-caption">
-										<div class="m-portlet__head-title">
-											<h3 class="m-portlet__head-text">
-												<i class="fa fa-car fah3"  ></i>
-												AUTO 
-											</h3>
-											
-										</div>
 									</div>
-
 								</div>
-								<div class="m-portlet__body">
-									<!--begin: Datatable -->
-									<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
-<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal" data-toggle="modal" data-target="#modaladdauto">Aggiungi Auto</button>
-<!--<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>-->
 
-<div class="table-responsive">
+							</div>
+							<div class="m-portlet__body">
+								<!--begin: Datatable -->
+								<!--	<div class="m_datatable" id="m_datatable_latest_orders"></div>-->
+								<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal" data-toggle="modal" data-target="#modaladdauto">Aggiungi Auto</button>
+								<!--<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>-->
+
+								<div class="table-responsive">
 									<table class="table table-striped" id="myTable">
 										<thead>
 											<tr>
@@ -43,38 +42,41 @@
 											</tr>
 										</thead>
 										<tbody>
-										<tr *ngFor="let autos of auto">
-										<td>{{autos.auto.id}}</td>
-										<td>{{autos.auto.marca}}</td>
-										<td>{{autos.auto.modello}}</td>
-										<td>{{autos.auto.targa}}</td>
-										<td>{{autos.auto.numeroTelaio}}</td>
-										
-										<td>
-										<a  class="ali assegnanoleggio"  (click)="assnoleggio(autos.id);"><i class="fa fa-car"  title="Assegna auto a noleggio"></i></a>
-										</td></tr>
+											<tr *ngFor="let autos of auto">
+												<td>{{autos.auto.id}}</td>
+												<td>{{autos.auto.marca}}</td>
+												<td>{{autos.auto.modello}}</td>
+												<td>{{autos.auto.targa}}</td>
+												<td>{{autos.auto.numeroTelaio}}</td>
+
+												<td>
+													<a class="ali assegnanoleggio" (click)="assnoleggio(autos.id);">
+														<i class="fa fa-car" title="Assegna auto a noleggio"></i>
+													</a>
+												</td>
+											</tr>
 										</tbody>
 									</table>
-									</div>
-									<!--end: Datatable -->
 								</div>
+								<!--end: Datatable -->
 							</div>
 						</div>
-
-
 					</div>
-					<!--end:: seciont content-->
-
-
-
 
 
 				</div>
+				<!--end:: seciont content-->
+
+
+
+
+
 			</div>
-			<!--
+		</div>
+		<!--
 		</div>
 	-->
-</div>
+	</div>
 </div>
 <!-- end:: Page -->
 <!-- begin::modal add auto -->
@@ -88,141 +90,139 @@
 				</button>
 			</div>
 			<div class="modal-body">
-			
 
 
-					<div class="form-group">
-	<label for="marcaauto">Marca:</label>
-	<input type="text" name="marcaauto" [(ngModel)]="marcaautoadd" class="form-control" placeholder="Inserire marca...">
-	</div>
 
-<div class="form-group">
-	<label for="modelloauto">Modello:</label>
-	<input type="text" name="modelloauto" [(ngModel)]="modelloautoadd" class="form-control" placeholder="Inserire modello...">
-	</div>
+				<div class="form-group">
+					<label for="marcaauto">Marca:</label>
+					<input type="text" name="marcaauto" [(ngModel)]="marcaautoadd" class="form-control" placeholder="Inserire marca...">
+				</div>
 
-	<div class="form-group">
-	<label for="targaauto">Targa:</label>
-	<input type="text" name="targaauto" [(ngModel)]="targaautoadd" class="form-control" placeholder="Inserire targa...">
-	</div>
-	<div class="form-group">
-	<label for="telaioauto">Telaio:</label>
-	<input type="text" name="telaioauto" [(ngModel)]="telaioautoadd" class="form-control" placeholder="Inserire telaio...">
-	</div>
+				<div class="form-group">
+					<label for="modelloauto">Modello:</label>
+					<input type="text" name="modelloauto" [(ngModel)]="modelloautoadd" class="form-control" placeholder="Inserire modello...">
+				</div>
 
-	<div class="form-group">
-	<label for="cilindrataauto">Cilindrata:</label>
-	<input type="number" name="cilindrataauto" [(ngModel)]="cilindrataautoadd" class="form-control" placeholder="Inserire cilindrata...">
-	</div>
-	
-	<div class="form-group">
-	<label for="tipologiaautoadd">Tipologia auto (es. berlina,utilitaria,etc...):</label>
-	<input type="text" name="tipologiaautoadd" [(ngModel)]="tipologiaautoadd" class="form-control" placeholder="Inserire tipologia auto...">
-	</div>
-	<div class="form-group">
-	<label for="alimentazioneautoadd">Alimentazione:</label>
-	<input type="text" name="alimentazioneautoadd" [(ngModel)]="alimentazioneautoadd" class="form-control" placeholder="Inserire alimentazione...">
-	</div>
-			
-			<div class="form-group">
-	<label for="numeroporteauto">Numero porte:</label>
-	<input type="number" name="numeroporteauto" [(ngModel)]="numeroporteautoadd" class="form-control" placeholder="Inserire numero porte...">
-	</div>
-			<div class="form-group">
-	<label for="kmattualiauto">Km attuali:</label>
-	<input type="number" name="kmattualiauto" [(ngModel)]="kmattualiautoadd" class="form-control" placeholder="Inserire km attuali...">
-	</div>
-	
-		<div class="form-group">
-	<label for="cambio">Cambio:</label>
-	<input type="text" name="cambio" [(ngModel)]="cambio" class="form-control" placeholder="Inserire tipo cambio...">
-	</div>
-	
-		<div class="form-group">
-	<label for="potenza">Potenza:</label>
-	<input type="text" name="potenza" [(ngModel)]="potenza" class="form-control" placeholder="Inserire potenza...">
-	</div>
-	
-	
-	
-	
-	<div class="form-group">
-	<label for="scadenzaAssicurazioneadd">Scadenza Assicurazione</label>
-	<form class="form-inline">
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="scadenzaAssicurazioneadd" [(ngModel)]="scadenzaAssicurazioneadd" ngbDatepicker #d="ngbDatepicker">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-        </button>
-      </div>
-    </div>
-  </div>
-</form>
-</div>
+				<div class="form-group">
+					<label for="targaauto">Targa:</label>
+					<input type="text" name="targaauto" [(ngModel)]="targaautoadd" class="form-control" placeholder="Inserire targa...">
+				</div>
+				<div class="form-group">
+					<label for="telaioauto">Telaio:</label>
+					<input type="text" name="telaioauto" [(ngModel)]="telaioautoadd" class="form-control" placeholder="Inserire telaio...">
+				</div>
 
-	<div class="form-group">
-	<label for="scadenzaBolloadd">Scadenza Bollo</label>
-	<form class="form-inline">
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="scadenzaBolloadd" [(ngModel)]="scadenzaBolloadd" ngbDatepicker #dd="ngbDatepicker">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" (click)="dd.toggle()" type="button">
-          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-        </button>
-      </div>
-    </div>
-  </div>
-</form>
-</div>
+				<div class="form-group">
+					<label for="cilindrataauto">Cilindrata:</label>
+					<input type="number" name="cilindrataauto" [(ngModel)]="cilindrataautoadd" class="form-control" placeholder="Inserire cilindrata...">
+				</div>
 
-	<div class="form-group">
-	<label for="scadenzaTagliandoadd">Scadenza Tagliando</label>
-	<form class="form-inline">
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="scadenzaTagliandoadd" [(ngModel)]="scadenzaTagliandoadd" ngbDatepicker #ddd="ngbDatepicker">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" (click)="ddd.toggle()" type="button">
-          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-        </button>
-      </div>
-    </div>
-  </div>
-</form>
-</div>
+				<div class="form-group">
+					<label for="tipologiaautoadd">Tipologia auto (es. berlina,utilitaria,etc...):</label>
+					<input type="text" name="tipologiaautoadd" [(ngModel)]="tipologiaautoadd" class="form-control" placeholder="Inserire tipologia auto...">
+				</div>
+				<div class="form-group">
+					<label for="alimentazioneautoadd">Alimentazione:</label>
+					<input type="text" name="alimentazioneautoadd" [(ngModel)]="alimentazioneautoadd" class="form-control" placeholder="Inserire alimentazione...">
+				</div>
 
-	<div class="form-group">
-	<label for="scadenzaRevisioneadd">Scadenza Revisione</label>
-	<form class="form-inline">
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="scadenzaRevisioneadd" [(ngModel)]="scadenzaRevisioneadd" ngbDatepicker #dddd="ngbDatepicker">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" (click)="dddd.toggle()" type="button">
-          <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-        </button>
-      </div>
-    </div>
-  </div>
-</form>
-</div>
-	</div>
-				
-				<div class="modal-footer " style="text-align:center;" >
-					<button type="button" class="btn btn-primary savebutton" (click)="insertAuto();">Salva auto</button>
+				<div class="form-group">
+					<label for="numeroporteauto">Numero porte:</label>
+					<input type="number" name="numeroporteauto" [(ngModel)]="numeroporteautoadd" class="form-control" placeholder="Inserire numero porte...">
+				</div>
+				<div class="form-group">
+					<label for="kmattualiauto">Km attuali:</label>
+					<input type="number" name="kmattualiauto" [(ngModel)]="kmattualiautoadd" class="form-control" placeholder="Inserire km attuali...">
+				</div>
 
-				
+				<div class="form-group">
+					<label for="cambio">Cambio:</label>
+					<input type="text" name="cambio" [(ngModel)]="cambio" class="form-control" placeholder="Inserire tipo cambio...">
+				</div>
+
+				<div class="form-group">
+					<label for="potenza">Potenza:</label>
+					<input type="text" name="potenza" [(ngModel)]="potenza" class="form-control" placeholder="Inserire potenza...">
+				</div>
+
+
+
+
+				<div class="form-group">
+					<label for="scadenzaAssicurazioneadd">Scadenza Assicurazione</label>
+					<form class="form-inline">
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" placeholder="yyyy-mm-dd" name="scadenzaAssicurazioneadd" [(ngModel)]="scadenzaAssicurazioneadd"
+								 ngbDatepicker #d="ngbDatepicker">
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+										<img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="form-group">
+					<label for="scadenzaBolloadd">Scadenza Bollo</label>
+					<form class="form-inline">
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" placeholder="yyyy-mm-dd" name="scadenzaBolloadd" [(ngModel)]="scadenzaBolloadd" ngbDatepicker
+								 #dd="ngbDatepicker">
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary" (click)="dd.toggle()" type="button">
+										<img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="form-group">
+					<label for="scadenzaTagliandoadd">Scadenza Tagliando</label>
+					<form class="form-inline">
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" placeholder="yyyy-mm-dd" name="scadenzaTagliandoadd" [(ngModel)]="scadenzaTagliandoadd" ngbDatepicker
+								 #ddd="ngbDatepicker">
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary" (click)="ddd.toggle()" type="button">
+										<img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="form-group">
+					<label for="scadenzaRevisioneadd">Scadenza Revisione</label>
+					<form class="form-inline">
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" placeholder="yyyy-mm-dd" name="scadenzaRevisioneadd" [(ngModel)]="scadenzaRevisioneadd" ngbDatepicker
+								 #dddd="ngbDatepicker">
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary" (click)="dddd.toggle()" type="button">
+										<img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="modal-footer " style="text-align:center;">
+				<button type="button" class="btn btn-primary savebutton" (click)="insertAuto();">Salva auto</button>
+
+
 			</div>
 		</div>
 	</div>
 </div>
 <!-- end::modal add auto-->
-
-

@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="loginService.isLogged()"></app-navbar>
 <div class="content-wrapper">
   <div class="container-fluid">
     <app-topbar *ngIf="loginService.isLogged()"></app-topbar>
