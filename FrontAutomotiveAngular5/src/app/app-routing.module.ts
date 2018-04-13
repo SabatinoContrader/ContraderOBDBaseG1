@@ -5,7 +5,8 @@ import { HomeOfficinaComponent } from './components/home-officina/home-officina.
 import { HomeUtenteComponent } from './components/home-utente/home-utente.component';
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
-
+import { ClientiComponent } from './components/clienti/clienti.component';
+import { DispositiviComponent } from './components/dispositivi/dispositivi.component';
 
 const routes: Routes = [
   { path: '', redirectTo:"/login", pathMatch:'full' },
@@ -13,7 +14,10 @@ const routes: Routes = [
   { path: 'homeofficina', component: HomeOfficinaComponent },
   { path: 'homeutente', component: HomeUtenteComponent},
   { path: 'appuntamenti', component: AppuntamentoComponent},
-  { path: 'preventivi', component: PreventivoComponent}
+  { path: 'preventivi', component: PreventivoComponent},
+  { path: 'clienti', component: ClientiComponent},
+  { path: 'dispositivi', component: DispositiviComponent}
+  
 ];
 
 

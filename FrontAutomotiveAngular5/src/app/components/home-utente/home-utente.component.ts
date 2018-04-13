@@ -6,7 +6,10 @@ import { NotificaAutoDTO } from '../../models/NotificaAutoDTO';
 import { AutoService } from '../../services/auto.service';
 import { AppuntamentoService } from '../../services/appuntamento.service';
 import { PreventivoService } from '../../services/preventivo.service';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+declare var jquery: any;
+declare var $: any;
+import swal from 'sweetalert2';
 
 const now = new Date();
 
@@ -45,11 +48,19 @@ export class HomeUtenteComponent implements OnInit {
 
   chiediAppuntamento(): void {
     console.log("funzione chiediAppuntamento");
-    this.appuntamentoService.chiediAppuntamento(JSON.parse(sessionStorage.getItem("loginEntity")).utente.email, this.dettagli, this.ora, (this.data.day + "/" + this.data.month + "/" + this.data.year)).subscribe();
+    this.appuntamentoService.chiediAppuntamento(JSON.parse(sessionStorage.getItem("loginEntity")).utente.email, this.dettagli, this.ora, (this.data.day + "/" + this.data.month + "/" + this.data.year))
+      .subscribe((response) => {
+        swal("Success", "Appuntamento richiesto con successo", "success");
+        $('#chiediAppuntamentoModal').modal("hide");
+      });
   }
 
   chiediPreventivo(): void {
-    this.preventivoService.chiediPreventivo(JSON.parse(sessionStorage.getItem("loginEntity")).utente.email, this.dettagli, this.autoNotificata.id).subscribe();
+    this.preventivoService.chiediPreventivo(JSON.parse(sessionStorage.getItem("loginEntity")).utente.email, this.dettagli, this.autoNotificata.id)
+      .subscribe((response) => {
+        swal("Success", "Preventivo richiesto con successo", "success");
+        $('#chiediPreventivoModal').modal("hide");
+      });
   }
 
   constructor(private autoService: AutoService, private router: Router, private appuntamentoService: AppuntamentoService, private preventivoService: PreventivoService) { }

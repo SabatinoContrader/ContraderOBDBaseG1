@@ -4,6 +4,7 @@ import { LoginEntity } from '../../models/LoginEntity';
 import { Router } from '@angular/router';
 import { HomeOfficinaComponent } from '../../components/home-officina/home-officina.component';
 import { AppRoutingModule } from '../../app-routing.module';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -36,10 +37,10 @@ export class LoginComponent implements OnInit {
       (response) => {
         if (response) {
           this.loginEntity = response;
-		  console.log(response);
+          console.log(response);
           if (typeof (Storage) !== 'undefined') {
             sessionStorage.setItem('loginEntity', JSON.stringify(this.loginEntity));
-
+            swal("Success", "Login effettuato con successo", "success");
           }
           if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 1)
             this.router.navigate(["homeofficina"]);

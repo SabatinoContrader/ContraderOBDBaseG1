@@ -1,7 +1,7 @@
 app.controller("mainController", function ($scope, userService, $location, $log, $window) {
 
 	$scope.user = userService;
-	
+
 	var page = $window.sessionStorage.getItem("page");
 
 
@@ -265,14 +265,14 @@ app.controller("mainController", function ($scope, userService, $location, $log,
 		//	$location.path("/");
 
 		});
-	}	
-	
+	}
+
 		$scope.aggiungiDispositivo = function (a) {
 
 		userService.aggiungiDispositivo({
 			codice: a,
 			idOfficina:this.user.getUser().officina.id
-			
+
 		}, function (response) {
 			$('#modaladddispositivo').modal("hide");
 			swal("Complimenti!", "Dispositivo aggiunto correttamente", "success");
@@ -282,9 +282,9 @@ app.controller("mainController", function ($scope, userService, $location, $log,
 		});
 	}
 
-	
+
 	$scope.associaDispositivo = function (a,b) {
-		
+
 		userService.associaDispositivo({
 			idDispositivo: a,
 			idAuto:b
@@ -293,13 +293,13 @@ app.controller("mainController", function ($scope, userService, $location, $log,
 $('#modalassociadispositivo').modal("hide");
 			swal("Complimenti!", "Dispositivo associato correttamente", "success");
 			$location.path("/home");
-			
-	
+
+
 		});
 
 	}
 	$scope.statoPreventivo = function (a,b) {
-		
+
 		userService.statoPreventivo({
 			stato: a,
 			idprev:b
@@ -308,13 +308,13 @@ $('#modalassociadispositivo').modal("hide");
 $('#modalaccettapreventivo').modal("hide");
 			swal("Complimenti!", "Risposta inviata correttamente", "success");
 			$location.path("/home");
-			
-	
+
+
 		});
 
 	}
 		$scope.inviaRispostaPreventivo = function (a,b,c) {
-		
+
 		userService.inviaRispostaPreventivo({
 			dettagli: a,
 			costoprev:b,
@@ -324,30 +324,30 @@ $('#modalaccettapreventivo').modal("hide");
 $('#modalrispondipreventivo').modal("hide");
 			swal("Complimenti!", "Risposta inviata correttamente", "success");
 			$location.path("/home");
-			
-	
+
+
 		});
 
 	}
-	
+
 	$scope.openmodalassociadispositivo = function (a) {
-		
+
 		$('#idassdisp').val(a);
 		$('#idassdisp').trigger('change');
 		userService.openmodalassociadispositivo({
 			id: this.user.getUser().officina.id
-		
+
 		}, function (response) {
 $scope.autosenzadispositivo = response.data;
 $('#modalassociadispositivo').modal("show");
-			
-	
+
+
 		});
 
 	}
-	
+
 	$scope.assnoleggio = function (a) {
-	
+
 $('#idautonoleggio').val(a);
 $('#idautonoleggio').trigger('change');
 
@@ -355,35 +355,35 @@ $('#idautonoleggio').trigger('change');
 			id: this.user.getUser().officina.id
 		}, function (response) {
 	$('#modalassegnanoleggio').modal("show");
-			
-	
+
+
 		});
 
 	}
-	
+
 		$scope.ticket = function () {
-	
+
 		userService.ticket({
 			id: this.user.getUser().officina.id
 		}, function (response) {
 			console.log($scope.user.getUserTicket());
 	$location.path("/ticket");
-	
+
 		});
 
 	}
-	
+
 	$scope.openticket=function(a){
-		
-$scope.singleticket=a;	
+
+$scope.singleticket=a;
 		console.log(a.ticket.id);
 	$('#modalticket').modal("show");
-	
-	
+
+
 	}
-	
-	
-	
+
+
+
 	$scope.logOut = function () {
 		userService.logOut();
 		$window.sessionStorage.clear();
@@ -391,10 +391,13 @@ $scope.singleticket=a;
 	}
 
 	$scope.$on('$locationChangeStart', function (event, next, current) {
-
 		$window.sessionStorage.setItem("page", $location.path());
 		if (!userService.getLogged()) {
 			$location.path("/");
+		}else{
+			if($location.path()=="/"){
+				$location.path("/home");
+			}
 		}
 	});
 });

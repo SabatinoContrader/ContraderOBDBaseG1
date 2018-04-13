@@ -112,22 +112,42 @@
       </li>
     </ul>
   </div> -->
-  <div  class="collapse navbar-collapse" id="navbarResponsive">
+
+  <div class="collapse navbar-collapse" id="navbarResponsive" *ngIf="userIsLogged()">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-        <a class="nav-link" href="/homeutente">
+      <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+        <a *ngIf="getRuolo()==0" class="nav-link" href="/homeutente">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span class="nav-link-text">Dashboard</span>
+        </a>
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/homeofficina">
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+	  <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Clienti">
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/clienti">
+          <i class="fa fa-fw fa-user"></i>
+          <span class="nav-link-text">Clienti</span>
+        </a>
+      </li>
+
+	   <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Dispositivi">
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/dispositivi">
+          <i class="fa fa-fw fa-user"></i>
+          <span class="nav-link-text">Dispositivi</span>
+        </a>
+      </li>
+
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Appuntamenti">
+
         <a class="nav-link" href="/appuntamenti">
           <i class="fa fa-fw fa-calendar"></i>
           <span class="nav-link-text">Appuntamenti</span>
         </a>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" href="/prevnetivi">
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Preventivi">
+        <a class="nav-link" href="/preventivi">
           <i class="fa fa-fw fa-euro"></i>
           <span class="nav-link-text">Preventivi</span>
         </a>
@@ -140,17 +160,65 @@
         </a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto" *ngIf="!userIsLogged()">
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-          <i class="fa fa-fw fa-sign-out"></i>Login</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto" *ngIf="userIsLogged()" (click)="logOut()"> 
+    <ul class="navbar-nav ml-auto" (click)="logOut()">
       <li class="nav-item">
         <a class="nav-link" data-toggle="modal">
           <i class="fa fa-fw fa-sign-out"></i>LogOut</a>
       </li>
     </ul>
   </div>
+
+  <div class="collapse navbar-collapse" id="navbarResponsive" *ngIf="!userIsLogged()">
+    <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+        <a class="nav-link" href="/">
+          <i class="fa fa-fw fa-euro"></i>
+          <span class="nav-link-text">About us</span>
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+        <a class="nav-link" href="/">
+          <i class="fa fa-fw fa-euro"></i>
+          <span class="nav-link-text">Our vision</span>
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+        <a class="nav-link" href="/">
+          <i class="fa fa-fw fa-euro"></i>
+          <span class="nav-link-text">Contact us</span>
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+        <a class="nav-link" href="/">
+          <i class="fa fa-fw fa-euro"></i>
+          <span class="nav-link-text">Information</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngIf="!userIsLogged()">
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#loginModal">
+          <i class="fa fa-fw fa-sign-out"></i>Login</a>
+      </li>
+    </ul>
+  </div>
 </nav>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">�</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>

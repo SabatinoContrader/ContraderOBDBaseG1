@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -18,11 +19,15 @@ import { HomeUtenteComponent } from './components/home-utente/home-utente.compon
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppuntamentoService } from './services/appuntamento.service';
+import { DispositiviService } from './services/dispositivi.service';
 import { PreventivoService } from './services/preventivo.service';
+import { ClientiService } from './services/clienti.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
-
+import { DataTablesModule } from 'angular-datatables';
+import { ClientiComponent } from './components/clienti/clienti.component';
+import { DispositiviComponent } from './components/dispositivi/dispositivi.component';
 
 
 
@@ -36,7 +41,9 @@ import { AppuntamentoComponent } from './components/appuntamento/appuntamento.co
     NavbarComponent,
     GuastiComponent,
     PreventivoComponent,
-    AppuntamentoComponent
+    AppuntamentoComponent,
+    ClientiComponent,
+    DispositiviComponent
   ],
   imports: [
     BrowserModule,
@@ -45,9 +52,11 @@ import { AppuntamentoComponent } from './components/appuntamento/appuntamento.co
     AppRoutingModule,
     HttpClientModule,
     AngularFontAwesomeModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    SweetAlert2Module.forRoot(),
+	 DataTablesModule
   ],
-  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, PreventivoService, GuastiService],
+  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

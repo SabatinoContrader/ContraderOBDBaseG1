@@ -6,3 +6,26 @@
     .ali:hover {
       color: red !important;
     }
+
+    .ali-green {
+      cursor: pointer !important;
+    }
+
+    .ali-green:hover {
+      color: green !important;
+    }
+
+  .btn-circle {
+    border-radius: 50%;
+  }
+
+  .accettato {
+    color: green !important;
+  }
+
+  .rifiutato {
+    color: red !important;
+  }
+	.btnuptab{
+		    margin: 10px 10px 10px 0;
+	}

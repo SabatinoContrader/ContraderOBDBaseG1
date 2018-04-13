@@ -48,4 +48,26 @@ export class AppuntamentoService {
     );
   }
 
+  getAppuntamentiOfficina(id: any): Observable<any> {
+    var formdata = new FormData();
+    formdata.append("id", id);
+    return this.http.post<any>(`${this.urlBase}appuntamentiOfficina`, formdata).pipe(
+      tap((response) => { console.log("Fetched ListaAppuntamentiOfficina"); console.log(response) },
+        catchError(this.handleError("notifiche error", {})))
+    );
+  }
+  
+  
+   rispondiAppuntamento(dettagliapp: string,idapp: any  , selectapp: any): Observable<void> {
+    var formdata = new FormData();
+    formdata.append("dettagliapp", dettagliapp);
+    formdata.append("idapp", idapp);
+    formdata.append("selectapp", selectapp  );
+    return this.http.post<void>(`${this.urlBase}rispondiappuntamento`, formdata).pipe(
+      tap((response) => { console.log("Fetched Rispondi appuntamento"); console.log(response) },
+        catchError(this.handleError("notifiche error", {})))
+    );
+  }
+  
+  
 }

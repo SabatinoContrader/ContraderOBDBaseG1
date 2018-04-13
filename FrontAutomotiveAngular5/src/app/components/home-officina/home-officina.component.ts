@@ -9,7 +9,10 @@ import { Router} from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module';
 import { TopbarComponent } from '../topbar/topbar.component';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import swal from 'sweetalert2';
 
+declare var jquery:any;
+declare var $ :any;
 const now = new Date();
 
 
@@ -41,15 +44,14 @@ export class HomeOfficinaComponent implements OnInit {
 	scadenzaTagliandoadd: NgbDateStruct;
 	scadenzaRevisioneadd: NgbDateStruct;
 	//date:{}={year: number, month: number};
-  
+ 
   constructor(private topbar:TopbarComponent,private loginService:LoginService,private autoService:AutoService, private officinaService:OfficinaService,private router:Router) {
 
   }
 	
 
  ngOnInit() {
-	 
-	 
+	  
 	 
     if (this.loginService.isLogged()) {
 		this.utente=JSON.parse(sessionStorage.getItem("loginEntity"));
@@ -76,22 +78,25 @@ export class HomeOfficinaComponent implements OnInit {
       (response) => {
 		  console.log(response);
         if (response) {
-          this.auto=[];
-			this.auto=response.statoAuto;
 
-		  console.log(this.auto);
           
+		  this.utente = response;
+		sessionStorage.setItem('loginEntity', JSON.stringify(this.utente));
+		this.auto = response.statoAuto;
+		console.log(response.statoAuto);
+
+		swal("Complimenti", "Auto inserita correttamente", "success");
+
+           $('#modaladdauto').modal("hide");
+
         }
-      },
-      err => {
-        console.log("Error occured");
-      })
-       console.log(response);
       },
       err => {
         console.log("Error occured");
       });
   
-  }
+  });
+
+}
 
 }
