@@ -37,7 +37,14 @@ export class AutoService {
     );
   }
 
-  
+  listaAutoUtente(id: any): Observable<any> {
+    var formdata = new FormData();
+    formdata.append("id", id);
+    return this.http.post<any>(`${this.urlBase}autoCliente`, formdata).pipe(
+      tap((response) => {console.log("Fetched lista auto cliente"); console.log(response)},
+        catchError(this.handleError("notifiche error", {})))
+    );
+  }
   
 // METHOD TO ADD Auto
   insertAuto(marca:string,modello:string,targa:string,numeroTelaio: string, cilindrata: any, cambio : string,potenza: string,tipologiaAuto: string,
