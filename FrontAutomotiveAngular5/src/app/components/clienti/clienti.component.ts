@@ -14,11 +14,11 @@ declare var $ :any;
 export class ClientiComponent implements OnInit {
 listaClienti:any;
   utente: Utente;
-  nome;
-  cognome;
-  email;
-  password;
-  telefono;
+  nomecliente;
+  cognomecliente;
+  emailcliente;
+  passwordcliente;
+  telefonocliente;
   
   constructor(private clientiService: ClientiService) { }
 
