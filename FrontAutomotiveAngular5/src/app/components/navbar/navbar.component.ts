@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { LoginEntity } from '../../models/LoginEntity';
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -23,8 +24,17 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut():void{
-    sessionStorage.clear();
-    this.router.navigate(["/"]);
+    var self = this;
+      swal({
+        title: "Are you sure?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, exit!"
+      }).then(function(){
+        sessionStorage.clear();
+        self.router.navigate(["/"]);
+      }, function (dismiss) {});
   };
   ngOnInit() {
 
