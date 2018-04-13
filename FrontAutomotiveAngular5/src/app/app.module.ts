@@ -23,7 +23,7 @@ import { PreventivoService } from './services/preventivo.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
-
+import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -47,7 +47,8 @@ import { AppuntamentoComponent } from './components/appuntamento/appuntamento.co
     HttpClientModule,
     AngularFontAwesomeModule,
     NgbModule.forRoot(),
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+	 DataTablesModule
   ],
   providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, PreventivoService, GuastiService],
   bootstrap: [AppComponent]

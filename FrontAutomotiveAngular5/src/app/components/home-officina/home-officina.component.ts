@@ -44,15 +44,14 @@ export class HomeOfficinaComponent implements OnInit {
 	scadenzaTagliandoadd: NgbDateStruct;
 	scadenzaRevisioneadd: NgbDateStruct;
 	//date:{}={year: number, month: number};
-  
+ 
   constructor(private topbar:TopbarComponent,private loginService:LoginService,private autoService:AutoService, private officinaService:OfficinaService,private router:Router) {
 
   }
 	
 
  ngOnInit() {
-	 
-	 
+	  
 	 
     if (this.loginService.isLogged()) {
 		this.utente=JSON.parse(sessionStorage.getItem("loginEntity"));
