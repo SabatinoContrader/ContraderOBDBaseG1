@@ -15,7 +15,7 @@ import it.contrader.automative.model.Utente;
 @Transactional
 public interface AppuntamentoRepository extends CrudRepository<Appuntamento, Long>{
 
-Appuntamento findById(int id);
+	Appuntamento findById(int id);
 	
 	List<Appuntamento> findByUtente(Utente u);
 	List<Appuntamento> findByOfficina(Officina o);
