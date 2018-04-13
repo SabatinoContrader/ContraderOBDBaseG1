@@ -22,12 +22,14 @@ import { AppuntamentoService } from './services/appuntamento.service';
 import { DispositiviService } from './services/dispositivi.service';
 import { PreventivoService } from './services/preventivo.service';
 import { ClientiService } from './services/clienti.service';
+import { NoleggiService } from './services/noleggi.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ClientiComponent } from './components/clienti/clienti.component';
 import { DispositiviComponent } from './components/dispositivi/dispositivi.component';
+import { NoleggiComponent } from './components/noleggi/noleggi.component';
 
 
 
@@ -43,7 +45,8 @@ import { DispositiviComponent } from './components/dispositivi/dispositivi.compo
     PreventivoComponent,
     AppuntamentoComponent,
     ClientiComponent,
-    DispositiviComponent
+    DispositiviComponent,
+    NoleggiComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,7 @@ import { DispositiviComponent } from './components/dispositivi/dispositivi.compo
     SweetAlert2Module.forRoot(),
 	 DataTablesModule
   ],
-  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService],
+  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService,NoleggiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -138,7 +138,12 @@
           <span class="nav-link-text">Dispositivi</span>
         </a>
       </li>
-
+   <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Noleggi">
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/noleggi">
+          <i class="fa fa-fw fa-user"></i>
+          <span class="nav-link-text">Noleggi</span>
+        </a>
+      </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Appuntamenti">
 
         <a class="nav-link" href="/appuntamenti">

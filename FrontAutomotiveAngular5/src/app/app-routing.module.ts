@@ -7,6 +7,7 @@ import { AppuntamentoComponent } from './components/appuntamento/appuntamento.co
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { ClientiComponent } from './components/clienti/clienti.component';
 import { DispositiviComponent } from './components/dispositivi/dispositivi.component';
+import { NoleggiComponent } from './components/noleggi/noleggi.component';
 
 const routes: Routes = [
   { path: '', redirectTo:"/login", pathMatch:'full' },
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'appuntamenti', component: AppuntamentoComponent},
   { path: 'preventivi', component: PreventivoComponent},
   { path: 'clienti', component: ClientiComponent},
-  { path: 'dispositivi', component: DispositiviComponent}
+  { path: 'dispositivi', component: DispositiviComponent},
+  { path: 'noleggi', component: NoleggiComponent}
   
 ];
 
