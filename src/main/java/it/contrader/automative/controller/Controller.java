@@ -635,11 +635,9 @@ public class Controller {
 	}
 
 	@RequestMapping(value = "/rispondiappuntamento", method = RequestMethod.POST)
-	public void rispondiappuntamento(@RequestParam("emailapp") String email, @RequestParam("dettagliapp") String dettagli, @RequestParam("idapp") String idapp, @RequestParam("selectapp") String stato)
+	public void rispondiappuntamento( @RequestParam("dettagliapp") String dettagli, @RequestParam("idapp") String idapp, @RequestParam("selectapp") String stato)
 	{
-		Utente u = IUtente.selectByEmail(email);
-
-		Officina o = u.getOfficina();
+		
 		Appuntamento a = appuntamentoRepository.findById(Integer.parseInt(idapp));
 
 		a.setStato(Integer.parseInt(stato));
