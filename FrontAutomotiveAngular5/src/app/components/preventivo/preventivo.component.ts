@@ -4,7 +4,6 @@ import { PreventivoService } from '../../services/preventivo.service';
 import { AutoService } from '../../services/auto.service';
 import { Utente } from '../../models/Utente';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
 import { Preventivo } from '../../models/Preventivo';
 import { Auto } from '../../models/Auto';
 declare var jquery: any;
