@@ -52,6 +52,6 @@ listaClienti:any;
         console.log("Error occured");
       });
   
-  });
+  };
 
 }

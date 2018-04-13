@@ -39,7 +39,7 @@ export class ClientiService {
     );
   }
  
- insertCliente(nome:string, cognome:string, email:string, password: string,idOfficina:any, telefono:string): Observable<Auto> {
+ insertCliente(nome:string, cognome:string, email:string, password: string,idOfficina:any, telefono:string): Observable<any> {
     var formdata = new FormData();
 
     formdata.append("cognome", cognome);
@@ -49,7 +49,7 @@ export class ClientiService {
     formdata.append("idOfficina", idOfficina);
 	  formdata.append("telefono", telefono);
     
-    return this.http.post<Auto>(`${this.urlBase}inserisciCliente`, formdata).pipe(
+    return this.http.post<any>(`${this.urlBase}inserisciCliente`, formdata).pipe(
       tap((response) => console.log("Fetched INSERT CLIENTE"),
         catchError(this.handleError("Insert Cliente error", {})))
     );
