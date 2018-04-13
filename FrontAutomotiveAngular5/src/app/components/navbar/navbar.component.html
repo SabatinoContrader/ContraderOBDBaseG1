@@ -131,7 +131,16 @@
           <span class="nav-link-text">Clienti</span>
         </a>
       </li>
+
+	   <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+        <a *ngIf="utente.ruolo==1" class="nav-link" href="/dispositivo">
+          <i class="fa fa-fw fa-user"></i>
+          <span class="nav-link-text">Dispositivi</span>
+        </a>
+      </li>
+
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Appuntamenti">
+
         <a class="nav-link" href="/appuntamenti">
           <i class="fa fa-fw fa-calendar"></i>
           <span class="nav-link-text">Appuntamenti</span>

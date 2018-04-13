@@ -19,6 +19,7 @@ import { HomeUtenteComponent } from './components/home-utente/home-utente.compon
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppuntamentoService } from './services/appuntamento.service';
+import { DispositiviService } from './services/dispositivi.service';
 import { PreventivoService } from './services/preventivo.service';
 import { ClientiService } from './services/clienti.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
@@ -26,6 +27,7 @@ import { PreventivoComponent } from './components/preventivo/preventivo.componen
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ClientiComponent } from './components/clienti/clienti.component';
+import { DispositiviComponent } from './components/dispositivi/dispositivi.component';
 
 
 
@@ -40,7 +42,8 @@ import { ClientiComponent } from './components/clienti/clienti.component';
     GuastiComponent,
     PreventivoComponent,
     AppuntamentoComponent,
-    ClientiComponent
+    ClientiComponent,
+    DispositiviComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,7 @@ import { ClientiComponent } from './components/clienti/clienti.component';
     SweetAlert2Module.forRoot(),
 	 DataTablesModule
   ],
-  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService],
+  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

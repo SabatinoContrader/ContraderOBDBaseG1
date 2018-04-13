@@ -1,0 +1,98 @@
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
+
+  <!-- begin::Body -->
+  <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+      <div class="m-content">
+
+        <!--begin:: section content-->
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
+            <div class="m-portlet m-portlet--mobile ">
+              <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                  <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                      <i class="fa fa-calendar fah3"></i>
+DISPOSITIVI                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div class="m-portlet__body">
+                <!--begin: Datatable -->
+	<button type="button" id="aggiungidispositivo" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modaladddispositivo">Aggiungi Dispositivo</button>
+                <div class="table-responsive">
+                  <table datatable  class="row-border hover" id="myTable">
+                    <thead>
+                      <tr>
+                        <th>Codice</th>
+                        <th>Auto</th>
+                        <th>Data Installazione</th>
+                        
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr *ngFor="let dispositivo of listaDispositivi">
+                        <td>{{dispositivo.codice}}</td>
+                        <td><span *ngIf="dispositivo.auto!=null">{{dispositivo.auto.marca}} {{dispositivo.auto.modello}}  - {{dispositivo.auto.targa}}</span></td>
+                        <td ><span *ngIf="dispositivo.dataInstallazione!=null">{{dispositivo.dataInstallazione}}</span><span *ngIf="dispositivo.dataInstallazione==null">Non Installato</span></td>
+                      
+                        <td>        
+                        
+                        </td>
+				
+                      </tr>
+                    </tbody>
+					
+                  </table>
+                </div>
+                <!--end: Datatable -->
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <!--end:: seciont content-->
+
+
+
+
+
+      </div>
+    </div>
+    <!--
+		</div>
+	-->
+  </div>
+</div>
+<!-- end:: Page -->
+<!-- begin::modal add auto -->
+<div class="modal" tabindex="-1" role="dialog" id="modaladddispositivo">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Aggiungi Cliente</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+			<div class="form-group">
+			<label for="codice">Inserire il codice del dispositivo</label>
+			<input type="text" [(ngModel)]="codice" class="form-control">
+			</div>
+	</div>
+				
+				<div class="modal-footer " style="text-align:center;" >
+					<button type="button" class="btn btn-primary savebutton" (click)="insertDispositivo();">Salva dispositivo</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end::modal add auto-->
