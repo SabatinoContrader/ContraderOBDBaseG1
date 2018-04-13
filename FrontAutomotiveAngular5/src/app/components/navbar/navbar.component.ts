@@ -13,7 +13,12 @@ export class NavbarComponent implements OnInit {
 
   constructor(private loginService:LoginService, private router:Router) { }
 
- utente: LoginEntity = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
+  session = JSON.parse(sessionStorage.getItem("loginEntity"));
+  utente: LoginEntity
+ 
+ if(session){
+  this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
+ }
 
 
   userIsLogged():boolean{
