@@ -30,6 +30,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { ClientiComponent } from './components/clienti/clienti.component';
 import { DispositiviComponent } from './components/dispositivi/dispositivi.component';
 import { NoleggiComponent } from './components/noleggi/noleggi.component';
+import { ScadenzeComponent } from './components/scadenze/scadenze.component';
 
 
 
@@ -46,7 +47,8 @@ import { NoleggiComponent } from './components/noleggi/noleggi.component';
     AppuntamentoComponent,
     ClientiComponent,
     DispositiviComponent,
-    NoleggiComponent
+    NoleggiComponent,
+    ScadenzeComponent
   ],
   imports: [
     BrowserModule,

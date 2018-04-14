@@ -131,7 +131,20 @@
           <span class="nav-link-text">Clienti</span>
         </a>
       </li>
-
+<li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Guasti">
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/guasti">
+          <i class="fa fa-fw fa-user"></i>
+          <span class="nav-link-text">Guasti</span>
+		  <span class="badge badge-danger pull-right" *ngIf="getNumeroGuasti()>0">{{getNumeroGuasti()}}</span>
+        </a>
+      </li>
+<li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Scadenze">
+        <a *ngIf="getRuolo()==1" class="nav-link" href="/scadenze">
+          <i class="fa fa-fw fa-user"></i>
+          <span class="nav-link-text">Scadenze</span>
+		  <span class="badge badge-danger pull-right" *ngIf="getNumeroScadenze()>0">{{getNumeroScadenze()}}</span>
+        </a>
+      </li>
 	   <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Dispositivi">
         <a *ngIf="getRuolo()==1" class="nav-link" href="/dispositivi">
           <i class="fa fa-fw fa-user"></i>

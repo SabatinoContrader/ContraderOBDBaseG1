@@ -22,7 +22,7 @@ NOLEGGI                    </h3>
               </div>
               <div class="m-portlet__body">
                 <!--begin: Datatable -->
-	<button type="button" id="aggiungidispositivo" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modaladddispositivo">ASSEGNA NOLEGGIO</button>
+	<button type="button" id="aggiungidispositivo" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modalassegnanoleggio">ASSEGNA NOLEGGIO</button>
                 <div class="table-responsive">
                   <table datatable  class="row-border hover" id="myTable">
                     <thead>
@@ -79,29 +79,86 @@ NOLEGGI                    </h3>
   </div>
 </div>
 <!-- end:: Page -->
-<!-- begin::modal add auto -->
-<div class="modal" tabindex="-1" role="dialog" id="modaladddispositivo">
+
+<!-- begin::modal assegna noleggio -->
+<div class="modal" tabindex="-1" role="dialog" id="modalassegnanoleggio">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Aggiungi Cliente</h5>
+				<h5 class="modal-title">Assegna noleggio</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-
-			<div class="form-group">
-			<label for="codice">Inserire il codice del dispositivo</label>
-			<input type="text" [(ngModel)]="codice" class="form-control">
-			</div>
-	</div>
 				
+<div class="form-group">
+				<label for="clientenoleggio">Selezionare cliente</label>
+			<select class="form-control" name="clientenoleggio" [(ngModel)]="clientenoleggio">
+			<option *ngFor="let cliente of listaClienti" value="{{cliente.id}}">{{cliente.nome}} {{cliente.cognome}}</option>
+				
+			</select>
+			</div>
+				
+<div class="form-group">
+				<label for="autonoleggio">Selezionare auto</label>
+			<select class="form-control" name="autonoleggio" [(ngModel)]="autonoleggio">
+			<option *ngFor="let auto of listaAutoNoleggiabili" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}  - {{auto.targa}}</option>
+				
+			</select>
+			</div>			
+			
+			
+					<div class="form-group">
+				<label for="CapLuogoDiRitiro">Inserire CAP luogo ritiro</label>
+				<input class="form-control" type="number" name="CapLuogoDiRitiro" [(ngModel)]="CapLuogoDiRitiro">
+				</div>
+				
+				<div class="form-group">
+				<label for="CapLuogoDiRiconsegna">Inserire CAP luogo consegna</label>
+				<input class="form-control" type="number" name="CapLuogoDiRiconsegna" [(ngModel)]="CapLuogoDiRiconsegna">
+				</div>
+				
+				
+					
+						 <div class="form-group">
+              <label for="DataInizioNoleggio">Inserire Data inizio noleggio</label>
+                <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd" name="DataInizioNoleggio" [(ngModel)]="DataInizioNoleggio" ngbDatepicker #dd="ngbDatepicker">
+                      <button class="btn btn-outline-secondary" (click)="dd.toggle()" type="button">
+                        <i class="fa fa-fw fa-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+			  
+					 <div class="form-group">
+              <label for="DataFineNoleggio">Inserire Data fine noleggio</label>
+                <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd" name="DataFineNoleggio" [(ngModel)]="DataFineNoleggio" ngbDatepicker #d="ngbDatepicker">
+                      <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                        <i class="fa fa-fw fa-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+			  
+			  
+				
+					
+				</div>
 				<div class="modal-footer " style="text-align:center;" >
-					<button type="button" class="btn btn-primary savebutton" (click)="insertDispositivo();">Salva dispositivo</button>
+					<button type="button" class="btn btn-primary savebutton" (click)="insertNoleggio();">Salva</button>
 
+				
 			</div>
 		</div>
 	</div>
 </div>
-<!-- end::modal add auto-->
+<!-- end::modal assegna noleggio-->
