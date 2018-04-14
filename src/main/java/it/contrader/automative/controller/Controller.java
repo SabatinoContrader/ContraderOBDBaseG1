@@ -488,7 +488,7 @@ public class Controller {
 		listaUtenti = utenteRepository.findByOfficina(officinaRepository.findById(idOfficina));
 
 		//Rimuovi i clienti aziendali
-		for (int i = 0; i<listaUtenti.size(); i++) if(listaUtenti.get(i).getRuolo() == 2) listaUtenti.remove(i);
+		for (int i = 0; i<listaUtenti.size(); i++) if((listaUtenti.get(i).getRuolo() == 2)||(listaUtenti.get(i).getRuolo() == 1)) listaUtenti.remove(i);
 
 		return new GenericResponse<List<Utente>>(listaUtenti);
 
