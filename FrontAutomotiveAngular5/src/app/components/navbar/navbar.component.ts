@@ -23,6 +23,14 @@ export class NavbarComponent implements OnInit {
     return JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo
   }
 
+  getNumeroGuasti():number{
+    return JSON.parse(sessionStorage.getItem("loginEntity")).numGuasti
+  }
+  
+  getNumeroScadenze(): number{
+  return JSON.parse(sessionStorage.getItem("loginEntity")).numScadenze
+  }
+  
   logOut():void{
     var self = this;
     swal({

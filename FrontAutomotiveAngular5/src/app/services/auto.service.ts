@@ -46,6 +46,17 @@ export class AutoService {
     );
   }
   
+  
+  getAutoNoleggiabili(idOfficina: any,noleggiabili:any): Observable<any> {
+    var formdata = new FormData();
+    formdata.append("idOfficina", idOfficina);
+	 formdata.append("noleggiabili", noleggiabili);
+    return this.http.post<any>(`${this.urlBase}autoNoleggiabili`, formdata).pipe(
+      tap((response) => {console.log("Fetched lista auto noleggiabili"); console.log(response)},
+        catchError(this.handleError("notifiche error", {})))
+    );
+  }
+  
 // METHOD TO ADD Auto
   insertAuto(marca:string,modello:string,targa:string,numeroTelaio: string, cilindrata: any, cambio : string,potenza: string,tipologiaAuto: string,
   alimentazione:string, numeroPorte: any, kmAttuali :any, idOfficina:any, scadenzaAssicurazione:any,scadenzaBollo:any, scadenzaRevisione:any,scadenzaTagliando:any): Observable<Auto> {

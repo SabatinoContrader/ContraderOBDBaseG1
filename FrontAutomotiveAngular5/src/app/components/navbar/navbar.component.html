@@ -125,20 +125,50 @@
           <span class="nav-link-text">Dashboard</span>
         </a>
       </li>
-	  <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Clienti">
-        <a *ngIf="getRuolo()==1" class="nav-link" href="/clienti">
+	  <li  *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Clienti">
+        <a  class="nav-link" href="/clienti">
           <i class="fa fa-fw fa-user"></i>
           <span class="nav-link-text">Clienti</span>
         </a>
       </li>
-
-	   <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Dispositivi">
-        <a *ngIf="getRuolo()==1" class="nav-link" href="/dispositivi">
+<li  *ngIf="getRuolo()==1"  class="nav-item" data-toggle="tooltip" data-placement="right" title="Guasti">
+        <a class="nav-link" href="/guasti">
+          <i class="fa fa-fw fa-user"></i>
+          <span class="nav-link-text">Guasti</span>
+		  <span class="badge badge-danger pull-right" *ngIf="getNumeroGuasti()>0">{{getNumeroGuasti()}}</span>
+        </a>
+      </li>
+<li   *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Scadenze">
+       
+	  
+	   <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+          <i class="fa fa-fw fa-calendar"></i>
+          <span class="nav-link-text">Scadenze</span>
+        </a>
+        <ul class="sidenav-second-level collapse" id="collapseComponents">
+          <li>
+            <a href="/scadenze">Scadenze Auto <span class="badge badge-danger pull-right" *ngIf="getNumeroScadenze()>0">{{getNumeroScadenze()}}</span></a>
+			
+          </li>
+          <li>
+            <a href="/noleggi">Scadenze Noleggi</a>
+          </li>
+        </ul>
+		
+		</li>
+	  
+	   <li *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Dispositivi">
+        <a  class="nav-link" href="/dispositivi">
           <i class="fa fa-fw fa-user"></i>
           <span class="nav-link-text">Dispositivi</span>
         </a>
       </li>
-
+   <li  *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Noleggi">
+        <a  class="nav-link" href="/noleggi">
+          <i class="fa fa-fw fa-user"></i>
+          <span class="nav-link-text">Noleggi</span>
+        </a>
+      </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Appuntamenti">
 
         <a class="nav-link" href="/appuntamenti">

@@ -38,3 +38,8 @@
       -webkit-border-radius: 50%;
       border-radius: 50%;
   }
+.spanred{
+	color: red !important;
+	padding-right:10px;
+}
+
