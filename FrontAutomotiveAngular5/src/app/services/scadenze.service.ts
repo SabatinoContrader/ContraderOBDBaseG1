@@ -6,8 +6,8 @@ import { of } from 'rxjs/observable/of';
 import { ENVIROMENT } from '../models/enviroment';
 
 @Injectable()
-export class GuastiService {
-	
+export class ScadenzeService {
+
   private urlBase = ENVIROMENT.url;
   
   constructor(private http: HttpClient) { }
@@ -27,25 +27,13 @@ export class GuastiService {
   }
 
   
-  getGuasti(id: any): Observable<any> {
+  getAutoInScadenza(id: any): Observable<any> {
     var formdata = new FormData();
     formdata.append("id", id);
 	
     return this.http.post<any>(`${this.urlBase}getGuasti`, formdata).pipe(
-      tap((response) => {console.log("Fetched lista guasti"); console.log(response)},
+      tap((response) => {console.log("Fetched lista scadenze auto"); console.log(response)},
         catchError(this.handleError("notifiche error", {})))
     );
   }
-  
-  risolviGuasto(idguasto:any):  Observable<any> {
-    var formdata = new FormData();
-  
-	formdata.append("idguasto",idguasto);
-	
-    return this.http.post<any>(`${this.urlBase}setrisoltoguasto`, formdata).pipe(
-      tap((response) => console.log("Fetched Guasto Risolto"),
-        catchError(this.handleError("Guasto Risoltoerror", {})))
-    );
-  }
-  
 }
