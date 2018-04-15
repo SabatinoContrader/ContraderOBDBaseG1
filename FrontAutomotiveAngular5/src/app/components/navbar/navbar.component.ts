@@ -79,11 +79,13 @@ export class NavbarComponent implements OnInit {
         })
       }
     }).then(result=>{
-      var email = result[0];
-      var password = result[1];
+      var email = result.value[0];
+      var password = result.value[1];
+      console.log(result)
+      if(email!=null && email!="" && password!=null && password!=""){
       this.loginService.login( email, password).subscribe(
         (response) => {
-          if (response) {
+          if (response.utente!=null) {
             this.loginEntity = response;
             console.log(response);
             if (typeof (Storage) !== 'undefined') {
@@ -95,12 +97,17 @@ export class NavbarComponent implements OnInit {
             else
               if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 0)
                 this.router.navigate(["homeutente"]);
-            console.log(this.loginEntity)
+          }else{
+            swal("Error","Wrong username or password","error")
           }
         },
         err => {
+          swal("Error","Something goes wrong","error")
           console.log("Error occured");
         })
+      }else{
+        swal("Error","Field username and password cannot be empty","error")
+      }
     }).catch()
   }
 

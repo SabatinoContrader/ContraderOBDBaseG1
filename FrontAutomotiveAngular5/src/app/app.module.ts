@@ -31,6 +31,7 @@ import { ClientiComponent } from './components/clienti/clienti.component';
 import { DispositiviComponent } from './components/dispositivi/dispositivi.component';
 import { NoleggiComponent } from './components/noleggi/noleggi.component';
 import { ScadenzeComponent } from './components/scadenze/scadenze.component';
+import { ScadenzeService } from './services/scadenze.service';
 
 
 
@@ -61,7 +62,7 @@ import { ScadenzeComponent } from './components/scadenze/scadenze.component';
     SweetAlert2Module.forRoot(),
 	 DataTablesModule
   ],
-  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService,NoleggiService],
+  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService,NoleggiService,ScadenzeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
