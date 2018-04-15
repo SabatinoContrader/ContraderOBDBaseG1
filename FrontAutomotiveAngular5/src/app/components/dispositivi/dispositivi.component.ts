@@ -14,7 +14,9 @@ export class DispositiviComponent implements OnInit {
 	listaDispositivi: any;
 	utente: Utente;
 	codice;
-	
+	iddisp;
+	listaAutoSenzaDispositivo:any;
+	autodaassociare;
   constructor(private dispositiviService: DispositiviService) { }
 
   ngOnInit() {
@@ -37,6 +39,37 @@ export class DispositiviComponent implements OnInit {
       swal("Complimenti", "Dispositivo inserito correttamente", "success");
 
            $('#modaladddispositivo').modal("hide");
+      
+      },
+      err => {
+        console.log("Error occured");
+      });
+  
+  };
+  
+    openModalAssociaDispositivo(id: any): void {
+    this.iddisp = id;
+
+	this.dispositiviService.getAutoSenzaDispositivi(this.utente.officina.id).subscribe(
+      (response) => {
+
+     this.listaAutoSenzaDispositivo=response.data;
+
+	$('#modalassociaauto').modal("show");      
+      },
+      err => {
+        console.log("Error occured");
+      });
+	
+  }
+  
+    public associaDispositivo(){
+	  this.dispositiviService.associaDispositivo(this.iddisp,this.autodaassociare).subscribe(
+      (response) => {
+		 this.getListaDispositivi();
+      swal("Complimenti", "Dispositivo associato correttamente", "success");
+
+           $('#modalassociaauto').modal("hide");
       
       },
       err => {

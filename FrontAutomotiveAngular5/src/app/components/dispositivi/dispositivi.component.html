@@ -41,7 +41,7 @@ DISPOSITIVI                    </h3>
                         <td ><span *ngIf="dispositivo.dataInstallazione!=null">{{dispositivo.dataInstallazione}}</span><span *ngIf="dispositivo.dataInstallazione==null">Non Installato</span></td>
                       
                         <td>        
-                        
+                        <a class="ali" (click)="openModalAssociaDispositivo(dispositivo.id);" *ngIf="dispositivo.dataInstallazione==null" ><i class="fa fa-paperclip" title="associa dispositivo ad auto"></i></a>
                         </td>
 				
                       </tr>
@@ -90,6 +90,37 @@ DISPOSITIVI                    </h3>
 				
 				<div class="modal-footer " style="text-align:center;" >
 					<button type="button" class="btn btn-primary savebutton" (click)="insertDispositivo();">Salva dispositivo</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end::modal add auto-->
+
+<!-- begin::modal add auto -->
+<div class="modal" tabindex="-1" role="dialog" id="modalassociaauto">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Aggiungi Cliente</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			
+			<div class="form-group">
+			<label for="autodaassociare">Selezionare auto a cui associare il dispositivo</label>
+			<select name="autodaassociare" [(ngModel)]="autodaassociare" class="form-control">
+			<option *ngFor="let auto of listaAutoSenzaDispositivo" value="{{auto.id}}">{{auto.marca}} {{auto.modello}} - {{auto.targa}}
+			</select>
+ 			</div>
+			
+			
+	</div>
+				
+				<div class="modal-footer " style="text-align:center;" >
+					<button type="button" class="btn btn-primary savebutton" (click)="associaDispositivo();">Associa auto</button>
 
 			</div>
 		</div>

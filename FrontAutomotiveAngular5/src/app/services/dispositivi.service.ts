@@ -52,5 +52,29 @@ export class DispositiviService {
     );
   }
   
+  getAutoSenzaDispositivi(id:any): Observable<any> {
+    var formdata = new FormData();
+
+    formdata.append("id", id);
+	
+	
+    return this.http.post<any>(`${this.urlBase}autoSenzaDispositivo`, formdata).pipe(
+      tap((response) => console.log("Fetched LISTA AUTO SENZA DISPOSITIVO COLLEGATO"),
+        catchError(this.handleError("Insert Cliente error", {})))
+    );
+  }
+  
+  associaDispositivo(idDispositivo:any,idAuto:any): Observable<any> {
+    var formdata = new FormData();
+
+    formdata.append("idDispositivo", idDispositivo);
+	formdata.append("idAuto", idAuto);
+	
+    return this.http.post<any>(`${this.urlBase}installazioneDispositivo`, formdata).pipe(
+      tap((response) => console.log("Fetched Insatallazione dispositivo"),
+        catchError(this.handleError("Insert Cliente error", {})))
+    );
+  }
+  
   
 }
