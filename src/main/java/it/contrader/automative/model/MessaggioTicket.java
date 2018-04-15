@@ -34,7 +34,7 @@ public class MessaggioTicket implements Serializable {
 	
 	@Column
 	private Date data;
-	
+	//Direzione 0 da cliente ad officina, Direzione 1 da officina a cliente
 	@Column
 	private int direzione;
 	

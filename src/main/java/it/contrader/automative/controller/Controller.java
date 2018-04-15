@@ -44,6 +44,7 @@ import it.contrader.automative.repositories.TicketRepository;
 import it.contrader.automative.serviceInterfaces.IAppuntamento;
 import it.contrader.automative.serviceInterfaces.IAuto;
 import it.contrader.automative.serviceInterfaces.IDispositivo;
+import it.contrader.automative.serviceInterfaces.IMessaggioTicket;
 import it.contrader.automative.serviceInterfaces.INoleggio;
 import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.IUtente;
@@ -69,7 +70,7 @@ public class Controller {
 	private IAzienda IAzienda;
 	private IAuto IAuto;
 	private IDispositivo IDispositivo;
-
+	private IMessaggioTicket IMessaggioTicket;
 	private INoleggio noleggioService;
 
 	private AziendaRepository aziendaRepository;
@@ -86,7 +87,7 @@ public class Controller {
 	private MessaggioTicketRepository messaggioTicketRepository;
 
 	@Autowired
-	public Controller(IAzienda IAzienda, AziendaRepository aziendaRepository, IAuto IAuto, IDispositivo IDispositivo, IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, UtenteRepository utenteRepository ,AutoRepository autoRepository,  MessaggioTicketRepository messaggioTicketRepository ,NoleggioRepository noleggioRepository,TicketRepository ticketRepository, OfficinaRepository officinaRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository, INoleggio noleggioService) {
+	public Controller(IAzienda IAzienda, AziendaRepository aziendaRepository, IAuto IAuto, IDispositivo IDispositivo, IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, IMessaggioTicket IMessaggioTicket,UtenteRepository utenteRepository ,AutoRepository autoRepository,  MessaggioTicketRepository messaggioTicketRepository ,NoleggioRepository noleggioRepository,TicketRepository ticketRepository, OfficinaRepository officinaRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository, INoleggio noleggioService) {
 		this.IUtente = IUtente;
 		this.IPreventivo = IPreventivo;
 		this.IAppuntamento=IAppuntamento;
@@ -105,6 +106,7 @@ public class Controller {
 		this.IDispositivo = IDispositivo;
 		this.aziendaRepository = aziendaRepository;
 		this.IAzienda = IAzienda;
+		this.IMessaggioTicket = IMessaggioTicket;
 	}
 
 
@@ -498,12 +500,37 @@ public class Controller {
 
 	//! Lista Appuntamenti dell'Officina
 	@RequestMapping(value = "/appuntamentiOfficina", method = RequestMethod.POST)
-	public GenericResponse<List<Appuntamento>> getAppuntamentiOfficina(@RequestParam("id") int idOfficina) {
+	public GenericResponse<List<Appuntamento>> getAppuntamentiOfficina(@RequestParam("id") int idOfficina, @RequestParam("stato") int stato) {
 
 		List<Appuntamento> listaAppuntamentiOfficina = new ArrayList();
 
 		listaAppuntamentiOfficina = appuntamentoRepository.findByOfficina(officinaRepository.findById(idOfficina));
 
+		// se non voglio tutti gli appuntamenti (0), faccio switch in cui rimuovo appuntamenti che non voglio dalla lista
+				// Case 1, mi tengo solo appuntamenti in attesa di risposta
+				// Case 2, mi tengo solo appuntamenti Confermati
+				// Case 3, mi tengo solo appuntamenti Rifiutati
+				if(stato>0) {
+					
+					switch(stato){
+						case 1: 
+							for (int i = 0; i<listaAppuntamentiOfficina.size(); i++)
+								if(listaAppuntamentiOfficina.get(i).getStato() != 0) listaAppuntamentiOfficina.remove(i);
+							break;
+						case 2:
+							for (int i = 0; i<listaAppuntamentiOfficina.size(); i++)
+								if(listaAppuntamentiOfficina.get(i).getStato() != 1) listaAppuntamentiOfficina.remove(i);
+							break;
+						case 3: 
+							for (int i = 0; i<listaAppuntamentiOfficina.size(); i++)
+								if(listaAppuntamentiOfficina.get(i).getStato() != 2) listaAppuntamentiOfficina.remove(i);
+							break;
+						
+						default:;
+					}
+					
+				}
+		
 		return new GenericResponse<List<Appuntamento>>(listaAppuntamentiOfficina);
 
 	}
@@ -561,7 +588,7 @@ public class Controller {
 			case 1 : 
 
 				List<Auto> listaAutoOfficina = getAutoOfficina(u.getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAppuntamentiOfficina(u.getOfficina().getId()).getData().size(), getPreventiviOfficina(u.getOfficina().getId(),0).getData().size(), statoAuto(listaAutoOfficina, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAppuntamentiOfficina(u.getOfficina().getId(),0).getData().size(), getPreventiviOfficina(u.getOfficina().getId(),0).getData().size(), statoAuto(listaAutoOfficina, u));
 				break;
 			case 2 :
 
@@ -971,6 +998,35 @@ public class Controller {
 		
 		return new GenericResponse<List<Auto>>(lista);
 		
+	}
+	
+	@RequestMapping(value = "/inviaMessaggio", method = RequestMethod.POST)
+	public void inviapreventivo(@RequestParam("idticket") int id, @RequestParam("testo") String testo, @RequestParam("direzione") int direzione)
+	{
+		
+		// create a java calendar instance
+		Calendar calendar = Calendar.getInstance();
+
+		// get a java date (java.util.Date) from the Calendar instance.
+		// this java date will represent the current date, or "now".
+		java.util.Date currentDate = calendar.getTime();
+
+		// now, create a java.sql.Date from the java.util.Date
+		java.sql.Date date = new java.sql.Date(currentDate.getTime());
+
+		Ticket t = ticketRepository.findById(id);
+		//Creazione nuovo messaggioTicket
+		MessaggioTicket mt = new MessaggioTicket();
+		
+		mt.setData(date);
+		mt.setTicket(t);
+		mt.setDirezione(direzione);
+		mt.setTesto(testo);
+		
+		// Inserimento messaggio ticket creato in database
+
+		IMessaggioTicket.insert(mt);
+
 	}
 
 }
