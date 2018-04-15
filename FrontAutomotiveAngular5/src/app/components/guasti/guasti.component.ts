@@ -17,6 +17,8 @@ listaGuasti:any;
 utente:Utente;
 idguasto:number;
 telemetria:any;
+lat: number = 41.54061;
+  lng: number = 14.381826;
   constructor(private guastiService:GuastiService) { }
 
   ngOnInit() {

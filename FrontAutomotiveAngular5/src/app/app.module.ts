@@ -37,6 +37,7 @@ import { ScadenzeService } from './services/scadenze.service';
 import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzenoleggi.component';
 import { MessaggiComponent } from './components/messaggi/messaggi.component';
 import { TicketComponent } from './components/ticket/ticket.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -68,7 +69,10 @@ import { TicketComponent } from './components/ticket/ticket.component';
     AngularFontAwesomeModule,
     NgbModule.forRoot(),
     SweetAlert2Module.forRoot(),
-	 DataTablesModule
+   DataTablesModule,
+   AgmCoreModule.forRoot({
+    apiKey: 'AIzaSyAzxOdjlXq5R2ToV3SsvAO8s0nPyHo8Vro'
+  })
   ],
   providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService,NoleggiService,ScadenzeService,ScadenzenoleggiService,MessaggiService],
   bootstrap: [AppComponent]
