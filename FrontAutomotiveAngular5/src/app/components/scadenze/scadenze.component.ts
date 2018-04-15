@@ -27,7 +27,7 @@ export class ScadenzeComponent implements OnInit {
   loadScadenze(): void{
 	  this.scadenzeService.getAutoInScadenza(this.utente.id)
       .subscribe(
-        response => {  this.listaScadenze = response.data }
+        response => {console.log(response);  this.listaScadenze = response.data }
       );
   }
 }
