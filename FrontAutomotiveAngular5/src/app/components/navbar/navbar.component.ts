@@ -31,6 +31,10 @@ export class NavbarComponent implements OnInit {
   return JSON.parse(sessionStorage.getItem("loginEntity")).numScadenze
   }
   
+  getNumeroScadenzeNoleggi(): number{
+	  return JSON.parse(sessionStorage.getItem("loginEntity")).numKmNoleggio
+  }
+  
   logOut():void{
     var self = this;
     swal({

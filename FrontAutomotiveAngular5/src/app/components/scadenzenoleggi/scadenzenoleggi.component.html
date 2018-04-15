@@ -1,0 +1,66 @@
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
+
+  <!-- begin::Body -->
+  <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+      <div class="m-content">
+
+        <!--begin:: section content-->
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
+            <div class="m-portlet m-portlet--mobile ">
+              <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                  <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                      <i class="fa fa-calendar fah3"></i>
+                      SCADENZE KM NOLEGGI</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="m-portlet__body">
+                <!--begin: Datatable -->
+
+                <div class="table-responsive">
+                  <table datatable class="row-border hover" id="myTable">
+                    <thead>
+                      <tr>
+                        <th>Auto</th>
+                        <th>Guidatore</th>
+                        <th>Km per fine Noleggio</th>
+						
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let scadenze of listaScadenzeNoleggi">
+                        <td>{{scadenze.auto.marca}} {{scadenze.auto.modello}}<br> {{scadenze.auto.targa}}</td>
+                        <td>{{scadenze.guidatore.nome}} {{scadenze.guidatore.cognome}}</td>
+                        <td>
+						<span *ngIf="(scadenze.auto.kmAttuali-scadenze.auto.kmInizioNoleggio)>=scadenze.maxKmNoleggio" style="color:red;">
+						Km massimi superati da {{scadenze.maxKmNoleggio-(scadenze.auto.kmAttuali-scadenze.auto.kmInizioNoleggio)}} Km
+						</span>
+						<span *ngIf="(scadenze.auto.kmAttuali-scadenze.auto.kmInizioNoleggio)<scadenze.maxKmNoleggio">{{scadenze.maxKmNoleggio-(scadenze.auto.kmAttuali-scadenze.auto.kmInizioNoleggio)}}
+						</span>
+						</td>
+                       
+                      </tr>
+                    </tbody>
+
+                  </table>
+                </div>
+                <!--end: Datatable -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end:: seciont content-->
+      </div>
+    </div>
+    <!--
+		</div>
+	-->
+  </div>
+</div>
+<!-- end:: Page -->

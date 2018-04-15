@@ -27,7 +27,7 @@ listaAutoNoleggiabili: any;
 	DataInizioNoleggio;
 	DataFineNoleggio;
 	autonoleggio;
-	
+	maxKmNoleggio;
   constructor(private noleggiService: NoleggiService,private clientiService: ClientiService,private autoService: AutoService) { }
 
   ngOnInit() {
@@ -53,7 +53,7 @@ listaAutoNoleggiabili: any;
   }
   
   insertNoleggio(): void {
-    this.noleggiService.insertNoleggio(this.utente.officina.id, this.autonoleggio, this.CapLuogoDiRiconsegna, this.CapLuogoDiRitiro, this.DataInizioNoleggio.day + "/" + this.DataInizioNoleggio.month + "/" + this.DataInizioNoleggio.year, this.DataFineNoleggio.day + "/" + this.DataFineNoleggio.month + "/" + this.DataFineNoleggio.year, this.clientenoleggio).subscribe((response) => {
+    this.noleggiService.insertNoleggio(this.utente.officina.id, this.autonoleggio, this.CapLuogoDiRiconsegna, this.CapLuogoDiRitiro, this.DataInizioNoleggio.day + "/" + this.DataInizioNoleggio.month + "/" + this.DataInizioNoleggio.year, this.DataFineNoleggio.day + "/" + this.DataFineNoleggio.month + "/" + this.DataFineNoleggio.year,this.maxKmNoleggio, this.clientenoleggio).subscribe((response) => {
         swal("Success", "Auto noleggiata correttamente", "success");
         $('#modalassegnanoleggio').modal("hide");
         this.getListaNoleggi();

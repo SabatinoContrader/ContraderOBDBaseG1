@@ -10,6 +10,7 @@ import { DispositiviComponent } from './components/dispositivi/dispositivi.compo
 import { NoleggiComponent } from './components/noleggi/noleggi.component';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { ScadenzeComponent } from './components/scadenze/scadenze.component';
+import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzenoleggi.component';
 
 const routes: Routes = [
   { path: '', redirectTo:"/login", pathMatch:'full' },
@@ -18,11 +19,13 @@ const routes: Routes = [
   { path: 'homeutente', component: HomeUtenteComponent},
   { path: 'appuntamenti', component: AppuntamentoComponent},
   { path: 'preventivi', component: PreventivoComponent},
+  { path: 'preventivi/:stato', component: PreventivoComponent},
   { path: 'clienti', component: ClientiComponent},
   { path: 'dispositivi', component: DispositiviComponent},
   { path: 'noleggi', component: NoleggiComponent},
   { path: 'guasti', component: GuastiComponent},
-  { path: 'scadenze', component: ScadenzeComponent}
+  { path: 'scadenze', component: ScadenzeComponent},
+  { path: 'scadenzenoleggi', component: ScadenzenoleggiComponent}
   
 ];
 

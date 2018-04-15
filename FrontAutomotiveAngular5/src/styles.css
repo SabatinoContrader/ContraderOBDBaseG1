@@ -43,3 +43,9 @@
 	padding-right:10px;
 }
 
+.navbar-sidenav{
+	overflow-y: auto;
+}
+
+.dataTables_info{display: none !important;}
+

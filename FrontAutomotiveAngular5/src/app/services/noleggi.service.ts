@@ -37,7 +37,7 @@ export class NoleggiService {
     );
   }
  
- insertNoleggio(idOfficina:any, idAuto:any, CapLuogoDiRiconsegna:any, CapLuogoDiRitiro:any, DataInizioNoleggio:string, DataFineNoleggio:string, idUtente:any): Observable<any> {
+ insertNoleggio(idOfficina:any, idAuto:any, CapLuogoDiRiconsegna:any, CapLuogoDiRitiro:any, DataInizioNoleggio:string, DataFineNoleggio:string,maxKmNoleggio:any, idUtente:any): Observable<any> {
     var formdata = new FormData();
 
     formdata.append("idOfficina", idOfficina);
@@ -46,6 +46,7 @@ export class NoleggiService {
 	formdata.append("CapLuogoDiRitiro", CapLuogoDiRitiro);
 	formdata.append("DataInizioNoleggio", DataInizioNoleggio);
 	formdata.append("DataFineNoleggio", DataFineNoleggio);
+	formdata.append("MaxKmNoleggio",maxKmNoleggio);
 	formdata.append("idUtente",idUtente);
 	
     return this.http.post<any>(`${this.urlBase}inserisciNoleggio`, formdata).pipe(

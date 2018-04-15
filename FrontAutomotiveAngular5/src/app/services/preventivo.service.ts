@@ -37,9 +37,10 @@ export class PreventivoService {
     );
   }
 
-  listaPreventiviOfficina(id: any): Observable<any> {
+  listaPreventiviOfficina(id: any,stato:any): Observable<any> {
     var formdata = new FormData();
     formdata.append("id", id);
+	formdata.append("stato",stato);
 
     return this.http.post<any>(`${this.urlBase}preventiviOfficina`, formdata).pipe(
       tap((response) => { console.log("Fetched LISTA Preventivi officina"); console.log(response) },

@@ -151,7 +151,7 @@
 			
           </li>
           <li>
-            <a href="/noleggi">Scadenze Noleggi</a>
+            <a href="/scadenzenoleggi">Scadenze Noleggi<span class="badge badge-danger pull-right" *ngIf="getNumeroScadenzeNoleggi()>0">{{getNumeroScadenzeNoleggi()}}</span></a>
           </li>
         </ul>
 		
@@ -177,10 +177,35 @@
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Preventivi">
-        <a class="nav-link" href="/preventivi">
+        <!--<a class="nav-link" href="/preventivi">
+          <i class="fa fa-fw fa-euro"></i>
+          <span class="nav-link-text">Preventivi</span>
+        </a>-->
+	
+ <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponentsPreventivi" data-parent="#exampleAccordion">
           <i class="fa fa-fw fa-euro"></i>
           <span class="nav-link-text">Preventivi</span>
         </a>
+        <ul class="sidenav-second-level collapse" id="collapseComponentsPreventivi">
+		 <li>
+            <a [routerLink]="['/preventivi']" [queryParams]="{ stato: 0 }">Tutti </a>
+			
+          </li>
+          <li>
+            <a [routerLink]="['/preventivi']" [queryParams]="{ stato: 1 }">Preventivi In Attesa </a>
+			
+          </li>
+          <li>
+            <a [routerLink]="['/preventivi']" [queryParams]="{ stato: 2 }">Preventivi Risposti </a>
+          </li>
+		   <li>
+            <a [routerLink]="['/preventivi']" [queryParams]="{ stato: 3 }">Preventivi Accettati </a>
+          </li>
+		   <li>
+            <a [routerLink]="['/preventivi']" [queryParams]="{ stato: 4 }">Preventivi Rifiutati </a>
+          </li>
+        </ul>	
+		
       </li>
     </ul>
     <ul class="navbar-nav sidenav-toggler">

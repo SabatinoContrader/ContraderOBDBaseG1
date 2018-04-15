@@ -445,12 +445,41 @@ public class Controller {
 
 	//! Lista Preventivi dell'Officina
 	@RequestMapping(value = "/preventiviOfficina", method = RequestMethod.POST)
-	public GenericResponse<List<Preventivo>> getPreventiviOfficina(@RequestParam("id") int idOfficina) {
+	public GenericResponse<List<Preventivo>> getPreventiviOfficina(@RequestParam("id") int idOfficina, @RequestParam("stato") int stato) {
 
 		List<Preventivo> listaPreventiviOfficina = new ArrayList();
 
 		listaPreventiviOfficina = preventivoRepository.findByOfficina(officinaRepository.findById(idOfficina));
-
+		
+		// se non voglio tutti i preventivi (0), faccio switch in cui rimuovo preventivi che non voglio dalla lista
+		// Case 1, mi tengo solo preventivi in attesa di risposta
+		// Case 2, mi tengo solo preventivi Risposti
+		// Case 3, mi tengo solo preventivi Accettati
+		// Case 4, mi tengo solo preventivi Rifiutati
+		if(stato>0) {
+			
+			switch(stato){
+				case 1: 
+					for (int i = 0; i<listaPreventiviOfficina.size(); i++)
+						if(listaPreventiviOfficina.get(i).getStato() != 0) listaPreventiviOfficina.remove(i);
+					break;
+				case 2:
+					for (int i = 0; i<listaPreventiviOfficina.size(); i++)
+						if(listaPreventiviOfficina.get(i).getStato() != 1) listaPreventiviOfficina.remove(i);
+					break;
+				case 3: 
+					for (int i = 0; i<listaPreventiviOfficina.size(); i++)
+						if(listaPreventiviOfficina.get(i).getStato() != 2) listaPreventiviOfficina.remove(i);
+					break;
+				case 4: 
+					for (int i = 0; i<listaPreventiviOfficina.size(); i++)
+						if(listaPreventiviOfficina.get(i).getStato() != 3) listaPreventiviOfficina.remove(i);
+					break;
+				default:;
+			}
+			
+		}
+		
 		return new GenericResponse<List<Preventivo>>(listaPreventiviOfficina);
 
 	}
@@ -532,7 +561,7 @@ public class Controller {
 			case 1 : 
 
 				List<Auto> listaAutoOfficina = getAutoOfficina(u.getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAppuntamentiOfficina(u.getOfficina().getId()).getData().size(), getPreventiviOfficina(u.getOfficina().getId()).getData().size(), statoAuto(listaAutoOfficina, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAppuntamentiOfficina(u.getOfficina().getId()).getData().size(), getPreventiviOfficina(u.getOfficina().getId(),0).getData().size(), statoAuto(listaAutoOfficina, u));
 				break;
 			case 2 :
 
@@ -689,7 +718,7 @@ public class Controller {
 	@RequestMapping(value = "/inserisciNoleggio", method = RequestMethod.POST)
 	public void inserisciNoleggio(@RequestParam("idOfficina") int idOfficina, @RequestParam("idAuto") int idAuto, @RequestParam("CapLuogoDiRiconsegna") int CapLuogoDiRiconsegna,
 			@RequestParam("CapLuogoDiRitiro") int CapLuogoDiRitiro, @RequestParam("DataInizioNoleggio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date DataInizioNoleggio, 
-			@RequestParam("DataFineNoleggio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date DataFineNoleggio, @RequestParam("idUtente") int idUtente) {
+			@RequestParam("DataFineNoleggio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date DataFineNoleggio, @RequestParam("MaxKmNoleggio") int MaxKmNoleggio,@RequestParam("idUtente") int idUtente) {
 
 		Noleggio n = new Noleggio();
 		//Noleggio a = new Noleggio();
@@ -701,7 +730,7 @@ public class Controller {
 		n.setDataFineNoleggio(DataFineNoleggio);
 		n.setOfficina(officinaRepository.findById(idOfficina));
 		n.setGuidatore(utenteRepository.findById(idUtente));
-
+		n.setMaxKmNoleggio(MaxKmNoleggio);
 		noleggioService.insert(n);
 
 	}
