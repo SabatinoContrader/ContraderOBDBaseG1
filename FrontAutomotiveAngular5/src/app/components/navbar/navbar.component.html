@@ -171,10 +171,28 @@
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Appuntamenti">
 
-        <a class="nav-link" href="/appuntamenti">
+       <!-- <a class="nav-link" href="/appuntamenti">
+          <i class="fa fa-fw fa-calendar"></i>
+          <span class="nav-link-text">Appuntamenti</span>
+        </a>-->
+		 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponentsAppuntamenti" data-parent="#exampleAccordion">
           <i class="fa fa-fw fa-calendar"></i>
           <span class="nav-link-text">Appuntamenti</span>
         </a>
+        <ul class="sidenav-second-level collapse" id="collapseComponentsAppuntamenti">
+		 <li>
+            <a [routerLink]="['/appuntamenti']" [queryParams]="{ stato: 0 }">Tutti </a>
+		</li>
+          <li>
+            <a [routerLink]="['/appuntamenti']" [queryParams]="{ stato: 1 }">Appuntamenti In Attesa </a>
+		</li>
+		<li>
+            <a [routerLink]="['/appuntamenti']" [queryParams]="{ stato: 2 }">Appuntamenti Confermati </a>
+	    </li>
+		<li>
+            <a [routerLink]="['/appuntamenti']" [queryParams]="{ stato: 3 }">Appuntamenti Rifiutati </a>
+	    </li>
+		  </ul>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Preventivi">
         <!--<a class="nav-link" href="/preventivi">
@@ -206,6 +224,12 @@
           </li>
         </ul>	
 		
+      </li>
+	  <li  *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Messaggi">
+        <a  class="nav-link" href="/messaggi">
+          <i class="fa fa-fw fa-envelope"></i>
+          <span class="nav-link-text">Messaggi</span>
+        </a>
       </li>
     </ul>
     <ul class="navbar-nav sidenav-toggler">

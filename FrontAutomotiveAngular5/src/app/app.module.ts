@@ -23,6 +23,7 @@ import { DispositiviService } from './services/dispositivi.service';
 import { PreventivoService } from './services/preventivo.service';
 import { ClientiService } from './services/clienti.service';
 import { NoleggiService } from './services/noleggi.service';
+import { MessaggiService } from './services/messaggi.service';
 import { ScadenzenoleggiService } from './services/scadenzenoleggi.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
@@ -34,6 +35,8 @@ import { NoleggiComponent } from './components/noleggi/noleggi.component';
 import { ScadenzeComponent } from './components/scadenze/scadenze.component';
 import { ScadenzeService } from './services/scadenze.service';
 import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzenoleggi.component';
+import { MessaggiComponent } from './components/messaggi/messaggi.component';
+import { TicketComponent } from './components/ticket/ticket.component';
 
 
 
@@ -52,7 +55,9 @@ import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzen
     DispositiviComponent,
     NoleggiComponent,
     ScadenzeComponent,
-    ScadenzenoleggiComponent
+    ScadenzenoleggiComponent,
+    MessaggiComponent,
+    TicketComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,7 @@ import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzen
     SweetAlert2Module.forRoot(),
 	 DataTablesModule
   ],
-  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService,NoleggiService,ScadenzeService,ScadenzenoleggiService],
+  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService,NoleggiService,ScadenzeService,ScadenzenoleggiService,MessaggiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

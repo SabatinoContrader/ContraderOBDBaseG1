@@ -1,5 +1,6 @@
 import { Appuntamento } from '../../models/Appuntamento';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ApplicationRef } from '@angular/core';
+import { Router, ActivatedRoute  } from '@angular/router';
 import { AppuntamentoService } from '../../services/appuntamento.service';
 import { Utente } from '../../models/Utente';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -24,10 +25,27 @@ export class AppuntamentoComponent implements OnInit {
   idrispapp;
   rispostaapp;
   statoappuntamento;
-
-  constructor(private appuntamentoService: AppuntamentoService, private autoService: AutoService) { }
+	stato:number;
+	sub;
+	filtroappuntamenti;
+  constructor(private ref: ApplicationRef,private appuntamentoService: AppuntamentoService, private autoService: AutoService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit() {
     this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
+	
+	 this.sub = this.route.queryParams.subscribe(params => {
+     
+	 // Prendere paremetro per visualizzare solo preventivi che voglio, se non ci sta imopsto a 0.
+	 // 0 - tutti, 1 - in attesa di risposta, 2 - risposti, 3 - accettati, 4 - rifiutati
+	 this.stato = +params['stato'] || 0; 
+	 if(this.stato==0)this.filtroappuntamenti="Tutti";
+	 else if(this.stato==1)this.filtroappuntamenti="In Attesa Di Risposta";
+	 else if(this.stato==2)this.filtroappuntamenti="Confermati";
+	 else if(this.stato==3)this.filtroappuntamenti="Rifiutati";
+
+	 this.loadAppuntamentiOfficina();
+	
+    });
+	
     if (this.utente.ruolo == 0) {
       this.loadAppuntamentiCliente();
 
@@ -76,9 +94,10 @@ export class AppuntamentoComponent implements OnInit {
   }
 
   loadAppuntamentiOfficina(): void {
-    this.appuntamentoService.getAppuntamentiOfficina(this.utente.officina.id)
+    this.appuntamentoService.getAppuntamentiOfficina(this.utente.officina.id,this.stato)
       .subscribe(
-        response => { console.log("RISOPIs: " + response.data); this.listaAppuntamenti = response.data }
+        response => { this.listaAppuntamenti = response.data; this.ref.tick();
+ }
       );
   }
   loadAppuntamentiCliente(): void {
@@ -96,6 +115,13 @@ export class AppuntamentoComponent implements OnInit {
         this.loadAppuntamentiCliente();
       });
   }
+  
+  ngOnDestroy() {
+  if(this.sub != null) {
+    this.sub.unsubscribe();
+  }
+}
+
 }
 
 

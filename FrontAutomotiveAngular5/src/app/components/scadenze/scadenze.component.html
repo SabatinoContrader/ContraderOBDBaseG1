@@ -35,24 +35,24 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let scadenze of listaScadenze">
-                        <td>{{scadenze.dispositivo.auto.marca}}</td>
-                        <td>{{scadenze.dispositivo.auto.modello}}</td>
-                        <td>{{scadenze.dispositivo.auto.targa}}</td>
+                        <td>{{scadenze.auto.marca}}</td>
+                        <td>{{scadenze.auto.modello}}</td>
+                        <td>{{scadenze.auto.targa}}</td>
                         <td>
                           <span *ngIf="scadenze.giorniScadenzaBollo>0">Bollo:
-                            <span style="color:red;">{{scadenze.dispositivo.auto.scadenzaBollo | date:'dd/MM/yyyy'}}</span>
+                            <span style="color:red;">{{scadenze.auto.scadenzaBollo | date:'dd/MM/yyyy'}}</span>
                             <br>
                           </span>
                           <span *ngIf="scadenze.giorniScadenzaRevisione>0">Revisione:
-                            <span style="color:red;">{{scadenze.dispositivo.auto.scadenzaRevisione | date:'dd/MM/yyyy'}}</span>
+                            <span style="color:red;">{{scadenze.auto.scadenzaRevisione | date:'dd/MM/yyyy'}}</span>
                             <br>
                           </span>
                           <span *ngIf="scadenze.giorniScadenzaTagliando>0">Tagliando:
-                            <span style="color:red;">{{scadenze.dispositivo.auto.scadenzaTagliando | date:'dd/MM/yyyy'}}</span>
+                            <span style="color:red;">{{scadenze.auto.scadenzaTagliando | date:'dd/MM/yyyy'}}</span>
                             <br>
                           </span>
                           <span *ngIf="scadenze.giorniScadenzaAssicurazione>0">Assicurazione:
-                            <span style="color:red;">{{scadenze.dispositivo.auto.scadenzaAssicurazione | date:'dd/MM/yyyy'}}</span>
+                            <span style="color:red;">{{scadenze.auto.scadenzaAssicurazione | date:'dd/MM/yyyy'}}</span>
                             <br>
                           </span>
                         </td>

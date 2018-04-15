@@ -11,6 +11,7 @@ import { NoleggiComponent } from './components/noleggi/noleggi.component';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { ScadenzeComponent } from './components/scadenze/scadenze.component';
 import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzenoleggi.component';
+import { MessaggiComponent } from './components/messaggi/messaggi.component';
 
 const routes: Routes = [
   { path: '', redirectTo:"/login", pathMatch:'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'homeofficina', component: HomeOfficinaComponent },
   { path: 'homeutente', component: HomeUtenteComponent},
   { path: 'appuntamenti', component: AppuntamentoComponent},
+  { path: 'appuntamenti/:stato', component: AppuntamentoComponent},
   { path: 'preventivi', component: PreventivoComponent},
   { path: 'preventivi/:stato', component: PreventivoComponent},
   { path: 'clienti', component: ClientiComponent},
@@ -25,7 +27,8 @@ const routes: Routes = [
   { path: 'noleggi', component: NoleggiComponent},
   { path: 'guasti', component: GuastiComponent},
   { path: 'scadenze', component: ScadenzeComponent},
-  { path: 'scadenzenoleggi', component: ScadenzenoleggiComponent}
+  { path: 'scadenzenoleggi', component: ScadenzenoleggiComponent},
+  { path: 'messaggi', component: MessaggiComponent},
   
 ];
 

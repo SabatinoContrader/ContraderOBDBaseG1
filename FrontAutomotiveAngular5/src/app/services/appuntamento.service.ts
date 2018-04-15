@@ -48,9 +48,10 @@ export class AppuntamentoService {
     );
   }
 
-  getAppuntamentiOfficina(id: any): Observable<any> {
+  getAppuntamentiOfficina(id: any,stato:any): Observable<any> {
     var formdata = new FormData();
     formdata.append("id", id);
+	formdata.append("stato",stato);
     return this.http.post<any>(`${this.urlBase}appuntamentiOfficina`, formdata).pipe(
       tap((response) => { console.log("Fetched ListaAppuntamentiOfficina"); console.log(response) },
         catchError(this.handleError("notifiche error", {})))

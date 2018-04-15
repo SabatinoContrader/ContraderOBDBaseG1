@@ -5,8 +5,9 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { ENVIROMENT } from '../models/enviroment';
 
+
 @Injectable()
-export class ScadenzeService {
+export class MessaggiService {
 
   private urlBase = ENVIROMENT.url;
   
@@ -27,13 +28,26 @@ export class ScadenzeService {
   }
 
   
-  getAutoInScadenza(id: any): Observable<any> {
+    getListaTicket(id: any): Observable<any> {
     var formdata = new FormData();
     formdata.append("id", id);
 	
-    return this.http.post<any>(`${this.urlBase}autoInScadenza`, formdata).pipe(
-      tap((response) => {console.log("Fetched lista scadenze auto"); console.log(response)},
+    return this.http.post<any>(`${this.urlBase}ticketOfficina`, formdata).pipe(
+      tap((response) => {console.log("Fetched lista ticket officina"); console.log(response)},
         catchError(this.handleError("notifiche error", {})))
     );
   }
+ 
+inviaMessaggio(idticket:any,testo:string,direzione:any): Observable<any> {
+    var formdata = new FormData();
+    formdata.append("idticket", idticket);
+    formdata.append("testo", testo);
+    formdata.append("direzione", direzione);
+	
+    return this.http.post<any>(`${this.urlBase}inviaMessaggio`, formdata).pipe(
+      tap((response) => {console.log("Fetched Invia Messaggio"); console.log(response)},
+        catchError(this.handleError("notifiche error", {})))
+    );
+  }
+ 
 }
