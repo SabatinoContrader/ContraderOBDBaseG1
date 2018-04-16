@@ -292,7 +292,7 @@ public class Controller {
 					
 					if(listaAuto.get(i).equals(autoConGuasti.get(e).getDispositivo().getAuto())){
 						trovato = true;
-						lista.add(new StatoAuto(listaAuto.get(i), "danger"));
+						lista.add(new StatoAuto(listaAuto.get(i), "danger", autoConGuasti.get(e).getDispositivo().getId()));
 						
 						//autoConGuasti.remove(e);
 					}
@@ -316,7 +316,13 @@ public class Controller {
 
 					if(listaAuto.get(i).equals(autoInScadenza.get(e).getAuto())){
 						trovato = true;
-						lista.add(new StatoAuto(rimanenti.get(i), "warning"));
+						
+						Dispositivo d = dispositivoRepository.findByAuto(rimanenti.get(i));
+						int idDispositivo = 0;
+						
+						if(d != null) idDispositivo = dispositivoRepository.findByAuto(rimanenti.get(i)).getId();
+						
+						lista.add(new StatoAuto(rimanenti.get(i), "warning", idDispositivo));
 						
 						//autoInScadenza.remove(e);
 					}
@@ -350,7 +356,11 @@ public class Controller {
 
 					if(rimanenti1.get(i).equals(kmScadenza.get(e))){
 						trovato = true;
-						lista.add(new StatoAuto(rimanenti1.get(i), "warning"));
+						Dispositivo d = dispositivoRepository.findByAuto(rimanenti1.get(i));
+						int idDispositivo = 0;
+						
+						if(d != null) idDispositivo = dispositivoRepository.findByAuto(rimanenti1.get(i)).getId();
+						lista.add(new StatoAuto(rimanenti1.get(i), "warning", idDispositivo));
 						
 						//kmScadenza.remove(e);
 					}
@@ -363,7 +373,13 @@ public class Controller {
 		
 		
 		
-		for(int i = 0; i<rimanenti2.size(); i++) lista.add(new StatoAuto(rimanenti2.get(i), "Success"));
+		for(int i = 0; i<rimanenti2.size(); i++) {
+			Dispositivo d = dispositivoRepository.findByAuto(rimanenti2.get(i));
+			int idDispositivo = 0;
+			
+			if(d != null) idDispositivo = dispositivoRepository.findByAuto(rimanenti2.get(i)).getId();
+			lista.add(new StatoAuto(rimanenti2.get(i), "Success", idDispositivo));
+			}
 		
 		return lista;
 	}

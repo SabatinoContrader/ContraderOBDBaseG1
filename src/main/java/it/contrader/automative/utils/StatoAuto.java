@@ -18,4 +18,6 @@ public class StatoAuto {
 	private Auto auto;
 	private String status; //Danger, Warning, Success
 	
+	private int idDispositivo;
+	
 }
