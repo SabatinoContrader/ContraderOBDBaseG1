@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,5 +20,8 @@ public interface TelemetriaRepository extends CrudRepository<Telemetria, Long>{
 	
 	List<Telemetria> findByDispositivo(Dispositivo d);
 	List<Telemetria> findByDatiTelemetria(DatiTelemetria dt);
+	
+	@Query (value = "select * from telemetria where iddispositivo = ?1 order by id desc limit 1", nativeQuery = true)
+	Telemetria ultimaTelemetriADispositivo(int idDispositivo);
 	
 }
