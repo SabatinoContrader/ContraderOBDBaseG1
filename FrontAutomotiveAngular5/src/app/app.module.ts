@@ -36,6 +36,7 @@ import { NoleggiComponent } from './components/noleggi/noleggi.component';
 import { ScadenzeComponent } from './components/scadenze/scadenze.component';
 import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzenoleggi.component';
 import { MessaggiComponent } from './components/messaggi/messaggi.component';
+import { TicketComponent } from './components/ticket/ticket.component'
 import { TelemetriaComponent } from './components/telemetria/telemetria.component';
 
 
@@ -56,8 +57,9 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
     ScadenzeComponent,
     ScadenzenoleggiComponent,
     MessaggiComponent,
-    TicketComponent
+    TicketComponent,
     TelemetriaComponent
+    
   ],
   imports: [
     BrowserModule,
