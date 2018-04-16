@@ -74,7 +74,8 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
     DataTablesModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDpcHsNE3KygLr1IibNCgDgWJREv5v1hzc'
-    })
+    }),
+    DataTablesModule
   ],
   providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService],
   bootstrap: [AppComponent],
