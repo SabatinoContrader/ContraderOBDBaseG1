@@ -1,0 +1,134 @@
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page">
+  <!-- begin::Body -->
+  <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+      <div class="m-content">
+
+        <div class="row row-flex">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                <i class="fa fa-automobile"></i>
+                Maserati Gibli
+              </div>
+              <div class="card-body">
+                <table>
+                  <tr>
+                    <td>Targa:</td>
+                    <td>FG588AC</td>
+                  </tr>
+                  <tr>
+                    <td>Telaio:</td>
+                    <td>UIY3456789</td>
+                  </tr>
+                  <tr>
+                    <td>Cilindrata:</td>
+                    <td>3000 cm
+                      <sup>3</sup>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Potenza:</td>
+                    <td>257 kw / 350 HP</td>
+                  </tr>
+                  <tr>
+                    <td>Alimentazione:</td>
+                    <td>Benzina</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                Pannello
+              </div>
+              <div class="card-body">
+                Panel body
+              </div>
+              <div class="card-footer">
+                Footer
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body" style="margin: 0; padding: 0;">
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15">
+                  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                Telemetria 1
+              </div>
+              <div class="card-body">
+                <div [hidden]="!chart">
+                  <canvas id="canvas">{{ chart }}</canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                Telemetria 2
+              </div>
+              <div class="card-body">
+                <div [hidden]="!chart">
+                  <canvas id="canvas2">{{ chart }}</canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3 mb-3">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                Telemetria 3
+              </div>
+              <div class="card-body">
+                <div [hidden]="!chart">
+                  <canvas id="canvas3">{{ chart }}</canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                Telemetria 4
+              </div>
+              <div class="card-body">
+                <div [hidden]="!chart">
+                  <canvas id="canvas4">{{ chart }}</canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                Telemetria 5
+              </div>
+              <div class="card-body">
+                <div [hidden]="!chart">
+                  <canvas id="canvas5">{{ chart }}</canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
