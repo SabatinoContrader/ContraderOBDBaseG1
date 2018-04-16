@@ -26,6 +26,7 @@ import { ClientiService } from './services/clienti.service';
 import { NoleggiService } from './services/noleggi.service';
 import { MessaggiService } from './services/messaggi.service';
 import { ScadenzenoleggiService } from './services/scadenzenoleggi.service';
+import { ScadenzeService } from './services/scadenze.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
@@ -75,7 +76,11 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
       apiKey: 'AIzaSyDpcHsNE3KygLr1IibNCgDgWJREv5v1hzc'
     })
   ],
+<<<<<<< HEAD
   providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService, MessaggiService],
+=======
+  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService],
+>>>>>>> 1a5887871e46ba3025daca294ef0416f8f9c3748
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
