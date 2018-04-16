@@ -26,7 +26,7 @@
                 <!--begin: Datatable -->
 
                 <div class="table-responsive">
-                  <table datatable  class="row-border hover" id="myTable">
+                  <table datatable class="row-border hover" id="myTable">
                     <thead>
                       <tr>
                         <th>Data</th>
@@ -48,11 +48,10 @@
                           <p *ngIf="appuntamento.stato != 0">{{appuntamento.risposta}}</p>
                         </td>
                         <td>
-                          <p *ngIf="appuntamento.stato == 0"></p>
-                          <p *ngIf="appuntamento.stato == 1">
+                          <p *ngIf="appuntamento.stato == 1" class="accettato">
                             <i class="fa fa-check fah3"></i>
                           </p>
-                          <p *ngIf="appuntamento.stato == 2">
+                          <p *ngIf="appuntamento.stato == 2" class="rifiutato">
                             <i class="fa fa-times fah3"></i>
                           </p>
                         </td>
@@ -70,13 +69,9 @@
                           <p *ngIf="appuntamento.stato != 0">{{appuntamento.risposta}}</p>
                         </td>
                         <td>
-
                           <a class="ali rispondiappuntamento" *ngIf="appuntamento.stato == 0" (click)="openModalRispondiAppuntamento(appuntamento.id);">
                             <i class="fa fa-hourglass" title="Richiesta in attesa di risposta"></i>
                           </a>
-
-
-
                           <p *ngIf="appuntamento.stato == 1">
                             <i class="fa fa-check fah3" title="Appuntamento confermato"></i>
                           </p>
@@ -84,7 +79,6 @@
                             <i class="fa fa-times fah3" title="Appuntamento rifiutato"></i>
                           </p>
                         </td>
-
                       </tr>
                     </tbody>
                   </table>
@@ -93,15 +87,8 @@
               </div>
             </div>
           </div>
-
-
         </div>
         <!--end:: seciont content-->
-
-
-
-
-
       </div>
     </div>
     <!--
@@ -111,8 +98,7 @@
 </div>
 <!-- end:: Page -->
 <!-- Modal Appuntamento -->
-<div class="modal fade" id="chiediAppuntamentoModal" tabindex="-1" role="dialog" aria-labelledby="notificheModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="chiediAppuntamentoModal" tabindex="-1" role="dialog" aria-labelledby="notificheModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -185,22 +171,15 @@
             <option value="1">Accetta Appuntamento</option>
             <option value="2">Rifiuta Appuntamento</option>
           </select>
-
         </div>
-
         <div class="form-group">
           <label for="rispostaapp">Dettaglia Risposta:</label>
           <textarea class="form-control" rows="5" id="rispostaapp" name="rispostaapp" [(ngModel)]="rispostaapp" placeholder="Inserire dettagli risposta appuntamento..."></textarea>
         </div>
-
         <input type="text" style="display:none;" id="idrispapp" [(ngModel)]="idrispapp">
-
-
-
       </div>
       <div class="modal-footer " style="text-align:center;">
-        <button type="button" class="btn btn-primary savebutton" (click)="rispondiAppuntamento()">Invia </button>
-
+        <button type="button" class="btn btn-primary savebutton" (click)="rispondiAppuntamento()">Invia Preventivo</button>
       </div>
     </div>
   </div>

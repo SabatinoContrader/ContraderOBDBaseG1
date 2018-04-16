@@ -72,7 +72,7 @@ export class PreventivoComponent implements OnInit{
   chiediPreventivo(): void {
     this.preventivoService.chiediPreventivo(this.utente.email, this.dettagli, this.idAuto)
       .subscribe((response) => {
-        swal("Success", "Preventivo richiesto con successo", "success");
+        swal("Successo", "Preventivo richiesto con successo", "success");
         $('#chiediPreventivoModal').modal("hide");
         this.loadPreventiviUtente();
       });
@@ -146,15 +146,13 @@ export class PreventivoComponent implements OnInit{
     this.preventivoService.accettaPreventivo(id, stato).subscribe(
       (response) => {
         console.log(response);
-        if (response) {
-          console.log(this.listaPreventivi);
-          if (stato == 2)
-            this.risp = "accettato";
-          if (stato == 3)
-            this.risp = "rifiutato";
-          swal("Successo", "Il preventivo è stato " + this.risp + " con successo", "success");
-          this.loadPreventiviUtente();
-        }
+        console.log(this.listaPreventivi);
+        if (stato == 2)
+          this.risp = "accettato";
+        if (stato == 3)
+          this.risp = "rifiutato";
+        this.loadPreventiviUtente();
+        swal("Successo", "Il preventivo è stato " + this.risp, "success");
       },
       err => {
         console.log("Error occured");
