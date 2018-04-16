@@ -129,6 +129,6 @@
   </div>
 </div>
 <!-- end::modal risolvi guasto -->
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="7">
-    <agm-marker *ngFor="let device of listaGuasti;"  [latitude]="device.telemetria.latitudine" [longitude]="device.telemetria.longitudine"></agm-marker>
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="7" >
+    <agm-marker *ngFor="let device of listaGuasti;"  [latitude]="device.telemetria.latitudine" [longitude]="device.telemetria.longitudine" ></agm-marker>
   </agm-map>
