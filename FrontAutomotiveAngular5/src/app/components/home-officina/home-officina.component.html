@@ -50,8 +50,8 @@
 												<td>{{autos.auto.numeroTelaio}}</td>
 
 												<td>
-													<a class="ali assegnanoleggio" (click)="assnoleggio(autos.id);">
-														<i class="fa fa-car" title="Assegna auto a noleggio"></i>
+													<a *ngIf="autos.idDispositivo>0" class="ali assegnanoleggio" (click)="assnoleggio(autos.id);">
+														<i class="fa fa-car" title="Visualizza informazioni dettagliate auto"></i>
 													</a>
 												</td>
 											</tr>
