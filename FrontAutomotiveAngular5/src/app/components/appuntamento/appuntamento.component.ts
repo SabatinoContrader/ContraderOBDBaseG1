@@ -1,6 +1,6 @@
 import { Appuntamento } from '../../models/Appuntamento';
 import { Component, OnInit, ApplicationRef } from '@angular/core';
-import { Router, ActivatedRoute  } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppuntamentoService } from '../../services/appuntamento.service';
 import { Utente } from '../../models/Utente';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -25,36 +25,33 @@ export class AppuntamentoComponent implements OnInit {
   idrispapp;
   rispostaapp;
   statoappuntamento;
-	stato:number;
-	sub;
-	filtroappuntamenti;
-  constructor(private ref: ApplicationRef,private appuntamentoService: AppuntamentoService, private autoService: AutoService, private router: Router, private route: ActivatedRoute) { }
+  stato: number;
+  sub;
+  filtroappuntamenti;
+  constructor(private ref: ApplicationRef, private appuntamentoService: AppuntamentoService, private autoService: AutoService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit() {
     this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
-	
-	 this.sub = this.route.queryParams.subscribe(params => {
-     
-	 // Prendere paremetro per visualizzare solo preventivi che voglio, se non ci sta imopsto a 0.
-	 // 0 - tutti, 1 - in attesa di risposta, 2 - risposti, 3 - accettati, 4 - rifiutati
-	 this.stato = +params['stato'] || 0; 
-	 if(this.stato==0)this.filtroappuntamenti="Tutti";
-	 else if(this.stato==1)this.filtroappuntamenti="In Attesa Di Risposta";
-	 else if(this.stato==2)this.filtroappuntamenti="Confermati";
-	 else if(this.stato==3)this.filtroappuntamenti="Rifiutati";
 
-	 this.loadAppuntamentiOfficina();
-	
+    this.sub = this.route.queryParams.subscribe(params => {
+
+      // Prendere paremetro per visualizzare solo preventivi che voglio, se non ci sta imopsto a 0.
+      // 0 - tutti, 1 - in attesa di risposta, 2 - risposti, 3 - accettati, 4 - rifiutati
+      this.stato = +params['stato'] || 0;
+      if (this.stato == 0) this.filtroappuntamenti = "Tutti";
+      else if (this.stato == 1) this.filtroappuntamenti = "In Attesa Di Risposta";
+      else if (this.stato == 2) this.filtroappuntamenti = "Confermati";
+      else if (this.stato == 3) this.filtroappuntamenti = "Rifiutati";
+
+      if (this.utente.ruolo == 0) {
+        this.loadAppuntamentiCliente();
+
+      } else if (this.utente.ruolo == 1) {
+
+        this.loadAppuntamentiOfficina();
+
+      }
+
     });
-	
-    if (this.utente.ruolo == 0) {
-      this.loadAppuntamentiCliente();
-
-    } else if (this.utente.ruolo == 1) {
-
-      this.loadAppuntamentiOfficina();
-
-    }
-
 
   }
 
@@ -94,14 +91,15 @@ export class AppuntamentoComponent implements OnInit {
   }
 
   loadAppuntamentiOfficina(): void {
-    this.appuntamentoService.getAppuntamentiOfficina(this.utente.officina.id,this.stato)
+    this.appuntamentoService.getAppuntamentiOfficina(this.utente.officina.id, this.stato)
       .subscribe(
-        response => { this.listaAppuntamenti = response.data; this.ref.tick();
- }
+        response => {
+        this.listaAppuntamenti = response.data; this.ref.tick();
+        }
       );
   }
   loadAppuntamentiCliente(): void {
-    this.appuntamentoService.getAppuntamenti(this.utente.id)
+    this.appuntamentoService.getAppuntamenti(this.utente.id, this.stato)
       .subscribe(
         response => { this.listaAppuntamenti = response.data }
       );
@@ -115,12 +113,12 @@ export class AppuntamentoComponent implements OnInit {
         this.loadAppuntamentiCliente();
       });
   }
-  
+
   ngOnDestroy() {
-  if(this.sub != null) {
-    this.sub.unsubscribe();
+    if (this.sub != null) {
+      this.sub.unsubscribe();
+    }
   }
-}
 
 }
 

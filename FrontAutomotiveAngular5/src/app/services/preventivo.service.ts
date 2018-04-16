@@ -37,10 +37,10 @@ export class PreventivoService {
     );
   }
 
-  listaPreventiviOfficina(id: any,stato:any): Observable<any> {
+  listaPreventiviOfficina(id: any, stato: any): Observable<any> {
     var formdata = new FormData();
     formdata.append("id", id);
-	formdata.append("stato",stato);
+    formdata.append("stato", stato);
 
     return this.http.post<any>(`${this.urlBase}preventiviOfficina`, formdata).pipe(
       tap((response) => { console.log("Fetched LISTA Preventivi officina"); console.log(response) },
@@ -48,9 +48,10 @@ export class PreventivoService {
     );
   }
 
-  listaPreventiviUtente(id: any): Observable<any> {
+  listaPreventiviUtente(id: any, stato: any): Observable<any> {
     var formdata = new FormData();
     formdata.append("id", id);
+    formdata.append("stato", stato);
 
     return this.http.post<any>(`${this.urlBase}preventiviCliente`, formdata).pipe(
       tap((response) => { console.log("Fetched LISTA Preventivi utente"); console.log(response) },

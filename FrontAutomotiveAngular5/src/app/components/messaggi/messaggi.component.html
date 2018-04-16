@@ -30,8 +30,11 @@
                         <th>ID</th>
                         <th>Data</th>
                         <th>Oggetto</th>
-                        <th>Cliente</th>
-						<th></th>
+                        <th>
+                          <span *ngIf="utente.ruolo == 1">Cliente</span>
+                          <span *ngIf="utente.ruolo == 0">Officina</span>
+                        </th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -39,11 +42,14 @@
                         <td>{{data.ticket.id}}</td>
                         <td>{{data.ticket.data | date:'dd/MM/yyyy'}}</td>
                         <td>{{data.ticket.oggetto}}</td>
-						<td>{{data.ticket.utente.nome}} {{data.ticket.utente.cognome}}</td>
                         <td>
-                         	<a class="ali">
-								<i class="fa fa-envelope" title="Visualizza Messaggi Ticket" (click)="openModalTicket(data.messaggioTicket);"></i>
-							</a>
+                          <span *ngIf="utente.ruolo == 0">{{data.ticket.officina.denominazione}}</span>
+                          <span *ngIf="utente.ruolo == 1">{{data.ticket.utente.nome}} {{data.ticket.utente.cognome}}</span>
+                        </td>
+                        <td>
+                          <a class="ali">
+                            <i class="fa fa-envelope" title="Visualizza Messaggi Ticket" (click)="openModalTicket(data.messaggioTicket);"></i>
+                          </a>
                         </td>
 
                       </tr>
@@ -68,57 +74,58 @@
 
 <!-- begin::modal ticket -->
 <div class="modal" tabindex="-1" role="dialog" id="modalticket">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Messaggi Ticket</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Messaggi Ticket</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
-			 <div class="panel-body">
-                    <ul class="chat">
-					<li *ngFor="let msg of listaMessaggiModal" [ngClass]="msg.direzione== '0' ? 'left clearfix' : 'right clearfix'">
-					<span *ngIf="msg.direzione=='0'" class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text={{msg.ticket.utente.nome}}" alt="User Avatar" class="img-circle" />
-                        </span>
-						<span *ngIf="msg.direzione=='1'"  class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-					
-                       
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font" *ngIf="msg.direzione=='0'">{{msg.ticket.utente.nome}} {{msg.ticket.utente.cognome}}</strong>
-<strong class="primary-font pull-right" *ngIf="msg.direzione=='1'">Tu</strong>
-									<small [ngClass]="msg.direzione=='0' ? 'pull-right text-muted' : 'text-muted'">
-                                        <span class="glyphicon glyphicon-time"></span>{{msg.data | date:'dd/MM/yyyy'}}</small>
-                                </div>
-                                <p>
-                                   {{msg.testo}}
-                                </p>
-                            </div>
-                        </li>
-                       
-                    </ul>
+        <div class="panel-body">
+          <ul class="chat">
+            <li *ngFor="let msg of listaMessaggiModal" [ngClass]="msg.direzione== '0' ? 'left clearfix' : 'right clearfix'">
+              <span *ngIf="msg.direzione=='0'" class="chat-img pull-left">
+                <img src="http://placehold.it/50/55C1E7/fff&text={{msg.ticket.utente.nome}}" alt="User Avatar" class="img-circle" />
+              </span>
+              <span *ngIf="msg.direzione=='1'" class="chat-img pull-right">
+                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+              </span>
+
+
+              <div class="chat-body clearfix">
+                <div class="header">
+                  <strong class="primary-font" *ngIf="msg.direzione=='0'">{{msg.ticket.utente.nome}} {{msg.ticket.utente.cognome}}</strong>
+                  <strong class="primary-font pull-right" *ngIf="msg.direzione=='1'">{{msg.ticket.officina.denominazione}}</strong>
+                  <small [ngClass]="msg.direzione=='0' ? 'pull-right text-muted' : 'text-muted'">
+                    <span class="glyphicon glyphicon-time"></span>{{msg.data | date:'dd/MM/yyyy'}}</small>
                 </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Inserisci il tuo messaggio..."  [(ngModel)]="testomessaggio" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat" (click)="inviaMessaggio();">
-                                Invia</button>
-                        </span>
-                    </div>
-                </div>
-            
-			
-			</div>
-			
-		</div>
-	</div>
+                <p>
+                  {{msg.testo}}
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+        <div class="panel-footer">
+          <div class="input-group">
+            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Inserisci il tuo messaggio..." [(ngModel)]="testomessaggio"
+            />
+            <span class="input-group-btn">
+              <button class="btn btn-warning btn-sm" id="btn-chat" (click)="inviaMessaggio();">
+                Invia</button>
+            </span>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <!-- end::modal ticket-->

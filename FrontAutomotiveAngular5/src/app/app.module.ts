@@ -75,7 +75,7 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
       apiKey: 'AIzaSyDpcHsNE3KygLr1IibNCgDgWJREv5v1hzc'
     })
   ],
-  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService],
+  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService, MessaggiService],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
