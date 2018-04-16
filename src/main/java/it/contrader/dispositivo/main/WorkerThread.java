@@ -47,7 +47,7 @@ public class WorkerThread extends Thread{
 		
 		datiTelemetria.setLatitudine(random.nextDouble()+40);
 		datiTelemetria.setLongitudine(random.nextDouble()+14);
-		datiTelemetria.setKm(random.nextInt()+40);
+		datiTelemetria.setKm(random.nextInt());
 		TelemetriaController.inserisciTelemetria(datiTelemetria, id);
 		
 	}
