@@ -28,6 +28,7 @@ import it.contrader.automative.model.MessaggioTicket;
 import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
 import it.contrader.automative.model.Preventivo;
+import it.contrader.automative.model.Telemetria;
 import it.contrader.automative.model.Ticket;
 import it.contrader.automative.model.Utente;
 import it.contrader.automative.repositories.AppuntamentoRepository;
@@ -240,9 +241,6 @@ public class Controller {
 
 	}
 
-	
-	
-	
 	
 	//+ Lista Auto Azienda
 		@RequestMapping(value = "/autoAzienda", method = RequestMethod.POST)

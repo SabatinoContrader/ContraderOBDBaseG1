@@ -66,5 +66,16 @@ public class TelemetriaController {
 	}
 	
 	
+	//Ultima telemetria del dispositivo passato
+		@RequestMapping(value = "/ultimaTelemetria", method = RequestMethod.POST)
+		public Telemetria ultimaTelemetria(@RequestParam("id") int idDispositivo) {
+			
+			Telemetria t = new Telemetria();
+			
+			t = telemetriaRepository.ultimaTelemetriADispositivo(idDispositivo);
+			
+			return t;
+		}
+		
 	
 }
