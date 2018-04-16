@@ -77,11 +77,7 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
     }),
     DataTablesModule
   ],
-<<<<<<< HEAD
-  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService, MessaggiService],
-=======
   providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService],
->>>>>>> 1a5887871e46ba3025daca294ef0416f8f9c3748
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
