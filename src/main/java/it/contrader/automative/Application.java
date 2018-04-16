@@ -27,6 +27,8 @@ import it.contrader.automative.model.Preventivo;
 import it.contrader.automative.model.Promozione;
 import it.contrader.automative.model.TipologiaGuasto;
 import it.contrader.automative.model.Utente;
+import it.contrader.automative.model.Ticket;
+import it.contrader.automative.model.MessaggioTicket;
 import it.contrader.automative.serviceInterfaces.IAppuntamento;
 import it.contrader.automative.serviceInterfaces.IAuto;
 import it.contrader.automative.serviceInterfaces.IAzienda;
@@ -39,6 +41,8 @@ import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.IPromozione;
 import it.contrader.automative.serviceInterfaces.ITipologiaGuasto;
 import it.contrader.automative.serviceInterfaces.IUtente;
+import it.contrader.automative.serviceInterfaces.ITicket;
+import it.contrader.automative.serviceInterfaces.IMessaggioTicket;
 import it.contrader.dispositivo.main.WorkerThread;
 
 
@@ -49,14 +53,14 @@ public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         
-//        List<Thread> threads = new ArrayList();
-//		
-//		for(int i = 0; i<5; i++) {
-//			
-//			threads.add(new WorkerThread(i+1)); 
-//			threads.get(i).start();
-//			
-//			}
+        List<Thread> threads = new ArrayList();
+		
+		for(int i = 0; i<5; i++) {
+			
+			threads.add(new WorkerThread(i+1)); 
+			threads.get(i).start();
+			
+			}
     }
 
     @Override
@@ -77,9 +81,11 @@ public class Application extends SpringBootServletInitializer {
 	private IPreventivo preventivoService;
 	private IAppuntamento appuntamentoService;
 	private IPromozione promozioneService;
+	private ITicket ticketService;
+	private IMessaggioTicket messaggioTicketService;
 
 	@Autowired
-	public Application(IPromozione promozioneService, IAuto autoService, IAzienda aziendaService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService, IPreventivo preventivoService, IAppuntamento appuntamentoService) {
+	public Application(ITicket ticketService,IMessaggioTicket messaggioTicketService,IPromozione promozioneService, IAuto autoService, IAzienda aziendaService, INoleggio noleggioService, IUtente utenteService, IOfficina officinaService, IDatiTelemetria datiTelemetriaService, IDispositivo dispositivoService, IGuasto guastoService, ITipologiaGuasto tipologiaGuastoService, IPreventivo preventivoService, IAppuntamento appuntamentoService) {
 		this.autoService = autoService;
 		this.noleggioService = noleggioService;
 		this.utenteService = utenteService;
@@ -94,6 +100,8 @@ public class Application extends SpringBootServletInitializer {
 	
 		this.preventivoService=preventivoService;
 		this.appuntamentoService=appuntamentoService;
+		this.ticketService=ticketService;
+		this.messaggioTicketService = messaggioTicketService;
 	}
     
     
@@ -169,18 +177,22 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoNoleggio[3] = new Noleggio(4, inserimentoUtenti[4], inserimentoAuto[4], inserimentoOfficine[0], inserimentoAziende[0], data1,  data4, 84010, 82100,10000);
     	inserimentoNoleggio[4] = new Noleggio(5, inserimentoUtenti[3], inserimentoAuto[1], inserimentoOfficine[0], null, data1,  data2, 84010, 82100,10000);
     	
-    	Dispositivo inserimentoDispositivi[] = new Dispositivo[1];
+    	Dispositivo inserimentoDispositivi[] = new Dispositivo[5];
     	inserimentoDispositivi[0] = new Dispositivo(1, "A0972", inserimentoAuto[0], data1, inserimentoOfficine[0]);
-
+    	inserimentoDispositivi[1] = new Dispositivo(2, "A0973", inserimentoAuto[1], data1, inserimentoOfficine[0]);
+    	inserimentoDispositivi[2] = new Dispositivo(3, "A0974", inserimentoAuto[2], data1, inserimentoOfficine[0]);
+    	inserimentoDispositivi[3] = new Dispositivo(4, "A0975", inserimentoAuto[3], data1, inserimentoOfficine[0]);
+    	inserimentoDispositivi[4] = new Dispositivo(5, "A0976", inserimentoAuto[4], data1, inserimentoOfficine[0]);
+    	
     	TipologiaGuasto inserimentoTipologieGuasti[] = new TipologiaGuasto[3];
     	inserimentoTipologieGuasti[0] = new TipologiaGuasto("C0004", "Cinghia di Trasmissione...");
     	inserimentoTipologieGuasti[1] = new TipologiaGuasto("A0004", "Pompa Idraulica...");
     	inserimentoTipologieGuasti[2] = new TipologiaGuasto("B0003", "Danno meccenico Idraulica...");
     	
     	DatiTelemetria inserimentoDatiTelemetria[] = new DatiTelemetria[3];
-    	inserimentoDatiTelemetria[0] = new DatiTelemetria(1, 40.1313333, 14.1312112, 12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
-    	inserimentoDatiTelemetria[1] = new DatiTelemetria(2, 40.1313333, 14.1312112, 12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
-    	inserimentoDatiTelemetria[2] = new DatiTelemetria(3, 40.1313333, 14.1312112, 12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[0] = new DatiTelemetria(1, 41.1230199, 14.7376701, 12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[1] = new DatiTelemetria(2, 41.9102415, 12.3959117, 12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
+    	inserimentoDatiTelemetria[2] = new DatiTelemetria(3, 45.4022409, 8.8486533, 12,12, 13, 11, 11, 2, 3, 32, 123, 33, 1, 2, 12, 221, 112, 1, 2, 3, 4, 1, 32, 3, 54, 3, 23, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 2, 3, 1, 1, 2, 3, 7, 8, 1, 2, 12, 11, 12);
 
     	Guasto inserimentoGuasti[] = new Guasto[3];
     	inserimentoGuasti[0] = new Guasto(1, inserimentoTipologieGuasti[0], inserimentoDatiTelemetria[0], data2, inserimentoDispositivi[0], "Non Risolto");
@@ -194,8 +206,15 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoAppuntamenti[0] = new Appuntamento(1, inserimentoUtenti[0],  inserimentoOfficine[0], data3,"10:00","dettagli appuntamento",0,"");
     	
     	
+    	Ticket inserimentoTicket[] = new Ticket[2];
+    	inserimentoTicket[0] = new Ticket(1,data1,"Ticket guasto auto",inserimentoOfficine[0],inserimentoUtenti[0]);
+    	inserimentoTicket[1] = new Ticket(2,data2,"Ehi auto",inserimentoOfficine[0],inserimentoUtenti[3]);
     	
-    	
+    	MessaggioTicket inserimentoMessaggioTicket[] = new MessaggioTicket[4];
+    	inserimentoMessaggioTicket[0] = new MessaggioTicket(1,data2,0,inserimentoTicket[0],"Ciao");
+    	inserimentoMessaggioTicket[1] = new MessaggioTicket(2,data3,1,inserimentoTicket[0],"Heila'");
+    	inserimentoMessaggioTicket[2] = new MessaggioTicket(3,data2,0,inserimentoTicket[1],"Ehi");
+    	inserimentoMessaggioTicket[3] = new MessaggioTicket(4,data3,1,inserimentoTicket[1],"Grande");
     	
     	//Effettuo gli inserimenti effettivi
     	
@@ -243,6 +262,12 @@ public class Application extends SpringBootServletInitializer {
 		}
     	for(int i=0;i<inserimentoAppuntamenti.length;i++){
     		inserimentoAppuntamenti[i] = appuntamentoService.insert(inserimentoAppuntamenti[i]);
+		}
+    	 	for(int i=0;i<inserimentoTicket.length;i++){
+    		inserimentoTicket[i] = ticketService.insert(inserimentoTicket[i]);
+		}
+    	for(int i=0;i<inserimentoMessaggioTicket.length;i++){
+    		inserimentoMessaggioTicket[i] = messaggioTicketService.insert(inserimentoMessaggioTicket[i]);
 		}
 	}
     

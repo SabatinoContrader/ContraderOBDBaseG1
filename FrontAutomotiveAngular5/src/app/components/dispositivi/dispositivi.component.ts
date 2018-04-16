@@ -17,6 +17,8 @@ export class DispositiviComponent implements OnInit {
 	iddisp;
 	listaAutoSenzaDispositivo:any;
 	autodaassociare;
+	lat: number = 41.54061;
+  lng: number = 14.381826;
   constructor(private dispositiviService: DispositiviService) { }
 
   ngOnInit() {

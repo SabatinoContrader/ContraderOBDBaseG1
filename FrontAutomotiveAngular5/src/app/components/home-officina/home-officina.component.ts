@@ -50,25 +50,23 @@ export class HomeOfficinaComponent implements OnInit {
   }
 	
 
- ngOnInit() {
+	ngOnInit() {
 	  
 	 
     if (this.loginService.isLogged()) {
 		this.utente=JSON.parse(sessionStorage.getItem("loginEntity"));
-	if(this.utente.utente.ruolo==1){
-		this.topbar.ngOnInit();
-      this.router.navigate(["homeofficina"]);
-	  this.auto=this.utente.statoAuto;
-	 console.log(this.auto);
+	if(this.utente.utente.ruolo==0){
+		this.router.navigate(["homeutente"]);
+	}else{
+		this.auto=this.utente.statoAuto;
 	}
-  else
-	  if(JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo==0)
-      this.router.navigate(["homeutente"]);
+ 
     }else{
 		this.router.navigate(["login"]);
 		
 	}
   }
+
 
   
   public insertAuto(){
