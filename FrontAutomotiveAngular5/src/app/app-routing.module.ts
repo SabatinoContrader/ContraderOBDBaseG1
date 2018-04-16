@@ -30,8 +30,8 @@ const routes: Routes = [
   { path: 'scadenze', component: ScadenzeComponent},
   { path: 'scadenzenoleggi', component: ScadenzenoleggiComponent},
   { path: 'messaggi', component: MessaggiComponent},
-  { path: 'telemetria', component: TelemetriaComponent},
-   { path: 'telemetria/:auto/idDispositivo', component: TelemetriaComponent},
+  { path: 'telemetria', component: TelemetriaComponent}
+   
 ];
 
 

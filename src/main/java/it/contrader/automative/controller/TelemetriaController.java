@@ -77,5 +77,14 @@ public class TelemetriaController {
 			return t;
 		}
 		
-	
+		@RequestMapping(value = "/ultimeTelemetria", method = RequestMethod.POST)
+		public List<Telemetria> ultimeTelemetria(@RequestParam("id") int idDispositivo) {
+			
+			List<Telemetria>  t = new ArrayList();
+			
+			t = telemetriaRepository.ultimeTelemetriADispositivo(idDispositivo);
+			
+			return t;
+		}
+		
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Utente } from '../../models/Utente';
+import { Auto } from '../../models/Auto';
 import { Router, ActivatedRoute  } from '@angular/router';
+import { TelemetriaService } from '../../services/telemetria.service';
 declare var jquery: any;
 declare var $: any;
 import swal from 'sweetalert2';
@@ -13,33 +15,45 @@ import swal from 'sweetalert2';
 })
 
 export class TelemetriaComponent implements OnInit {
-  lat: number = 41.134769;
-  lng: number = 14.780548;
-
+  lat:number;
+  lng: number;
+	auto:Auto;
+	 utente: Utente;
+	 idDispositivo;
+	 telemetria;
   chart = [];
-
-  constructor(private router: Router, private route: ActivatedRoute) { }
+sub;
+km;
+kmarray = [];
+  constructor(private router: Router, private route: ActivatedRoute, private telemetriaService:TelemetriaService) { }
 
   ngOnInit() {
 	  
 	   this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
-	  this.sub = this.route.queryParams.subscribe(params => {
-     
-	 // Prendere paremetro per visualizzare solo preventivi che voglio, se non ci sta imopsto a 0.
-	 // 0 - tutti, 1 - in attesa di risposta, 2 - risposti, 3 - accettati, 4 - rifiutati
-	 this.stato = +params['stato'] || 0; 
-	 if(this.stato==0)this.filtropreventivi="Tutti";
-	 else if(this.stato==1)this.filtropreventivi="In Attesa Di Risposta";
-	 else if(this.stato==2)this.filtropreventivi="Risposti";
-	 else if(this.stato==3)this.filtropreventivi="Accettati";
-	 else if(this.stato==4)this.filtropreventivi="Rifiutati";
-	 this.loadPreventiviOfficina();
-
-    });
+		
+		this.auto=this.telemetriaService.getAuto();
+		this.idDispositivo =this.telemetriaService.getIdDispositivo();
 	
+	console.log(this.auto);
+	console.log(this.idDispositivo);
 	
-	
-	
+    this.telemetriaService.getTelemetria(this.idDispositivo)
+      .subscribe(
+        response => {
+		this.km =response.datiTelemetria.km;	
+        this.lat  = response.datiTelemetria.latitudine;
+		this.lng  = response.datiTelemetria.longitudine;
+        }
+      );
+  
+this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
+      .subscribe(
+        response => {
+			
+		this.telemetria = response;
+		for(var i=0;i<this.telemetria.length;i++){
+	this.kmarray.push(this.telemetria[i].datiTelemetria.km);
+}	 
 
     this.chart = new Chart('canvas', {
       type: 'line',
@@ -47,7 +61,7 @@ export class TelemetriaComponent implements OnInit {
         labels: ["1", "2", "3", "4", "5"],
         datasets: [
           {
-            data: [2, 2, 3, 4, 5],
+            data: this.kmarray,
             borderColor: "#3cba9f",
             fill: false,
             lineTension: 0
@@ -73,7 +87,13 @@ export class TelemetriaComponent implements OnInit {
           }],
         }
       }
-    });
+    })
+		
+        }
+      );
+	
+
+;
 
     this.chart = new Chart('canvas2', {
       type: 'line',

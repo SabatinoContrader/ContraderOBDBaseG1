@@ -50,7 +50,7 @@
 												<td>{{autos.auto.numeroTelaio}}</td>
 
 												<td>
-													<a *ngIf="autos.idDispositivo>0" class="ali assegnanoleggio" (click)="assnoleggio(autos.id);">
+													<a *ngIf="autos.idDispositivo>0" class="ali assegnanoleggio"  (click)="gotoTelemetria(autos.auto,autos.idDispositivo)">
 														<i class="fa fa-car" title="Visualizza informazioni dettagliate auto"></i>
 													</a>
 												</td>
