@@ -13,4 +13,6 @@ public interface OfficinaRepository  extends CrudRepository<Officina, Long> {
 
 	Officina findById(int id);
 	
+	long count();
+	
 }

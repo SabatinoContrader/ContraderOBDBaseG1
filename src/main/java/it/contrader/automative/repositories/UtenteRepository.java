@@ -23,4 +23,6 @@ public interface UtenteRepository extends CrudRepository<Utente, Long> {
 	
 	Utente findByEmailAndPassword(String email, String password);
 	
+	long countByRuolo(int ruolo);
+	
 }

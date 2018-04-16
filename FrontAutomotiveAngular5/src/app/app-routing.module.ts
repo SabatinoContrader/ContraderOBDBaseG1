@@ -17,29 +17,30 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
 import { AllAutoComponent } from './components/all-auto/all-auto.component';
 
 const routes: Routes = [
-  { path: '', redirectTo:"/login", pathMatch:'full' },
+  { path: '', redirectTo: "/login", pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'homeofficina', component: HomeOfficinaComponent },
-  { path: 'homeutente', component: HomeUtenteComponent},
-  { path: 'homeadmin', component: HomeAdminComponent},
-  { path: 'appuntamenti', component: AppuntamentoComponent},
-  { path: 'appuntamenti/:stato', component: AppuntamentoComponent},
-  { path: 'preventivi', component: PreventivoComponent},
-  { path: 'preventivi/:stato', component: PreventivoComponent},
-  { path: 'clienti', component: ClientiComponent},
-  { path: 'dispositivi', component: DispositiviComponent},
-  { path: 'noleggi', component: NoleggiComponent},
-  { path: 'guasti', component: GuastiComponent},
-  { path: 'scadenze', component: ScadenzeComponent},
-  { path: 'scadenzenoleggi', component: ScadenzenoleggiComponent},
-  { path: 'messaggi', component: MessaggiComponent},
-  { path: 'telemetria', component: TelemetriaComponent},
-  { path: 'allAuto', component: AllAutoComponent}
+  { path: 'homeutente', component: HomeUtenteComponent },
+  { path: 'homeadmin', component: HomeAdminComponent },
+  { path: 'appuntamenti', component: AppuntamentoComponent },
+  { path: 'appuntamenti/:stato', component: AppuntamentoComponent },
+  { path: 'preventivi', component: PreventivoComponent },
+  { path: 'preventivi/:stato', component: PreventivoComponent },
+  { path: 'clienti', component: ClientiComponent },
+  { path: 'dispositivi', component: DispositiviComponent },
+  { path: 'noleggi', component: NoleggiComponent },
+  { path: 'guasti', component: GuastiComponent },
+  { path: 'scadenze', component: ScadenzeComponent },
+  { path: 'scadenzenoleggi', component: ScadenzenoleggiComponent },
+  { path: 'messaggi', component: MessaggiComponent },
+  { path: 'telemetria', component: TelemetriaComponent },
+  { path: 'allAuto', component: AllAutoComponent },
+  { path: 'telemetria/:auto/idDispositivo', component: TelemetriaComponent },
 ];
 
 
 @NgModule({
-  exports: [ RouterModule ],
-  imports: [ RouterModule.forRoot(routes) ]
+  exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes)]
 })
 export class AppRoutingModule { }

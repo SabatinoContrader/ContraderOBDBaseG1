@@ -51,6 +51,7 @@ import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.IUtente;
 import it.contrader.automative.serviceInterfaces.IAzienda;
 import it.contrader.automative.utils.Alerts;
+import it.contrader.automative.utils.AutoLocation;
 import it.contrader.automative.utils.AutoScadenze;
 import it.contrader.automative.utils.GenericResponse;
 import it.contrader.automative.utils.LogInUtente;
@@ -58,11 +59,9 @@ import it.contrader.automative.utils.ProblemiAuto;
 import it.contrader.automative.utils.StatoAuto;
 import it.contrader.automative.utils.TicketDTO;
 
-
-
 @RestController
 @CrossOrigin(value = "*")
-//@RequestMapping("/login")
+// @RequestMapping("/login")
 public class Controller {
 
 	private IUtente IUtente;
@@ -88,10 +87,17 @@ public class Controller {
 	private MessaggioTicketRepository messaggioTicketRepository;
 
 	@Autowired
-	public Controller(IAzienda IAzienda, AziendaRepository aziendaRepository, IAuto IAuto, IDispositivo IDispositivo, IUtente IUtente, IPreventivo IPreventivo,IAppuntamento IAppuntamento, IMessaggioTicket IMessaggioTicket,UtenteRepository utenteRepository ,AutoRepository autoRepository,  MessaggioTicketRepository messaggioTicketRepository ,NoleggioRepository noleggioRepository,TicketRepository ticketRepository, OfficinaRepository officinaRepository, DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository, PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository, INoleggio noleggioService) {
+	public Controller(IAzienda IAzienda, AziendaRepository aziendaRepository, IAuto IAuto, IDispositivo IDispositivo,
+			IUtente IUtente, IPreventivo IPreventivo, IAppuntamento IAppuntamento, IMessaggioTicket IMessaggioTicket,
+			UtenteRepository utenteRepository, AutoRepository autoRepository,
+			MessaggioTicketRepository messaggioTicketRepository, NoleggioRepository noleggioRepository,
+			TicketRepository ticketRepository, OfficinaRepository officinaRepository,
+			DispositivoRepository dispositivoRepository, GuastoRepository guastoRepository,
+			PreventivoRepository preventivoRepository, AppuntamentoRepository appuntamentoRepository,
+			INoleggio noleggioService) {
 		this.IUtente = IUtente;
 		this.IPreventivo = IPreventivo;
-		this.IAppuntamento=IAppuntamento;
+		this.IAppuntamento = IAppuntamento;
 		this.utenteRepository = utenteRepository;
 		this.autoRepository = autoRepository;
 		this.noleggioRepository = noleggioRepository;
@@ -110,14 +116,41 @@ public class Controller {
 		this.IMessaggioTicket = IMessaggioTicket;
 	}
 
-
 	// '+' : Revisionati
 	// '!' : Dovrebbero funzionare
 	// '?' : Saltato per ora
 	// '?!' : Saltato per ora ma dovrebbe funzionare
 
+	// + Conta tutte le auto
+	@RequestMapping(value = "/countAllAuto", method = RequestMethod.POST)
+	public int countAllAuto() {
+		int allAuto = (int) (long) autoRepository.count();
+		return allAuto;
+	}
 
-	//+ Lista tutte le Auto mai (anche noleggi scaduti) associate al Cliente (Utente)
+	// + Conta tutte le officine
+	@RequestMapping(value = "/countAllOfficine", method = RequestMethod.POST)
+	public int countAllOfficine() {
+		int allOfficine = (int) (long) officinaRepository.count();
+		return allOfficine;
+	}
+
+	// + Conta tutte la aziende
+	@RequestMapping(value = "/countAllAziende", method = RequestMethod.POST)
+	public int countAllAziende() {
+		int allAziende = (int) (long) utenteRepository.countByRuolo(2);
+		return allAziende;
+	}
+
+	// + Conta tutti gli utenti
+	@RequestMapping(value = "/countAllUtenti", method = RequestMethod.POST)
+	public int countAllUtenti() {
+		int allUtenti = (int) (long) utenteRepository.countByRuolo(0);
+		return allUtenti;
+	}
+
+	// + Lista tutte le Auto mai (anche noleggi scaduti) associate al Cliente
+	// (Utente)
 	@RequestMapping(value = "/autoNoleggiCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Auto>> getAutoNoleggiCliente(@RequestParam("id") int idUtente) {
 
@@ -125,13 +158,15 @@ public class Controller {
 
 		List<Noleggio> listaNoleggi = getNoleggiCliente(idUtente).getData();
 
-		for(int i = 0; i<listaNoleggi.size(); i++) lista.add(listaNoleggi.get(i).getAuto());
+		for (int i = 0; i < listaNoleggi.size(); i++)
+			lista.add(listaNoleggi.get(i).getAuto());
 
 		return new GenericResponse<List<Auto>>(lista);
 
 	}
-
-	//+ Lista tutte le Auto "attualmente" in noleggio dal Cliente 
+	
+	
+	// + Lista tutte le Auto "attualmente" in noleggio dal Cliente
 	@RequestMapping(value = "/autoCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Auto>> getAutoCliente(@RequestParam("id") int idUtente) {
 
@@ -139,21 +174,25 @@ public class Controller {
 
 		List<Noleggio> listaNoleggi = getNoleggiCliente(idUtente).getData();
 
-		for(int i = 0; i<listaNoleggi.size(); i++) if(listaNoleggi.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis()))) lista.add(listaNoleggi.get(i).getAuto());
+		for (int i = 0; i < listaNoleggi.size(); i++)
+			if (listaNoleggi.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis())))
+				lista.add(listaNoleggi.get(i).getAuto());
 
 		return new GenericResponse<List<Auto>>(lista);
 
 	}
 
-	//+ Lista Auto Officina
+	// + Lista Auto Officina
 	@RequestMapping(value = "/autoOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Auto>> getAutoOfficina(@RequestParam("id") int idUtente) {
 
-		return new GenericResponse<List<Auto>>(autoRepository.findByOfficina(utenteRepository.findById(idUtente).getOfficina()));
+		return new GenericResponse<List<Auto>>(
+				autoRepository.findByOfficina(utenteRepository.findById(idUtente).getOfficina()));
 
 	}
 
-	//+ Lista Guasti Irrisolti (sia officina che cliente) e esteso anche ad Amministratore Azienda e/o Dipendente
+	// + Lista Guasti Irrisolti (sia officina che cliente) e esteso anche ad
+	// Amministratore Azienda e/o Dipendente
 	@RequestMapping(value = "/getGuastiIrrisolti", method = RequestMethod.POST)
 	public GenericResponse<List<Guasto>> getGuastiIrrisolti(@RequestParam("id") int idUtente) {
 
@@ -162,15 +201,18 @@ public class Controller {
 		Utente u = utenteRepository.findById(idUtente);
 
 		List<Auto> listaAuto = new ArrayList();
-		if(u.getRuolo() == 0 || u.getRuolo() == 2) listaAuto = getAutoCliente(idUtente).getData();
-		else listaAuto = getAutoOfficina(idUtente).getData();
+		if (u.getRuolo() == 0 || u.getRuolo() == 2)
+			listaAuto = getAutoCliente(idUtente).getData();
+		else
+			listaAuto = getAutoOfficina(idUtente).getData();
 
-		for(int i = 0; i<listaAuto.size(); i++) {
+		for (int i = 0; i < listaAuto.size(); i++) {
 			List<Guasto> g = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(listaAuto.get(i)));
 
-			for(int e=0; e<g.size(); e++) { 
-				//if(!g.get(e).getStatoRisoluzione().equals("Risolto")) 
-				if(!g.get(e).getStatoRisoluzione().equals("Risolto")) listaGuasti.add(g.get(e));
+			for (int e = 0; e < g.size(); e++) {
+				// if(!g.get(e).getStatoRisoluzione().equals("Risolto"))
+				if (!g.get(e).getStatoRisoluzione().equals("Risolto"))
+					listaGuasti.add(g.get(e));
 
 			}
 		}
@@ -178,7 +220,8 @@ public class Controller {
 		return new GenericResponse<List<Guasto>>(listaGuasti);
 	}
 
-	//+ Lista TUTTI Guasti (sia officina che cliente) e esteso anche ad Amministratore Azienda e/o Dipendente
+	// + Lista TUTTI Guasti (sia officina che cliente) e esteso anche ad
+	// Amministratore Azienda e/o Dipendente
 	@RequestMapping(value = "/getGuasti", method = RequestMethod.POST)
 	public GenericResponse<List<Guasto>> getGuasti(@RequestParam("id") int idUtente) {
 
@@ -187,19 +230,22 @@ public class Controller {
 		Utente u = utenteRepository.findById(idUtente);
 
 		List<Auto> listaAuto = new ArrayList();
-		if(u.getRuolo() == 0 || u.getRuolo() == 2) listaAuto = getAutoCliente(idUtente).getData();
-		else listaAuto = getAutoOfficina(idUtente).getData();
+		if (u.getRuolo() == 0 || u.getRuolo() == 2)
+			listaAuto = getAutoCliente(idUtente).getData();
+		else
+			listaAuto = getAutoOfficina(idUtente).getData();
 
-		for(int i = 0; i<listaAuto.size(); i++) {
+		for (int i = 0; i < listaAuto.size(); i++) {
 			List<Guasto> g = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(listaAuto.get(i)));
 
-			for(int e=0; e<g.size(); e++) listaGuasti.add(g.get(e));
+			for (int e = 0; e < g.size(); e++)
+				listaGuasti.add(g.get(e));
 		}
 
 		return new GenericResponse<List<Guasto>>(listaGuasti);
 	}
 
-	//+ Lista Noleggi Officina
+	// + Lista Noleggi Officina
 	@RequestMapping(value = "/noleggiOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Noleggio>> getNoleggiOfficina(@RequestParam("id") int idOfficina) {
 
@@ -211,7 +257,7 @@ public class Controller {
 
 	}
 
-	//+ Lista Noleggi Cliente (Anche assegnate da azienda a dipendente)
+	// + Lista Noleggi Cliente (Anche assegnate da azienda a dipendente)
 	@RequestMapping(value = "/noleggiCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Noleggio>> getNoleggiCliente(@RequestParam("id") int idUtente) {
 
@@ -223,7 +269,8 @@ public class Controller {
 
 	}
 
-	//+ Lista auto in scadenza (sia officina che cliente) e esteso anche ad Amministratore Azienda e/o Dipendente
+	// + Lista auto in scadenza (sia officina che cliente) e esteso anche ad
+	// Amministratore Azienda e/o Dipendente
 	@RequestMapping(value = "/autoInScadenza", method = RequestMethod.POST)
 	public GenericResponse<List<AutoScadenze>> getAutoInScadenza(@RequestParam("id") int idUtente) {
 
@@ -232,8 +279,10 @@ public class Controller {
 		Utente u = utenteRepository.findById(idUtente);
 
 		List<Auto> listaAuto = new ArrayList();
-		if(u.getRuolo() == 0 || u.getRuolo() == 2) listaAuto = getAutoCliente(idUtente).getData();
-		else listaAuto = getAutoOfficina(idUtente).getData();
+		if (u.getRuolo() == 0 || u.getRuolo() == 2)
+			listaAuto = getAutoCliente(idUtente).getData();
+		else
+			listaAuto = getAutoOfficina(idUtente).getData();
 
 		lista = Alerts.listaAutoInScadenza(listaAuto);
 
@@ -241,151 +290,161 @@ public class Controller {
 
 	}
 
-	
-	//+ Lista Auto Azienda
-		@RequestMapping(value = "/autoAzienda", method = RequestMethod.POST)
-		public GenericResponse<List<Auto>> getAutoAzienda(@RequestParam("id") int idAzienda) {
+	// + Lista Auto Azienda
+	@RequestMapping(value = "/autoAzienda", method = RequestMethod.POST)
+	public GenericResponse<List<Auto>> getAutoAzienda(@RequestParam("id") int idAzienda) {
 
-			List<Auto> listaAuto = new ArrayList();
-			List<Noleggio> noleggi = getNoleggiAzienda(idAzienda).getData();
-					
-			for(int i = 0; i<noleggi.size(); i++) listaAuto.add(noleggi.get(i).getAuto());
-			
-			return new GenericResponse<List<Auto>>(listaAuto);
+		List<Auto> listaAuto = new ArrayList();
+		List<Noleggio> noleggi = getNoleggiAzienda(idAzienda).getData();
 
-		}
-	
-	//+ Lista Noleggi Azienda
-		@RequestMapping(value = "/noleggiAzienda", method = RequestMethod.POST)
-		public GenericResponse<List<Noleggio>> getNoleggiAzienda(@RequestParam("id") int idAzienda) {
+		for (int i = 0; i < noleggi.size(); i++)
+			listaAuto.add(noleggi.get(i).getAuto());
 
-			List<Noleggio> listaNoleggiAzienda = new ArrayList();
+		return new GenericResponse<List<Auto>>(listaAuto);
 
-			listaNoleggiAzienda = noleggioRepository.findByAzienda(aziendaRepository.findById(idAzienda));
+	}
 
-			return new GenericResponse<List<Noleggio>>(listaNoleggiAzienda);
+	// + Lista Noleggi Azienda
+	@RequestMapping(value = "/noleggiAzienda", method = RequestMethod.POST)
+	public GenericResponse<List<Noleggio>> getNoleggiAzienda(@RequestParam("id") int idAzienda) {
 
-		}
-	
-	
-	//! Lista auto con status associato
-	public List<StatoAuto> statoAuto(List<Auto> listaAuto, Utente u){
-		
+		List<Noleggio> listaNoleggiAzienda = new ArrayList();
+
+		listaNoleggiAzienda = noleggioRepository.findByAzienda(aziendaRepository.findById(idAzienda));
+
+		return new GenericResponse<List<Noleggio>>(listaNoleggiAzienda);
+
+	}
+
+	// ! Lista auto con status associato
+	public List<StatoAuto> statoAuto(List<Auto> listaAuto, Utente u) {
+
 		List<StatoAuto> lista = new ArrayList();
-		
+
 		List<Auto> rimanenti = new ArrayList();
 		List<Auto> rimanenti1 = new ArrayList();
 		List<Auto> rimanenti2 = new ArrayList();
-		
-		//Cerco auto con guasti
+
+		// Cerco auto con guasti
 		List<Guasto> autoConGuasti = new ArrayList();
-		if(listaAuto.size() != 0) { autoConGuasti = getGuastiIrrisolti(u.getId()).getData();}
-		
-		if((autoConGuasti.size() != 0)){
-			for(int i=0; i<listaAuto.size(); i++){
-				
+		if (listaAuto.size() != 0) {
+			autoConGuasti = getGuastiIrrisolti(u.getId()).getData();
+		}
+
+		if ((autoConGuasti.size() != 0)) {
+			for (int i = 0; i < listaAuto.size(); i++) {
+
 				boolean trovato = false;
-				
-				for(int e=0; e<autoConGuasti.size() &&  !trovato; e++) {
-					
-					if(listaAuto.get(i).equals(autoConGuasti.get(e).getDispositivo().getAuto())){
+
+				for (int e = 0; e < autoConGuasti.size() && !trovato; e++) {
+
+					if (listaAuto.get(i).equals(autoConGuasti.get(e).getDispositivo().getAuto())) {
 						trovato = true;
-						lista.add(new StatoAuto(listaAuto.get(i), "danger", autoConGuasti.get(e).getDispositivo().getId()));
-						
-						//autoConGuasti.remove(e);
+						lista.add(new StatoAuto(listaAuto.get(i), "danger",
+								autoConGuasti.get(e).getDispositivo().getId()));
+
+						// autoConGuasti.remove(e);
 					}
 				}
-				
-				if(!trovato) rimanenti.add(listaAuto.get(i));
+
+				if (!trovato)
+					rimanenti.add(listaAuto.get(i));
 			}
-			
-		} else rimanenti = listaAuto;
-		
-		
+
+		} else
+			rimanenti = listaAuto;
+
 		List<AutoScadenze> autoInScadenza = new ArrayList();
-		if(rimanenti.size() != 0) { autoInScadenza = getAutoInScadenza(u.getId()).getData();}
-		
-		if((autoInScadenza.size() != 0)){
-			for(int i=0; i<rimanenti.size(); i++){
+		if (rimanenti.size() != 0) {
+			autoInScadenza = getAutoInScadenza(u.getId()).getData();
+		}
+
+		if ((autoInScadenza.size() != 0)) {
+			for (int i = 0; i < rimanenti.size(); i++) {
 
 				boolean trovato = false;
 
-				for(int e=0; e<autoInScadenza.size() &&  !trovato; e++) {
+				for (int e = 0; e < autoInScadenza.size() && !trovato; e++) {
 
-					if(listaAuto.get(i).equals(autoInScadenza.get(e).getAuto())){
+					if (listaAuto.get(i).equals(autoInScadenza.get(e).getAuto())) {
 						trovato = true;
-						
+
 						Dispositivo d = dispositivoRepository.findByAuto(rimanenti.get(i));
 						int idDispositivo = 0;
-						
-						if(d != null) idDispositivo = dispositivoRepository.findByAuto(rimanenti.get(i)).getId();
-						
+
+						if (d != null)
+							idDispositivo = dispositivoRepository.findByAuto(rimanenti.get(i)).getId();
+
 						lista.add(new StatoAuto(rimanenti.get(i), "warning", idDispositivo));
-						
-						//autoInScadenza.remove(e);
+
+						// autoInScadenza.remove(e);
 					}
 				}
 
-				if(!trovato) rimanenti1.add(rimanenti.get(i));
+				if (!trovato)
+					rimanenti1.add(rimanenti.get(i));
 			}
 
-		} else rimanenti1 = rimanenti;
-		
-		
+		} else
+			rimanenti1 = rimanenti;
+
 		List<Auto> kmScadenza = new ArrayList();
-		if(rimanenti1.size() != 0) { 
-			
-			if((u.getRuolo() == 0) || (u.getRuolo() == 2)) {
+		if (rimanenti1.size() != 0) {
+
+			if ((u.getRuolo() == 0) || (u.getRuolo() == 2)) {
 				List<Noleggio> n = getNoleggiKmInScadenzaCliente(u.getId()).getData();
-				for(int i = 0; i<n.size(); i++) kmScadenza.add(n.get(i).getAuto());
+				for (int i = 0; i < n.size(); i++)
+					kmScadenza.add(n.get(i).getAuto());
 			} else {
 				List<Noleggio> n = getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData();
-				for(int i = 0; i<n.size(); i++) kmScadenza.add(n.get(i).getAuto());
+				for (int i = 0; i < n.size(); i++)
+					kmScadenza.add(n.get(i).getAuto());
 			}
-		} else rimanenti2 = rimanenti1;
+		} else
+			rimanenti2 = rimanenti1;
 
-		if((kmScadenza.size() != 0)){
+		if ((kmScadenza.size() != 0)) {
 
-			for(int i=0; i<rimanenti1.size(); i++){
+			for (int i = 0; i < rimanenti1.size(); i++) {
 
 				boolean trovato = false;
 
-				for(int e=0; e<kmScadenza.size() &&  !trovato; e++) {
+				for (int e = 0; e < kmScadenza.size() && !trovato; e++) {
 
-					if(rimanenti1.get(i).equals(kmScadenza.get(e))){
+					if (rimanenti1.get(i).equals(kmScadenza.get(e))) {
 						trovato = true;
 						Dispositivo d = dispositivoRepository.findByAuto(rimanenti1.get(i));
 						int idDispositivo = 0;
-						
-						if(d != null) idDispositivo = dispositivoRepository.findByAuto(rimanenti1.get(i)).getId();
+
+						if (d != null)
+							idDispositivo = dispositivoRepository.findByAuto(rimanenti1.get(i)).getId();
 						lista.add(new StatoAuto(rimanenti1.get(i), "warning", idDispositivo));
-						
-						//kmScadenza.remove(e);
+
+						// kmScadenza.remove(e);
 					}
 				}
 
-				if(!trovato) rimanenti2.add(rimanenti1.get(i));
+				if (!trovato)
+					rimanenti2.add(rimanenti1.get(i));
 			}
 
 		}
-		
-		
-		
-		for(int i = 0; i<rimanenti2.size(); i++) {
+
+		for (int i = 0; i < rimanenti2.size(); i++) {
 			Dispositivo d = dispositivoRepository.findByAuto(rimanenti2.get(i));
 			int idDispositivo = 0;
-			
-			if(d != null) idDispositivo = dispositivoRepository.findByAuto(rimanenti2.get(i)).getId();
+
+			if (d != null)
+				idDispositivo = dispositivoRepository.findByAuto(rimanenti2.get(i)).getId();
 			lista.add(new StatoAuto(rimanenti2.get(i), "Success", idDispositivo));
-			}
-		
+		}
+
 		return lista;
 	}
-		
-	
-	//Situazione Auto
+
+	// Situazione Auto
 	@RequestMapping(value = "/situazioneAuto", method = RequestMethod.POST)
-	public GenericResponse<List<ProblemiAuto>> situazioneAuto(@RequestParam("id") int idAuto){
+	public GenericResponse<List<ProblemiAuto>> situazioneAuto(@RequestParam("id") int idAuto) {
 
 		List<ProblemiAuto> problemi = new ArrayList();
 
@@ -393,36 +452,43 @@ public class Controller {
 
 		List<Guasto> guasti = new ArrayList();
 		List<Guasto> g = guastoRepository.findByDispositivo(dispositivoRepository.findByAuto(a));
-		for(int e=0; e<g.size(); e++) if(!g.get(e).getStatoRisoluzione().equals("Risolto")) guasti.add(g.get(e));
+		for (int e = 0; e < g.size(); e++)
+			if (!g.get(e).getStatoRisoluzione().equals("Risolto"))
+				guasti.add(g.get(e));
 
 		Calendar calendar = Calendar.getInstance();
-		
-		for(int i=0; i<guasti.size(); i++) {
+
+		for (int i = 0; i < guasti.size(); i++) {
 			calendar.setTime(guasti.get(i).getData());
-			problemi.add(new ProblemiAuto("danger", "Codice Guasto: "+guasti.get(i).getTipologiaGuasto().getCodice()+" ricevuto in Data: "+ calendar.get(Calendar.DAY_OF_MONTH)+"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR)+" "+calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)));
-			}
+			problemi.add(new ProblemiAuto("danger",
+					"Codice Guasto: " + guasti.get(i).getTipologiaGuasto().getCodice() + " ricevuto in Data: "
+							+ calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/"
+							+ calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":"
+							+ calendar.get(Calendar.MINUTE)));
+		}
 
 		List<Auto> auto = new ArrayList();
 		auto.add(a);
 		List<AutoScadenze> scadenze = Alerts.listaAutoInScadenza(auto);
-		if(scadenze.size() != 0) {
-			for(int i=0; i<scadenze.get(0).cosaStaPerScadere().size(); i++) problemi.add(new ProblemiAuto("warning", scadenze.get(0).cosaStaPerScadere().get(i)+" in Scadenza"));
-			for(int i=0; i<scadenze.get(0).cosaEScaduto().size(); i++) problemi.add(new ProblemiAuto("warning", scadenze.get(0).cosaEScaduto().get(i)+" Scaduto"));
+		if (scadenze.size() != 0) {
+			for (int i = 0; i < scadenze.get(0).cosaStaPerScadere().size(); i++)
+				problemi.add(new ProblemiAuto("warning", scadenze.get(0).cosaStaPerScadere().get(i) + " in Scadenza"));
+			for (int i = 0; i < scadenze.get(0).cosaEScaduto().size(); i++)
+				problemi.add(new ProblemiAuto("warning", scadenze.get(0).cosaEScaduto().get(i) + " Scaduto"));
 		}
 
 		List<Noleggio> listaKmInScadenza = new ArrayList();
 		listaKmInScadenza = Alerts.kmNoleggioInScadenza(noleggioRepository.findByAuto(a));
-		for(int i=0; i<listaKmInScadenza.size(); i++) problemi.add(new ProblemiAuto("warning", "Km del Noleggio in Scadenza"));
+		for (int i = 0; i < listaKmInScadenza.size(); i++)
+			problemi.add(new ProblemiAuto("warning", "Km del Noleggio in Scadenza"));
 
-		if(problemi.isEmpty()) problemi.add(new ProblemiAuto("success", "Nessun Problema"));
+		if (problemi.isEmpty())
+			problemi.add(new ProblemiAuto("success", "Nessun Problema"));
 
 		return new GenericResponse<List<ProblemiAuto>>(problemi);
 	}
 
-	
-	
-
-	//+ Lista Noleggi con KmNoleggio in Scadenza dell'officina
+	// + Lista Noleggi con KmNoleggio in Scadenza dell'officina
 	@RequestMapping(value = "/kmInScadenzaOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Noleggio>> getNoleggiKmInScadenzaOfficina(@RequestParam("id") int idOfficina) {
 
@@ -434,7 +500,8 @@ public class Controller {
 
 	}
 
-	//+ Lista Noleggi con KmNoleggio in Scadenza del cliente (sia business che normale)
+	// + Lista Noleggi con KmNoleggio in Scadenza del cliente (sia business che
+	// normale)
 	@RequestMapping(value = "/kmInScadenzaCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Noleggio>> getNoleggiKmInScadenzaCliente(@RequestParam("id") int idUtente) {
 
@@ -446,165 +513,189 @@ public class Controller {
 
 	}
 
-	//?! Lista Preventivi del Cliente
+	// ?! Lista Preventivi del Cliente
 	@RequestMapping(value = "/preventiviCliente", method = RequestMethod.POST)
-	public GenericResponse<List<Preventivo>> getPreventiviCliente(@RequestParam("id") int idUtente,@RequestParam("stato") int stato) {
+	public GenericResponse<List<Preventivo>> getPreventiviCliente(@RequestParam("id") int idUtente,
+			@RequestParam("stato") int stato) {
 
 		List<Preventivo> listaPreventivi = new ArrayList();
 
 		listaPreventivi = preventivoRepository.findByUtente(utenteRepository.findById(idUtente));
-		
-		// se non voglio tutti i preventivi (0), faccio switch in cui rimuovo preventivi che non voglio dalla lista
-				// Case 1, mi tengo solo preventivi in attesa di risposta
-				// Case 2, mi tengo solo preventivi Risposti
-				// Case 3, mi tengo solo preventivi Accettati
-				// Case 4, mi tengo solo preventivi Rifiutati
-				if(stato>0) {
-					
-					switch(stato){
-						case 1: 
-							for (int i = 0; i<listaPreventivi.size(); i++)
-								if(listaPreventivi.get(i).getStato() != 0) listaPreventivi.remove(i);
-							break;
-						case 2:
-							for (int i = 0; i<listaPreventivi.size(); i++)
-								if(listaPreventivi.get(i).getStato() != 1) listaPreventivi.remove(i);
-							break;
-						case 3: 
-							for (int i = 0; i<listaPreventivi.size(); i++)
-								if(listaPreventivi.get(i).getStato() != 2) listaPreventivi.remove(i);
-							break;
-						case 4: 
-							for (int i = 0; i<listaPreventivi.size(); i++)
-								if(listaPreventivi.get(i).getStato() != 3) listaPreventivi.remove(i);
-							break;
-						default:;
-					}
-					
-				}
 
-		return new GenericResponse<List<Preventivo>>(listaPreventivi);
-
-
-	}
-
-	//! Lista Preventivi dell'Officina
-	@RequestMapping(value = "/preventiviOfficina", method = RequestMethod.POST)
-	public GenericResponse<List<Preventivo>> getPreventiviOfficina(@RequestParam("id") int idOfficina, @RequestParam("stato") int stato) {
-
-		List<Preventivo> listaPreventiviOfficina = new ArrayList();
-
-		listaPreventiviOfficina = preventivoRepository.findByOfficina(officinaRepository.findById(idOfficina));
-		
-		// se non voglio tutti i preventivi (0), faccio switch in cui rimuovo preventivi che non voglio dalla lista
+		// se non voglio tutti i preventivi (0), faccio switch in cui rimuovo preventivi
+		// che non voglio dalla lista
 		// Case 1, mi tengo solo preventivi in attesa di risposta
 		// Case 2, mi tengo solo preventivi Risposti
 		// Case 3, mi tengo solo preventivi Accettati
 		// Case 4, mi tengo solo preventivi Rifiutati
-		if(stato>0) {
-			
-			switch(stato){
-				case 1: 
-					for (int i = 0; i<listaPreventiviOfficina.size(); i++)
-						if(listaPreventiviOfficina.get(i).getStato() != 0) listaPreventiviOfficina.remove(i);
-					break;
-				case 2:
-					for (int i = 0; i<listaPreventiviOfficina.size(); i++)
-						if(listaPreventiviOfficina.get(i).getStato() != 1) listaPreventiviOfficina.remove(i);
-					break;
-				case 3: 
-					for (int i = 0; i<listaPreventiviOfficina.size(); i++)
-						if(listaPreventiviOfficina.get(i).getStato() != 2) listaPreventiviOfficina.remove(i);
-					break;
-				case 4: 
-					for (int i = 0; i<listaPreventiviOfficina.size(); i++)
-						if(listaPreventiviOfficina.get(i).getStato() != 3) listaPreventiviOfficina.remove(i);
-					break;
-				default:;
+		if (stato > 0) {
+
+			switch (stato) {
+			case 1:
+				for (int i = 0; i < listaPreventivi.size(); i++)
+					if (listaPreventivi.get(i).getStato() != 0)
+						listaPreventivi.remove(i);
+				break;
+			case 2:
+				for (int i = 0; i < listaPreventivi.size(); i++)
+					if (listaPreventivi.get(i).getStato() != 1)
+						listaPreventivi.remove(i);
+				break;
+			case 3:
+				for (int i = 0; i < listaPreventivi.size(); i++)
+					if (listaPreventivi.get(i).getStato() != 2)
+						listaPreventivi.remove(i);
+				break;
+			case 4:
+				for (int i = 0; i < listaPreventivi.size(); i++)
+					if (listaPreventivi.get(i).getStato() != 3)
+						listaPreventivi.remove(i);
+				break;
+			default:
+				;
 			}
-			
+
 		}
-		
+
+		return new GenericResponse<List<Preventivo>>(listaPreventivi);
+
+	}
+
+	// ! Lista Preventivi dell'Officina
+	@RequestMapping(value = "/preventiviOfficina", method = RequestMethod.POST)
+	public GenericResponse<List<Preventivo>> getPreventiviOfficina(@RequestParam("id") int idOfficina,
+			@RequestParam("stato") int stato) {
+
+		List<Preventivo> listaPreventiviOfficina = new ArrayList();
+
+		listaPreventiviOfficina = preventivoRepository.findByOfficina(officinaRepository.findById(idOfficina));
+
+		// se non voglio tutti i preventivi (0), faccio switch in cui rimuovo preventivi
+		// che non voglio dalla lista
+		// Case 1, mi tengo solo preventivi in attesa di risposta
+		// Case 2, mi tengo solo preventivi Risposti
+		// Case 3, mi tengo solo preventivi Accettati
+		// Case 4, mi tengo solo preventivi Rifiutati
+		if (stato > 0) {
+
+			switch (stato) {
+			case 1:
+				for (int i = 0; i < listaPreventiviOfficina.size(); i++)
+					if (listaPreventiviOfficina.get(i).getStato() != 0)
+						listaPreventiviOfficina.remove(i);
+				break;
+			case 2:
+				for (int i = 0; i < listaPreventiviOfficina.size(); i++)
+					if (listaPreventiviOfficina.get(i).getStato() != 1)
+						listaPreventiviOfficina.remove(i);
+				break;
+			case 3:
+				for (int i = 0; i < listaPreventiviOfficina.size(); i++)
+					if (listaPreventiviOfficina.get(i).getStato() != 2)
+						listaPreventiviOfficina.remove(i);
+				break;
+			case 4:
+				for (int i = 0; i < listaPreventiviOfficina.size(); i++)
+					if (listaPreventiviOfficina.get(i).getStato() != 3)
+						listaPreventiviOfficina.remove(i);
+				break;
+			default:
+				;
+			}
+
+		}
+
 		return new GenericResponse<List<Preventivo>>(listaPreventiviOfficina);
 
 	}
 
-	//?! Lista Appuntamenti del Cliente
+	// ?! Lista Appuntamenti del Cliente
 	@RequestMapping(value = "/appuntamentiCliente", method = RequestMethod.POST)
 	public GenericResponse<List<Appuntamento>> getAppuntamentiCliente(@RequestParam("id") int idUtente,
-																		@RequestParam("stato") int stato) {
+			@RequestParam("stato") int stato) {
 
 		List<Appuntamento> listaAppuntamenti = new ArrayList();
 
 		listaAppuntamenti = appuntamentoRepository.findByUtente(utenteRepository.findById(idUtente));
-		
-		// se non voglio tutti gli appuntamenti (0), faccio switch in cui rimuovo appuntamenti che non voglio dalla lista
+
+		// se non voglio tutti gli appuntamenti (0), faccio switch in cui rimuovo
+		// appuntamenti che non voglio dalla lista
 		// Case 1, mi tengo solo appuntamenti in attesa di risposta
 		// Case 2, mi tengo solo appuntamenti Confermati
 		// Case 3, mi tengo solo appuntamenti Rifiutati
-		if(stato>0) {
-			
-			switch(stato){
-				case 1: 
-					for (int i = 0; i<listaAppuntamenti.size(); i++)
-						if(listaAppuntamenti.get(i).getStato() != 0) listaAppuntamenti.remove(i);
-					break;
-				case 2:
-					for (int i = 0; i<listaAppuntamenti.size(); i++)
-						if(listaAppuntamenti.get(i).getStato() != 1) listaAppuntamenti.remove(i);
-					break;
-				case 3: 
-					for (int i = 0; i<listaAppuntamenti.size(); i++)
-						if(listaAppuntamenti.get(i).getStato() != 2) listaAppuntamenti.remove(i);
-					break;
-				
-				default:;
+		if (stato > 0) {
+
+			switch (stato) {
+			case 1:
+				for (int i = 0; i < listaAppuntamenti.size(); i++)
+					if (listaAppuntamenti.get(i).getStato() != 0)
+						listaAppuntamenti.remove(i);
+				break;
+			case 2:
+				for (int i = 0; i < listaAppuntamenti.size(); i++)
+					if (listaAppuntamenti.get(i).getStato() != 1)
+						listaAppuntamenti.remove(i);
+				break;
+			case 3:
+				for (int i = 0; i < listaAppuntamenti.size(); i++)
+					if (listaAppuntamenti.get(i).getStato() != 2)
+						listaAppuntamenti.remove(i);
+				break;
+
+			default:
+				;
 			}
-			
+
 		}
 
 		return new GenericResponse<List<Appuntamento>>(listaAppuntamenti);
 
 	}
 
-	//! Lista Appuntamenti dell'Officina
+	// ! Lista Appuntamenti dell'Officina
 	@RequestMapping(value = "/appuntamentiOfficina", method = RequestMethod.POST)
-	public GenericResponse<List<Appuntamento>> getAppuntamentiOfficina(@RequestParam("id") int idOfficina, @RequestParam("stato") int stato) {
+	public GenericResponse<List<Appuntamento>> getAppuntamentiOfficina(@RequestParam("id") int idOfficina,
+			@RequestParam("stato") int stato) {
 
 		List<Appuntamento> listaAppuntamentiOfficina = new ArrayList();
 
 		listaAppuntamentiOfficina = appuntamentoRepository.findByOfficina(officinaRepository.findById(idOfficina));
 
-		// se non voglio tutti gli appuntamenti (0), faccio switch in cui rimuovo appuntamenti che non voglio dalla lista
-				// Case 1, mi tengo solo appuntamenti in attesa di risposta
-				// Case 2, mi tengo solo appuntamenti Confermati
-				// Case 3, mi tengo solo appuntamenti Rifiutati
-				if(stato>0) {
-					
-					switch(stato){
-						case 1: 
-							for (int i = 0; i<listaAppuntamentiOfficina.size(); i++)
-								if(listaAppuntamentiOfficina.get(i).getStato() != 0) listaAppuntamentiOfficina.remove(i);
-							break;
-						case 2:
-							for (int i = 0; i<listaAppuntamentiOfficina.size(); i++)
-								if(listaAppuntamentiOfficina.get(i).getStato() != 1) listaAppuntamentiOfficina.remove(i);
-							break;
-						case 3: 
-							for (int i = 0; i<listaAppuntamentiOfficina.size(); i++)
-								if(listaAppuntamentiOfficina.get(i).getStato() != 2) listaAppuntamentiOfficina.remove(i);
-							break;
-						
-						default:;
-					}
-					
-				}
-		
+		// se non voglio tutti gli appuntamenti (0), faccio switch in cui rimuovo
+		// appuntamenti che non voglio dalla lista
+		// Case 1, mi tengo solo appuntamenti in attesa di risposta
+		// Case 2, mi tengo solo appuntamenti Confermati
+		// Case 3, mi tengo solo appuntamenti Rifiutati
+		if (stato > 0) {
+
+			switch (stato) {
+			case 1:
+				for (int i = 0; i < listaAppuntamentiOfficina.size(); i++)
+					if (listaAppuntamentiOfficina.get(i).getStato() != 0)
+						listaAppuntamentiOfficina.remove(i);
+				break;
+			case 2:
+				for (int i = 0; i < listaAppuntamentiOfficina.size(); i++)
+					if (listaAppuntamentiOfficina.get(i).getStato() != 1)
+						listaAppuntamentiOfficina.remove(i);
+				break;
+			case 3:
+				for (int i = 0; i < listaAppuntamentiOfficina.size(); i++)
+					if (listaAppuntamentiOfficina.get(i).getStato() != 2)
+						listaAppuntamentiOfficina.remove(i);
+				break;
+
+			default:
+				;
+			}
+
+		}
+
 		return new GenericResponse<List<Appuntamento>>(listaAppuntamentiOfficina);
 
 	}
 
-	//! Lista Clienti NORMALI dell'Officina
+	// ! Lista Clienti NORMALI dell'Officina
 	@RequestMapping(value = "/clientiOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Utente>> getClientiOfficina(@RequestParam("id") int idOfficina) {
 
@@ -612,14 +703,16 @@ public class Controller {
 
 		listaUtenti = utenteRepository.findByOfficina(officinaRepository.findById(idOfficina));
 
-		//Rimuovi i clienti aziendali
-		for (int i = 0; i<listaUtenti.size(); i++) if((listaUtenti.get(i).getRuolo() == 2)||(listaUtenti.get(i).getRuolo() == 1)) listaUtenti.remove(i);
+		// Rimuovi i clienti aziendali
+		for (int i = 0; i < listaUtenti.size(); i++)
+			if ((listaUtenti.get(i).getRuolo() == 2) || (listaUtenti.get(i).getRuolo() == 1))
+				listaUtenti.remove(i);
 
 		return new GenericResponse<List<Utente>>(listaUtenti);
 
 	}
 
-	//! Lista Clienti Business (Aziende) dell'Officina
+	// ! Lista Clienti Business (Aziende) dell'Officina
 	@RequestMapping(value = "/clientiAziendeOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<Utente>> getClientiAziendeOfficina(@RequestParam("id") int idOfficina) {
 
@@ -628,43 +721,62 @@ public class Controller {
 
 		listaUtenti = utenteRepository.findByOfficina(officinaRepository.findById(idOfficina));
 
-		//Rimuovi i clienti aziendali
-		for (int i = 0; i<listaUtenti.size(); i++) if(listaUtenti.get(i).getRuolo() == 2) aziende.add(listaUtenti.get(i));
+		// Rimuovi i clienti aziendali
+		for (int i = 0; i < listaUtenti.size(); i++)
+			if (listaUtenti.get(i).getRuolo() == 2)
+				aziende.add(listaUtenti.get(i));
 
 		return new GenericResponse<List<Utente>>(aziende);
 
 	}
 
-	//+ LOGIN
+	// + LOGIN
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public LogInUtente getUser(@RequestParam("email") String email, @RequestParam("pwd") String password){
+	public LogInUtente getUser(@RequestParam("email") String email, @RequestParam("pwd") String password) {
 
 		Utente u = IUtente.selectByEmail(email);
 
 		LogInUtente dati = new LogInUtente();
 
-		if(u!=null && u.getPassword().equals(password)) {
+		if (u != null && u.getPassword().equals(password)) {
 
-			int guasti=0;
+			int guasti = 0;
 
 			switch (u.getRuolo()) {
-			case 0 :
+			case 0:
 
 				List<Auto> listaAutoCliente = getAutoCliente(u.getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAppuntamentiCliente(u.getId(),0).getData().size(), getPreventiviCliente(u.getId(),0).getData().size(), statoAuto(listaAutoCliente, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(),
+						getAutoInScadenza(u.getId()).getData().size(),
+						getNoleggiKmInScadenzaCliente(u.getId()).getData().size(),
+						getAppuntamentiCliente(u.getId(), 0).getData().size(),
+						getPreventiviCliente(u.getId(), 0).getData().size(), statoAuto(listaAutoCliente, u));
 				break;
 
-			case 1 : 
-
+			case 1:
 				List<Auto> listaAutoOfficina = getAutoOfficina(u.getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(), getAppuntamentiOfficina(u.getOfficina().getId(),0).getData().size(), getPreventiviOfficina(u.getOfficina().getId(),0).getData().size(), statoAuto(listaAutoOfficina, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(),
+						getAutoInScadenza(u.getId()).getData().size(),
+						getNoleggiKmInScadenzaOfficina(u.getOfficina().getId()).getData().size(),
+						getAppuntamentiOfficina(u.getOfficina().getId(), 0).getData().size(),
+						getPreventiviOfficina(u.getOfficina().getId(), 0).getData().size(),
+						statoAuto(listaAutoOfficina, u));
 				break;
-			case 2 :
 
+			case 2:
 				System.out.println("\n\n");
 				System.out.println(u.getAzienda().getId());
 				List<Auto> listaAutoAzienda = getAutoAzienda(u.getAzienda().getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAppuntamentiCliente(u.getId(),0).getData().size(), getPreventiviCliente(u.getId(),0).getData().size(), statoAuto(listaAutoAzienda, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(),
+						getAutoInScadenza(u.getId()).getData().size(),
+						getNoleggiKmInScadenzaCliente(u.getId()).getData().size(),
+						getAppuntamentiCliente(u.getId(), 0).getData().size(),
+						getPreventiviCliente(u.getId(), 0).getData().size(), statoAuto(listaAutoAzienda, u));
+				break;
+
+			case 3:
+				dati = new LogInUtente(u, countAllAuto(), countAllOfficine(), countAllAziende(), countAllUtenti(), 0,
+						null);
 				break;
 			}
 
@@ -672,15 +784,13 @@ public class Controller {
 		return dati;
 	}
 
+	// Operazioni Vecchio Sprint (le ho modificare per funzionare con Rest, sono
+	// modifiche banali quindi NON ho testato)
 
-
-	//Operazioni Vecchio Sprint (le ho modificare per funzionare con Rest, sono modifiche banali quindi NON ho testato)
-
-
-	//?! Inserimenti nel DB
+	// ?! Inserimenti nel DB
 	@RequestMapping(value = "/inviapreventivo", method = RequestMethod.POST)
-	public void inviapreventivo(@RequestParam("email") String email, @RequestParam("dettagli") String dettagli, @RequestParam("idauto") String idauto)
-	{
+	public void inviapreventivo(@RequestParam("email") String email, @RequestParam("dettagli") String dettagli,
+			@RequestParam("idauto") String idauto) {
 		Utente u = IUtente.selectByEmail(email);
 		Auto a = autoRepository.findById(Integer.parseInt(idauto));
 		Officina o = u.getOfficina();
@@ -695,8 +805,7 @@ public class Controller {
 		// now, create a java.sql.Date from the java.util.Date
 		java.sql.Date date = new java.sql.Date(currentDate.getTime());
 
-
-		//Creazione nuovo preventivo
+		// Creazione nuovo preventivo
 		Preventivo p = new Preventivo();
 		p.setAuto(a);
 		p.setUtente(u);
@@ -715,24 +824,26 @@ public class Controller {
 	}
 
 	@RequestMapping(value = "/richiediappuntamento", method = RequestMethod.POST)
-	public void richiediappuntamento(@RequestParam("emailapp") String email, @RequestParam("dettagliapp") String dettagli, @RequestParam("ora") String ora,@RequestParam("dataAppuntamento") @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataAppuntamento)
-	{
+	public void richiediappuntamento(@RequestParam("emailapp") String email,
+			@RequestParam("dettagliapp") String dettagli, @RequestParam("ora") String ora,
+			@RequestParam("dataAppuntamento") @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataAppuntamento) {
 		Utente u = IUtente.selectByEmail(email);
 
 		Officina o = u.getOfficina();
 
-		/*// create a java calendar instance
-			Calendar calendar = Calendar.getInstance();
-
-			// get a java date (java.util.Date) from the Calendar instance.
-			// this java date will represent the current date, or "now".
-			java.util.Date currentDate = calendar.getTime();
-
-			// now, create a java.sql.Date from the java.util.Date
-			java.sql.Date date = new java.sql.Date(currentDate.getTime());
+		/*
+		 * // create a java calendar instance Calendar calendar =
+		 * Calendar.getInstance();
+		 * 
+		 * // get a java date (java.util.Date) from the Calendar instance. // this java
+		 * date will represent the current date, or "now". java.util.Date currentDate =
+		 * calendar.getTime();
+		 * 
+		 * // now, create a java.sql.Date from the java.util.Date java.sql.Date date =
+		 * new java.sql.Date(currentDate.getTime());
 		 */
 
-		//Creazione nuovo appuntamento
+		// Creazione nuovo appuntamento
 		Appuntamento a = new Appuntamento();
 		a.setUtente(u);
 		a.setOfficina(o);
@@ -741,15 +852,15 @@ public class Controller {
 		a.setDettagli(dettagli);
 		a.setStato(0);
 		a.setRisposta("");
-		//	    	Appuntamento a = new Appuntamento(2,u,o,date,ora,dettagli,0,"");
+		// Appuntamento a = new Appuntamento(2,u,o,date,ora,dettagli,0,"");
 		// Inserimento appuntamento creato in database
 
 		IAppuntamento.insert(a);
 	}
 
 	@RequestMapping(value = "/rispondipreventivo", method = RequestMethod.POST)
-	public void rispondipreventivo( @RequestParam("dettagli") String dettagli, @RequestParam("costoprev") String costoprev, @RequestParam("idprev") String idprev)
-	{
+	public void rispondipreventivo(@RequestParam("dettagli") String dettagli,
+			@RequestParam("costoprev") String costoprev, @RequestParam("idprev") String idprev) {
 
 		Preventivo p = preventivoRepository.findById(Integer.parseInt(idprev));
 		p.setStato(1);
@@ -760,9 +871,9 @@ public class Controller {
 	}
 
 	@RequestMapping(value = "/rispondiappuntamento", method = RequestMethod.POST)
-	public void rispondiappuntamento( @RequestParam("dettagliapp") String dettagli, @RequestParam("idapp") String idapp, @RequestParam("selectapp") String stato)
-	{
-		
+	public void rispondiappuntamento(@RequestParam("dettagliapp") String dettagli, @RequestParam("idapp") String idapp,
+			@RequestParam("selectapp") String stato) {
+
 		Appuntamento a = appuntamentoRepository.findById(Integer.parseInt(idapp));
 
 		a.setStato(Integer.parseInt(stato));
@@ -772,20 +883,17 @@ public class Controller {
 	}
 
 	@RequestMapping(value = "/setrisoltoguasto", method = RequestMethod.POST)
-	public void setrisoltoguasto(@RequestParam("idguasto") String idguasto)
-	{
+	public void setrisoltoguasto(@RequestParam("idguasto") String idguasto) {
 		Guasto g = guastoRepository.findById(Integer.parseInt(idguasto));
 
 		g.setStatoRisoluzione("Risolto");
 
-
 		guastoRepository.save(g);
 	}
 
-
-	//! Ritorno Lista auto per singolo Utente
+	// ! Ritorno Lista auto per singolo Utente
 	@RequestMapping(value = "/listaautoutente", method = RequestMethod.POST)
-	public GenericResponse<List<Noleggio>> listaautoutente(@RequestParam("id") int id){
+	public GenericResponse<List<Noleggio>> listaautoutente(@RequestParam("id") int id) {
 
 		Utente u = utenteRepository.findById(id);
 		List<Noleggio> n = noleggioRepository.findByGuidatore(u);
@@ -793,13 +901,9 @@ public class Controller {
 		return new GenericResponse<List<Noleggio>>(n);
 	}
 
-
-
-
-
-	//! Ritorno Lista dispositivi della singola officina
+	// ! Ritorno Lista dispositivi della singola officina
 	@RequestMapping(value = "/listaDispositiviOfficina", method = RequestMethod.POST)
-	public GenericResponse<List<Dispositivo>> listaDispositiviOfficina(@RequestParam("idOfficina") int idOfficina){
+	public GenericResponse<List<Dispositivo>> listaDispositiviOfficina(@RequestParam("idOfficina") int idOfficina) {
 
 		List<Dispositivo> lista = new ArrayList();
 
@@ -810,14 +914,17 @@ public class Controller {
 		return new GenericResponse<List<Dispositivo>>(lista);
 	}
 
-	//! Inserimento Noleggio
+	// ! Inserimento Noleggio
 	@RequestMapping(value = "/inserisciNoleggio", method = RequestMethod.POST)
-	public void inserisciNoleggio(@RequestParam("idOfficina") int idOfficina, @RequestParam("idAuto") int idAuto, @RequestParam("CapLuogoDiRiconsegna") int CapLuogoDiRiconsegna,
-			@RequestParam("CapLuogoDiRitiro") int CapLuogoDiRitiro, @RequestParam("DataInizioNoleggio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date DataInizioNoleggio, 
-			@RequestParam("DataFineNoleggio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date DataFineNoleggio, @RequestParam("MaxKmNoleggio") int MaxKmNoleggio,@RequestParam("idUtente") int idUtente) {
+	public void inserisciNoleggio(@RequestParam("idOfficina") int idOfficina, @RequestParam("idAuto") int idAuto,
+			@RequestParam("CapLuogoDiRiconsegna") int CapLuogoDiRiconsegna,
+			@RequestParam("CapLuogoDiRitiro") int CapLuogoDiRitiro,
+			@RequestParam("DataInizioNoleggio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date DataInizioNoleggio,
+			@RequestParam("DataFineNoleggio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date DataFineNoleggio,
+			@RequestParam("MaxKmNoleggio") int MaxKmNoleggio, @RequestParam("idUtente") int idUtente) {
 
 		Noleggio n = new Noleggio();
-		//Noleggio a = new Noleggio();
+		// Noleggio a = new Noleggio();
 
 		n.setAuto(autoRepository.findById(idAuto));
 		n.setCapLuogoDiRiconsegna(CapLuogoDiRiconsegna);
@@ -831,10 +938,11 @@ public class Controller {
 
 	}
 
-	//! Inserimento Cliente
+	// ! Inserimento Cliente
 	@RequestMapping(value = "/inserisciCliente", method = RequestMethod.POST)
-	public void inserisciCliente(@RequestParam("cognome") String cognome, @RequestParam("nome") String nome, @RequestParam("email") String email,
-			@RequestParam("password") String password, @RequestParam("idOfficina") int idOfficina, @RequestParam("telefono") String telefono) {
+	public void inserisciCliente(@RequestParam("cognome") String cognome, @RequestParam("nome") String nome,
+			@RequestParam("email") String email, @RequestParam("password") String password,
+			@RequestParam("idOfficina") int idOfficina, @RequestParam("telefono") String telefono) {
 
 		Utente u = new Utente();
 
@@ -852,10 +960,12 @@ public class Controller {
 
 	}
 
-	//?! Inserimento Azienda (Cliente Business)
+	// ?! Inserimento Azienda (Cliente Business)
 	@RequestMapping(value = "/inserisciAzienda", method = RequestMethod.POST)
-	public void inserisciAzienda(@RequestParam("denominazione") String denominazione, @RequestParam("nomeReferente") String nomeReferente, @RequestParam("cognomeReferente") String cognomeReferente,
-			@RequestParam("partitaIva") String partitaIva, @RequestParam("indirizzo") String indirizzo, @RequestParam("citta") String citta) {
+	public void inserisciAzienda(@RequestParam("denominazione") String denominazione,
+			@RequestParam("nomeReferente") String nomeReferente,
+			@RequestParam("cognomeReferente") String cognomeReferente, @RequestParam("partitaIva") String partitaIva,
+			@RequestParam("indirizzo") String indirizzo, @RequestParam("citta") String citta) {
 
 		Azienda a = new Azienda();
 
@@ -870,10 +980,13 @@ public class Controller {
 
 	}
 
-	//?! Inserimento Utente Amministratore Azienda (colui che controllerà l'account aziendale)
+	// ?! Inserimento Utente Amministratore Azienda (colui che controllerà l'account
+	// aziendale)
 	@RequestMapping(value = "/inserisciUtenteAzienda", method = RequestMethod.POST)
-	public void inserisciUtenteAzienda(@RequestParam("idAzienda") int idAzienda, @RequestParam("cognome") String cognome, @RequestParam("nome") String nome, @RequestParam("email") String email,
-			@RequestParam("password") String password, @RequestParam("idOfficina") int idOfficina, @RequestParam("telefono") String telefono) {
+	public void inserisciUtenteAzienda(@RequestParam("idAzienda") int idAzienda,
+			@RequestParam("cognome") String cognome, @RequestParam("nome") String nome,
+			@RequestParam("email") String email, @RequestParam("password") String password,
+			@RequestParam("idOfficina") int idOfficina, @RequestParam("telefono") String telefono) {
 
 		Utente u = new Utente();
 
@@ -893,10 +1006,12 @@ public class Controller {
 
 	}
 
-	//?! Inserimento Dipendente Aziendale 
+	// ?! Inserimento Dipendente Aziendale
 	@RequestMapping(value = "/inserisciDipendenteAzienda", method = RequestMethod.POST)
-	public void inserisciDipendenteAzienda(@RequestParam("idAzienda") int idAzienda, @RequestParam("cognome") String cognome, @RequestParam("nome") String nome, @RequestParam("email") String email,
-			@RequestParam("password") String password, @RequestParam("idOfficina") int idOfficina, @RequestParam("telefono") String telefono) {
+	public void inserisciDipendenteAzienda(@RequestParam("idAzienda") int idAzienda,
+			@RequestParam("cognome") String cognome, @RequestParam("nome") String nome,
+			@RequestParam("email") String email, @RequestParam("password") String password,
+			@RequestParam("idOfficina") int idOfficina, @RequestParam("telefono") String telefono) {
 
 		Utente u = new Utente();
 
@@ -916,13 +1031,17 @@ public class Controller {
 
 	}
 
-	//! Inserimento Auto
+	// ! Inserimento Auto
 	@RequestMapping(value = "/inserisciAuto", method = RequestMethod.POST)
-	public void inserisciAuto(@RequestParam("marca") String marca, @RequestParam("modello") String modello, @RequestParam("targa") String targa,
-			@RequestParam("numeroTelaio") String numeroTelaio, @RequestParam("cilindrata") int cilindrata, @RequestParam("cambio") String cambio, @RequestParam("potenza") int potenza, @RequestParam("tipologiaAuto") String tipologiaAuto, 
-			@RequestParam("alimentazione") String alimentazione, @RequestParam("numeroPorte") int numeroPorte, @RequestParam("kmAttuali") int kmAttuali,
-			@RequestParam("idOfficina") int idOfficina, @RequestParam("scadenzaAssicurazione") @DateTimeFormat(pattern = "dd/MM/yyyy") Date scadenzaAssicurazione, 
-			@RequestParam("scadenzaBollo") @DateTimeFormat(pattern = "dd/MM/yyyy") Date scadenzaBollo, @RequestParam("scadenzaRevisione") @DateTimeFormat(pattern = "dd/MM/yyyy") Date scadenzaRevisione,
+	public void inserisciAuto(@RequestParam("marca") String marca, @RequestParam("modello") String modello,
+			@RequestParam("targa") String targa, @RequestParam("numeroTelaio") String numeroTelaio,
+			@RequestParam("cilindrata") int cilindrata, @RequestParam("cambio") String cambio,
+			@RequestParam("potenza") int potenza, @RequestParam("tipologiaAuto") String tipologiaAuto,
+			@RequestParam("alimentazione") String alimentazione, @RequestParam("numeroPorte") int numeroPorte,
+			@RequestParam("kmAttuali") int kmAttuali, @RequestParam("idOfficina") int idOfficina,
+			@RequestParam("scadenzaAssicurazione") @DateTimeFormat(pattern = "dd/MM/yyyy") Date scadenzaAssicurazione,
+			@RequestParam("scadenzaBollo") @DateTimeFormat(pattern = "dd/MM/yyyy") Date scadenzaBollo,
+			@RequestParam("scadenzaRevisione") @DateTimeFormat(pattern = "dd/MM/yyyy") Date scadenzaRevisione,
 			@RequestParam("scadenzaTagliando") @DateTimeFormat(pattern = "dd/MM/yyyy") Date scadenzaTagliando) {
 
 		Auto a = new Auto();
@@ -944,32 +1063,34 @@ public class Controller {
 		a.setScadenzaBollo(scadenzaBollo);
 		a.setScadenzaRevisione(scadenzaRevisione);
 		a.setScadenzaTagliando(scadenzaTagliando);
-		
+
 		a.setCambio(cambio);
 		a.setPotenza(potenza);
 
 		IAuto.insert(a);
-		
+
 	}
 
-	//! Inserimento Dispositivo
+	// ! Inserimento Dispositivo
 	@RequestMapping(value = "/inserisciDispositivo", method = RequestMethod.POST)
-	public void inserisciDispositivo(@RequestParam("idOfficina") int idOfficina, @RequestParam("codice") String codice) {
+	public void inserisciDispositivo(@RequestParam("idOfficina") int idOfficina,
+			@RequestParam("codice") String codice) {
 
 		Dispositivo d = new Dispositivo();
 
 		d.setOfficina(officinaRepository.findById(idOfficina));
 		d.setCodice(codice);
 		// Non serve inserire data di installazione se non si installa su nessuna auto
-		//	d.setDataInstallazione(new Date(System.currentTimeMillis()));
+		// d.setDataInstallazione(new Date(System.currentTimeMillis()));
 
 		IDispositivo.insert(d);
 
 	}
 
-	//! Associazione Dispositivo ad Auto
+	// ! Associazione Dispositivo ad Auto
 	@RequestMapping(value = "/installazioneDispositivo", method = RequestMethod.POST)
-	public void installazioneDispositivo(@RequestParam("idDispositivo") int idDispositivo, @RequestParam("idAuto") int idAuto) {
+	public void installazioneDispositivo(@RequestParam("idDispositivo") int idDispositivo,
+			@RequestParam("idAuto") int idAuto) {
 
 		Dispositivo d = dispositivoRepository.findById(idDispositivo);
 
@@ -977,18 +1098,15 @@ public class Controller {
 		// in fase di installazione dispositivo inserirsco la data di installazione
 		d.setDataInstallazione(new Date(System.currentTimeMillis()));
 
-
-		//  Faccio solo aggiornamento senza bisogno di cancellare e reinserire 
-		//	dispositivoRepository.delete(d);
+		// Faccio solo aggiornamento senza bisogno di cancellare e reinserire
+		// dispositivoRepository.delete(d);
 		dispositivoRepository.save(d);
 
 	}
 
-
-	//?! Accettazione/Rifiuto preventivo da parte di cliente
+	// ?! Accettazione/Rifiuto preventivo da parte di cliente
 	@RequestMapping(value = "/accettapreventivo", method = RequestMethod.POST)
-	public void accettapreventivo( @RequestParam("stato") String stato, @RequestParam("idprev") String idprev)
-	{
+	public void accettapreventivo(@RequestParam("stato") String stato, @RequestParam("idprev") String idprev) {
 
 		Preventivo p = preventivoRepository.findById(Integer.parseInt(idprev));
 		p.setStato(Integer.parseInt(stato));
@@ -996,9 +1114,7 @@ public class Controller {
 		preventivoRepository.save(p);
 	}
 
-
-
-	//! Lista Auto Officina
+	// ! Lista Auto Officina
 	@RequestMapping(value = "/autoSenzaDispositivo", method = RequestMethod.POST)
 	public GenericResponse<List<Auto>> getAutoSenzaDisp(@RequestParam("id") int idOfficina) {
 
@@ -1007,86 +1123,91 @@ public class Controller {
 		List<Dispositivo> listaDispositiviOfficina = listaDispositiviOfficina(idOfficina).getData();
 
 		List<Auto> listaAutoConDisp = new ArrayList();
-		for(int i = 0; i<listaDispositiviOfficina.size(); i++) if(!(listaDispositiviOfficina.get(i).getAuto() == null))listaAutoConDisp.add(listaDispositiviOfficina.get(i).getAuto());
+		for (int i = 0; i < listaDispositiviOfficina.size(); i++)
+			if (!(listaDispositiviOfficina.get(i).getAuto() == null))
+				listaAutoConDisp.add(listaDispositiviOfficina.get(i).getAuto());
 
-		for (int i=0; i<listaAuto.size(); i++) {
-			for(int e = 0; e<listaAutoConDisp.size(); e++) if(listaAuto.get(i).equals(listaAutoConDisp.get(e))) listaAuto.remove(listaAuto.get(i));
+		for (int i = 0; i < listaAuto.size(); i++) {
+			for (int e = 0; e < listaAutoConDisp.size(); e++)
+				if (listaAuto.get(i).equals(listaAutoConDisp.get(e)))
+					listaAuto.remove(listaAuto.get(i));
 		}
 
 		return new GenericResponse<List<Auto>>(listaAuto);
 	}
 
-	//! LISTA TICKET OFFICINA
+	// ! LISTA TICKET OFFICINA
 	@RequestMapping(value = "/ticketOfficina", method = RequestMethod.POST)
 	public GenericResponse<List<TicketDTO>> getTicketOfficina(@RequestParam("id") int idOfficina) {
 		List<TicketDTO> listaTicketDTO = new ArrayList<TicketDTO>();
-		List<Ticket> listaTicket =  ticketRepository.findByOfficina(officinaRepository.findById(idOfficina));
-		for (int i=0; i<listaTicket.size(); i++) {
+		List<Ticket> listaTicket = ticketRepository.findByOfficina(officinaRepository.findById(idOfficina));
+		for (int i = 0; i < listaTicket.size(); i++) {
 			List<MessaggioTicket> listaMessaggi = messaggioTicketRepository.findByTicket(listaTicket.get(i));
-			listaTicketDTO.add( new TicketDTO(listaTicket.get(i),listaMessaggi));
+			listaTicketDTO.add(new TicketDTO(listaTicket.get(i), listaMessaggi));
 		}
-
 
 		return new GenericResponse<List<TicketDTO>>(listaTicketDTO);
 	}
-	
-	//! Lista ticket utente
-		@RequestMapping(value = "/ticketUtente", method = RequestMethod.POST)
-		public GenericResponse<List<TicketDTO>> getTicketUtente(@RequestParam("id") int idUtente) {
-			List<TicketDTO> listaTicketDTO = new ArrayList<TicketDTO>();
-			List<Ticket> listaTicket =  ticketRepository.findByUtente(utenteRepository.findById(idUtente));
-			for (int i=0; i<listaTicket.size(); i++) {
-				List<MessaggioTicket> listaMessaggi = messaggioTicketRepository.findByTicket(listaTicket.get(i));
-				listaTicketDTO.add( new TicketDTO(listaTicket.get(i),listaMessaggi));
-			}
 
-
-			return new GenericResponse<List<TicketDTO>>(listaTicketDTO);
+	// ! Lista ticket utente
+	@RequestMapping(value = "/ticketUtente", method = RequestMethod.POST)
+	public GenericResponse<List<TicketDTO>> getTicketUtente(@RequestParam("id") int idUtente) {
+		List<TicketDTO> listaTicketDTO = new ArrayList<TicketDTO>();
+		List<Ticket> listaTicket = ticketRepository.findByUtente(utenteRepository.findById(idUtente));
+		for (int i = 0; i < listaTicket.size(); i++) {
+			List<MessaggioTicket> listaMessaggi = messaggioTicketRepository.findByTicket(listaTicket.get(i));
+			listaTicketDTO.add(new TicketDTO(listaTicket.get(i), listaMessaggi));
 		}
 
+		return new GenericResponse<List<TicketDTO>>(listaTicketDTO);
+	}
 
-	
-	//Richiesta lista delle auto a noleggio o noleggiabili (disponibili o occupate) di una officina
+	// Richiesta lista delle auto a noleggio o noleggiabili (disponibili o occupate)
+	// di una officina
 	@RequestMapping(value = "/autoNoleggiabili", method = RequestMethod.POST)
-	public GenericResponse<List<Auto>> autoNoleggiabili(@RequestParam("idOfficina") int idOfficina, @RequestParam("noleggiabili") int noleggiabili){
-		
+	public GenericResponse<List<Auto>> autoNoleggiabili(@RequestParam("idOfficina") int idOfficina,
+			@RequestParam("noleggiabili") int noleggiabili) {
+
 		List<Auto> lista = new ArrayList();
 
-		//Auto non noleggiabili (già a noleggio)
+		// Auto non noleggiabili (già a noleggio)
 
 		List<Noleggio> tempNoleggiate = noleggioRepository.findByOfficina(officinaRepository.findById(idOfficina));
 
-		for(int i=0; i<tempNoleggiate.size(); i++) if(tempNoleggiate.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis()))) lista.add(tempNoleggiate.get(i).getAuto());
+		for (int i = 0; i < tempNoleggiate.size(); i++)
+			if (tempNoleggiate.get(i).getDataFineNoleggio().after(new Date(System.currentTimeMillis())))
+				lista.add(tempNoleggiate.get(i).getAuto());
 
-		
-		if(noleggiabili == 1) { //vogliamo quelle che non sono a noleggio
+		if (noleggiabili == 1) { // vogliamo quelle che non sono a noleggio
 
 			List<Auto> autoOfficina = autoRepository.findByOfficina(officinaRepository.findById(idOfficina));
-			
+
 			List<Auto> trovati = new ArrayList();
-			
-			for(int i=0; i<autoOfficina.size(); i++){
-				
+
+			for (int i = 0; i < autoOfficina.size(); i++) {
+
 				boolean trovato = true;
-				
-				for(int e = 0; e<lista.size() && trovato; e++) if(autoOfficina.get(i).equals(lista.get(e))) trovato = false;
-				
-				if(trovato) trovati.add(autoOfficina.get(i));
+
+				for (int e = 0; e < lista.size() && trovato; e++)
+					if (autoOfficina.get(i).equals(lista.get(e)))
+						trovato = false;
+
+				if (trovato)
+					trovati.add(autoOfficina.get(i));
 			}
-			
+
 			lista = null;
 			lista = trovati;
 		}
-		
-		
+
 		return new GenericResponse<List<Auto>>(lista);
-		
+
 	}
-	
+
 	@RequestMapping(value = "/inviaMessaggio", method = RequestMethod.POST)
-	public void inviapreventivo(@RequestParam("idticket") int id, @RequestParam("testo") String testo, @RequestParam("direzione") int direzione)
-	{
-		
+	public void inviapreventivo(@RequestParam("idticket") int id, @RequestParam("testo") String testo,
+			@RequestParam("direzione") int direzione) {
+
 		// create a java calendar instance
 		Calendar calendar = Calendar.getInstance();
 
@@ -1098,20 +1219,20 @@ public class Controller {
 		java.sql.Date date = new java.sql.Date(currentDate.getTime());
 
 		Ticket t = ticketRepository.findById(id);
-		//Creazione nuovo messaggioTicket
+		// Creazione nuovo messaggioTicket
 		MessaggioTicket mt = new MessaggioTicket();
-		
+
 		mt.setData(date);
 		mt.setTicket(t);
 		mt.setDirezione(direzione);
 		mt.setTesto(testo);
-		
+
 		// Inserimento messaggio ticket creato in database
 
 		IMessaggioTicket.insert(mt);
 
 	}
 
+	
+
 }
-
-

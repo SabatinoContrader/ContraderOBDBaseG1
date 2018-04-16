@@ -21,4 +21,6 @@ public interface DispositivoRepository extends CrudRepository<Dispositivo, Long>
 	
 	List<Dispositivo> findByOfficina(Officina o);
 	
+	List<Dispositivo> findAll();
+	
 }

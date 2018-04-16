@@ -20,4 +20,8 @@ public interface AutoRepository  extends CrudRepository<Auto, Long> {
 	
 	List<Auto> findByOfficina(Officina o);
 	
+	List<Auto> findAll();
+	
+	long count();
+	
 }
