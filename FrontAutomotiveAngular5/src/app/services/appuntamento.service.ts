@@ -39,36 +39,37 @@ export class AppuntamentoService {
     );
   }
 
-  getAppuntamenti(id: any): Observable<any> {
+  getAppuntamenti(id: any, stato: any): Observable<any> {
     var formdata = new FormData();
     formdata.append("id", id);
+    formdata.append("stato", stato);
     return this.http.post<any>(`${this.urlBase}appuntamentiCliente`, formdata).pipe(
       tap((response) => { console.log("Fetched ListaAppuntamentiCliente"); console.log(response) },
         catchError(this.handleError("notifiche error", {})))
     );
   }
 
-  getAppuntamentiOfficina(id: any,stato:any): Observable<any> {
+  getAppuntamentiOfficina(id: any, stato: any): Observable<any> {
     var formdata = new FormData();
     formdata.append("id", id);
-	formdata.append("stato",stato);
+    formdata.append("stato", stato);
     return this.http.post<any>(`${this.urlBase}appuntamentiOfficina`, formdata).pipe(
       tap((response) => { console.log("Fetched ListaAppuntamentiOfficina"); console.log(response) },
         catchError(this.handleError("notifiche error", {})))
     );
   }
-  
-  
-   rispondiAppuntamento(dettagliapp: string,idapp: any  , selectapp: any): Observable<void> {
+
+
+  rispondiAppuntamento(dettagliapp: string, idapp: any, selectapp: any): Observable<void> {
     var formdata = new FormData();
     formdata.append("dettagliapp", dettagliapp);
     formdata.append("idapp", idapp);
-    formdata.append("selectapp", selectapp  );
+    formdata.append("selectapp", selectapp);
     return this.http.post<void>(`${this.urlBase}rispondiappuntamento`, formdata).pipe(
       tap((response) => { console.log("Fetched Rispondi appuntamento"); console.log(response) },
         catchError(this.handleError("notifiche error", {})))
     );
   }
-  
-  
+
+
 }

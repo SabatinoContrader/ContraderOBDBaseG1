@@ -28,6 +28,7 @@ import it.contrader.automative.model.MessaggioTicket;
 import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
 import it.contrader.automative.model.Preventivo;
+import it.contrader.automative.model.Telemetria;
 import it.contrader.automative.model.Ticket;
 import it.contrader.automative.model.Utente;
 import it.contrader.automative.repositories.AppuntamentoRepository;
@@ -241,9 +242,6 @@ public class Controller {
 	}
 
 	
-	
-	
-	
 	//+ Lista Auto Azienda
 		@RequestMapping(value = "/autoAzienda", method = RequestMethod.POST)
 		public GenericResponse<List<Auto>> getAutoAzienda(@RequestParam("id") int idAzienda) {
@@ -450,11 +448,40 @@ public class Controller {
 
 	//?! Lista Preventivi del Cliente
 	@RequestMapping(value = "/preventiviCliente", method = RequestMethod.POST)
-	public GenericResponse<List<Preventivo>> getPreventiviCliente(@RequestParam("id") int idUtente) {
+	public GenericResponse<List<Preventivo>> getPreventiviCliente(@RequestParam("id") int idUtente,@RequestParam("stato") int stato) {
 
 		List<Preventivo> listaPreventivi = new ArrayList();
 
 		listaPreventivi = preventivoRepository.findByUtente(utenteRepository.findById(idUtente));
+		
+		// se non voglio tutti i preventivi (0), faccio switch in cui rimuovo preventivi che non voglio dalla lista
+				// Case 1, mi tengo solo preventivi in attesa di risposta
+				// Case 2, mi tengo solo preventivi Risposti
+				// Case 3, mi tengo solo preventivi Accettati
+				// Case 4, mi tengo solo preventivi Rifiutati
+				if(stato>0) {
+					
+					switch(stato){
+						case 1: 
+							for (int i = 0; i<listaPreventivi.size(); i++)
+								if(listaPreventivi.get(i).getStato() != 0) listaPreventivi.remove(i);
+							break;
+						case 2:
+							for (int i = 0; i<listaPreventivi.size(); i++)
+								if(listaPreventivi.get(i).getStato() != 1) listaPreventivi.remove(i);
+							break;
+						case 3: 
+							for (int i = 0; i<listaPreventivi.size(); i++)
+								if(listaPreventivi.get(i).getStato() != 2) listaPreventivi.remove(i);
+							break;
+						case 4: 
+							for (int i = 0; i<listaPreventivi.size(); i++)
+								if(listaPreventivi.get(i).getStato() != 3) listaPreventivi.remove(i);
+							break;
+						default:;
+					}
+					
+				}
 
 		return new GenericResponse<List<Preventivo>>(listaPreventivi);
 
@@ -504,11 +531,37 @@ public class Controller {
 
 	//?! Lista Appuntamenti del Cliente
 	@RequestMapping(value = "/appuntamentiCliente", method = RequestMethod.POST)
-	public GenericResponse<List<Appuntamento>> getAppuntamentiCliente(@RequestParam("id") int idUtente) {
+	public GenericResponse<List<Appuntamento>> getAppuntamentiCliente(@RequestParam("id") int idUtente,
+																		@RequestParam("stato") int stato) {
 
 		List<Appuntamento> listaAppuntamenti = new ArrayList();
 
 		listaAppuntamenti = appuntamentoRepository.findByUtente(utenteRepository.findById(idUtente));
+		
+		// se non voglio tutti gli appuntamenti (0), faccio switch in cui rimuovo appuntamenti che non voglio dalla lista
+		// Case 1, mi tengo solo appuntamenti in attesa di risposta
+		// Case 2, mi tengo solo appuntamenti Confermati
+		// Case 3, mi tengo solo appuntamenti Rifiutati
+		if(stato>0) {
+			
+			switch(stato){
+				case 1: 
+					for (int i = 0; i<listaAppuntamenti.size(); i++)
+						if(listaAppuntamenti.get(i).getStato() != 0) listaAppuntamenti.remove(i);
+					break;
+				case 2:
+					for (int i = 0; i<listaAppuntamenti.size(); i++)
+						if(listaAppuntamenti.get(i).getStato() != 1) listaAppuntamenti.remove(i);
+					break;
+				case 3: 
+					for (int i = 0; i<listaAppuntamenti.size(); i++)
+						if(listaAppuntamenti.get(i).getStato() != 2) listaAppuntamenti.remove(i);
+					break;
+				
+				default:;
+			}
+			
+		}
 
 		return new GenericResponse<List<Appuntamento>>(listaAppuntamenti);
 
@@ -598,7 +651,7 @@ public class Controller {
 			case 0 :
 
 				List<Auto> listaAutoCliente = getAutoCliente(u.getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAppuntamentiCliente(u.getId()).getData().size(), getPreventiviCliente(u.getId()).getData().size(), statoAuto(listaAutoCliente, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAppuntamentiCliente(u.getId(),0).getData().size(), getPreventiviCliente(u.getId(),0).getData().size(), statoAuto(listaAutoCliente, u));
 				break;
 
 			case 1 : 
@@ -611,7 +664,7 @@ public class Controller {
 				System.out.println("\n\n");
 				System.out.println(u.getAzienda().getId());
 				List<Auto> listaAutoAzienda = getAutoAzienda(u.getAzienda().getId()).getData();
-				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAppuntamentiCliente(u.getId()).getData().size(), getPreventiviCliente(u.getId()).getData().size(), statoAuto(listaAutoAzienda, u));
+				dati = new LogInUtente(u, getGuastiIrrisolti(u.getId()).getData().size(), getAutoInScadenza(u.getId()).getData().size(), getNoleggiKmInScadenzaCliente(u.getId()).getData().size(), getAppuntamentiCliente(u.getId(),0).getData().size(), getPreventiviCliente(u.getId(),0).getData().size(), statoAuto(listaAutoAzienda, u));
 				break;
 			}
 
@@ -976,6 +1029,20 @@ public class Controller {
 
 		return new GenericResponse<List<TicketDTO>>(listaTicketDTO);
 	}
+	
+	//! Lista ticket utente
+		@RequestMapping(value = "/ticketUtente", method = RequestMethod.POST)
+		public GenericResponse<List<TicketDTO>> getTicketUtente(@RequestParam("id") int idUtente) {
+			List<TicketDTO> listaTicketDTO = new ArrayList<TicketDTO>();
+			List<Ticket> listaTicket =  ticketRepository.findByUtente(utenteRepository.findById(idUtente));
+			for (int i=0; i<listaTicket.size(); i++) {
+				List<MessaggioTicket> listaMessaggi = messaggioTicketRepository.findByTicket(listaTicket.get(i));
+				listaTicketDTO.add( new TicketDTO(listaTicket.get(i),listaMessaggi));
+			}
+
+
+			return new GenericResponse<List<TicketDTO>>(listaTicketDTO);
+		}
 
 
 	
