@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.loginService.login(this.email, this.password).subscribe(
       (response) => {
-        if (response.utente!=null) {
+        if (response.utente != null) {
           this.loginEntity = response;
           console.log(response);
           if (typeof (Storage) !== 'undefined') {
@@ -44,16 +44,17 @@ export class LoginComponent implements OnInit {
           }
           if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 1)
             this.router.navigate(["homeofficina"]);
-          else
-            if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 0)
-              this.router.navigate(["homeutente"]);
+          else if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 0)
+            this.router.navigate(["homeutente"]);
+          else if (JSON.parse(sessionStorage.getItem("loginEntity")).utente.ruolo == 3)
+            this.router.navigate(["homeadmin"]);
           console.log(this.loginEntity)
-        }else{
-          swal("Error","Wrong username or password","error")
+        } else {
+          swal("Error", "Wrong username or password", "error")
         }
       },
       err => {
-        swal("Error","Something goes wrong","error")
+        swal("Error", "Something goes wrong", "error")
         console.log("Error occured");
       })
   }

@@ -188,16 +188,22 @@
 			</div>
 			<div class="modal-body">
 				<form class="form">
-					<div class="form-group">
-						<label>Seleziona un'auto</label>
-						<select [(ngModel)]="idAuto" [ngModelOptions]="{standalone: true}">
-							<option *ngFor="let auto of listaAutoUtente" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}</option>
-						</select>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Seleziona un'auto</label>
+								<select [(ngModel)]="idAuto" [ngModelOptions]="{standalone: true}" class="form-control">
+									<option *ngFor="let auto of listaAutoUtente" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}</option>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<label>Dettagli</label>
-							<textarea class="form-control" [(ngModel)]="dettagli" [ngModelOptions]="{standalone: true}"></textarea>
+							<div class="form-group">
+								<label>Dettagli</label>
+								<textarea class="form-control" [(ngModel)]="dettagli" [ngModelOptions]="{standalone: true}"></textarea>
+							</div>
 						</div>
 					</div>
 				</form>

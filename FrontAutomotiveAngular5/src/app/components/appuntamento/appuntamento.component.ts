@@ -72,7 +72,7 @@ export class AppuntamentoComponent implements OnInit {
          }*/
         this.loadAppuntamentiOfficina();
         swal("Complimenti", "appuntamento risposto correttamente", "success");
-
+         this.rispostaapp = null;
         $('#modalrispondipreventivo').modal("hide");
       },
       err => {
@@ -109,6 +109,9 @@ export class AppuntamentoComponent implements OnInit {
     this.appuntamentoService.chiediAppuntamento(this.utente.email, this.dettagli, this.ora, (this.data.day + "/" + this.data.month + "/" + this.data.year))
       .subscribe((response) => {
         swal("Success", "Appuntamento richiesto con successo", "success");
+        this.dettagli = null;
+        this.ora = null;
+        this.data = null;
         $('#chiediAppuntamentoModal').modal("hide");
         this.loadAppuntamentiCliente();
       });

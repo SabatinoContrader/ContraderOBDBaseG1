@@ -1,7 +1,7 @@
 import { Utente } from '../../models/Utente';
 import { Component, OnInit } from '@angular/core';
 import { GuastiService } from '../../services/guasti.service';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import swal from 'sweetalert2';
 
 declare var jquery:any;

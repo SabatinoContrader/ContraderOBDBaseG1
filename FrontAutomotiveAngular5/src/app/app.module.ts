@@ -39,6 +39,8 @@ import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzen
 import { MessaggiComponent } from './components/messaggi/messaggi.component';
 import { TicketComponent } from './components/ticket/ticket.component'
 import { TelemetriaComponent } from './components/telemetria/telemetria.component';
+import { HomeAdminComponent } from './components/home-admin/home-admin.component';
+import { AllAutoComponent } from './components/all-auto/all-auto.component';
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
     ScadenzenoleggiComponent,
     MessaggiComponent,
     TicketComponent,
-    TelemetriaComponent
+    TelemetriaComponent,
+    HomeAdminComponent,
+    AllAutoComponent
     
   ],
   imports: [
@@ -76,11 +80,7 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
       apiKey: 'AIzaSyDpcHsNE3KygLr1IibNCgDgWJREv5v1hzc'
     })
   ],
-<<<<<<< HEAD
-  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService, MessaggiService],
-=======
   providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService],
->>>>>>> 1a5887871e46ba3025daca294ef0416f8f9c3748
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

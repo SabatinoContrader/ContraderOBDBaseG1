@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { HomeOfficinaComponent } from './components/home-officina/home-officina.component';
 import { HomeUtenteComponent } from './components/home-utente/home-utente.component';
+import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { ClientiComponent } from './components/clienti/clienti.component';
@@ -13,12 +14,14 @@ import { ScadenzeComponent } from './components/scadenze/scadenze.component';
 import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzenoleggi.component';
 import { MessaggiComponent } from './components/messaggi/messaggi.component';
 import { TelemetriaComponent } from './components/telemetria/telemetria.component';
+import { AllAutoComponent } from './components/all-auto/all-auto.component';
 
 const routes: Routes = [
   { path: '', redirectTo:"/login", pathMatch:'full' },
   { path: 'login', component: LoginComponent },
   { path: 'homeofficina', component: HomeOfficinaComponent },
   { path: 'homeutente', component: HomeUtenteComponent},
+  { path: 'homeadmin', component: HomeAdminComponent},
   { path: 'appuntamenti', component: AppuntamentoComponent},
   { path: 'appuntamenti/:stato', component: AppuntamentoComponent},
   { path: 'preventivi', component: PreventivoComponent},
@@ -30,8 +33,8 @@ const routes: Routes = [
   { path: 'scadenze', component: ScadenzeComponent},
   { path: 'scadenzenoleggi', component: ScadenzenoleggiComponent},
   { path: 'messaggi', component: MessaggiComponent},
-  
-  { path: 'telemetria', component: TelemetriaComponent}
+  { path: 'telemetria', component: TelemetriaComponent},
+  { path: 'allAuto', component: AllAutoComponent}
 ];
 
 

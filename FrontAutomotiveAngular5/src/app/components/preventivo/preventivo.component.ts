@@ -73,6 +73,8 @@ export class PreventivoComponent implements OnInit {
     this.preventivoService.chiediPreventivo(this.utente.email, this.dettagli, this.idAuto)
       .subscribe((response) => {
         swal("Successo", "Preventivo richiesto con successo", "success");
+        this.dettagli = null
+        this.idAuto = null;
         $('#chiediPreventivoModal').modal("hide");
         this.loadPreventiviUtente();
       });
@@ -95,6 +97,8 @@ export class PreventivoComponent implements OnInit {
          }*/
         this.loadPreventiviOfficina();
         swal("Complimenti", "Preventivo inviato correttamente", "success");
+        this.rispostaprev = null;
+        this.costorispprev = null;
         $('#modalrispondipreventivo').modal("hide");
       },
       err => {

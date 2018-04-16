@@ -124,6 +124,10 @@
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
+        <a *ngIf="getRuolo()==3" class="nav-link" href="/homeadmin">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span class="nav-link-text">Dashboard</span>
+        </a>
       </li>
       <li *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Clienti">
         <a class="nav-link" href="/clienti">
@@ -173,7 +177,7 @@
           <span class="nav-link-text">Noleggi</span>
         </a>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Appuntamenti">
+      <li *ngIf="getRuolo() == 1 || getRuolo() == 0" class="nav-item" data-toggle="tooltip" data-placement="right" title="Appuntamenti">
 
         <!-- <a class="nav-link" href="/appuntamenti">
           <i class="fa fa-fw fa-calendar"></i>
@@ -198,7 +202,7 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Preventivi">
+      <li *ngIf="getRuolo() == 1 || getRuolo() == 0" class="nav-item" data-toggle="tooltip" data-placement="right" title="Preventivi">
         <!--<a class="nav-link" href="/preventivi">
           <i class="fa fa-fw fa-euro"></i>
           <span class="nav-link-text">Preventivi</span>

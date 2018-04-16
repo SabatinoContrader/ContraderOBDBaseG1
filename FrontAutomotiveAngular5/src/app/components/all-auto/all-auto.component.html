@@ -1,0 +1,25 @@
+<div>
+  <!-- begin:: Page -->
+  <div class="m-grid m-grid--hor m-grid--root m-page">
+
+    <!-- begin::Body -->
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+      <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+        <div class="m-content">
+          <agm-map [latitude]="lat" [longitude]="lng">
+            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+            <agm-info-window>
+              <table>
+                <tr>
+                  <td>Dato:</td>
+                  <td>dato</td>
+                </tr>
+              </table>
+            </agm-info-window>
+          </agm-map>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

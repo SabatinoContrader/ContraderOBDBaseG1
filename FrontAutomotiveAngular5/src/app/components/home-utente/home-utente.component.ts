@@ -51,6 +51,9 @@ export class HomeUtenteComponent implements OnInit {
     this.appuntamentoService.chiediAppuntamento(JSON.parse(sessionStorage.getItem("loginEntity")).utente.email, this.dettagli, this.ora, (this.data.day + "/" + this.data.month + "/" + this.data.year))
       .subscribe((response) => {
         swal("Success", "Appuntamento richiesto con successo", "success");
+        this.dettagli = null;
+        this.ora = null;
+        this.data = null;
         $('#chiediAppuntamentoModal').modal("hide");
       });
   }
@@ -60,6 +63,7 @@ export class HomeUtenteComponent implements OnInit {
       .subscribe((response) => {
         swal("Success", "Preventivo richiesto con successo", "success");
         $('#chiediPreventivoModal').modal("hide");
+        this.dettagli = null;
       });
   }
 
