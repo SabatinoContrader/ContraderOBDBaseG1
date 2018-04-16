@@ -12,6 +12,7 @@ import { GuastiComponent } from './components/guasti/guasti.component';
 import { ScadenzeComponent } from './components/scadenze/scadenze.component';
 import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzenoleggi.component';
 import { MessaggiComponent } from './components/messaggi/messaggi.component';
+import { TelemetriaComponent } from './components/telemetria/telemetria.component';
 
 const routes: Routes = [
   { path: '', redirectTo:"/login", pathMatch:'full' },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'scadenzenoleggi', component: ScadenzenoleggiComponent},
   { path: 'messaggi', component: MessaggiComponent},
   
+  { path: 'telemetria', component: TelemetriaComponent}
 ];
 
 

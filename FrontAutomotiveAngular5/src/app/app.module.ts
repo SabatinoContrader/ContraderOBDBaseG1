@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -33,12 +34,10 @@ import { ClientiComponent } from './components/clienti/clienti.component';
 import { DispositiviComponent } from './components/dispositivi/dispositivi.component';
 import { NoleggiComponent } from './components/noleggi/noleggi.component';
 import { ScadenzeComponent } from './components/scadenze/scadenze.component';
-import { ScadenzeService } from './services/scadenze.service';
 import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzenoleggi.component';
 import { MessaggiComponent } from './components/messaggi/messaggi.component';
-import { TicketComponent } from './components/ticket/ticket.component';
-import { AgmCoreModule } from '@agm/core';
-
+import { TicketComponent } from './components/ticket/ticket.component'
+import { TelemetriaComponent } from './components/telemetria/telemetria.component';
 
 
 @NgModule({
@@ -58,7 +57,9 @@ import { AgmCoreModule } from '@agm/core';
     ScadenzeComponent,
     ScadenzenoleggiComponent,
     MessaggiComponent,
-    TicketComponent
+    TicketComponent,
+    TelemetriaComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -69,12 +70,13 @@ import { AgmCoreModule } from '@agm/core';
     AngularFontAwesomeModule,
     NgbModule.forRoot(),
     SweetAlert2Module.forRoot(),
-   DataTablesModule,
-   AgmCoreModule.forRoot({
-    apiKey: 'AIzaSyAzxOdjlXq5R2ToV3SsvAO8s0nPyHo8Vro'
-  })
+    DataTablesModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDpcHsNE3KygLr1IibNCgDgWJREv5v1hzc'
+    })
   ],
-  providers: [LoginService,OfficinaService,AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService,DispositiviService,NoleggiService,ScadenzeService,ScadenzenoleggiService,MessaggiService],
-  bootstrap: [AppComponent]
+  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService],
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

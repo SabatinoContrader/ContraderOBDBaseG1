@@ -27,8 +27,6 @@ lat: number = 41.54061;
 	  
   }
 
-  
-  
   openModalRisolviGuasto(id: any): void {
 
     this.idguasto = id;
