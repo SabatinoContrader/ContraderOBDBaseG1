@@ -14,14 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.contrader.automative.model.Auto;
 import it.contrader.automative.model.DatiTelemetria;
+import it.contrader.automative.model.Dispositivo;
 import it.contrader.automative.model.Noleggio;
+import it.contrader.automative.model.Officina;
 import it.contrader.automative.model.Telemetria;
 import it.contrader.automative.repositories.DispositivoRepository;
+import it.contrader.automative.repositories.OfficinaRepository;
 import it.contrader.automative.repositories.TelemetriaRepository;
 import it.contrader.automative.serviceInterfaces.IDispositivo;
 import it.contrader.automative.serviceInterfaces.ITelemetria;
 import it.contrader.automative.serviceInterfaces.IDatiTelemetria;
 import it.contrader.automative.utils.GenericResponse;
+import it.contrader.automative.utils.Posizione;
 
 @RestController
 @CrossOrigin(value = "*")
@@ -30,12 +34,13 @@ public class TelemetriaController {
 	private IDispositivo IDispositivo;
 	private static ITelemetria ITelemetria;
 	private static IDatiTelemetria IDatiTelemetria;
+	private OfficinaRepository officinaRepository;
 	
 	private static DispositivoRepository dispositivoRepository;
 	private TelemetriaRepository telemetriaRepository;
 
 	@Autowired
-	public TelemetriaController(IDatiTelemetria IDatiTelemetria, IDispositivo IDispositivo, ITelemetria ITelemetria, DispositivoRepository dispositivoRepository, TelemetriaRepository telemetriaRepository) {
+	public TelemetriaController(OfficinaRepository officinaRepository, IDatiTelemetria IDatiTelemetria, IDispositivo IDispositivo, ITelemetria ITelemetria, DispositivoRepository dispositivoRepository, TelemetriaRepository telemetriaRepository) {
 		
 		this.IDispositivo = IDispositivo;
 		this.ITelemetria = ITelemetria;
@@ -43,6 +48,7 @@ public class TelemetriaController {
 		
 		this.dispositivoRepository = dispositivoRepository;
 		this.telemetriaRepository = telemetriaRepository;
+		this.officinaRepository = officinaRepository;
 		
 	}
 	
@@ -77,5 +83,39 @@ public class TelemetriaController {
 			return t;
 		}
 		
+		
+		@RequestMapping(value = "/listaDispositiviOfficinaConTelemetria", method = RequestMethod.POST)
+		public GenericResponse<List<Posizione>> listaDispositiviOfficinaConTelemetria(@RequestParam("idOfficina") int idOfficina){
+
+			List<Dispositivo> lista = new ArrayList();
+			
+			List<Telemetria> listaTelemetrie = new ArrayList();
+			
+			
+
+			Officina o = officinaRepository.findById(idOfficina);
+
+			lista = dispositivoRepository.findByOfficina(o);
+			
+			
+			for(int i = 0; i<lista.size(); i++) {
+				listaTelemetrie.add(telemetriaRepository.ultimaTelemetriADispositivo(lista.get(i).getId()));
+				System.out.println("\n\n\n\n"+ listaTelemetrie.get(i).getId() +" poi dispositivo " + listaTelemetrie.get(i).getDispositivo().getId() +"\n\n\n\n");
+			}
+			
+			List<Posizione> listaPosizione = new ArrayList();
+			
+				for(int j=0; j<listaTelemetrie.size(); j++) 
+				{
+					Posizione posizione = new Posizione();
+					posizione.setLatitudine(listaTelemetrie.get(j).getDatiTelemetria().getLatitudine()); 
+					posizione.setLongitudine(listaTelemetrie.get(j).getDatiTelemetria().getLongitudine()); 
+					posizione.setIdDispositivo(listaTelemetrie.get(j).getDispositivo().getId()); 
+					listaPosizione.add(posizione);
+				}
+			
+			
+			return new GenericResponse<List<Posizione>>(listaPosizione);
+		}
 	
 }
