@@ -27,15 +27,14 @@ export class AllAutoComponent implements OnInit {
         response => { this.autoLocation = response }
       );
 
-    IntervalObservable.create(10000)
+ /*   IntervalObservable.create(10000)
       .takeWhile(() => this.alive)
       .subscribe(() => {
         this.telemetriaService.getAutoLocation()
           .subscribe(
             response => { this.autoLocation = response; console.log(this.autoLocation) }
           );
-      });
-
+      }); */
     
 
   }
