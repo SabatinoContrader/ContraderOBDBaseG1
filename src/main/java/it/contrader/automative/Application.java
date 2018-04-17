@@ -55,12 +55,12 @@ public class Application extends SpringBootServletInitializer {
         
       List<Thread> threads = new ArrayList();
 		
-		for(int i = 0; i<5; i++) {
-			
-			threads.add(new WorkerThread(i+1)); 
-			threads.get(i).start();
-			
-			}
+//		for(int i = 0; i<5; i++) {
+//			
+//			threads.add(new WorkerThread(i+1)); 
+//			threads.get(i).start();
+//			
+//			}
     }
 
     @Override
