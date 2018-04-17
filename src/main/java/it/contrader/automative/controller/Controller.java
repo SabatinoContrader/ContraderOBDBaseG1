@@ -148,7 +148,14 @@ public class Controller {
 		int allUtenti = (int) (long) utenteRepository.countByRuolo(0);
 		return allUtenti;
 	}
-
+	
+	
+	// Lista tutte le officine
+	@RequestMapping(value = "/getAllOfficine", method = RequestMethod.POST)
+	public GenericResponse<List<Officina>> getAllOfficine() {
+		return new GenericResponse<List<Officina>>(officinaRepository.findAll());
+	}
+	
 	// + Lista tutte le Auto mai (anche noleggi scaduti) associate al Cliente
 	// (Utente)
 	@RequestMapping(value = "/autoNoleggiCliente", method = RequestMethod.POST)

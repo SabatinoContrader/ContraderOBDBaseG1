@@ -15,6 +15,7 @@ import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzen
 import { MessaggiComponent } from './components/messaggi/messaggi.component';
 import { TelemetriaComponent } from './components/telemetria/telemetria.component';
 import { AllAutoComponent } from './components/all-auto/all-auto.component';
+import { AllOfficineComponent } from './components/all-officine/all-officine.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'messaggi', component: MessaggiComponent },
   { path: 'telemetria', component: TelemetriaComponent },
   { path: 'allAuto', component: AllAutoComponent },
+  { path: 'allOfficine', component: AllOfficineComponent },
   { path: 'telemetria/:auto/idDispositivo', component: TelemetriaComponent },
 ];
 

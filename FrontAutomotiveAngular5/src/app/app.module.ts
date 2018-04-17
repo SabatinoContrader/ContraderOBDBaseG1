@@ -43,6 +43,7 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
 import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 import { AllAutoComponent } from './components/all-auto/all-auto.component';
 import { APP_BASE_HREF } from '@angular/common';
+import { AllOfficineComponent } from './components/all-officine/all-officine.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { APP_BASE_HREF } from '@angular/common';
     TicketComponent,
     TelemetriaComponent,
     HomeAdminComponent,
-    AllAutoComponent
+    AllAutoComponent,
+    AllOfficineComponent
     
   ],
   imports: [

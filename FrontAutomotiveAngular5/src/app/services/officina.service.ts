@@ -27,7 +27,13 @@ export class OfficinaService {
     };
   }
   
-  
+  getAllOfficine(): Observable<any> {
+ return this.http.post<any>(`${this.urlBase}getAllOfficine`, null ).pipe(
+      tap((response) => { console.log("Fetched Lista tutte le officine"); console.log(response) },
+        catchError(this.handleError("notifiche error", {})))
+    );
+  }
+
   
   
   

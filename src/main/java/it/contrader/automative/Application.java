@@ -143,7 +143,7 @@ public class Application extends SpringBootServletInitializer {
     	Promozione inserimentoPromozioni[] = new Promozione[1];
     	inserimentoPromozioni[0] = new Promozione(1, "Promozione 1", "Descrizione promozione .........", data4, data2, inserimentoOfficine[0]);
     	
-    	Utente inserimentoUtenti [] = new Utente[6];
+    	Utente inserimentoUtenti [] = new Utente[7];
     	//id nome cognome email pass stato officina azienda datareg ruolo telefono citta
     	inserimentoUtenti[0] = new Utente(1, "Lorenzo", "Vitale", "lv@contrader.it", "password", 0, inserimentoOfficine[0], null, data1, 0, "3356724938", "Benevento");
     	inserimentoUtenti[1] = new Utente(2, "Carmine", "Villano", "officina1", "password", 0, inserimentoOfficine[0], null, data1, 1, "3372198453", "Benevento");
@@ -151,6 +151,7 @@ public class Application extends SpringBootServletInitializer {
     	inserimentoUtenti[3] = new Utente(4, "Antonio", "Pratico'", "ap@contrader.it", "password", 0, inserimentoOfficine[0], inserimentoAziende[0], data1, 0, "3356793648", "Benevento");
     	inserimentoUtenti[4] = new Utente(5, "Domenico", "Zollo", "dz@contrader.it", "password", 0, inserimentoOfficine[0], inserimentoAziende[0], data1, 0, "33987624938", "Roma");
     	inserimentoUtenti[5] = new Utente(6, "Sabatino", "Autorino", "sabatino@contrader.it", "password", 0, inserimentoOfficine[0], inserimentoAziende[0], data1, 2, "33952624938", "Benevento");
+    	inserimentoUtenti[6] = new Utente(7, "Admin", "Admin", "admin@admin.it", "password", 0, null, null, null, 3, null, null);
 
     	
     	Auto inserimentoAuto[] = new Auto[8];

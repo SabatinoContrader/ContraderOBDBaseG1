@@ -1,5 +1,7 @@
 package it.contrader.automative.repositories;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -12,6 +14,8 @@ import it.contrader.automative.model.Officina;
 public interface OfficinaRepository  extends CrudRepository<Officina, Long> {
 
 	Officina findById(int id);
+	
+	List<Officina> findAll();
 	
 	long count();
 	

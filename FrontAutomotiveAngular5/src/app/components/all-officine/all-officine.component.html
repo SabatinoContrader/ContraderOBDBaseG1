@@ -1,0 +1,63 @@
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
+
+  <!-- begin::Body -->
+  <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+      <div class="m-content">
+
+        <!--begin:: section content-->
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
+            <div class="m-portlet m-portlet--mobile ">
+              <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                  <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                      <i class="fa fa-wrench fah3"></i>
+                      Officine
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div class="m-portlet__body">
+                <!--begin: Datatable -->
+                <div *ngIf="listaOfficine" class="table-responsive">
+                  <table datatable class="row-border hover" id="myTable">
+                    <thead>
+                      <tr>
+                        <th>Denominazione</th>
+                        <th>Referente</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Indirizzo</th>
+                        <th>Citt&aacute;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let officina of listaOfficine">
+                        <td>{{officina.denominazione}}</td>
+                        <td>{{officina.cognomeReferente}} {{officina.nomeReferente}}</td>
+                        <td>{{officina.telefono}}</td>
+                        <td>{{officina.email}}</td>
+                        <td>{{officina.indirizzo}}</td>
+                        <td>{{officina.citta}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--end: Datatable -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end:: seciont content-->
+      </div>
+    </div>
+    <!--
+      </div>
+    -->
+  </div>
+</div>
+<!-- end:: Page -->
