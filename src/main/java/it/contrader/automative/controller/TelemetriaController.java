@@ -86,7 +86,7 @@ public class TelemetriaController {
 
 	// + Lista tutte le Auto con posizione
 	@RequestMapping(value = "/autoLocation", method = RequestMethod.POST)
-	public GenericResponse<List<AutoLocation>> autoLocation() {
+	public List<AutoLocation> autoLocation() {
 
 		List<Dispositivo> listaDispositivi = dispositivoRepository.findAll();
 		List<AutoLocation> listaAutoLocation = new ArrayList();
@@ -101,39 +101,53 @@ public class TelemetriaController {
 			listaAutoLocation.add(new AutoLocation(auto, posizione));
 		}
 
-		return new GenericResponse<List<AutoLocation>>(listaAutoLocation);
+		return listaAutoLocation;
 
 	}
 
-	@RequestMapping(value = "/listaDispositiviOfficinaConTelemetria", method = RequestMethod.POST)
-	public GenericResponse<List<Posizione>> listaDispositiviOfficinaConTelemetria(
-			@RequestParam("idOfficina") int idOfficina) {
 
-		List<Dispositivo> lista = new ArrayList();
-
-		List<Telemetria> listaTelemetrie = new ArrayList();
-
-		Officina o = officinaRepository.findById(idOfficina);
-
-		lista = dispositivoRepository.findByOfficina(o);
-
-		for (int i = 0; i < lista.size(); i++) {
-			listaTelemetrie.add(telemetriaRepository.ultimaTelemetriADispositivo(lista.get(i).getId()));
-			System.out.println("\n\n\n\n" + listaTelemetrie.get(i).getId() + " poi dispositivo "
-					+ listaTelemetrie.get(i).getDispositivo().getId() + "\n\n\n\n");
+		@RequestMapping(value = "/ultimeTelemetria", method = RequestMethod.POST)
+		public List<Telemetria> ultimeTelemetria(@RequestParam("id") int idDispositivo) {
+			
+			List<Telemetria>  t = new ArrayList();
+			
+			t = telemetriaRepository.ultimeTelemetriADispositivo(idDispositivo);
+			
+			return t;
 		}
 
-		List<Posizione> listaPosizione = new ArrayList();
+		
+		@RequestMapping(value = "/listaDispositiviOfficinaConTelemetria", method = RequestMethod.POST)
+		public GenericResponse<List<Posizione>> listaDispositiviOfficinaConTelemetria(@RequestParam("idOfficina") int idOfficina){
 
-		for (int j = 0; j < listaTelemetrie.size(); j++) {
-			Posizione posizione = new Posizione();
-			posizione.setLatitudine(listaTelemetrie.get(j).getDatiTelemetria().getLatitudine());
-			posizione.setLongitudine(listaTelemetrie.get(j).getDatiTelemetria().getLongitudine());
-			posizione.setIdDispositivo(listaTelemetrie.get(j).getDispositivo().getId());
-			listaPosizione.add(posizione);
+			List<Dispositivo> lista = new ArrayList();
+			
+			List<Telemetria> listaTelemetrie = new ArrayList();
+			
+			
+
+			Officina o = officinaRepository.findById(idOfficina);
+
+			lista = dispositivoRepository.findByOfficina(o);
+			
+			
+			for(int i = 0; i<lista.size(); i++) {
+				listaTelemetrie.add(telemetriaRepository.ultimaTelemetriADispositivo(lista.get(i).getId()));
+				System.out.println("\n\n\n\n"+ listaTelemetrie.get(i).getId() +" poi dispositivo " + listaTelemetrie.get(i).getDispositivo().getId() +"\n\n\n\n");
+			}
+			
+			List<Posizione> listaPosizione = new ArrayList();
+			
+				for(int j=0; j<listaTelemetrie.size(); j++) 
+				{
+					Posizione posizione = new Posizione();
+					posizione.setLatitudine(listaTelemetrie.get(j).getDatiTelemetria().getLatitudine()); 
+					posizione.setLongitudine(listaTelemetrie.get(j).getDatiTelemetria().getLongitudine()); 
+					posizione.setIdDispositivo(listaTelemetrie.get(j).getDispositivo().getId()); 
+					listaPosizione.add(posizione);
+				}
+			
+			
+			return new GenericResponse<List<Posizione>>(listaPosizione);
 		}
-
-		return new GenericResponse<List<Posizione>>(listaPosizione);
-	}
-
 }

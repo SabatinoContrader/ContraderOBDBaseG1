@@ -8,15 +8,22 @@
 
         <div class="m-content">
           <agm-map [latitude]="lat" [longitude]="lng">
-            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-            <agm-info-window>
-              <table>
-                <tr>
-                  <td>Dato:</td>
-                  <td>dato</td>
-                </tr>
-              </table>
-            </agm-info-window>
+            <agm-marker *ngFor="let loc of autoLocation" [latitude]="loc.posizione.latitudine" [longitude]="loc.posizione.longitudine">
+              <agm-info-window>
+                <div class="card">
+                  <div class="card-body">
+                    <table>
+                      <tr>
+                        <td>{{loc.auto.marca}} {{loc.auto.modello}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{loc.auto.targa}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </agm-info-window>
+            </agm-marker>
           </agm-map>
         </div>
       </div>

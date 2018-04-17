@@ -27,6 +27,7 @@ import { NoleggiService } from './services/noleggi.service';
 import { MessaggiService } from './services/messaggi.service';
 import { ScadenzenoleggiService } from './services/scadenzenoleggi.service';
 import { ScadenzeService } from './services/scadenze.service';
+import { TelemetriaService } from './services/telemetria.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
@@ -81,7 +82,11 @@ import { AllAutoComponent } from './components/all-auto/all-auto.component';
     }),
     DataTablesModule
   ],
+<<<<<<< HEAD
+  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService,TelemetriaService],
+=======
   providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService],
+>>>>>>> 383076f3cf9779d9653e7bb2c35434207237ede9
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

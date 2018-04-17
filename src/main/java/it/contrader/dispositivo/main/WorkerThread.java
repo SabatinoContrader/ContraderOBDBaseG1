@@ -47,7 +47,7 @@ public class WorkerThread extends Thread{
 		
 		datiTelemetria.setLatitudine(random.nextDouble()+40);
 		datiTelemetria.setLongitudine(random.nextDouble()+14);
-		
+		datiTelemetria.setKm(random.nextInt());
 		TelemetriaController.inserisciTelemetria(datiTelemetria, id);
 		
 	}
@@ -55,6 +55,9 @@ public class WorkerThread extends Thread{
 	
 	private void inserisciDatiTelemetria(DatiTelemetria datiTelemetria) {
 		
+		Random random = new Random();
+		
+		datiTelemetria.setKm(random.nextInt()+40);
 		datiTelemetria.setTemperature(231);	
 		datiTelemetria.setEngine_oil_temperature(36821);
 		datiTelemetria.setFuel_pressure(318);					

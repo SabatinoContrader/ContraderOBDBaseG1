@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { LoginEntity } from '../../models/LoginEntity';
 import { AutoService } from '../../services/auto.service';
+import { TelemetriaService } from '../../services/telemetria.service';
 import { Auto } from '../../models/Auto';
 import { Officina } from '../../models/Officina';
 import { OfficinaService } from '../../services/officina.service';
@@ -45,7 +46,7 @@ export class HomeOfficinaComponent implements OnInit {
 	scadenzaRevisioneadd: NgbDateStruct;
 	//date:{}={year: number, month: number};
  
-  constructor(private topbar:TopbarComponent,private loginService:LoginService,private autoService:AutoService, private officinaService:OfficinaService,private router:Router) {
+  constructor(private telemetriaService: TelemetriaService,private topbar:TopbarComponent,private loginService:LoginService,private autoService:AutoService, private officinaService:OfficinaService,private router:Router) {
 
   }
 	
@@ -95,6 +96,11 @@ export class HomeOfficinaComponent implements OnInit {
   
   });
 
+}
+
+gotoTelemetria(auto:Auto,idDispositivo:number): void {
+	this.telemetriaService.setAuto(auto,idDispositivo);
+	this.router.navigate(['telemetria']);
 }
 
 }
