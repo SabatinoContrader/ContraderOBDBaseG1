@@ -1,6 +1,6 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="5">
-    <agm-marker *ngFor="let device of listaDispositiviPosizione;"  [latitude]="device.posizione.latitudine" [longitude]="device.posizione.longitudine">
-	<agm-info-window><button class="btn btn-info">{{device.posizione.longitudine}}</button>
+    <agm-marker *ngFor="let device of listaDispositiviPosizione; let i =index;"  [latitude]="device.posizione.latitudine" [longitude]="device.posizione.longitudine"   (markerClick)="clickedMarker(device.label, infoWindow, i)">
+	<agm-info-window #infoWindow><button class="btn btn-info">{{device.posizione.longitudine}}</button>
 	</agm-info-window>
 	</agm-marker>
   </agm-map>
@@ -30,6 +30,7 @@ DISPOSITIVI                    </h3>
               <div class="m-portlet__body">
                 <!--begin: Datatable -->
 	<button type="button" id="aggiungidispositivo" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modaladddispositivo">Aggiungi Dispositivo</button>
+	<button type="button" id="" class="btn btn-default pull-left btnmodal btnuptab" (click)="aggiornaPosizioni();">Aggiorna posizioni</button>
                 <div class="table-responsive">
                   <table datatable  class="row-border hover" id="myTable">
                     <thead>

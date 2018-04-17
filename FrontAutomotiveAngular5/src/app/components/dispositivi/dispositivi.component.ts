@@ -24,6 +24,7 @@ export class DispositiviComponent implements OnInit {
 	autodaassociare;
 	lat: number = 41.54061;
   lng: number = 14.381826;
+  infoWindowOpened;
    private alive: boolean;
    
   constructor(private dispositiviService: DispositiviService) {   this.alive = true; }
@@ -33,15 +34,19 @@ export class DispositiviComponent implements OnInit {
 	 this.getListaDispositivi();
 	 this.getDispositiviPosizione();
 	 
-	 
+/*	 
     IntervalObservable.create(10000)
       .takeWhile(() => this.alive)
       .subscribe(() => {
          this.getDispositiviPosizione();
       });
-
+*/
   }
 
+  aggiornaPosizioni(): void{
+	  this.getDispositiviPosizione();
+  }
+  
    getListaDispositivi(): void{
 	  this.dispositiviService.getDispositivi(this.utente.officina.id)
     .subscribe(
@@ -58,7 +63,17 @@ export class DispositiviComponent implements OnInit {
   }
   
   
+clickedMarker(label: string, infoWindow, marker, index: number) {
+    if (this.infoWindowOpened === infoWindow) {
+        console.log("window already opened");
+        return;
+    }
 
+    if (this.infoWindowOpened !== null && this.infoWindowOpened !== undefined) {
+        this.infoWindowOpened.close();
+    }
+    this.infoWindowOpened = infoWindow;
+}
   
       
   public insertDispositivo(){
