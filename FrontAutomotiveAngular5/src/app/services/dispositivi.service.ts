@@ -40,6 +40,16 @@ export class DispositiviService {
     );
   }
  
+    
+   getDispositiviPosizione(idOfficina: any): Observable<any> {
+    var formdata = new FormData();
+    formdata.append("idOfficina", idOfficina);
+    return this.http.post<any>(`${this.urlBase}autoLocationofficina`, formdata).pipe(
+      tap((response) => { console.log("Fetched ListaDispositiviOfficinaPosizioen"); console.log(response) },
+        catchError(this.handleError("notifiche error", {})))
+    );
+  }
+  
  insertDispositivo(idOfficina:any, codice:string): Observable<any> {
     var formdata = new FormData();
 
