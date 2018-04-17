@@ -871,7 +871,7 @@ module.exports = "agm-map {\r\n    height: 400px;\r\n  }"
 /***/ "./src/app/components/dispositivi/dispositivi.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"5\">\n    <agm-marker *ngFor=\"let device of listaDispositiviPosizione;\"  [latitude]=\"device.posizione.latitudine\" [longitude]=\"device.posizione.longitudine\">\n\t<agm-info-window><button class=\"btn btn-info\">{{device.posizione.longitudine}}</button>\n\t</agm-info-window>\n\t</agm-marker>\n  </agm-map>\n\n<!-- begin:: Page -->\n<div class=\"m-grid m-grid--hor m-grid--root m-page\" style=\"margin-top:50px;\">\n\n  <!-- begin::Body -->\n  <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\n    <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\n\n      <div class=\"m-content\">\n\n        <!--begin:: section content-->\n        <div class=\"row\">\n          <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\" id=\"rightautotable\">\n            <div class=\"m-portlet m-portlet--mobile \">\n              <div class=\"m-portlet__head\">\n                <div class=\"m-portlet__head-caption\">\n                  <div class=\"m-portlet__head-title\">\n                    <h3 class=\"m-portlet__head-text\">\n                      <i class=\"fa fa-calendar fah3\"></i>\nDISPOSITIVI                    </h3>\n                  </div>\n                </div>\n              </div>\n              <div class=\"m-portlet__body\">\n                <!--begin: Datatable -->\n\t<button type=\"button\" id=\"aggiungidispositivo\" class=\"btn btn-default pull-left btnmodal btnuptab\" data-toggle=\"modal\" data-target=\"#modaladddispositivo\">Aggiungi Dispositivo</button>\n                <div class=\"table-responsive\">\n                  <table datatable  class=\"row-border hover\" id=\"myTable\">\n                    <thead>\n                      <tr>\n                        <th>Codice</th>\n                        <th>Auto</th>\n                        <th>Data Installazione</th>\n                        \n                        <th></th>\n                      </tr>\n                    </thead>\n                    <tbody >\n                      <tr *ngFor=\"let dispositivo of listaDispositivi\">\n                        <td>{{dispositivo.codice}}</td>\n                        <td><span *ngIf=\"dispositivo.auto!=null\">{{dispositivo.auto.marca}} {{dispositivo.auto.modello}}  - {{dispositivo.auto.targa}}</span></td>\n                        <td ><span *ngIf=\"dispositivo.dataInstallazione!=null\">{{dispositivo.dataInstallazione | date:'dd/MM/yyyy'}}</span><span *ngIf=\"dispositivo.dataInstallazione==null\">Non Installato</span></td>\n                      \n                        <td>        \n                        <a class=\"ali\" (click)=\"openModalAssociaDispositivo(dispositivo.id);\" *ngIf=\"dispositivo.dataInstallazione==null\" ><i class=\"fa fa-paperclip\" title=\"associa dispositivo ad auto\"></i></a>\n                        </td>\n\t\t\t\t\n                      </tr>\n                    </tbody>\n\t\t\t\t\t\n                  </table>\n                </div>\n                <!--end: Datatable -->\n              </div>\n            </div>\n          </div>\n\n\n        </div>\n        <!--end:: seciont content-->\n\n\n\n\n\n      </div>\n    </div>\n    <!--\n\t\t</div>\n\t-->\n  </div>\n</div>\n<!-- end:: Page -->\n<!-- begin::modal add auto -->\n<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" id=\"modaladddispositivo\">\n\t<div class=\"modal-dialog\" role=\"document\">\n\t\t<div class=\"modal-content\">\n\t\t\t<div class=\"modal-header\">\n\t\t\t\t<h5 class=\"modal-title\">Aggiungi Cliente</h5>\n\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t\t<div class=\"modal-body\">\n\n\t\t\t<div class=\"form-group\">\n\t\t\t<label for=\"codice\">Inserire il codice del dispositivo</label>\n\t\t\t<input type=\"text\" [(ngModel)]=\"codice\" class=\"form-control\">\n\t\t\t</div>\n\t</div>\n\t\t\t\t\n\t\t\t\t<div class=\"modal-footer \" style=\"text-align:center;\" >\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary savebutton\" (click)=\"insertDispositivo();\">Salva dispositivo</button>\n\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n<!-- end::modal add auto-->\n\n<!-- begin::modal add auto -->\n<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" id=\"modalassociaauto\">\n\t<div class=\"modal-dialog\" role=\"document\">\n\t\t<div class=\"modal-content\">\n\t\t\t<div class=\"modal-header\">\n\t\t\t\t<h5 class=\"modal-title\">Aggiungi Cliente</h5>\n\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t\t<div class=\"modal-body\">\n\t\t\t\n\t\t\t<div class=\"form-group\">\n\t\t\t<label for=\"autodaassociare\">Selezionare auto a cui associare il dispositivo</label>\n\t\t\t<select name=\"autodaassociare\" [(ngModel)]=\"autodaassociare\" class=\"form-control\">\n\t\t\t<option *ngFor=\"let auto of listaAutoSenzaDispositivo\" value=\"{{auto.id}}\">{{auto.marca}} {{auto.modello}} - {{auto.targa}}\n\t\t\t</select>\n \t\t\t</div>\n\t\t\t\n\t\t\t\n\t</div>\n\t\t\t\t\n\t\t\t\t<div class=\"modal-footer \" style=\"text-align:center;\" >\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary savebutton\" (click)=\"associaDispositivo();\">Associa auto</button>\n\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n<!-- end::modal add auto-->"
+module.exports = "<agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"5\">\n    <agm-marker *ngFor=\"let device of listaDispositiviPosizione; let i =index;\"  [latitude]=\"device.posizione.latitudine\" [longitude]=\"device.posizione.longitudine\"   (markerClick)=\"clickedMarker(device.label, infoWindow, i)\">\n\t<agm-info-window #infoWindow><button class=\"btn btn-info\">{{device.posizione.longitudine}}</button>\n\t</agm-info-window>\n\t</agm-marker>\n  </agm-map>\n\n<!-- begin:: Page -->\n<div class=\"m-grid m-grid--hor m-grid--root m-page\" style=\"margin-top:50px;\">\n\n  <!-- begin::Body -->\n  <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\n    <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\n\n      <div class=\"m-content\">\n\n        <!--begin:: section content-->\n        <div class=\"row\">\n          <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\" id=\"rightautotable\">\n            <div class=\"m-portlet m-portlet--mobile \">\n              <div class=\"m-portlet__head\">\n                <div class=\"m-portlet__head-caption\">\n                  <div class=\"m-portlet__head-title\">\n                    <h3 class=\"m-portlet__head-text\">\n                      <i class=\"fa fa-calendar fah3\"></i>\nDISPOSITIVI                    </h3>\n                  </div>\n                </div>\n              </div>\n              <div class=\"m-portlet__body\">\n                <!--begin: Datatable -->\n\t<button type=\"button\" id=\"aggiungidispositivo\" class=\"btn btn-default pull-left btnmodal btnuptab\" data-toggle=\"modal\" data-target=\"#modaladddispositivo\">Aggiungi Dispositivo</button>\n\t<button type=\"button\" id=\"\" class=\"btn btn-default pull-left btnmodal btnuptab\" (click)=\"aggiornaPosizioni();\">Aggiorna posizioni</button>\n                <div class=\"table-responsive\">\n                  <table datatable  class=\"row-border hover\" id=\"myTable\">\n                    <thead>\n                      <tr>\n                        <th>Codice</th>\n                        <th>Auto</th>\n                        <th>Data Installazione</th>\n                        \n                        <th></th>\n                      </tr>\n                    </thead>\n                    <tbody >\n                      <tr *ngFor=\"let dispositivo of listaDispositivi\">\n                        <td>{{dispositivo.codice}}</td>\n                        <td><span *ngIf=\"dispositivo.auto!=null\">{{dispositivo.auto.marca}} {{dispositivo.auto.modello}}  - {{dispositivo.auto.targa}}</span></td>\n                        <td ><span *ngIf=\"dispositivo.dataInstallazione!=null\">{{dispositivo.dataInstallazione | date:'dd/MM/yyyy'}}</span><span *ngIf=\"dispositivo.dataInstallazione==null\">Non Installato</span></td>\n                      \n                        <td>        \n                        <a class=\"ali\" (click)=\"openModalAssociaDispositivo(dispositivo.id);\" *ngIf=\"dispositivo.dataInstallazione==null\" ><i class=\"fa fa-paperclip\" title=\"associa dispositivo ad auto\"></i></a>\n                        </td>\n\t\t\t\t\n                      </tr>\n                    </tbody>\n\t\t\t\t\t\n                  </table>\n                </div>\n                <!--end: Datatable -->\n              </div>\n            </div>\n          </div>\n\n\n        </div>\n        <!--end:: seciont content-->\n\n\n\n\n\n      </div>\n    </div>\n    <!--\n\t\t</div>\n\t-->\n  </div>\n</div>\n<!-- end:: Page -->\n<!-- begin::modal add auto -->\n<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" id=\"modaladddispositivo\">\n\t<div class=\"modal-dialog\" role=\"document\">\n\t\t<div class=\"modal-content\">\n\t\t\t<div class=\"modal-header\">\n\t\t\t\t<h5 class=\"modal-title\">Aggiungi Cliente</h5>\n\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t\t<div class=\"modal-body\">\n\n\t\t\t<div class=\"form-group\">\n\t\t\t<label for=\"codice\">Inserire il codice del dispositivo</label>\n\t\t\t<input type=\"text\" [(ngModel)]=\"codice\" class=\"form-control\">\n\t\t\t</div>\n\t</div>\n\t\t\t\t\n\t\t\t\t<div class=\"modal-footer \" style=\"text-align:center;\" >\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary savebutton\" (click)=\"insertDispositivo();\">Salva dispositivo</button>\n\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n<!-- end::modal add auto-->\n\n<!-- begin::modal add auto -->\n<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" id=\"modalassociaauto\">\n\t<div class=\"modal-dialog\" role=\"document\">\n\t\t<div class=\"modal-content\">\n\t\t\t<div class=\"modal-header\">\n\t\t\t\t<h5 class=\"modal-title\">Aggiungi Cliente</h5>\n\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t\t<div class=\"modal-body\">\n\t\t\t\n\t\t\t<div class=\"form-group\">\n\t\t\t<label for=\"autodaassociare\">Selezionare auto a cui associare il dispositivo</label>\n\t\t\t<select name=\"autodaassociare\" [(ngModel)]=\"autodaassociare\" class=\"form-control\">\n\t\t\t<option *ngFor=\"let auto of listaAutoSenzaDispositivo\" value=\"{{auto.id}}\">{{auto.marca}} {{auto.modello}} - {{auto.targa}}\n\t\t\t</select>\n \t\t\t</div>\n\t\t\t\n\t\t\t\n\t</div>\n\t\t\t\t\n\t\t\t\t<div class=\"modal-footer \" style=\"text-align:center;\" >\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary savebutton\" (click)=\"associaDispositivo();\">Associa auto</button>\n\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n<!-- end::modal add auto-->"
 
 /***/ }),
 
@@ -882,11 +882,9 @@ module.exports = "<agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"5\">\
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DispositiviComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_dispositivi_service__ = __webpack_require__("./src/app/services/dispositivi.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_intervalObservable__ = __webpack_require__("./node_modules/rxjs/observable/intervalObservable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_intervalObservable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_intervalObservable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_takeWhile__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/takeWhile.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sweetalert2__ = __webpack_require__("./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_takeWhile__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/takeWhile.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__("./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -900,7 +898,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var DispositiviComponent = /** @class */ (function () {
     function DispositiviComponent(dispositiviService) {
         this.dispositiviService = dispositiviService;
@@ -909,15 +906,19 @@ var DispositiviComponent = /** @class */ (function () {
         this.alive = true;
     }
     DispositiviComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
         this.getListaDispositivi();
         this.getDispositiviPosizione();
-        __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_intervalObservable__["IntervalObservable"].create(10000)
-            .takeWhile(function () { return _this.alive; })
-            .subscribe(function () {
-            _this.getDispositiviPosizione();
-        });
+        /*
+            IntervalObservable.create(10000)
+              .takeWhile(() => this.alive)
+              .subscribe(() => {
+                 this.getDispositiviPosizione();
+              });
+        */
+    };
+    DispositiviComponent.prototype.aggiornaPosizioni = function () {
+        this.getDispositiviPosizione();
     };
     DispositiviComponent.prototype.getListaDispositivi = function () {
         var _this = this;
@@ -929,11 +930,21 @@ var DispositiviComponent = /** @class */ (function () {
         this.dispositiviService.getDispositiviPosizione(this.utente.officina.id)
             .subscribe(function (response) { _this.listaDispositiviPosizione = response; });
     };
+    DispositiviComponent.prototype.clickedMarker = function (label, infoWindow, marker, index) {
+        if (this.infoWindowOpened === infoWindow) {
+            console.log("window already opened");
+            return;
+        }
+        if (this.infoWindowOpened !== null && this.infoWindowOpened !== undefined) {
+            this.infoWindowOpened.close();
+        }
+        this.infoWindowOpened = infoWindow;
+    };
     DispositiviComponent.prototype.insertDispositivo = function () {
         var _this = this;
         this.dispositiviService.insertDispositivo(this.utente.officina.id, this.codice).subscribe(function (response) {
             _this.getListaDispositivi();
-            __WEBPACK_IMPORTED_MODULE_4_sweetalert2___default()("Complimenti", "Dispositivo inserito correttamente", "success");
+            __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()("Complimenti", "Dispositivo inserito correttamente", "success");
             $('#modaladddispositivo').modal("hide");
         }, function (err) {
             console.log("Error occured");
@@ -954,7 +965,7 @@ var DispositiviComponent = /** @class */ (function () {
         var _this = this;
         this.dispositiviService.associaDispositivo(this.iddisp, this.autodaassociare).subscribe(function (response) {
             _this.getListaDispositivi();
-            __WEBPACK_IMPORTED_MODULE_4_sweetalert2___default()("Complimenti", "Dispositivo associato correttamente", "success");
+            __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()("Complimenti", "Dispositivo associato correttamente", "success");
             $('#modalassociaauto').modal("hide");
         }, function (err) {
             console.log("Error occured");
