@@ -1,7 +1,10 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="5">
-    <agm-marker *ngFor="let device of listaDispositivi;"  [latitude]="device.telemetria.latitudine" [longitude]="device.telemetria.longitudine">
-	<agm-info-window><button class="btn btn-info">{{device.telemetria.longitudine}}</button></agm-info-window></agm-marker>
+    <agm-marker *ngFor="let device of listaDispositiviPosizione;"  [latitude]="device.posizione.latitudine" [longitude]="device.posizione.longitudine">
+	<agm-info-window><button class="btn btn-info">{{device.posizione.longitudine}}</button>
+	</agm-info-window>
+	</agm-marker>
   </agm-map>
+
 <!-- begin:: Page -->
 <div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
 

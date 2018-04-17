@@ -150,4 +150,30 @@ public class TelemetriaController {
 			
 			return new GenericResponse<List<Posizione>>(listaPosizione);
 		}
+		
+		// + Lista tutte le Auto con posizione
+		@RequestMapping(value = "/autoLocationofficina", method = RequestMethod.POST)
+		public List<AutoLocation> autoLocationofficina(@RequestParam("idOfficina") int idOfficina) {
+
+			
+			List<Dispositivo> listaDispositivi = dispositivoRepository.findByOfficina(officinaRepository.findById(idOfficina));
+			List<AutoLocation> listaAutoLocation = new ArrayList();
+
+			for (Dispositivo d : listaDispositivi) {
+				Telemetria t = ultimaTelemetria(d.getId());
+				if(t!=null) {
+				Auto auto = d.getAuto();
+				Posizione posizione = new Posizione();
+				posizione.setLatitudine(t.getDatiTelemetria().getLatitudine());
+				posizione.setLongitudine(t.getDatiTelemetria().getLongitudine());
+				posizione.setIdDispositivo(d.getId());
+				listaAutoLocation.add(new AutoLocation(auto, posizione));
+				}
+			}
+
+			return listaAutoLocation;
+
+		}
+
+		
 }
