@@ -24,4 +24,7 @@ public interface TelemetriaRepository extends CrudRepository<Telemetria, Long>{
 	@Query (value = "select * from telemetria where iddispositivo = ?1 order by id desc limit 1", nativeQuery = true)
 	Telemetria ultimaTelemetriADispositivo(int idDispositivo);
 	
+	@Query (value = "select * from telemetria where iddispositivo = ?1 order by id desc limit 100", nativeQuery = true)
+	List<Telemetria> ultimeTelemetriADispositivo(int idDispositivo);
+	
 }

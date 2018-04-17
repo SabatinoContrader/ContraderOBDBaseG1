@@ -10,31 +10,31 @@
             <div class="card" style="min-height: 250px;">
               <div class="card-header">
                 <i class="fa fa-automobile"></i>
-                Maserati Gibli
+               {{auto.marca}} {{auto.modello}}
               </div>
               <div class="card-body">
                 <table>
                   <tr>
                     <td>Targa:</td>
-                    <td>FG588AC</td>
+                    <td> {{auto.targa}}</td>
                   </tr>
                   <tr>
                     <td>Telaio:</td>
-                    <td>UIY3456789</td>
+                    <td> {{auto.numeroTelaio}}</td>
                   </tr>
                   <tr>
                     <td>Cilindrata:</td>
-                    <td>3000 cm
+                    <td> {{auto.cilindrata}} cm
                       <sup>3</sup>
                     </td>
                   </tr>
                   <tr>
                     <td>Potenza:</td>
-                    <td>257 kw / 350 HP</td>
+                    <td> {{auto.potenza}} kw </td>
                   </tr>
                   <tr>
                     <td>Alimentazione:</td>
-                    <td>Benzina</td>
+                    <td> {{auto.alimentazione}}</td>
                   </tr>
                 </table>
               </div>
@@ -49,19 +49,19 @@
                 <table>
                   <tr>
                     <td>Km:</td>
-                    <td>45678</td>
+                    <td>{{km}}</td>
                   </tr>
                   <tr>
                     <td>Scadenza revisione:</td>
-                    <td>05/05/2018</td>
+                    <td>{{auto.scadenzaRevisione | date:'dd/MM/yyyy'}}</td>
                   </tr>
                   <tr>
                     <td>Scadenza bollo:</td>
-                    <td>05/05/2018</td>
+                    <td>{{auto.scadenzaBollo | date:'dd/MM/yyyy'}}</td>
                   </tr>
                   <tr>
                     <td>Scadenza tagliando:</td>
-                    <td>05/05/2018</td>
+                    <td>{{auto.scadenzaTagliando | date:'dd/MM/yyyy'}}</td>
                   </tr>
                 </table>
               </div>

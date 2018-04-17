@@ -27,6 +27,7 @@ import { NoleggiService } from './services/noleggi.service';
 import { MessaggiService } from './services/messaggi.service';
 import { ScadenzenoleggiService } from './services/scadenzenoleggi.service';
 import { ScadenzeService } from './services/scadenze.service';
+import { TelemetriaService } from './services/telemetria.service';
 import { GuastiComponent } from './components/guasti/guasti.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { AppuntamentoComponent } from './components/appuntamento/appuntamento.component';
@@ -39,6 +40,7 @@ import { ScadenzenoleggiComponent } from './components/scadenzenoleggi/scadenzen
 import { MessaggiComponent } from './components/messaggi/messaggi.component';
 import { TicketComponent } from './components/ticket/ticket.component'
 import { TelemetriaComponent } from './components/telemetria/telemetria.component';
+import { APP_BASE_HREF } from '@angular/common';
 
 
 @NgModule({
@@ -77,7 +79,9 @@ import { TelemetriaComponent } from './components/telemetria/telemetria.componen
     }),
     DataTablesModule
   ],
-  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService],
+
+  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService,TelemetriaService, { provide: APP_BASE_HREF, useValue : '/' }],
+
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

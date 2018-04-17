@@ -53,6 +53,7 @@ public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
         
+<<<<<<< HEAD
         List<Thread> threads = new ArrayList();
 		
 		for(int i = 0; i<5; i++) {
@@ -61,6 +62,16 @@ public class Application extends SpringBootServletInitializer {
 			threads.get(i).start();
 			
 			}
+=======
+      List<Thread> threads = new ArrayList();
+		
+//		for(int i = 0; i<5; i++) {
+//			
+//			threads.add(new WorkerThread(i+1)); 
+//			threads.get(i).start();
+//			
+//			}
+>>>>>>> 79fef83644479ab9a1fbe5a53c3d3ce497e7cc0c
     }
 
     @Override
