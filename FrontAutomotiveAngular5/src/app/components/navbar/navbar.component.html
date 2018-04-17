@@ -1,6 +1,6 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-  <a class="navbar-brand" href="/">Automotive's app</a>
+  <a class="navbar-brand" [routerLink]="['/']">Automotive's app</a>
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -116,11 +116,11 @@
   <div class="collapse navbar-collapse" id="navbarResponsive" *ngIf="userIsLogged()">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-        <a *ngIf="getRuolo()==0" class="nav-link" href="/homeutente">
+        <a *ngIf="getRuolo()==0" class="nav-link" [routerLink]="['/homeutente']">
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
-        <a *ngIf="getRuolo()==1" class="nav-link" href="/homeofficina">
+        <a *ngIf="getRuolo()==1" class="nav-link" [routerLink]="['/homeofficina']">
           <i class="fa fa-fw fa-dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
@@ -130,13 +130,13 @@
         </a>
       </li>
       <li *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Clienti">
-        <a class="nav-link" href="/clienti">
+        <a class="nav-link" [routerLink]="['/clienti']">
           <i class="fa fa-fw fa-user"></i>
           <span class="nav-link-text">Clienti</span>
         </a>
       </li>
       <li *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Guasti">
-        <a class="nav-link" href="/guasti">
+        <a class="nav-link" [routerLink]="['/guasti']">
           <i class="fa fa-fw fa-user"></i>
           <span class="nav-link-text">Guasti</span>
           <span class="badge badge-danger pull-right" *ngIf="getNumeroGuasti()>0">{{getNumeroGuasti()}}</span>
@@ -151,13 +151,13 @@
         </a>
         <ul class="sidenav-second-level collapse" id="collapseComponents">
           <li>
-            <a href="/scadenze">Scadenze Auto
+            <a [routerLink]="['/scadenze']">Scadenze Auto
               <span class="badge badge-danger pull-right" *ngIf="getNumeroScadenze()>0">{{getNumeroScadenze()}}</span>
             </a>
 
           </li>
           <li>
-            <a href="/scadenzenoleggi">Scadenze Noleggi
+            <a [routerLink]="['/scadenzenoleggi']">Scadenze Noleggi
               <span class="badge badge-danger pull-right" *ngIf="getNumeroScadenzeNoleggi()>0">{{getNumeroScadenzeNoleggi()}}</span>
             </a>
           </li>
@@ -166,13 +166,13 @@
       </li>
 
       <li *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Dispositivi">
-        <a class="nav-link" href="/dispositivi">
+        <a class="nav-link" [routerLink]="['/dispositivi']">
           <i class="fa fa-fw fa-user"></i>
           <span class="nav-link-text">Dispositivi</span>
         </a>
       </li>
       <li *ngIf="getRuolo()==1" class="nav-item" data-toggle="tooltip" data-placement="right" title="Noleggi">
-        <a class="nav-link" href="/noleggi">
+        <a class="nav-link" [routerLink]="['/noleggi']">
           <i class="fa fa-fw fa-user"></i>
           <span class="nav-link-text">Noleggi</span>
         </a>
@@ -234,7 +234,7 @@
 
       </li>
       <li *ngIf="getRuolo()==1 || getRuolo()==0" class="nav-item" data-toggle="tooltip" data-placement="right" title="Messaggi">
-        <a class="nav-link" href="/messaggi">
+        <a class="nav-link" [routerLink]="['/messaggi']">
           <i class="fa fa-fw fa-envelope"></i>
           <span class="nav-link-text">Messaggi</span>
         </a>
@@ -258,25 +258,25 @@
   <div class="collapse navbar-collapse" id="navbarResponsive" *ngIf="!userIsLogged()">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" href="/">
+        <a class="nav-link" [routerLink]="['/']">
           <i class="fa fa-fw fa-euro"></i>
           <span class="nav-link-text">About us</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" href="/">
+        <a class="nav-link" [routerLink]="['/']">
           <i class="fa fa-fw fa-euro"></i>
           <span class="nav-link-text">Our vision</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" href="/">
+        <a class="nav-link" [routerLink]="['/']">
           <i class="fa fa-fw fa-euro"></i>
           <span class="nav-link-text">Contact us</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-        <a class="nav-link" href="/">
+        <a class="nav-link" [routerLink]="['/']">
           <i class="fa fa-fw fa-euro"></i>
           <span class="nav-link-text">Information</span>
         </a>

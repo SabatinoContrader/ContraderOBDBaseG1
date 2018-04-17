@@ -42,6 +42,7 @@ import { TicketComponent } from './components/ticket/ticket.component'
 import { TelemetriaComponent } from './components/telemetria/telemetria.component';
 import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 import { AllAutoComponent } from './components/all-auto/all-auto.component';
+import { APP_BASE_HREF } from '@angular/common';
 
 
 @NgModule({
@@ -82,11 +83,10 @@ import { AllAutoComponent } from './components/all-auto/all-auto.component';
     }),
     DataTablesModule
   ],
-<<<<<<< HEAD
-  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService,TelemetriaService],
-=======
-  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService],
->>>>>>> 383076f3cf9779d9653e7bb2c35434207237ede9
+
+  providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService,TelemetriaService, { provide: APP_BASE_HREF, useValue : '/' }],
+
+
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
