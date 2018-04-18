@@ -38,11 +38,8 @@ listaAutoNoleggiabili: any;
     .subscribe(
       response =>  { this.listaClienti = response.data } 
     );
-	 
-	  this.autoService.getAutoNoleggiabili(this.utente.officina.id,1)
-    .subscribe(
-      response =>  { this.listaAutoNoleggiabili = response.data } 
-    );
+	 this.getListaAutoNoleggiabili();
+	
   }
 
    getListaNoleggi(): void {
@@ -55,8 +52,23 @@ listaAutoNoleggiabili: any;
   insertNoleggio(): void {
     this.noleggiService.insertNoleggio(this.utente.officina.id, this.autonoleggio, this.CapLuogoDiRiconsegna, this.CapLuogoDiRitiro, this.DataInizioNoleggio.day + "/" + this.DataInizioNoleggio.month + "/" + this.DataInizioNoleggio.year, this.DataFineNoleggio.day + "/" + this.DataFineNoleggio.month + "/" + this.DataFineNoleggio.year,this.maxKmNoleggio, this.clientenoleggio).subscribe((response) => {
         swal("Success", "Auto noleggiata correttamente", "success");
+		this.clientenoleggio=null;
+		this.autonoleggio=null;
+		this.CapLuogoDiRiconsegna=null;
+		this.CapLuogoDiRitiro=null;
+		this.DataInizioNoleggio=null;
+		this.DataFineNoleggio=null;
+		this.maxKmNoleggio=null;
         $('#modalassegnanoleggio').modal("hide");
         this.getListaNoleggi();
+		this.getListaAutoNoleggiabili();
       });
+  }
+  
+  getListaAutoNoleggiabili(): void{
+	    this.autoService.getAutoNoleggiabili(this.utente.officina.id,1)
+    .subscribe(
+      response =>  { this.listaAutoNoleggiabili = response.data } 
+    );
   }
 }

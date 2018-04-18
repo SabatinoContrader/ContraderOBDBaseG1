@@ -1,7 +1,10 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="5">
   <agm-marker *ngFor="let device of listaGuasti;" [latitude]="device.telemetria.latitudine" [longitude]="device.telemetria.longitudine">
     <agm-info-window>
-      <button class="btn btn-info">{{device.telemetria.longitudine}}</button>
+	<p>ID: {{device.id}}</p>
+	<p>Codice: {{device.tipologiaGuasto.codice}}</p>
+	<p>Descrizione guasto: {{device.tipologiaGuasto.descrizione}}</p>
+     
     </agm-info-window>
   </agm-marker>
 </agm-map>

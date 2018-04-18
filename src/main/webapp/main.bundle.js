@@ -308,12 +308,14 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_messaggi_messaggi_component__ = __webpack_require__("./src/app/components/messaggi/messaggi.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_telemetria_telemetria_component__ = __webpack_require__("./src/app/components/telemetria/telemetria.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_all_auto_all_auto_component__ = __webpack_require__("./src/app/components/all-auto/all-auto.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_all_officine_all_officine_component__ = __webpack_require__("./src/app/components/all-officine/all-officine.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -350,6 +352,7 @@ var routes = [
     { path: 'messaggi', component: __WEBPACK_IMPORTED_MODULE_14__components_messaggi_messaggi_component__["a" /* MessaggiComponent */] },
     { path: 'telemetria', component: __WEBPACK_IMPORTED_MODULE_15__components_telemetria_telemetria_component__["a" /* TelemetriaComponent */] },
     { path: 'allAuto', component: __WEBPACK_IMPORTED_MODULE_16__components_all_auto_all_auto_component__["a" /* AllAutoComponent */] },
+    { path: 'allOfficine', component: __WEBPACK_IMPORTED_MODULE_17__components_all_officine_all_officine_component__["a" /* AllOfficineComponent */] },
     { path: 'telemetria/:auto/idDispositivo', component: __WEBPACK_IMPORTED_MODULE_15__components_telemetria_telemetria_component__["a" /* TelemetriaComponent */] },
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -468,6 +471,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_home_admin_home_admin_component__ = __webpack_require__("./src/app/components/home-admin/home-admin.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_all_auto_all_auto_component__ = __webpack_require__("./src/app/components/all-auto/all-auto.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_all_officine_all_officine_component__ = __webpack_require__("./src/app/components/all-officine/all-officine.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -478,6 +482,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
  // <-- NgModel lives here
+
 
 
 
@@ -542,7 +547,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_39__components_ticket_ticket_component__["a" /* TicketComponent */],
                 __WEBPACK_IMPORTED_MODULE_40__components_telemetria_telemetria_component__["a" /* TelemetriaComponent */],
                 __WEBPACK_IMPORTED_MODULE_41__components_home_admin_home_admin_component__["a" /* HomeAdminComponent */],
-                __WEBPACK_IMPORTED_MODULE_42__components_all_auto_all_auto_component__["a" /* AllAutoComponent */]
+                __WEBPACK_IMPORTED_MODULE_42__components_all_auto_all_auto_component__["a" /* AllAutoComponent */],
+                __WEBPACK_IMPORTED_MODULE_44__components_all_officine_all_officine_component__["a" /* AllOfficineComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -592,9 +598,7 @@ module.exports = "<div>\r\n  <!-- begin:: Page -->\r\n  <div class=\"m-grid m-gr
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AllAutoComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_telemetria_service__ = __webpack_require__("./src/app/services/telemetria.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_intervalObservable__ = __webpack_require__("./node_modules/rxjs/observable/intervalObservable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_intervalObservable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_intervalObservable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_takeWhile__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/takeWhile.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_takeWhile__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/takeWhile.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -604,7 +608,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -619,12 +622,14 @@ var AllAutoComponent = /** @class */ (function () {
         var _this = this;
         this.telemetriaService.getAutoLocation()
             .subscribe(function (response) { _this.autoLocation = response; });
-        __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_intervalObservable__["IntervalObservable"].create(10000)
-            .takeWhile(function () { return _this.alive; })
-            .subscribe(function () {
-            _this.telemetriaService.getAutoLocation()
-                .subscribe(function (response) { _this.autoLocation = response; console.log(_this.autoLocation); });
-        });
+        /*   IntervalObservable.create(10000)
+             .takeWhile(() => this.alive)
+             .subscribe(() => {
+               this.telemetriaService.getAutoLocation()
+                 .subscribe(
+                   response => { this.autoLocation = response; console.log(this.autoLocation) }
+                 );
+             }); */
     };
     AllAutoComponent.prototype.ngOnDestroy = function () {
         this.alive = false;
@@ -638,6 +643,61 @@ var AllAutoComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_telemetria_service__["a" /* TelemetriaService */]])
     ], AllAutoComponent);
     return AllAutoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/all-officine/all-officine.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/components/all-officine/all-officine.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!-- begin:: Page -->\r\n<div class=\"m-grid m-grid--hor m-grid--root m-page\" style=\"margin-top:50px;\">\r\n\r\n  <!-- begin::Body -->\r\n  <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\r\n    <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\r\n\r\n      <div class=\"m-content\">\r\n\r\n        <!--begin:: section content-->\r\n        <div class=\"row\">\r\n          <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\" id=\"rightautotable\">\r\n            <div class=\"m-portlet m-portlet--mobile \">\r\n              <div class=\"m-portlet__head\">\r\n                <div class=\"m-portlet__head-caption\">\r\n                  <div class=\"m-portlet__head-title\">\r\n                    <h3 class=\"m-portlet__head-text\">\r\n                      <i class=\"fa fa-wrench fah3\"></i>\r\n                      Officine\r\n                    </h3>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"m-portlet__body\">\r\n                <!--begin: Datatable -->\r\n                <div *ngIf=\"listaOfficine\" class=\"table-responsive\">\r\n                  <table datatable class=\"row-border hover\" id=\"myTable\">\r\n                    <thead>\r\n                      <tr>\r\n                        <th>Denominazione</th>\r\n                        <th>Referente</th>\r\n                        <th>Telefono</th>\r\n                        <th>Email</th>\r\n                        <th>Indirizzo</th>\r\n                        <th>Citt&aacute;</th>\r\n                      </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                      <tr *ngFor=\"let officina of listaOfficine\">\r\n                        <td>{{officina.denominazione}}</td>\r\n                        <td>{{officina.cognomeReferente}} {{officina.nomeReferente}}</td>\r\n                        <td>{{officina.telefono}}</td>\r\n                        <td>{{officina.email}}</td>\r\n                        <td>{{officina.indirizzo}}</td>\r\n                        <td>{{officina.citta}}</td>\r\n                      </tr>\r\n                    </tbody>\r\n                  </table>\r\n                </div>\r\n                <!--end: Datatable -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <!--end:: seciont content-->\r\n      </div>\r\n    </div>\r\n    <!--\r\n      </div>\r\n    -->\r\n  </div>\r\n</div>\r\n<!-- end:: Page -->"
+
+/***/ }),
+
+/***/ "./src/app/components/all-officine/all-officine.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AllOfficineComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_officina_service__ = __webpack_require__("./src/app/services/officina.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AllOfficineComponent = /** @class */ (function () {
+    function AllOfficineComponent(officinaService) {
+        this.officinaService = officinaService;
+    }
+    AllOfficineComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.officinaService.getAllOfficine().subscribe(function (response) { _this.listaOfficine = response.data; });
+    };
+    AllOfficineComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+            selector: 'app-all-officine',
+            template: __webpack_require__("./src/app/components/all-officine/all-officine.component.html"),
+            styles: [__webpack_require__("./src/app/components/all-officine/all-officine.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_officina_service__["a" /* OfficinaService */]])
+    ], AllOfficineComponent);
+    return AllOfficineComponent;
 }());
 
 
@@ -997,7 +1057,7 @@ module.exports = "agm-map {\r\n    height: 400px;\r\n  }"
 /***/ "./src/app/components/guasti/guasti.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"5\">\r\n  <agm-marker *ngFor=\"let device of listaGuasti;\" [latitude]=\"device.telemetria.latitudine\" [longitude]=\"device.telemetria.longitudine\">\r\n    <agm-info-window>\r\n      <button class=\"btn btn-info\">{{device.telemetria.longitudine}}</button>\r\n    </agm-info-window>\r\n  </agm-marker>\r\n</agm-map>\r\n<!-- begin:: Page -->\r\n<div class=\"m-grid m-grid--hor m-grid--root m-page\" style=\"margin-top:50px;\">\r\n\r\n  <!-- begin::Body -->\r\n  <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\r\n    <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\r\n\r\n      <div class=\"m-content\">\r\n\r\n        <!--begin:: section content-->\r\n        <div class=\"row\">\r\n          <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\" id=\"rightautotable\">\r\n            <div class=\"m-portlet m-portlet--mobile \">\r\n\r\n              <div class=\"m-portlet__head\">\r\n                <div class=\"m-portlet__head-caption\">\r\n                  <div class=\"m-portlet__head-title\">\r\n                    <h3 class=\"m-portlet__head-text\">\r\n                      <i class=\"fa fa-wrench fah3\"></i>\r\n                      GUASTI\r\n                    </h3>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"m-portlet__body\">\r\n                <!--begin: Datatable -->\r\n\r\n                <div class=\"table-responsive\">\r\n                  <table datatable class=\"row-border hover\" id=\"myTable\">\r\n                    <thead>\r\n                      <tr>\r\n                        <th>ID</th>\r\n                        <th>Data</th>\r\n                        <th>Codice Guasto</th>\r\n                        <th>Descrizione</th>\r\n                        <th>Codice Dispositivo</th>\r\n                        <th>Auto</th>\r\n                        <th>Stato</th>\r\n                        <th></th>\r\n                      </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                      <tr *ngFor=\"let guasto of listaGuasti\">\r\n                        <td>{{guasto.id}}</td>\r\n                        <td>{{guasto.data | date: 'dd/MM/yyyy'}}</td>\r\n                        <td>{{guasto.tipologiaGuasto.codice}}</td>\r\n                        <td>{{guasto.tipologiaGuasto.descrizione}}</td>\r\n                        <td>{{guasto.dispositivo.codice}}</td>\r\n                        <td>{{guasto.dispositivo.auto.marca}} {{guasto.dispositivo.auto.modello}}\r\n                          <br>{{guasto.dispositivo.auto.targa}}\r\n                          <br>{{guasto.dispositivo.auto.numeroTelaio}} </td>\r\n                        <td>{{guasto.statoRisoluzione}}</td>\r\n                        <td>\r\n                          <a class=\"ali\" (click)=\"openModalTelemetria(guasto.telemetria);\">\r\n                            <i class=\"fa fa-info\" title=\"Visualizza dati telemetria\"></i>\r\n                          </a>\r\n                          <a class=\"ali\" *ngIf=\"guasto.statoRisoluzione == 'Non Risolto'\" (click)=\"openModalRisolviGuasto(guasto.id);\">\r\n                            <i class=\"fa fa-wrench\" title=\"Conferma risolto il guasto\"></i>\r\n                          </a>\r\n\r\n                        </td>\r\n\r\n\r\n                      </tr>\r\n                    </tbody>\r\n\r\n                  </table>\r\n                </div>\r\n                <!--end: Datatable -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n\r\n        </div>\r\n        <!--end:: seciont content-->\r\n\r\n\r\n\r\n\r\n\r\n      </div>\r\n    </div>\r\n    <!--\r\n\t\t</div>\r\n\t-->\r\n  </div>\r\n</div>\r\n<!-- end:: Page -->\r\n<!-- begin::modal dati telemetria -->\r\n<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" id=\"modaldatitelemetria\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\">Dati telemetria</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <div *ngIf=\"telemetria\">\r\n          <p>\r\n            <span class=\"spanred\">RPM:</span>{{telemetria.rpm}}</p>\r\n          <p>\r\n            <span class=\"spanred\">Latitudine:</span>{{telemetria.latitudine}}</p>\r\n          <p>\r\n            <span class=\"spanred\">Longitudine:</span>{{telemetria.longitudine}}</p>\r\n        </div>\r\n\r\n      </div>\r\n      <div class=\"modal-footer \" style=\"text-align:center;\">\r\n\r\n        <button type=\"button\" class=\"btn btn-primary savebutton\" data-dismiss=\"modal\">Chiudi</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- end::modal dati telemetria -->\r\n<!-- begin::modal risolvi guasto -->\r\n<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" id=\"modalrisolviguasto\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\">Confermi il guasto risolto?</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n\r\n\r\n      </div>\r\n      <div class=\"modal-footer \" style=\"text-align:center;\">\r\n        <button type=\"button\" class=\"btn btn-primary savebutton\" (click)=\"risolviGuasto()\">Conferma</button>\r\n        <button type=\"button\" class=\"btn btn-primary savebutton\" data-dismiss=\"modal\">Annulla</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- end::modal risolvi guasto -->"
+module.exports = "<agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"5\">\r\n  <agm-marker *ngFor=\"let device of listaGuasti;\" [latitude]=\"device.telemetria.latitudine\" [longitude]=\"device.telemetria.longitudine\">\r\n    <agm-info-window>\r\n\t<p>ID: {{device.id}}</p>\r\n\t<p>Codice: {{device.tipologiaGuasto.codice}}</p>\r\n\t<p>Descrizione guasto: {{device.tipologiaGuasto.descrizione}}</p>\r\n     \r\n    </agm-info-window>\r\n  </agm-marker>\r\n</agm-map>\r\n<!-- begin:: Page -->\r\n<div class=\"m-grid m-grid--hor m-grid--root m-page\" style=\"margin-top:50px;\">\r\n\r\n  <!-- begin::Body -->\r\n  <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\r\n    <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\r\n\r\n      <div class=\"m-content\">\r\n\r\n        <!--begin:: section content-->\r\n        <div class=\"row\">\r\n          <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\" id=\"rightautotable\">\r\n            <div class=\"m-portlet m-portlet--mobile \">\r\n\r\n              <div class=\"m-portlet__head\">\r\n                <div class=\"m-portlet__head-caption\">\r\n                  <div class=\"m-portlet__head-title\">\r\n                    <h3 class=\"m-portlet__head-text\">\r\n                      <i class=\"fa fa-wrench fah3\"></i>\r\n                      GUASTI\r\n                    </h3>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n              <div class=\"m-portlet__body\">\r\n                <!--begin: Datatable -->\r\n\r\n                <div class=\"table-responsive\">\r\n                  <table datatable class=\"row-border hover\" id=\"myTable\">\r\n                    <thead>\r\n                      <tr>\r\n                        <th>ID</th>\r\n                        <th>Data</th>\r\n                        <th>Codice Guasto</th>\r\n                        <th>Descrizione</th>\r\n                        <th>Codice Dispositivo</th>\r\n                        <th>Auto</th>\r\n                        <th>Stato</th>\r\n                        <th></th>\r\n                      </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                      <tr *ngFor=\"let guasto of listaGuasti\">\r\n                        <td>{{guasto.id}}</td>\r\n                        <td>{{guasto.data | date: 'dd/MM/yyyy'}}</td>\r\n                        <td>{{guasto.tipologiaGuasto.codice}}</td>\r\n                        <td>{{guasto.tipologiaGuasto.descrizione}}</td>\r\n                        <td>{{guasto.dispositivo.codice}}</td>\r\n                        <td>{{guasto.dispositivo.auto.marca}} {{guasto.dispositivo.auto.modello}}\r\n                          <br>{{guasto.dispositivo.auto.targa}}\r\n                          <br>{{guasto.dispositivo.auto.numeroTelaio}} </td>\r\n                        <td>{{guasto.statoRisoluzione}}</td>\r\n                        <td>\r\n                          <a class=\"ali\" (click)=\"openModalTelemetria(guasto.telemetria);\">\r\n                            <i class=\"fa fa-info\" title=\"Visualizza dati telemetria\"></i>\r\n                          </a>\r\n                          <a class=\"ali\" *ngIf=\"guasto.statoRisoluzione == 'Non Risolto'\" (click)=\"openModalRisolviGuasto(guasto.id);\">\r\n                            <i class=\"fa fa-wrench\" title=\"Conferma risolto il guasto\"></i>\r\n                          </a>\r\n\r\n                        </td>\r\n\r\n\r\n                      </tr>\r\n                    </tbody>\r\n\r\n                  </table>\r\n                </div>\r\n                <!--end: Datatable -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n\r\n        </div>\r\n        <!--end:: seciont content-->\r\n\r\n\r\n\r\n\r\n\r\n      </div>\r\n    </div>\r\n    <!--\r\n\t\t</div>\r\n\t-->\r\n  </div>\r\n</div>\r\n<!-- end:: Page -->\r\n<!-- begin::modal dati telemetria -->\r\n<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" id=\"modaldatitelemetria\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\">Dati telemetria</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <div *ngIf=\"telemetria\">\r\n          <p>\r\n            <span class=\"spanred\">RPM:</span>{{telemetria.rpm}}</p>\r\n          <p>\r\n            <span class=\"spanred\">Latitudine:</span>{{telemetria.latitudine}}</p>\r\n          <p>\r\n            <span class=\"spanred\">Longitudine:</span>{{telemetria.longitudine}}</p>\r\n        </div>\r\n\r\n      </div>\r\n      <div class=\"modal-footer \" style=\"text-align:center;\">\r\n\r\n        <button type=\"button\" class=\"btn btn-primary savebutton\" data-dismiss=\"modal\">Chiudi</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- end::modal dati telemetria -->\r\n<!-- begin::modal risolvi guasto -->\r\n<div class=\"modal\" tabindex=\"-1\" role=\"dialog\" id=\"modalrisolviguasto\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\">Confermi il guasto risolto?</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n\r\n\r\n      </div>\r\n      <div class=\"modal-footer \" style=\"text-align:center;\">\r\n        <button type=\"button\" class=\"btn btn-primary savebutton\" (click)=\"risolviGuasto()\">Conferma</button>\r\n        <button type=\"button\" class=\"btn btn-primary savebutton\" data-dismiss=\"modal\">Annulla</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- end::modal risolvi guasto -->"
 
 /***/ }),
 
@@ -1077,7 +1137,7 @@ module.exports = ""
 /***/ "./src/app/components/home-admin/home-admin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <!-- begin:: Page -->\r\n  <div class=\"m-grid m-grid--hor m-grid--root m-page\" style=\"margin-top:50px;\">\r\n\r\n    <!-- begin::Body -->\r\n    <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\r\n      <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\r\n\r\n        <div class=\"m-content\">\r\n\r\n          <!--begin:: section content-->\r\n          <div class=\"row\">\r\n            <div class=\"col-xl-3 col-sm-6 mb-3\">\r\n              <div class=\"card text-white bg-primary o-hidden h-100\">\r\n                <div class=\"card-body\">\r\n                  <div class=\"card-body-icon\">\r\n                    <i class=\"fa fa-fw fa-wrench\"></i>\r\n                  </div>\r\n                  <div class=\"mr-5\"><h2>{{allOfficine}} officine</h2></div>\r\n                </div>\r\n                <a class=\"card-footer text-white clearfix small z-1\" (click)=\"notifiche(statoAuto.auto)\" data-toggle=\"modal\" data-target=\"#notificheModal\"\r\n                  style=\"cursor: pointer;\">\r\n                  <span class=\"float-left\">Visualizza</span>\r\n                  <span class=\"float-right\">\r\n                    <i class=\"fa fa-angle-right\"></i>\r\n                  </span>\r\n                </a>\r\n              </div>\r\n            </div>\r\n            <div class=\"col-xl-3 col-sm-6 mb-3\">\r\n                <div class=\"card text-white bg-primary o-hidden h-100\">\r\n                  <div class=\"card-body\">\r\n                    <div class=\"card-body-icon\">\r\n                      <i class=\"fa fa-fw fa-briefcase\"></i>\r\n                    </div>\r\n                    <div class=\"mr-5\"><h2>{{allAziende}} aziende</h2></div>\r\n                  </div>\r\n                  <a class=\"card-footer text-white clearfix small z-1\" (click)=\"notifiche(statoAuto.auto)\" data-toggle=\"modal\" data-target=\"#notificheModal\"\r\n                    style=\"cursor: pointer;\">\r\n                    <span class=\"float-left\">Visualizza</span>\r\n                    <span class=\"float-right\">\r\n                      <i class=\"fa fa-angle-right\"></i>\r\n                    </span>\r\n                  </a>\r\n                </div>\r\n              </div>\r\n              <div class=\"col-xl-3 col-sm-6 mb-3\">\r\n                  <div class=\"card text-white bg-primary o-hidden h-100\">\r\n                    <div class=\"card-body\">\r\n                      <div class=\"card-body-icon\">\r\n                        <i class=\"fa fa-fw fa-automobile\"></i>\r\n                      </div>\r\n                      <div class=\"mr-5\"><h2>{{allAuto}} auto</h2></div>\r\n                    </div>\r\n                    <a routerLink=\"/allAuto\" class=\"card-footer text-white clearfix small z-1\" style=\"cursor: pointer;\">\r\n                      <span class=\"float-left\">Visualizza</span>\r\n                      <span class=\"float-right\">\r\n                        <i class=\"fa fa-angle-right\"></i>\r\n                      </span>\r\n                    </a>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-xl-3 col-sm-6 mb-3\">\r\n                    <div class=\"card text-white bg-primary o-hidden h-100\">\r\n                      <div class=\"card-body\">\r\n                        <div class=\"card-body-icon\">\r\n                          <i class=\"fa fa-fw fa-user\"></i>\r\n                        </div>\r\n                        <div class=\"mr-5\"><h2>{{allUtenti}} utenti</h2></div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n          </div>\r\n        </div>\r\n        <!--end:: seciont content-->\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- end:: Page -->"
+module.exports = "<div>\r\n  <!-- begin:: Page -->\r\n  <div class=\"m-grid m-grid--hor m-grid--root m-page\" style=\"margin-top:50px;\">\r\n\r\n    <!-- begin::Body -->\r\n    <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\r\n      <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\r\n\r\n        <div class=\"m-content\">\r\n\r\n          <!--begin:: section content-->\r\n          <div class=\"row\">\r\n            <div class=\"col-xl-3 col-sm-6 mb-3\">\r\n              <div class=\"card text-white bg-primary o-hidden h-100\">\r\n                <div class=\"card-body\">\r\n                  <div class=\"card-body-icon\">\r\n                    <i class=\"fa fa-fw fa-wrench\"></i>\r\n                  </div>\r\n                  <div class=\"mr-5\"><h2>{{allOfficine}} officine</h2></div>\r\n                </div>\r\n                <a routerLink=\"/allOfficine\" class=\"card-footer text-white clearfix small z-1\" style=\"cursor: pointer;\">\r\n                  <span class=\"float-left\">Visualizza</span>\r\n                  <span class=\"float-right\">\r\n                    <i class=\"fa fa-angle-right\"></i>\r\n                  </span>\r\n                </a>\r\n              </div>\r\n            </div>\r\n            <div class=\"col-xl-3 col-sm-6 mb-3\">\r\n                <div class=\"card text-white bg-primary o-hidden h-100\">\r\n                  <div class=\"card-body\">\r\n                    <div class=\"card-body-icon\">\r\n                      <i class=\"fa fa-fw fa-briefcase\"></i>\r\n                    </div>\r\n                    <div class=\"mr-5\"><h2>{{allAziende}} aziende</h2></div>\r\n                  </div>\r\n                  <a class=\"card-footer text-white clearfix small z-1\" (click)=\"notifiche(statoAuto.auto)\" data-toggle=\"modal\" data-target=\"#notificheModal\"\r\n                    style=\"cursor: pointer;\">\r\n                    <span class=\"float-left\">Visualizza</span>\r\n                    <span class=\"float-right\">\r\n                      <i class=\"fa fa-angle-right\"></i>\r\n                    </span>\r\n                  </a>\r\n                </div>\r\n              </div>\r\n              <div class=\"col-xl-3 col-sm-6 mb-3\">\r\n                  <div class=\"card text-white bg-primary o-hidden h-100\">\r\n                    <div class=\"card-body\">\r\n                      <div class=\"card-body-icon\">\r\n                        <i class=\"fa fa-fw fa-automobile\"></i>\r\n                      </div>\r\n                      <div class=\"mr-5\"><h2>{{allAuto}} auto</h2></div>\r\n                    </div>\r\n                    <a routerLink=\"/allAuto\" class=\"card-footer text-white clearfix small z-1\" style=\"cursor: pointer;\">\r\n                      <span class=\"float-left\">Visualizza</span>\r\n                      <span class=\"float-right\">\r\n                        <i class=\"fa fa-angle-right\"></i>\r\n                      </span>\r\n                    </a>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-xl-3 col-sm-6 mb-3\">\r\n                    <div class=\"card text-white bg-primary o-hidden h-100\">\r\n                      <div class=\"card-body\">\r\n                        <div class=\"card-body-icon\">\r\n                          <i class=\"fa fa-fw fa-user\"></i>\r\n                        </div>\r\n                        <div class=\"mr-5\"><h2>{{allUtenti}} utenti</h2></div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n          </div>\r\n        </div>\r\n        <!--end:: seciont content-->\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<!-- end:: Page -->"
 
 /***/ }),
 
@@ -1701,8 +1761,7 @@ var NoleggiComponent = /** @class */ (function () {
         this.getListaNoleggi();
         this.clientiService.getClienti(this.utente.officina.id)
             .subscribe(function (response) { _this.listaClienti = response.data; });
-        this.autoService.getAutoNoleggiabili(this.utente.officina.id, 1)
-            .subscribe(function (response) { _this.listaAutoNoleggiabili = response.data; });
+        this.getListaAutoNoleggiabili();
     };
     NoleggiComponent.prototype.getListaNoleggi = function () {
         var _this = this;
@@ -1713,9 +1772,22 @@ var NoleggiComponent = /** @class */ (function () {
         var _this = this;
         this.noleggiService.insertNoleggio(this.utente.officina.id, this.autonoleggio, this.CapLuogoDiRiconsegna, this.CapLuogoDiRitiro, this.DataInizioNoleggio.day + "/" + this.DataInizioNoleggio.month + "/" + this.DataInizioNoleggio.year, this.DataFineNoleggio.day + "/" + this.DataFineNoleggio.month + "/" + this.DataFineNoleggio.year, this.maxKmNoleggio, this.clientenoleggio).subscribe(function (response) {
             __WEBPACK_IMPORTED_MODULE_4_sweetalert2___default()("Success", "Auto noleggiata correttamente", "success");
+            _this.clientenoleggio = null;
+            _this.autonoleggio = null;
+            _this.CapLuogoDiRiconsegna = null;
+            _this.CapLuogoDiRitiro = null;
+            _this.DataInizioNoleggio = null;
+            _this.DataFineNoleggio = null;
+            _this.maxKmNoleggio = null;
             $('#modalassegnanoleggio').modal("hide");
             _this.getListaNoleggi();
+            _this.getListaAutoNoleggiabili();
         });
+    };
+    NoleggiComponent.prototype.getListaAutoNoleggiabili = function () {
+        var _this = this;
+        this.autoService.getAutoNoleggiabili(this.utente.officina.id, 1)
+            .subscribe(function (response) { _this.listaAutoNoleggiabili = response.data; });
     };
     NoleggiComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
@@ -2971,8 +3043,9 @@ var NoleggiService = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OfficinaService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__ = __webpack_require__("./node_modules/rxjs/_esm5/observable/of.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_enviroment__ = __webpack_require__("./src/app/models/enviroment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operators__ = __webpack_require__("./node_modules/rxjs/_esm5/operators.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_observable_of__ = __webpack_require__("./node_modules/rxjs/_esm5/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_enviroment__ = __webpack_require__("./src/app/models/enviroment.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2986,10 +3059,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var OfficinaService = /** @class */ (function () {
     function OfficinaService(http) {
         this.http = http;
-        this.urlBase = __WEBPACK_IMPORTED_MODULE_3__models_enviroment__["a" /* ENVIROMENT */].url;
+        this.urlBase = __WEBPACK_IMPORTED_MODULE_4__models_enviroment__["a" /* ENVIROMENT */].url;
     }
     OfficinaService.prototype.handleError = function (operation, result) {
         if (operation === void 0) { operation = 'operation'; }
@@ -2999,8 +3073,11 @@ var OfficinaService = /** @class */ (function () {
             // TODO: better job of transforming error for user consumption
             console.log(operation + " failed: " + error.message);
             // Let the app keep running by returning an empty result.
-            return Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__["a" /* of */])(result);
+            return Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_observable_of__["a" /* of */])(result);
         };
+    };
+    OfficinaService.prototype.getAllOfficine = function () {
+        return this.http.post(this.urlBase + "getAllOfficine", null).pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["e" /* tap */])(function (response) { console.log("Fetched Lista tutte le officine"); console.log(response); }, Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["a" /* catchError */])(this.handleError("notifiche error", {}))));
     };
     OfficinaService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
