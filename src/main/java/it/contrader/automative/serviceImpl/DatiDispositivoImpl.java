@@ -24,8 +24,7 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 	
 	@Override
 	public Telemetria getTelemetria(String dati) {
-		// TODO Auto-generated method stub
-		return null;
+		return tokenizzazioneStringa(dati);
 	}
 
 	private Telemetria tokenizzazioneStringa(String dati) {
