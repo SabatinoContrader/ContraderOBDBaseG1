@@ -28,6 +28,7 @@ import it.contrader.automative.serviceInterfaces.IDatiTelemetria;
 import it.contrader.automative.utils.AutoLocation;
 import it.contrader.automative.utils.GenericResponse;
 import it.contrader.automative.utils.Posizione;
+import it.contrader.automative.serviceInterfaces.IDatiDispositivo;
 
 @RestController
 @CrossOrigin(value = "*")
@@ -40,11 +41,12 @@ public class TelemetriaController {
 	private AutoRepository autoRepository;
 	private static DispositivoRepository dispositivoRepository;
 	private TelemetriaRepository telemetriaRepository;
+	private IDatiDispositivo IDatiDispositivo;
 
 	@Autowired
 	public TelemetriaController(AutoRepository autoRepository, OfficinaRepository officinaRepository,
 			IDatiTelemetria IDatiTelemetria, IDispositivo IDispositivo, ITelemetria ITelemetria,
-			DispositivoRepository dispositivoRepository, TelemetriaRepository telemetriaRepository) {
+			DispositivoRepository dispositivoRepository, TelemetriaRepository telemetriaRepository, IDatiDispositivo IDatiDispositivo) {
 
 		this.IDispositivo = IDispositivo;
 		this.ITelemetria = ITelemetria;
@@ -53,6 +55,7 @@ public class TelemetriaController {
 		this.dispositivoRepository = dispositivoRepository;
 		this.telemetriaRepository = telemetriaRepository;
 		this.officinaRepository = officinaRepository;
+		this.IDatiDispositivo = IDatiDispositivo;
 
 	}
 
@@ -172,4 +175,14 @@ public class TelemetriaController {
 
 	}
 
+	
+	@RequestMapping(value = "/inviaTelemetria", method = RequestMethod.POST)
+	public int inviaTelemetria(@RequestParam("telemetria") String dati) {
+
+		Telemetria telemetria = IDatiDispositivo.getTelemetria(dati);
+		
+		if(telemetria == null) return 0;
+		else return 1;
+	}
+	
 }
