@@ -29,7 +29,7 @@
 								<button type="button" id="aggiungiauto" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modaladdauto">Aggiungi Auto</button>
 								<!--<button type="button" id="noleggioauto" class="btn btn-default pull-left btnmodal" ng-if="user.getUser().ruolo==0" ng-click="openmodalnoleggio()">Richiedi Noleggio</button>-->
 
-								 <div class="table-responsive">
+								 <div class="table-responsive" *ngIf="auto">
 									<table datatable  class="row-border hover" id="myTable">
 										<thead>
 											<tr>

@@ -52,6 +52,7 @@ export class MessaggiComponent implements OnInit {
     this.messaggiService.inviaMessaggio(this.listaMessaggiModal[0].ticket.id, this.testomessaggio, dir)
       .subscribe((response) => {
         swal("Success", "Messaggio inviato con successo", "success");
+		this.testomessaggio=null;
         this.loadTicket();
         $('#modalticket').modal("hide");
 

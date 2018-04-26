@@ -32,7 +32,7 @@ DISPOSITIVI                    </h3>
 	<button type="button" id="aggiungidispositivo" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modaladddispositivo">Aggiungi Dispositivo</button>
 	<button type="button" id="" class="btn btn-default pull-left btnmodal btnuptab" (click)="aggiornaPosizioni();">Aggiorna posizioni</button>
                 <div class="table-responsive">
-                  <table datatable  class="row-border hover" id="myTable">
+                  <table *ngIf="listaDispositivi" datatable  class="row-border hover" id="myTable">
                     <thead>
                       <tr>
                         <th>Codice</th>

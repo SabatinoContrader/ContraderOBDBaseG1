@@ -19,6 +19,7 @@ idguasto:number;
 telemetria:any;
 lat: number = 41.54061;
   lng: number = 14.381826;
+  infoWindowOpened;
   constructor(private guastiService:GuastiService) { }
 
   ngOnInit() {
@@ -27,6 +28,21 @@ lat: number = 41.54061;
 	  
   }
 
+   
+  clickedMarker(label: string, infoWindow, marker,index: number) {
+
+ if (this.infoWindowOpened === infoWindow) {
+        console.log("window already opened");
+        return;
+    }
+
+    if (this.infoWindowOpened !== null && this.infoWindowOpened !== undefined) {
+        this.infoWindowOpened.close();
+    }
+    this.infoWindowOpened = infoWindow;
+  }
+  
+  
   openModalRisolviGuasto(id: any): void {
 
     this.idguasto = id;
@@ -42,6 +58,8 @@ risolviGuasto(): void{
         response => {
 			swal("Success", "Guasto risolto con successo", "success");
 this.getListaGuasti();
+ $('#modalrisolviguasto').modal("hide");
+
 		}
       );
 	

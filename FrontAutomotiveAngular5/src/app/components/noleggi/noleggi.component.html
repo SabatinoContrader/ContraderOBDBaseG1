@@ -24,7 +24,7 @@ NOLEGGI                    </h3>
                 <!--begin: Datatable -->
 	<button type="button" id="aggiungidispositivo" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modalassegnanoleggio">ASSEGNA NOLEGGIO</button>
                 <div class="table-responsive">
-                  <table datatable  class="row-border hover" id="myTable">
+                  <table *ngIf="listaNoleggi" datatable  class="row-border hover" id="myTable">
                     <thead>
                       <tr>
                         <th>Guidatore</th>

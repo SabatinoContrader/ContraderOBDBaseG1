@@ -24,7 +24,7 @@ CLIENTI                    </h3>
                 <!--begin: Datatable -->
 	<button type="button" id="aggiungicliente" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modaladdcliente">Aggiungi Cliente</button>
                 <div class="table-responsive">
-                  <table datatable  class="row-border hover" id="myTable">
+                  <table *ngIf="listaClienti" datatable  class="row-border hover" id="myTable">
                     <thead>
                       <tr>
                         <th>Nome</th>

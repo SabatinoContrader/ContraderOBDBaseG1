@@ -8,7 +8,7 @@
 
         <div class="m-content">
           <agm-map [latitude]="lat" [longitude]="lng">
-            <agm-marker *ngFor="let loc of autoLocation" [latitude]="loc.posizione.latitudine" [longitude]="loc.posizione.longitudine">
+            <agm-marker *ngFor="let loc of autoLocation; let i =index;" [latitude]="loc.posizione.latitudine" [longitude]="loc.posizione.longitudine" (markerClick)="clickedMarker(device.label, infoWindow, i)">
               <agm-info-window>
                 <div class="card">
                   <div class="card-body">

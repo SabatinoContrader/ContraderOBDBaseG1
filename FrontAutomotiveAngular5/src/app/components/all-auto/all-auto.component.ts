@@ -15,7 +15,7 @@ export class AllAutoComponent implements OnInit {
   lat: number = 41.134769;
   lng: number = 14.780548;
   private alive: boolean;
-
+	infoWindowOpened;
   constructor(private telemetriaService: TelemetriaService) {
     this.alive = true;
   }
@@ -38,6 +38,19 @@ export class AllAutoComponent implements OnInit {
     
 
   }
+    
+	
+clickedMarker(label: string, infoWindow, marker, index: number) {
+    if (this.infoWindowOpened === infoWindow) {
+        console.log("window already opened");
+        return;
+    }
+
+    if (this.infoWindowOpened !== null && this.infoWindowOpened !== undefined) {
+        this.infoWindowOpened.close();
+    }
+    this.infoWindowOpened = infoWindow;
+}
 
   ngOnDestroy(){
     this.alive = false;
