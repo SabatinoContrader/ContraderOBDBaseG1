@@ -179,7 +179,19 @@ public class TelemetriaController {
 	@RequestMapping(value = "/inviaTelemetria", method = RequestMethod.POST)
 	public int inviaTelemetria(@RequestParam("telemetria") String dati) {
 
-		Telemetria telemetria = IDatiDispositivo.getTelemetria(dati);
+		Telemetria telemetria = new Telemetria();
+		
+		try {
+			telemetria = IDatiDispositivo.getTelemetria(dati);
+			
+			IDatiTelemetria.insert(telemetria.getDatiTelemetria());
+			ITelemetria.insert(telemetria);
+		} catch(Exception e){ 
+			System.out.println("Invio Telemetria Fallito!");
+			return 0; 
+			}
+		
+		
 		
 		if(telemetria == null) return 0;
 		else return 1;

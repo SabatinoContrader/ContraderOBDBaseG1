@@ -1,15 +1,20 @@
 package it.contrader.automative.serviceImpl;
 
 import java.util.Date;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import it.contrader.automative.model.DatiTelemetria;
 import it.contrader.automative.model.Dispositivo;
 import it.contrader.automative.model.Telemetria;
 import it.contrader.automative.repositories.DispositivoRepository;
 import it.contrader.automative.serviceInterfaces.IDatiDispositivo;
 import it.contrader.automative.serviceInterfaces.IDispositivo;
 
+@Service
 public class DatiDispositivoImpl implements IDatiDispositivo {
 
 	
@@ -29,10 +34,24 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 
 	private Telemetria tokenizzazioneStringa(String dati) {
 		
-		String[] obd_array = dati.split("$");
+		StringTokenizer Tokenizer = new StringTokenizer(dati, "$");
+		String[] obd_array = new String[Tokenizer.countTokens()];
+		int k = 0;
+		while(Tokenizer.hasMoreTokens()) {obd_array[k] = Tokenizer.nextToken(); k++;}
+		
+		
+//		String[] obd_array = StringUtils.split(dati, "$");
+		
+		
+		
 		
 		Telemetria telemetria = new Telemetria();
 		
+		System.out.println("Numero Dati Telemetria Tokenizzati = "+obd_array.length);
+//		for(int i = 0; i<obd_array.length; i++) System.out.println(obd_array[i]+ "   i="+i);
+		
+		if(obd_array.length > 56) {
+			
 		//Devo identificare il dispositivo
 		String vin = obd_array[0];
 		if(dispositivoRepository.findByCodice(vin) == null) {
@@ -44,48 +63,50 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 		
 		telemetria.setDispositivo(dispositivoRepository.findByCodice(vin));
 		
-		
 		telemetria.setData(new Date(System.currentTimeMillis()));
-		//telemetria.getDatiTelemetria().setLatitudine(latitudine);
-		//telemetria.getDatiTelemetria().setLongitudine(longitudine);
+		
+		DatiTelemetria datiTelemetria = new DatiTelemetria();
 		
 		
-		telemetria.getDatiTelemetria().setRpm(Integer.getInteger(obd_array[14]));
-		telemetria.getDatiTelemetria().setThrottle_position(Integer.getInteger(obd_array[19]));	
-		telemetria.getDatiTelemetria().setIgnition_timing_advance(Integer.getInteger(obd_array[16]));
-		telemetria.getDatiTelemetria().setCalculated_engine_load(Integer.getInteger(obd_array[6]));
-		telemetria.getDatiTelemetria().setEngine_oil_temperature(Integer.getInteger(obd_array[51]));
-		telemetria.getDatiTelemetria().setAbsolute_load_value(Integer.getInteger(obd_array[36]));
-		telemetria.getDatiTelemetria().setActual_engine_torque(Integer.getInteger(obd_array[55]));
-		telemetria.getDatiTelemetria().setDemand_engine_torque(Integer.getInteger(obd_array[54]));
-		telemetria.getDatiTelemetria().setEngine_reference_torque(Integer.getInteger(obd_array[56]));
-		telemetria.getDatiTelemetria().setRelative_throttle_position(Integer.getInteger(obd_array[38]));
-		telemetria.getDatiTelemetria().setAbsolute_throttle_position_B(Integer.getInteger(obd_array[40]));
-		telemetria.getDatiTelemetria().setAbsolute_throttle_position_C(Integer.getInteger(obd_array[41]));
-		telemetria.getDatiTelemetria().setAsolute_pedal_position_D(Integer.getInteger(obd_array[42]));
-		telemetria.getDatiTelemetria().setAsolute_pedal_position_F(Integer.getInteger(obd_array[44]));
-		telemetria.getDatiTelemetria().setAsolute_pedal_position_E(Integer.getInteger(obd_array[43]));
-		telemetria.getDatiTelemetria().setCommanded_throttle_attuator(Integer.getInteger(obd_array[45]));
-		//telemetria.getDatiTelemetria().setRelative_accelerator_pedal_position(Integer.getInteger(nm)); Mancante
-		telemetria.getDatiTelemetria().setIntake_map(Integer.getInteger(obd_array[13]));
-		telemetria.getDatiTelemetria().setMaf_air_flow_rate(Integer.getInteger(obd_array[37]));
-		telemetria.getDatiTelemetria().setBarometric_pressure(Integer.getInteger(obd_array[30]));
-		telemetria.getDatiTelemetria().setFuel_pressure(Integer.getInteger(obd_array[12]));
-		telemetria.getDatiTelemetria().setFuel_level_input(Integer.getInteger(obd_array[26]));
-		telemetria.getDatiTelemetria().setEthanol_fuel(Integer.getInteger(obd_array[48]));
-		telemetria.getDatiTelemetria().setFuel_injection_timing(Integer.getInteger(obd_array[52]));
-		telemetria.getDatiTelemetria().setEngine_fuel_rate(Integer.getInteger(obd_array[53]));
-		telemetria.getDatiTelemetria().setFuel_rail_pressure_injection(Integer.getInteger(obd_array[49])); //messa come injection
-		telemetria.getDatiTelemetria().setCommanded_egr(Integer.getInteger(obd_array[23]));
-		telemetria.getDatiTelemetria().setEgr_error(Integer.getInteger(obd_array[24]));
-		telemetria.getDatiTelemetria().setCommanded_evaporative_purge(Integer.getInteger(obd_array[25]));
-		telemetria.getDatiTelemetria().setEvap_system_vapor_pressure(Integer.getInteger(obd_array[29]));
-		//telemetria.getDatiTelemetria().setExhaust_gas_temperature(exhaust_gas_temperature); mancante
-		telemetria.getDatiTelemetria().setTemperature_coolant(Integer.getInteger(obd_array[7]));
-		telemetria.getDatiTelemetria().setAmbiant_air_temperature(Integer.getInteger(obd_array[39]));
-		telemetria.getDatiTelemetria().setCatalyst_temperature_bank_1(Integer.getInteger(obd_array[31]));
-		telemetria.getDatiTelemetria().setCatalyst_temperature_bank_2(Integer.getInteger( obd_array[32]));
-		telemetria.getDatiTelemetria().setTemperature(Integer.getInteger(obd_array[17]));	//strano
+		//datiTelemetria.setLatitudine(latitudine);
+		//datiTelemetria.setLongitudine(longitudine);
+		
+		datiTelemetria.setRpm(Integer.parseInt(obd_array[14]));
+		datiTelemetria.setThrottle_position(Integer.parseInt(obd_array[19]));	
+		datiTelemetria.setIgnition_timing_advance(Integer.parseInt(obd_array[16]));
+		datiTelemetria.setCalculated_engine_load(Integer.parseInt(obd_array[6]));
+		datiTelemetria.setEngine_oil_temperature(Integer.parseInt(obd_array[51]));
+		datiTelemetria.setAbsolute_load_value(Integer.parseInt(obd_array[36]));
+		datiTelemetria.setActual_engine_torque(Integer.parseInt(obd_array[55]));
+		datiTelemetria.setDemand_engine_torque(Integer.parseInt(obd_array[54]));
+		datiTelemetria.setEngine_reference_torque(Integer.parseInt(obd_array[56]));
+		datiTelemetria.setRelative_throttle_position(Integer.parseInt(obd_array[38]));
+		datiTelemetria.setAbsolute_throttle_position_B(Integer.parseInt(obd_array[40]));
+		datiTelemetria.setAbsolute_throttle_position_C(Integer.parseInt(obd_array[41]));
+		datiTelemetria.setAsolute_pedal_position_D(Integer.parseInt(obd_array[42]));
+		datiTelemetria.setAsolute_pedal_position_F(Integer.parseInt(obd_array[44]));
+		datiTelemetria.setAsolute_pedal_position_E(Integer.parseInt(obd_array[43]));
+		datiTelemetria.setCommanded_throttle_attuator(Integer.parseInt(obd_array[45]));
+		//datiTelemetria.setRelative_accelerator_pedal_position(Integer.parseInt(nm)); Mancante
+		datiTelemetria.setIntake_map(Integer.parseInt(obd_array[13]));
+		datiTelemetria.setMaf_air_flow_rate(Integer.parseInt(obd_array[37]));
+		datiTelemetria.setBarometric_pressure(Integer.parseInt(obd_array[30]));
+		datiTelemetria.setFuel_pressure(Integer.parseInt(obd_array[12]));
+		datiTelemetria.setFuel_level_input(Integer.parseInt(obd_array[26]));
+		datiTelemetria.setEthanol_fuel(Integer.parseInt(obd_array[48]));
+		datiTelemetria.setFuel_injection_timing(Integer.parseInt(obd_array[52]));
+		datiTelemetria.setEngine_fuel_rate(Integer.parseInt(obd_array[53]));
+		datiTelemetria.setFuel_rail_pressure_injection(Integer.parseInt(obd_array[49])); //messa come injection
+		datiTelemetria.setCommanded_egr(Integer.parseInt(obd_array[23]));
+		datiTelemetria.setEgr_error(Integer.parseInt(obd_array[24]));
+		datiTelemetria.setCommanded_evaporative_purge(Integer.parseInt(obd_array[25]));
+		datiTelemetria.setEvap_system_vapor_pressure(Integer.parseInt(obd_array[29]));
+		//datiTelemetria.setExhaust_gas_temperature(exhaust_gas_temperature); mancante
+		datiTelemetria.setTemperature_coolant(Integer.parseInt(obd_array[7]));
+		datiTelemetria.setAmbiant_air_temperature(Integer.parseInt(obd_array[39]));
+		datiTelemetria.setCatalyst_temperature_bank_1(Integer.parseInt(obd_array[31]));
+		datiTelemetria.setCatalyst_temperature_bank_2(Integer.parseInt( obd_array[32]));
+		datiTelemetria.setTemperature(Integer.parseInt(obd_array[17]));	//strano
 		
 		
 //        // ok - Mancante o dupl
@@ -95,7 +116,11 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 //        // ok [Mancante]
 //        frpressurea.Text = Frpressurea.ToString();
 //        frpressurea.Text = "Mancante";
-
+		
+		telemetria.setDatiTelemetria(datiTelemetria);
+		
+		}
+		
 		return telemetria;
 	}
 }
