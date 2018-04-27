@@ -3,6 +3,7 @@ package it.contrader.automative.serviceImpl;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import it.contrader.automative.model.Dispositivo;
 import it.contrader.automative.model.Telemetria;
@@ -10,6 +11,7 @@ import it.contrader.automative.repositories.DispositivoRepository;
 import it.contrader.automative.serviceInterfaces.IDatiDispositivo;
 import it.contrader.automative.serviceInterfaces.IDispositivo;
 
+@Service
 public class DatiDispositivoImpl implements IDatiDispositivo {
 
 	
