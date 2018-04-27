@@ -292,17 +292,13 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
         }
       }
     });
-  }
+  });
   }
    zoomChart(){
 	  if(this.tempchart)
     this.tempchart.zoomToIndexes(this.tempchart.dataProvider.length - 20, this.tempchart.dataProvider.length - 1);
 }
-   ngAfterViewInit() {
-	 
-   
-  }
-  
+ 
   /*FUNCTION TO CHANGE DATA IN GRAFICO*/
   onItemChange(event){
 	  if(event==0)
@@ -323,5 +319,6 @@ ngOnDestroy() {
 	 if(this.tempchart){
 		  this.AmCharts.destroyChart(this.tempchart);
 	 }
+	 
   }
 }
