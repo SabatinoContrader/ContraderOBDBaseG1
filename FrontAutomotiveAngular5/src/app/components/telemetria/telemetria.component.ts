@@ -18,8 +18,12 @@ import swal from 'sweetalert2';
 export class TelemetriaComponent implements OnInit {
 	private amchart: AmChart;
 	private tempchart: AmChart;
-  lat:number;
-  lng: number;
+	private first_bottom_chart: AmChart;
+    private second_bottom_chart: AmChart;
+	private third_bottom_chart: AmChart;
+	
+	lat:number;
+	lng: number;
 	auto:Auto;
 	 utente: Utente;
 	 idDispositivo;
@@ -37,18 +41,26 @@ parametro=0;  //parametro selezione dati da visualizzare in grafico a sinistra
 rpm_array=[];
 engine_load_array = [];
 coolant_temp_array= [];
+fuel_pressure_array=[];
+intake_map_array=[];
+throttle_position_array=[];
+engine_oil_temperature_array=[];
+barometric_pressure_array= [];
+engine_fuel_rate_array= [];
+
   constructor(private router: Router, private route: ActivatedRoute, private telemetriaService:TelemetriaService,private AmCharts: AmChartsService) { }
 
+ 
   ngOnInit() {
 	  
 	   this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
 		
-		this.auto=this.telemetriaService.getAuto();
+	/*	this.auto=this.telemetriaService.getAuto();
 		this.idDispositivo =this.telemetriaService.getIdDispositivo();
-	
-	console.log(this.auto);
-	console.log(this.idDispositivo);
-	
+	*/
+this.auto=JSON.parse(sessionStorage.getItem('auto'));
+this.idDispositivo=sessionStorage.getItem('idDispositivo');
+	console.log("IIIII: "+JSON.parse(sessionStorage.getItem('auto')).marca);
     this.telemetriaService.getTelemetria(this.idDispositivo)
       .subscribe(
         response => {
@@ -71,6 +83,12 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 	this.rpm_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.rpm});
 	this.engine_load_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.calculated_engine_load});
 	this.coolant_temp_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.temperature_coolant});
+	this.fuel_pressure_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.fuel_pressure});
+	this.intake_map_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.intake_map});
+	this.throttle_position_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.throttle_position});
+	this.engine_oil_temperature_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.engine_oil_temperature});
+	this.barometric_pressure_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.barometric_pressure});
+	this.engine_fuel_rate_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.engine_fuel_rate});
 }	 
 
  this.amchart = this.AmCharts.makeChart("chartdiv", {
@@ -188,7 +206,147 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 	} 
     });
 	
-	this.tempchart.addListener("dataUpdated", this.zoomChart);
+	
+	 this.first_bottom_chart = this.AmCharts.makeChart("chartfirstbottom", {
+      "type": "serial",
+      "theme": "light",
+	   "legend": {
+        "useGraphSettings": true
+    },
+		"mouseWheelZoomEnabled": true,
+	     "dataProvider": this.engine_oil_temperature_array,
+   "synchronizeGrid":true,
+    "valueAxes": [{
+        "id":"v1",
+        "axisColor": "#FF6600",
+        "axisThickness": 2,
+        "axisAlpha": 1,
+        "position": "left"
+    }],
+	"graphs": [{
+        "valueAxis": "v1",
+        "lineColor": "#FF6600",
+		"balloonText": "[[value]]",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "Engine Oil Temperature",
+        "valueField": "value",
+		"fillAlphas": 0,
+		"balloon":{
+            "drop":true
+        }
+    }],
+	"chartScrollbar": {
+        "autoGridCount": true,
+        "graph": "v1",
+        "scrollbarHeight": 40
+    },
+    "chartCursor": {
+       "limitToGraph":"v1"
+    },
+    "categoryField": "timestamp",
+	"categoryAxis": {
+		"parseDates":true,
+	    "minPeriod": "fff"
+		
+	}     
+    });
+	
+	
+	 this.second_bottom_chart = this.AmCharts.makeChart("chartsecondbottom", {
+      "type": "serial",
+      "theme": "light",
+	   "legend": {
+        "useGraphSettings": true
+    },
+		"mouseWheelZoomEnabled": true,
+	     "dataProvider": this.barometric_pressure_array,
+   "synchronizeGrid":true,
+    "valueAxes": [{
+        "id":"v1",
+        "axisColor": "#FF6600",
+        "axisThickness": 2,
+        "axisAlpha": 1,
+        "position": "left"
+    }],
+	"graphs": [{
+        "valueAxis": "v1",
+        "lineColor": "#FF6600",
+		"balloonText": "[[value]]",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "Barometric Pressure",
+        "valueField": "value",
+		"fillAlphas": 0,
+		"balloon":{
+            "drop":true
+        }
+    }],
+	"chartScrollbar": {
+        "autoGridCount": true,
+        "graph": "v1",
+        "scrollbarHeight": 40
+    },
+    "chartCursor": {
+       "limitToGraph":"v1"
+    },
+    "categoryField": "timestamp",
+	"categoryAxis": {
+		"parseDates":true,
+	    "minPeriod": "fff"
+		
+	}     
+    });
+	
+	 this.third_bottom_chart = this.AmCharts.makeChart("chartthirdbottom", {
+      "type": "serial",
+      "theme": "light",
+	   "legend": {
+        "useGraphSettings": true
+    },
+		"mouseWheelZoomEnabled": true,
+	     "dataProvider": this.engine_fuel_rate_array,
+   "synchronizeGrid":true,
+    "valueAxes": [{
+        "id":"v1",
+        "axisColor": "#FF6600",
+        "axisThickness": 2,
+        "axisAlpha": 1,
+        "position": "left"
+    }],
+	"graphs": [{
+        "valueAxis": "v1",
+        "lineColor": "#FF6600",
+		"balloonText": "[[value]]",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "Engine Fuel Rate",
+        "valueField": "value",
+		"fillAlphas": 0,
+		"balloon":{
+            "drop":true
+        }
+    }],
+	"chartScrollbar": {
+        "autoGridCount": true,
+        "graph": "v1",
+        "scrollbarHeight": 40
+    },
+    "chartCursor": {
+       "limitToGraph":"v1"
+    },
+    "categoryField": "timestamp",
+	"categoryAxis": {
+		"parseDates":true,
+	    "minPeriod": "fff"
+		
+	}     
+    });
+	
+	//this.tempchart.addListener("dataUpdated", this.zoomChart);
 	
  
     this.chart = new Chart('canvas3', {
@@ -294,10 +452,10 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
     });
   });
   }
-   zoomChart(){
+  /* zoomChart(){
 	  if(this.tempchart)
     this.tempchart.zoomToIndexes(this.tempchart.dataProvider.length - 20, this.tempchart.dataProvider.length - 1);
-}
+}*/
  
   /*FUNCTION TO CHANGE DATA IN GRAFICO*/
   onItemChange(event){
@@ -309,6 +467,12 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 		this.amchart.dataProvider = this.engine_load_array;
 	else if(event==3)
 		this.amchart.dataProvider = this.coolant_temp_array;
+	else if(event==4)
+		this.amchart.dataProvider = this.fuel_pressure_array;
+	else if(event==5)
+		this.amchart.dataProvider = this.intake_map_array;
+	else if(event==6)
+		this.amchart.dataProvider = this.throttle_position_array;
 	
 	this.amchart.validateData();
   }

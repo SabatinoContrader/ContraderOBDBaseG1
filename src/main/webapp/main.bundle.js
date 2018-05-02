@@ -1317,6 +1317,8 @@ var HomeOfficinaComponent = /** @class */ (function () {
     };
     HomeOfficinaComponent.prototype.gotoTelemetria = function (auto, idDispositivo) {
         this.telemetriaService.setAuto(auto, idDispositivo);
+        sessionStorage.setItem('auto', JSON.stringify(this.telemetriaService.getAuto()));
+        sessionStorage.setItem('idDispositivo', idDispositivo.toString());
         this.router.navigate(['telemetria']);
     };
     HomeOfficinaComponent = __decorate([
@@ -2157,7 +2159,7 @@ module.exports = "agm-map {\r\n    width: 100%;\r\n    height: 250px;\r\n}\r\n\r
 /***/ "./src/app/components/telemetria/telemetria.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- begin:: Page -->\r\n<div class=\"m-grid m-grid--hor m-grid--root m-page\">\r\n  <!-- begin::Body -->\r\n  <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\r\n    <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\r\n      <div class=\"m-content\">\r\n\r\n        <div class=\"row row-flex\">\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\" style=\"min-height: 250px;\">\r\n              <div class=\"card-header\">\r\n                <i class=\"fa fa-automobile\"></i>\r\n               {{auto.marca}} {{auto.modello}}\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <table>\r\n                  <tr>\r\n                    <td>Targa:</td>\r\n                    <td> {{auto.targa}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Telaio:</td>\r\n                    <td> {{auto.numeroTelaio}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Cilindrata:</td>\r\n                    <td> {{auto.cilindrata}} cm\r\n                      <sup>3</sup>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Potenza:</td>\r\n                    <td> {{auto.potenza}} kw </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Alimentazione:</td>\r\n                    <td> {{auto.alimentazione}}</td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\" style=\"min-height: 250px;\">\r\n              <div class=\"card-header\">\r\n                Dati\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <table>\r\n                  <tr>\r\n                    <td>Km:</td>\r\n                    <td>{{km}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza revisione:</td>\r\n                    <td>{{auto.scadenzaRevisione | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza bollo:</td>\r\n                    <td>{{auto.scadenzaBollo | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza tagliando:</td>\r\n                    <td>{{auto.scadenzaTagliando | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\" style=\"margin: 0; padding: 0;\">\r\n                <agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"15\">\r\n                  <agm-marker [latitude]=\"lat\" [longitude]=\"lng\"></agm-marker>\r\n                </agm-map>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\t\t\r\n\t\t\r\n\t\t<!-- ADDING CHARTSW -->\r\n\t\t\r\n\t\t\r\n\t\t        <div class=\"row mt-3\">\r\n          <div class=\"col-md-12\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n              <select class=\"form-control\" id=\"parameter\" [(ngModel)]=\"parametro\" (change)=\"onItemChange(parametro)\">\r\n\t\t\t\t<option selected value=\"0\">Kilometri (km)</option>\r\n\t\t\t\t<option value=\"1\">RPM </option>\t\r\n\t\t\t\t<option value=\"2\">Engine Load </option>\t\r\n\t\t\t\t<option value=\"3\">Coolant Temp </option>\t\t\t\t\t\r\n\t\t\t  </select>\r\n              </div>\r\n              <div class=\"card-body\">\r\n               <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"400\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\t\t  <div class=\"col-md-12\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n              temperature_coolant/engine_oil_temperature\r\n              </div>\r\n              <div class=\"card-body\">\r\n               <div id=\"tempchart\" [style.width.%]=\"100\" [style.height.px]=\"400\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\t\t  </div>\r\n\t\t<!-- ENDING CHART -->\r\n\t\t\r\n\t\r\n        <div class=\"row mt-3 mb-3\">\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Telemetria 3\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div [hidden]=\"!chart\">\r\n                  <canvas id=\"canvas3\">{{ chart }}</canvas>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Telemetria 4\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div [hidden]=\"!chart\">\r\n                  <canvas id=\"canvas4\">{{ chart }}</canvas>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Telemetria 5\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div [hidden]=\"!chart\">\r\n                  <canvas id=\"canvas5\">{{ chart }}</canvas>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<!-- begin:: Page -->\r\n<div class=\"m-grid m-grid--hor m-grid--root m-page\">\r\n  <!-- begin::Body -->\r\n  <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\r\n    <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\r\n      <div class=\"m-content\">\r\n\r\n        <div class=\"row row-flex\">\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\" style=\"min-height: 250px;\">\r\n              <div class=\"card-header\">\r\n                <i class=\"fa fa-automobile\"></i>\r\n               {{auto.marca}} {{auto.modello}}\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <table>\r\n                  <tr>\r\n                    <td>Targa:</td>\r\n                    <td> {{auto.targa}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Telaio:</td>\r\n                    <td> {{auto.numeroTelaio}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Cilindrata:</td>\r\n                    <td> {{auto.cilindrata}} cm\r\n                      <sup>3</sup>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Potenza:</td>\r\n                    <td> {{auto.potenza}} kw </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Alimentazione:</td>\r\n                    <td> {{auto.alimentazione}}</td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\" style=\"min-height: 250px;\">\r\n              <div class=\"card-header\">\r\n                Dati\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <table>\r\n                  <tr>\r\n                    <td>Km:</td>\r\n                    <td>{{km}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza revisione:</td>\r\n                    <td>{{auto.scadenzaRevisione | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza bollo:</td>\r\n                    <td>{{auto.scadenzaBollo | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza tagliando:</td>\r\n                    <td>{{auto.scadenzaTagliando | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\" style=\"margin: 0; padding: 0;\">\r\n                <agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"15\">\r\n                  <agm-marker [latitude]=\"lat\" [longitude]=\"lng\"></agm-marker>\r\n                </agm-map>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\t\t\r\n\t\t\r\n\t\t<!-- ADDING CHARTSW -->\r\n\t\t\r\n\t\t\r\n\t\t        <div class=\"row mt-3\">\r\n          <div class=\"col-md-12\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n              <select class=\"form-control\" id=\"parameter\" [(ngModel)]=\"parametro\" (change)=\"onItemChange(parametro)\">\r\n\t\t\t\t<option selected value=\"0\">Kilometri (km)</option>\r\n\t\t\t\t<option value=\"1\">RPM </option>\t\r\n\t\t\t\t<option value=\"2\">Engine Load </option>\t\r\n\t\t\t\t<option value=\"3\">Coolant Temp </option>\t\t\t\t\t\r\n\t\t\t\t<option value=\"4\">Fuel Pression </option>\r\n\t\t\t\t<option value=\"5\">Intake Map</option>\r\n\t\t\t\t<option value=\"6\">Throttle</option>\r\n\t\t\t  </select>\r\n              </div>\r\n              <div class=\"card-body\">\r\n               <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"400\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\t\t  <div class=\"col-md-12\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n              temperature_coolant/engine_oil_temperature\r\n              </div>\r\n              <div class=\"card-body\">\r\n               <div id=\"tempchart\" [style.width.%]=\"100\" [style.height.px]=\"400\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\t\t  </div>\r\n\t\t<!-- ENDING CHART -->\r\n\t\t\r\n\t\r\n        <div class=\"row mt-3 mb-3\">\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Engine Oil Temperature\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div id=\"chartfirstbottom\" [style.width.%]=\"100\" [style.height.px]=\"300\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n               Barometric Pressure\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div id=\"chartsecondbottom\" [style.width.%]=\"100\" [style.height.px]=\"300\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n               Engine Fuel Rate\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div id=\"chartthirdbottom\" [style.width.%]=\"100\" [style.height.px]=\"300\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -2202,14 +2204,22 @@ var TelemetriaComponent = /** @class */ (function () {
         this.rpm_array = [];
         this.engine_load_array = [];
         this.coolant_temp_array = [];
+        this.fuel_pressure_array = [];
+        this.intake_map_array = [];
+        this.throttle_position_array = [];
+        this.engine_oil_temperature_array = [];
+        this.barometric_pressure_array = [];
+        this.engine_fuel_rate_array = [];
     }
     TelemetriaComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
-        this.auto = this.telemetriaService.getAuto();
-        this.idDispositivo = this.telemetriaService.getIdDispositivo();
-        console.log(this.auto);
-        console.log(this.idDispositivo);
+        /*	this.auto=this.telemetriaService.getAuto();
+            this.idDispositivo =this.telemetriaService.getIdDispositivo();
+        */
+        this.auto = JSON.parse(sessionStorage.getItem('auto'));
+        this.idDispositivo = sessionStorage.getItem('idDispositivo');
+        console.log("IIIII: " + JSON.parse(sessionStorage.getItem('auto')).marca);
         this.telemetriaService.getTelemetria(this.idDispositivo)
             .subscribe(function (response) {
             _this.km = response.datiTelemetria.km;
@@ -2226,6 +2236,12 @@ var TelemetriaComponent = /** @class */ (function () {
                 _this.rpm_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.rpm });
                 _this.engine_load_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.calculated_engine_load });
                 _this.coolant_temp_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.temperature_coolant });
+                _this.fuel_pressure_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.fuel_pressure });
+                _this.intake_map_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.intake_map });
+                _this.throttle_position_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.throttle_position });
+                _this.engine_oil_temperature_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.engine_oil_temperature });
+                _this.barometric_pressure_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.barometric_pressure });
+                _this.engine_fuel_rate_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.engine_fuel_rate });
             }
             _this.amchart = _this.AmCharts.makeChart("chartdiv", {
                 "type": "serial",
@@ -2338,7 +2354,139 @@ var TelemetriaComponent = /** @class */ (function () {
                     "minPeriod": "fff"
                 }
             });
-            _this.tempchart.addListener("dataUpdated", _this.zoomChart);
+            _this.first_bottom_chart = _this.AmCharts.makeChart("chartfirstbottom", {
+                "type": "serial",
+                "theme": "light",
+                "legend": {
+                    "useGraphSettings": true
+                },
+                "mouseWheelZoomEnabled": true,
+                "dataProvider": _this.engine_oil_temperature_array,
+                "synchronizeGrid": true,
+                "valueAxes": [{
+                        "id": "v1",
+                        "axisColor": "#FF6600",
+                        "axisThickness": 2,
+                        "axisAlpha": 1,
+                        "position": "left"
+                    }],
+                "graphs": [{
+                        "valueAxis": "v1",
+                        "lineColor": "#FF6600",
+                        "balloonText": "[[value]]",
+                        "bullet": "round",
+                        "bulletBorderThickness": 1,
+                        "hideBulletsCount": 30,
+                        "title": "Engine Oil Temperature",
+                        "valueField": "value",
+                        "fillAlphas": 0,
+                        "balloon": {
+                            "drop": true
+                        }
+                    }],
+                "chartScrollbar": {
+                    "autoGridCount": true,
+                    "graph": "v1",
+                    "scrollbarHeight": 40
+                },
+                "chartCursor": {
+                    "limitToGraph": "v1"
+                },
+                "categoryField": "timestamp",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "minPeriod": "fff"
+                }
+            });
+            _this.second_bottom_chart = _this.AmCharts.makeChart("chartsecondbottom", {
+                "type": "serial",
+                "theme": "light",
+                "legend": {
+                    "useGraphSettings": true
+                },
+                "mouseWheelZoomEnabled": true,
+                "dataProvider": _this.barometric_pressure_array,
+                "synchronizeGrid": true,
+                "valueAxes": [{
+                        "id": "v1",
+                        "axisColor": "#FF6600",
+                        "axisThickness": 2,
+                        "axisAlpha": 1,
+                        "position": "left"
+                    }],
+                "graphs": [{
+                        "valueAxis": "v1",
+                        "lineColor": "#FF6600",
+                        "balloonText": "[[value]]",
+                        "bullet": "round",
+                        "bulletBorderThickness": 1,
+                        "hideBulletsCount": 30,
+                        "title": "Barometric Pressure",
+                        "valueField": "value",
+                        "fillAlphas": 0,
+                        "balloon": {
+                            "drop": true
+                        }
+                    }],
+                "chartScrollbar": {
+                    "autoGridCount": true,
+                    "graph": "v1",
+                    "scrollbarHeight": 40
+                },
+                "chartCursor": {
+                    "limitToGraph": "v1"
+                },
+                "categoryField": "timestamp",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "minPeriod": "fff"
+                }
+            });
+            _this.third_bottom_chart = _this.AmCharts.makeChart("chartthirdbottom", {
+                "type": "serial",
+                "theme": "light",
+                "legend": {
+                    "useGraphSettings": true
+                },
+                "mouseWheelZoomEnabled": true,
+                "dataProvider": _this.engine_fuel_rate_array,
+                "synchronizeGrid": true,
+                "valueAxes": [{
+                        "id": "v1",
+                        "axisColor": "#FF6600",
+                        "axisThickness": 2,
+                        "axisAlpha": 1,
+                        "position": "left"
+                    }],
+                "graphs": [{
+                        "valueAxis": "v1",
+                        "lineColor": "#FF6600",
+                        "balloonText": "[[value]]",
+                        "bullet": "round",
+                        "bulletBorderThickness": 1,
+                        "hideBulletsCount": 30,
+                        "title": "Engine Fuel Rate",
+                        "valueField": "value",
+                        "fillAlphas": 0,
+                        "balloon": {
+                            "drop": true
+                        }
+                    }],
+                "chartScrollbar": {
+                    "autoGridCount": true,
+                    "graph": "v1",
+                    "scrollbarHeight": 40
+                },
+                "chartCursor": {
+                    "limitToGraph": "v1"
+                },
+                "categoryField": "timestamp",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "minPeriod": "fff"
+                }
+            });
+            //this.tempchart.addListener("dataUpdated", this.zoomChart);
             _this.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js__["Chart"]('canvas3', {
                 type: 'line',
                 data: {
@@ -2440,10 +2588,10 @@ var TelemetriaComponent = /** @class */ (function () {
             });
         });
     };
-    TelemetriaComponent.prototype.zoomChart = function () {
-        if (this.tempchart)
-            this.tempchart.zoomToIndexes(this.tempchart.dataProvider.length - 20, this.tempchart.dataProvider.length - 1);
-    };
+    /* zoomChart(){
+        if(this.tempchart)
+      this.tempchart.zoomToIndexes(this.tempchart.dataProvider.length - 20, this.tempchart.dataProvider.length - 1);
+  }*/
     /*FUNCTION TO CHANGE DATA IN GRAFICO*/
     TelemetriaComponent.prototype.onItemChange = function (event) {
         if (event == 0)
@@ -2454,6 +2602,12 @@ var TelemetriaComponent = /** @class */ (function () {
             this.amchart.dataProvider = this.engine_load_array;
         else if (event == 3)
             this.amchart.dataProvider = this.coolant_temp_array;
+        else if (event == 4)
+            this.amchart.dataProvider = this.fuel_pressure_array;
+        else if (event == 5)
+            this.amchart.dataProvider = this.intake_map_array;
+        else if (event == 6)
+            this.amchart.dataProvider = this.throttle_position_array;
         this.amchart.validateData();
     };
     TelemetriaComponent.prototype.ngOnDestroy = function () {

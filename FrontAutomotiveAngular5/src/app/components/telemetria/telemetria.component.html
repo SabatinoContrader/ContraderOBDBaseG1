@@ -91,6 +91,9 @@
 				<option value="1">RPM </option>	
 				<option value="2">Engine Load </option>	
 				<option value="3">Coolant Temp </option>					
+				<option value="4">Fuel Pression </option>
+				<option value="5">Intake Map</option>
+				<option value="6">Throttle</option>
 			  </select>
               </div>
               <div class="card-body">
@@ -116,36 +119,30 @@
           <div class="col-md-4">
             <div class="card">
               <div class="card-header">
-                Telemetria 3
+                Engine Oil Temperature
               </div>
               <div class="card-body">
-                <div [hidden]="!chart">
-                  <canvas id="canvas3">{{ chart }}</canvas>
-                </div>
+                <div id="chartfirstbottom" [style.width.%]="100" [style.height.px]="300"></div>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="card">
               <div class="card-header">
-                Telemetria 4
+               Barometric Pressure
               </div>
               <div class="card-body">
-                <div [hidden]="!chart">
-                  <canvas id="canvas4">{{ chart }}</canvas>
-                </div>
+                <div id="chartsecondbottom" [style.width.%]="100" [style.height.px]="300"></div>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="card">
               <div class="card-header">
-                Telemetria 5
+               Engine Fuel Rate
               </div>
               <div class="card-body">
-                <div [hidden]="!chart">
-                  <canvas id="canvas5">{{ chart }}</canvas>
-                </div>
+                <div id="chartthirdbottom" [style.width.%]="100" [style.height.px]="300"></div>
               </div>
             </div>
           </div>

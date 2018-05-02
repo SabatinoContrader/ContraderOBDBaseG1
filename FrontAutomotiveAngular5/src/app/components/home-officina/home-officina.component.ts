@@ -115,6 +115,9 @@ this.scadenzaRevisioneadd=null;
 
 gotoTelemetria(auto:Auto,idDispositivo:number): void {
 	this.telemetriaService.setAuto(auto,idDispositivo);
+	sessionStorage.setItem('auto', JSON.stringify(this.telemetriaService.getAuto()));
+	sessionStorage.setItem('idDispositivo', idDispositivo.toString());
+	
 	this.router.navigate(['telemetria']);
 }
 
