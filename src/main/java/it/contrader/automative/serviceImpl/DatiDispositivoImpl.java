@@ -11,6 +11,7 @@ import it.contrader.automative.model.DatiTelemetria;
 import it.contrader.automative.model.Dispositivo;
 import it.contrader.automative.model.Telemetria;
 import it.contrader.automative.repositories.DispositivoRepository;
+import it.contrader.automative.repositories.TelemetriaRepository;
 import it.contrader.automative.serviceInterfaces.IDatiDispositivo;
 import it.contrader.automative.serviceInterfaces.IDispositivo;
 
@@ -20,11 +21,13 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 	
 	private DispositivoRepository dispositivoRepository;
 	private IDispositivo IDispositivo;
+	private TelemetriaRepository telemetriaRepository;
 	
 	@Autowired
-	public DatiDispositivoImpl(DispositivoRepository dispositivoRepository, IDispositivo IDispositivo) {
+	public DatiDispositivoImpl(DispositivoRepository dispositivoRepository, IDispositivo IDispositivo, TelemetriaRepository telemetriaRepository) {
 		this.IDispositivo = IDispositivo;
 		this.dispositivoRepository = dispositivoRepository;
+		this.telemetriaRepository = telemetriaRepository;
 	}
 	
 	@Override
@@ -67,9 +70,10 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 		
 		DatiTelemetria datiTelemetria = new DatiTelemetria();
 		
-		
 		//datiTelemetria.setLatitudine(latitudine);
 		//datiTelemetria.setLongitudine(longitudine);
+		datiTelemetria.setLatitudine(Double.parseDouble(obd_array[3]));
+		datiTelemetria.setLongitudine(Double.parseDouble(obd_array[4]));
 		
 		datiTelemetria.setRpm(Integer.parseInt(obd_array[14]));
 		datiTelemetria.setThrottle_position(Integer.parseInt(obd_array[19]));	
@@ -116,6 +120,17 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 //        // ok [Mancante]
 //        frpressurea.Text = Frpressurea.ToString();
 //        frpressurea.Text = "Mancante";
+		
+		int ultimaDecimazione = 0;
+		int decimazioneAttuale = 0;
+		
+		try {
+			ultimaDecimazione = telemetriaRepository.ultimaDecimazione(telemetria.getDispositivo().getId());
+			System.out.println("\n\nultima decimazione: "+ultimaDecimazione+"\n"+telemetria.getDispositivo().getId()+"\n\n");
+			decimazioneAttuale = ultimaDecimazione + 1;
+		}catch(Exception e) { decimazioneAttuale = 1;}
+		
+		telemetria.setDecimazione(decimazioneAttuale);
 		
 		telemetria.setDatiTelemetria(datiTelemetria);
 		

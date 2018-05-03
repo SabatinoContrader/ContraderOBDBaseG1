@@ -197,4 +197,25 @@ public class TelemetriaController {
 		else return 1;
 	}
 	
+	@RequestMapping(value = "/riceviFinestra", method = RequestMethod.POST)
+	public List<Telemetria> riceviFinestra(@RequestParam("dataInizio") String dataInizio, @RequestParam("dataFine") String dataFine, @RequestParam("idDispositivo") int idDispositivo){
+		
+		List<Telemetria> lista = new ArrayList();
+		
+		int decimazioneInizio = telemetriaRepository.primoDellaFinestra(dataInizio, dataFine, idDispositivo);
+		int decimazioneFine = telemetriaRepository.ultimoDellaFinestra(dataInizio, dataFine, idDispositivo);
+		
+		System.out.println("\n\nDecimazione Inizio: "+decimazioneInizio+"\nDecimazione Fine: "+decimazioneFine+"\n\n");
+		
+		int numeroDati = (decimazioneFine - decimazioneInizio) + 1;
+		
+		for(int i = 0; i<numeroDati; i++) 
+		{
+			lista.add(telemetriaRepository.ritornaDatoDecimazione(decimazioneInizio, idDispositivo));
+			decimazioneInizio ++;
+		}
+		
+		return lista;
+	}
+	
 }
