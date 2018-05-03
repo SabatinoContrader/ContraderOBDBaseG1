@@ -37,6 +37,8 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 
 	private Telemetria tokenizzazioneStringa(String dati) {
 		
+		if(dati.contains(",")) dati = dati.substring(1, dati.length()); 
+		
 		StringTokenizer Tokenizer = new StringTokenizer(dati, "$");
 		String[] obd_array = new String[Tokenizer.countTokens()];
 		int k = 0;
