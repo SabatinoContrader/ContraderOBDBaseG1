@@ -7,18 +7,27 @@ agm-map {
 .amcharts-chart-div>svg>a{display:none !important;}
 .toprow{margin-top:50px;margin-left:5%;margin-right:5%;}
 .card-deck{width:100%;margin:auto;}
-.bg-tab{background-color:#99bee6 !important;}
+.bg-tab{background-color:#99bee6 !important;cursor:pointer;}
+.bg-tab:hover{background-color:red !important;color:white !important;}
 #row00{margin-top:20px;}
-.container>.row>.col-sm-4>.card{
+.container>.row>.col-sm-2>.card{
 	    text-align: center;
     font-weight: bold;
-	margin-top:20px;
+	margin-top:16px;
+	margin-bottom:50px;
 }
-.container>.row>.col-sm-4>.card>.card-header{font-size:16px;}
-.container>.row>.col-sm-4>.card>.card-body,.container>.row>.col-sm-4>.card>.card-footer{font-size:24px;}
-.container>.row>.col-sm-4>.card>.card-footer{
+.container>.row>.col-sm-2>.card>.card-header{
+	font-size: 10px;
+    min-height: 60px;
+}
+.container>.row>.col-sm-2>.card>.card-body,.container>.row>.col-sm-2>.card>.card-footer{ont-size: 16px;
+    padding: 5px;}
+.container>.row>.col-sm-2>.card>.card-footer{
 background-color: transparent;
     border-top: none;
     color: #a2a2a2;
 	
+}
+.bg-tab-selected{
+	background-color:red !important;color:white !important;
 }
