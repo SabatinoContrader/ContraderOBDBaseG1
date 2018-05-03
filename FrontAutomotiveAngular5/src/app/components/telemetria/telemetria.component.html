@@ -77,66 +77,72 @@
             </div>
           </div>
         </div>
-        <div class="row mt-3">
-          <div class="col-md-6">
+		
+		
+		<!-- ADDING CHARTSW -->
+		
+		
+		        <div class="row mt-3">
+          <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                Telemetria 1
+              <select class="form-control" id="parameter" [(ngModel)]="parametro" (change)="onItemChange(parametro)">
+				<option selected value="0">Kilometri (km)</option>
+				<option value="1">RPM </option>	
+				<option value="2">Engine Load </option>	
+				<option value="3">Coolant Temp </option>					
+				<option value="4">Fuel Pression </option>
+				<option value="5">Intake Map</option>
+				<option value="6">Throttle</option>
+			  </select>
               </div>
               <div class="card-body">
-                <div [hidden]="!chart">
-                  <canvas id="canvas">{{ chart }}</canvas>
-                </div>
+               <div id="chartdiv" [style.width.%]="100" [style.height.px]="400"></div>
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+		  <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                Telemetria 2
+              temperature_coolant/engine_oil_temperature
               </div>
               <div class="card-body">
-                <div [hidden]="!chart">
-                  <canvas id="canvas2">{{ chart }}</canvas>
-                </div>
+               <div id="tempchart" [style.width.%]="100" [style.height.px]="400"></div>
               </div>
             </div>
           </div>
-        </div>
+		  </div>
+		<!-- ENDING CHART -->
+		
+	
         <div class="row mt-3 mb-3">
           <div class="col-md-4">
             <div class="card">
               <div class="card-header">
-                Telemetria 3
+                Engine Oil Temperature
               </div>
               <div class="card-body">
-                <div [hidden]="!chart">
-                  <canvas id="canvas3">{{ chart }}</canvas>
-                </div>
+                <div id="chartfirstbottom" [style.width.%]="100" [style.height.px]="300"></div>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="card">
               <div class="card-header">
-                Telemetria 4
+               Barometric Pressure
               </div>
               <div class="card-body">
-                <div [hidden]="!chart">
-                  <canvas id="canvas4">{{ chart }}</canvas>
-                </div>
+                <div id="chartsecondbottom" [style.width.%]="100" [style.height.px]="300"></div>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="card">
               <div class="card-header">
-                Telemetria 5
+               Engine Fuel Rate
               </div>
               <div class="card-body">
-                <div [hidden]="!chart">
-                  <canvas id="canvas5">{{ chart }}</canvas>
-                </div>
+                <div id="chartthirdbottom" [style.width.%]="100" [style.height.px]="300"></div>
               </div>
             </div>
           </div>

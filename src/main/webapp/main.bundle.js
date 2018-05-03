@@ -472,6 +472,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_all_auto_all_auto_component__ = __webpack_require__("./src/app/components/all-auto/all-auto.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_all_officine_all_officine_component__ = __webpack_require__("./src/app/components/all-officine/all-officine.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__amcharts_amcharts3_angular__ = __webpack_require__("./node_modules/@amcharts/amcharts3-angular/es2015/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -482,6 +483,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
  // <-- NgModel lives here
+
 
 
 
@@ -563,7 +565,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_7__agm_core__["a" /* AgmCoreModule */].forRoot({
                     apiKey: 'AIzaSyDpcHsNE3KygLr1IibNCgDgWJREv5v1hzc'
                 }),
-                __WEBPACK_IMPORTED_MODULE_32_angular_datatables__["a" /* DataTablesModule */]
+                __WEBPACK_IMPORTED_MODULE_32_angular_datatables__["a" /* DataTablesModule */],
+                __WEBPACK_IMPORTED_MODULE_45__amcharts_amcharts3_angular__["a" /* AmChartsModule */]
             ],
             providers: [__WEBPACK_IMPORTED_MODULE_12__services_login_service__["a" /* LoginService */], __WEBPACK_IMPORTED_MODULE_13__services_officina_service__["a" /* OfficinaService */], __WEBPACK_IMPORTED_MODULE_14__services_auto_service__["a" /* AutoService */], __WEBPACK_IMPORTED_MODULE_20__services_appuntamento_service__["a" /* AppuntamentoService */], __WEBPACK_IMPORTED_MODULE_23__services_clienti_service__["a" /* ClientiService */], __WEBPACK_IMPORTED_MODULE_22__services_preventivo_service__["a" /* PreventivoService */], __WEBPACK_IMPORTED_MODULE_15__services_guasti_service__["a" /* GuastiService */], __WEBPACK_IMPORTED_MODULE_21__services_dispositivi_service__["a" /* DispositiviService */], __WEBPACK_IMPORTED_MODULE_24__services_noleggi_service__["a" /* NoleggiService */], __WEBPACK_IMPORTED_MODULE_25__services_messaggi_service__["a" /* MessaggiService */], __WEBPACK_IMPORTED_MODULE_26__services_scadenzenoleggi_service__["a" /* ScadenzenoleggiService */], __WEBPACK_IMPORTED_MODULE_27__services_scadenze_service__["a" /* ScadenzeService */], __WEBPACK_IMPORTED_MODULE_28__services_telemetria_service__["a" /* TelemetriaService */], { provide: __WEBPACK_IMPORTED_MODULE_43__angular_common__["a" /* APP_BASE_HREF */], useValue: '/' }],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */]],
@@ -1314,6 +1317,8 @@ var HomeOfficinaComponent = /** @class */ (function () {
     };
     HomeOfficinaComponent.prototype.gotoTelemetria = function (auto, idDispositivo) {
         this.telemetriaService.setAuto(auto, idDispositivo);
+        sessionStorage.setItem('auto', JSON.stringify(this.telemetriaService.getAuto()));
+        sessionStorage.setItem('idDispositivo', idDispositivo.toString());
         this.router.navigate(['telemetria']);
     };
     HomeOfficinaComponent = __decorate([
@@ -2147,14 +2152,14 @@ var ScadenzenoleggiComponent = /** @class */ (function () {
 /***/ "./src/app/components/telemetria/telemetria.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "agm-map {\r\n    width: 100%;\r\n    height: 250px;\r\n}"
+module.exports = "agm-map {\r\n    width: 100%;\r\n    height: 250px;\r\n}\r\n\r\n\r\n.amcharts-chart-div>svg>a{display:none !important;}"
 
 /***/ }),
 
 /***/ "./src/app/components/telemetria/telemetria.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- begin:: Page -->\r\n<div class=\"m-grid m-grid--hor m-grid--root m-page\">\r\n  <!-- begin::Body -->\r\n  <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\r\n    <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\r\n      <div class=\"m-content\">\r\n\r\n        <div class=\"row row-flex\">\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\" style=\"min-height: 250px;\">\r\n              <div class=\"card-header\">\r\n                <i class=\"fa fa-automobile\"></i>\r\n               {{auto.marca}} {{auto.modello}}\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <table>\r\n                  <tr>\r\n                    <td>Targa:</td>\r\n                    <td> {{auto.targa}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Telaio:</td>\r\n                    <td> {{auto.numeroTelaio}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Cilindrata:</td>\r\n                    <td> {{auto.cilindrata}} cm\r\n                      <sup>3</sup>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Potenza:</td>\r\n                    <td> {{auto.potenza}} kw </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Alimentazione:</td>\r\n                    <td> {{auto.alimentazione}}</td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\" style=\"min-height: 250px;\">\r\n              <div class=\"card-header\">\r\n                Dati\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <table>\r\n                  <tr>\r\n                    <td>Km:</td>\r\n                    <td>{{km}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza revisione:</td>\r\n                    <td>{{auto.scadenzaRevisione | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza bollo:</td>\r\n                    <td>{{auto.scadenzaBollo | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza tagliando:</td>\r\n                    <td>{{auto.scadenzaTagliando | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\" style=\"margin: 0; padding: 0;\">\r\n                <agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"15\">\r\n                  <agm-marker [latitude]=\"lat\" [longitude]=\"lng\"></agm-marker>\r\n                </agm-map>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"row mt-3\">\r\n          <div class=\"col-md-6\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Telemetria 1\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div [hidden]=\"!chart\">\r\n                  <canvas id=\"canvas\">{{ chart }}</canvas>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-6\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Telemetria 2\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div [hidden]=\"!chart\">\r\n                  <canvas id=\"canvas2\">{{ chart }}</canvas>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"row mt-3 mb-3\">\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Telemetria 3\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div [hidden]=\"!chart\">\r\n                  <canvas id=\"canvas3\">{{ chart }}</canvas>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Telemetria 4\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div [hidden]=\"!chart\">\r\n                  <canvas id=\"canvas4\">{{ chart }}</canvas>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Telemetria 5\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div [hidden]=\"!chart\">\r\n                  <canvas id=\"canvas5\">{{ chart }}</canvas>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<!-- begin:: Page -->\r\n<div class=\"m-grid m-grid--hor m-grid--root m-page\">\r\n  <!-- begin::Body -->\r\n  <div class=\"m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop \tm-container m-container--responsive m-container--xxl m-page__container m-body\">\r\n    <div class=\"m-grid__item m-grid__item--fluid m-wrapper\">\r\n      <div class=\"m-content\">\r\n\r\n        <div class=\"row row-flex\">\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\" style=\"min-height: 250px;\">\r\n              <div class=\"card-header\">\r\n                <i class=\"fa fa-automobile\"></i>\r\n               {{auto.marca}} {{auto.modello}}\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <table>\r\n                  <tr>\r\n                    <td>Targa:</td>\r\n                    <td> {{auto.targa}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Telaio:</td>\r\n                    <td> {{auto.numeroTelaio}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Cilindrata:</td>\r\n                    <td> {{auto.cilindrata}} cm\r\n                      <sup>3</sup>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Potenza:</td>\r\n                    <td> {{auto.potenza}} kw </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Alimentazione:</td>\r\n                    <td> {{auto.alimentazione}}</td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\" style=\"min-height: 250px;\">\r\n              <div class=\"card-header\">\r\n                Dati\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <table>\r\n                  <tr>\r\n                    <td>Km:</td>\r\n                    <td>{{km}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza revisione:</td>\r\n                    <td>{{auto.scadenzaRevisione | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza bollo:</td>\r\n                    <td>{{auto.scadenzaBollo | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td>Scadenza tagliando:</td>\r\n                    <td>{{auto.scadenzaTagliando | date:'dd/MM/yyyy'}}</td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-body\" style=\"margin: 0; padding: 0;\">\r\n                <agm-map [latitude]=\"lat\" [longitude]=\"lng\" [zoom]=\"15\">\r\n                  <agm-marker [latitude]=\"lat\" [longitude]=\"lng\"></agm-marker>\r\n                </agm-map>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\t\t\r\n\t\t\r\n\t\t<!-- ADDING CHARTSW -->\r\n\t\t\r\n\t\t\r\n\t\t        <div class=\"row mt-3\">\r\n          <div class=\"col-md-12\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n              <select class=\"form-control\" id=\"parameter\" [(ngModel)]=\"parametro\" (change)=\"onItemChange(parametro)\">\r\n\t\t\t\t<option selected value=\"0\">Kilometri (km)</option>\r\n\t\t\t\t<option value=\"1\">RPM </option>\t\r\n\t\t\t\t<option value=\"2\">Engine Load </option>\t\r\n\t\t\t\t<option value=\"3\">Coolant Temp </option>\t\t\t\t\t\r\n\t\t\t\t<option value=\"4\">Fuel Pression </option>\r\n\t\t\t\t<option value=\"5\">Intake Map</option>\r\n\t\t\t\t<option value=\"6\">Throttle</option>\r\n\t\t\t  </select>\r\n              </div>\r\n              <div class=\"card-body\">\r\n               <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"400\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\t\t  <div class=\"col-md-12\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n              temperature_coolant/engine_oil_temperature\r\n              </div>\r\n              <div class=\"card-body\">\r\n               <div id=\"tempchart\" [style.width.%]=\"100\" [style.height.px]=\"400\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\t\t  </div>\r\n\t\t<!-- ENDING CHART -->\r\n\t\t\r\n\t\r\n        <div class=\"row mt-3 mb-3\">\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n                Engine Oil Temperature\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div id=\"chartfirstbottom\" [style.width.%]=\"100\" [style.height.px]=\"300\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n               Barometric Pressure\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div id=\"chartsecondbottom\" [style.width.%]=\"100\" [style.height.px]=\"300\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-header\">\r\n               Engine Fuel Rate\r\n              </div>\r\n              <div class=\"card-body\">\r\n                <div id=\"chartthirdbottom\" [style.width.%]=\"100\" [style.height.px]=\"300\"></div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -2168,6 +2173,7 @@ module.exports = "<!-- begin:: Page -->\r\n<div class=\"m-grid m-grid--hor m-gri
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_chart_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_telemetria_service__ = __webpack_require__("./src/app/services/telemetria.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__ = __webpack_require__("./node_modules/@amcharts/amcharts3-angular/es2015/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2181,21 +2187,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var TelemetriaComponent = /** @class */ (function () {
-    function TelemetriaComponent(router, route, telemetriaService) {
+    function TelemetriaComponent(router, route, telemetriaService, AmCharts) {
         this.router = router;
         this.route = route;
         this.telemetriaService = telemetriaService;
+        this.AmCharts = AmCharts;
         this.chart = [];
         this.kmarray = [];
+        this.engine_oil_temperature = [];
+        this.temperature_coolant = [];
+        this.temp_array = []; //array di oggetti {data,engine_oil_temperature,temperature_coolant}
+        this.test = '';
+        this.parametro = 0; //parametro selezione dati da visualizzare in grafico a sinistra
+        this.rpm_array = [];
+        this.engine_load_array = [];
+        this.coolant_temp_array = [];
+        this.fuel_pressure_array = [];
+        this.intake_map_array = [];
+        this.throttle_position_array = [];
+        this.engine_oil_temperature_array = [];
+        this.barometric_pressure_array = [];
+        this.engine_fuel_rate_array = [];
     }
     TelemetriaComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
-        this.auto = this.telemetriaService.getAuto();
-        this.idDispositivo = this.telemetriaService.getIdDispositivo();
-        console.log(this.auto);
-        console.log(this.idDispositivo);
+        /*	this.auto=this.telemetriaService.getAuto();
+            this.idDispositivo =this.telemetriaService.getIdDispositivo();
+        */
+        this.auto = JSON.parse(sessionStorage.getItem('auto'));
+        this.idDispositivo = sessionStorage.getItem('idDispositivo');
+        console.log("IIIII: " + JSON.parse(sessionStorage.getItem('auto')).marca);
         this.telemetriaService.getTelemetria(this.idDispositivo)
             .subscribe(function (response) {
             _this.km = response.datiTelemetria.km;
@@ -2205,25 +2229,346 @@ var TelemetriaComponent = /** @class */ (function () {
         this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
             .subscribe(function (response) {
             _this.telemetria = response;
-            for (var i = 0; i < _this.telemetria.length; i++) {
-                _this.kmarray.push(_this.telemetria[i].datiTelemetria.km);
+            //this.test+='[';
+            for (var i = _this.telemetria.length - 1; i >= 0; i--) {
+                _this.kmarray.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.km });
+                _this.temp_array.push({ "timestamp": _this.telemetria[i].data, "engine_oil_temperature": _this.telemetria[i].datiTelemetria.engine_oil_temperature, "temperature_coolant": _this.telemetria[i].datiTelemetria.temperature_coolant });
+                _this.rpm_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.rpm });
+                _this.engine_load_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.calculated_engine_load });
+                _this.coolant_temp_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.temperature_coolant });
+                _this.fuel_pressure_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.fuel_pressure });
+                _this.intake_map_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.intake_map });
+                _this.throttle_position_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.throttle_position });
+                _this.engine_oil_temperature_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.engine_oil_temperature });
+                _this.barometric_pressure_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.barometric_pressure });
+                _this.engine_fuel_rate_array.push({ "timestamp": _this.telemetria[i].data, "value": _this.telemetria[i].datiTelemetria.engine_fuel_rate });
             }
-            _this.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js__["Chart"]('canvas', {
+            _this.amchart = _this.AmCharts.makeChart("chartdiv", {
+                "type": "serial",
+                "theme": "light",
+                "legend": {
+                    "useGraphSettings": true
+                },
+                "mouseWheelZoomEnabled": true,
+                "dataProvider": _this.kmarray,
+                "synchronizeGrid": true,
+                "valueAxes": [{
+                        "id": "v1",
+                        "axisColor": "#FF6600",
+                        "axisThickness": 2,
+                        "axisAlpha": 1,
+                        "position": "left"
+                    }],
+                "graphs": [{
+                        "valueAxis": "v1",
+                        "lineColor": "#FF6600",
+                        "balloonText": "[[value]]",
+                        "bullet": "round",
+                        "bulletBorderThickness": 1,
+                        "hideBulletsCount": 30,
+                        "title": "Km",
+                        "valueField": "value",
+                        "fillAlphas": 0,
+                        "balloon": {
+                            "drop": true
+                        }
+                    }],
+                "chartScrollbar": {
+                    "autoGridCount": true,
+                    "graph": "v1",
+                    "scrollbarHeight": 40
+                },
+                "chartCursor": {
+                    "limitToGraph": "v1"
+                },
+                "categoryField": "timestamp",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "minPeriod": "fff"
+                }
+            });
+            _this.tempchart = _this.AmCharts.makeChart("tempchart", {
+                "type": "serial",
+                "theme": "light",
+                "legend": {
+                    "useGraphSettings": true
+                },
+                "mouseWheelZoomEnabled": true,
+                "dataProvider": _this.temp_array,
+                "synchronizeGrid": true,
+                "valueAxes": [{
+                        "id": "v1",
+                        "axisColor": "#FF6600",
+                        "axisThickness": 2,
+                        "axisAlpha": 1,
+                        "position": "left"
+                    },
+                    {
+                        "id": "v2",
+                        "axisColor": "#B0DE09",
+                        "axisThickness": 2,
+                        "gridAlpha": 0,
+                        "offset": 50,
+                        "axisAlpha": 1,
+                        "position": "left"
+                    }],
+                "graphs": [{
+                        "valueAxis": "v1",
+                        "lineColor": "#FF6600",
+                        "balloonText": "[[engine_oil_temperature]]",
+                        "bullet": "round",
+                        "bulletBorderThickness": 1,
+                        "hideBulletsCount": 30,
+                        "title": "engine_oil_temperature",
+                        "valueField": "engine_oil_temperature",
+                        "fillAlphas": 0,
+                        "balloon": {
+                            "drop": true
+                        }
+                    },
+                    {
+                        "valueAxis": "v2",
+                        "lineColor": "#B0DE09",
+                        "balloonText": "[[temperature_coolant]]",
+                        "bullet": "triangleUp",
+                        "bulletBorderThickness": 1,
+                        "hideBulletsCount": 30,
+                        "title": "temperature_coolant",
+                        "valueField": "temperature_coolant",
+                        "fillAlphas": 0,
+                        "balloon": {
+                            "drop": true
+                        }
+                    }],
+                "chartScrollbar": {
+                    "autoGridCount": true,
+                    "graph": "v1",
+                    "scrollbarHeight": 40
+                },
+                "chartCursor": {
+                    "limitToGraph": "v1"
+                },
+                "categoryField": "timestamp",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "minPeriod": "fff"
+                }
+            });
+            _this.first_bottom_chart = _this.AmCharts.makeChart("chartfirstbottom", {
+                "type": "serial",
+                "theme": "light",
+                "legend": {
+                    "useGraphSettings": true
+                },
+                "mouseWheelZoomEnabled": true,
+                "dataProvider": _this.engine_oil_temperature_array,
+                "synchronizeGrid": true,
+                "valueAxes": [{
+                        "id": "v1",
+                        "axisColor": "#FF6600",
+                        "axisThickness": 2,
+                        "axisAlpha": 1,
+                        "position": "left"
+                    }],
+                "graphs": [{
+                        "valueAxis": "v1",
+                        "lineColor": "#FF6600",
+                        "balloonText": "[[value]]",
+                        "bullet": "round",
+                        "bulletBorderThickness": 1,
+                        "hideBulletsCount": 30,
+                        "title": "Engine Oil Temperature",
+                        "valueField": "value",
+                        "fillAlphas": 0,
+                        "balloon": {
+                            "drop": true
+                        }
+                    }],
+                "chartScrollbar": {
+                    "autoGridCount": true,
+                    "graph": "v1",
+                    "scrollbarHeight": 40
+                },
+                "chartCursor": {
+                    "limitToGraph": "v1"
+                },
+                "categoryField": "timestamp",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "minPeriod": "fff"
+                }
+            });
+            _this.second_bottom_chart = _this.AmCharts.makeChart("chartsecondbottom", {
+                "type": "serial",
+                "theme": "light",
+                "legend": {
+                    "useGraphSettings": true
+                },
+                "mouseWheelZoomEnabled": true,
+                "dataProvider": _this.barometric_pressure_array,
+                "synchronizeGrid": true,
+                "valueAxes": [{
+                        "id": "v1",
+                        "axisColor": "#FF6600",
+                        "axisThickness": 2,
+                        "axisAlpha": 1,
+                        "position": "left"
+                    }],
+                "graphs": [{
+                        "valueAxis": "v1",
+                        "lineColor": "#FF6600",
+                        "balloonText": "[[value]]",
+                        "bullet": "round",
+                        "bulletBorderThickness": 1,
+                        "hideBulletsCount": 30,
+                        "title": "Barometric Pressure",
+                        "valueField": "value",
+                        "fillAlphas": 0,
+                        "balloon": {
+                            "drop": true
+                        }
+                    }],
+                "chartScrollbar": {
+                    "autoGridCount": true,
+                    "graph": "v1",
+                    "scrollbarHeight": 40
+                },
+                "chartCursor": {
+                    "limitToGraph": "v1"
+                },
+                "categoryField": "timestamp",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "minPeriod": "fff"
+                }
+            });
+            _this.third_bottom_chart = _this.AmCharts.makeChart("chartthirdbottom", {
+                "type": "serial",
+                "theme": "light",
+                "legend": {
+                    "useGraphSettings": true
+                },
+                "mouseWheelZoomEnabled": true,
+                "dataProvider": _this.engine_fuel_rate_array,
+                "synchronizeGrid": true,
+                "valueAxes": [{
+                        "id": "v1",
+                        "axisColor": "#FF6600",
+                        "axisThickness": 2,
+                        "axisAlpha": 1,
+                        "position": "left"
+                    }],
+                "graphs": [{
+                        "valueAxis": "v1",
+                        "lineColor": "#FF6600",
+                        "balloonText": "[[value]]",
+                        "bullet": "round",
+                        "bulletBorderThickness": 1,
+                        "hideBulletsCount": 30,
+                        "title": "Engine Fuel Rate",
+                        "valueField": "value",
+                        "fillAlphas": 0,
+                        "balloon": {
+                            "drop": true
+                        }
+                    }],
+                "chartScrollbar": {
+                    "autoGridCount": true,
+                    "graph": "v1",
+                    "scrollbarHeight": 40
+                },
+                "chartCursor": {
+                    "limitToGraph": "v1"
+                },
+                "categoryField": "timestamp",
+                "categoryAxis": {
+                    "parseDates": true,
+                    "minPeriod": "fff"
+                }
+            });
+            //this.tempchart.addListener("dataUpdated", this.zoomChart);
+            _this.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js__["Chart"]('canvas3', {
                 type: 'line',
                 data: {
-                    labels: ["1", "2", "3", "4", "5"],
+                    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                     datasets: [
                         {
-                            data: _this.kmarray,
+                            label: "Relax",
+                            data: [0, 0, 0, 0, 1, 3, 5],
                             borderColor: "#3cba9f",
-                            fill: false,
-                            lineTension: 0
+                            fill: true
                         },
                         {
-                            data: [5, 2, 5, 3, 4],
+                            label: "Enojy",
+                            data: [0, 0, 0, 0, 0, 6, 0],
                             borderColor: "#5566ff",
-                            fill: false,
-                            lineTension: 0
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                                display: true
+                            }],
+                        yAxes: [{
+                                display: true
+                            }],
+                    }
+                }
+            });
+            _this.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js__["Chart"]('canvas4', {
+                type: 'line',
+                data: {
+                    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                    datasets: [
+                        {
+                            label: "Relax",
+                            data: [0, 0, 0, 0, 1, 3, 5],
+                            borderColor: "#3cba9f",
+                            fill: true
+                        },
+                        {
+                            label: "Enojy",
+                            data: [0, 0, 0, 0, 0, 6, 0],
+                            borderColor: "#5566ff",
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                                display: true
+                            }],
+                        yAxes: [{
+                                display: true
+                            }],
+                    }
+                }
+            });
+            _this.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js__["Chart"]('canvas5', {
+                type: 'line',
+                data: {
+                    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                    datasets: [
+                        {
+                            label: "Relax",
+                            data: [0, 0, 0, 0, 1, 3, 5],
+                            borderColor: "#3cba9f",
+                            fill: true
+                        },
+                        {
+                            label: "Enojy",
+                            data: [0, 0, 0, 0, 0, 6, 0],
+                            borderColor: "#5566ff",
+                            fill: true
                         }
                     ]
                 },
@@ -2242,133 +2587,36 @@ var TelemetriaComponent = /** @class */ (function () {
                 }
             });
         });
-        ;
-        this.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js__["Chart"]('canvas2', {
-            type: 'line',
-            data: {
-                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-                datasets: [
-                    {
-                        data: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                        borderColor: "#3cba9f",
-                        fill: true,
-                        lineTension: 0,
-                    },
-                ]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [{
-                            display: true
-                        }],
-                    yAxes: [{
-                            display: true
-                        }],
-                }
-            }
-        });
-        this.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js__["Chart"]('canvas3', {
-            type: 'line',
-            data: {
-                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                datasets: [
-                    {
-                        label: "Relax",
-                        data: [0, 0, 0, 0, 1, 3, 5],
-                        borderColor: "#3cba9f",
-                        fill: true
-                    },
-                    {
-                        label: "Enojy",
-                        data: [0, 0, 0, 0, 0, 6, 0],
-                        borderColor: "#5566ff",
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [{
-                            display: true
-                        }],
-                    yAxes: [{
-                            display: true
-                        }],
-                }
-            }
-        });
-        this.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js__["Chart"]('canvas4', {
-            type: 'line',
-            data: {
-                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                datasets: [
-                    {
-                        label: "Relax",
-                        data: [0, 0, 0, 0, 1, 3, 5],
-                        borderColor: "#3cba9f",
-                        fill: true
-                    },
-                    {
-                        label: "Enojy",
-                        data: [0, 0, 0, 0, 0, 6, 0],
-                        borderColor: "#5566ff",
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [{
-                            display: true
-                        }],
-                    yAxes: [{
-                            display: true
-                        }],
-                }
-            }
-        });
-        this.chart = new __WEBPACK_IMPORTED_MODULE_1_chart_js__["Chart"]('canvas5', {
-            type: 'line',
-            data: {
-                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-                datasets: [
-                    {
-                        label: "Relax",
-                        data: [0, 0, 0, 0, 1, 3, 5],
-                        borderColor: "#3cba9f",
-                        fill: true
-                    },
-                    {
-                        label: "Enojy",
-                        data: [0, 0, 0, 0, 0, 6, 0],
-                        borderColor: "#5566ff",
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [{
-                            display: true
-                        }],
-                    yAxes: [{
-                            display: true
-                        }],
-                }
-            }
-        });
+    };
+    /* zoomChart(){
+        if(this.tempchart)
+      this.tempchart.zoomToIndexes(this.tempchart.dataProvider.length - 20, this.tempchart.dataProvider.length - 1);
+  }*/
+    /*FUNCTION TO CHANGE DATA IN GRAFICO*/
+    TelemetriaComponent.prototype.onItemChange = function (event) {
+        if (event == 0)
+            this.amchart.dataProvider = this.kmarray;
+        else if (event == 1)
+            this.amchart.dataProvider = this.rpm_array;
+        else if (event == 2)
+            this.amchart.dataProvider = this.engine_load_array;
+        else if (event == 3)
+            this.amchart.dataProvider = this.coolant_temp_array;
+        else if (event == 4)
+            this.amchart.dataProvider = this.fuel_pressure_array;
+        else if (event == 5)
+            this.amchart.dataProvider = this.intake_map_array;
+        else if (event == 6)
+            this.amchart.dataProvider = this.throttle_position_array;
+        this.amchart.validateData();
+    };
+    TelemetriaComponent.prototype.ngOnDestroy = function () {
+        if (this.amchart) {
+            this.AmCharts.destroyChart(this.amchart);
+        }
+        if (this.tempchart) {
+            this.AmCharts.destroyChart(this.tempchart);
+        }
     };
     TelemetriaComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
@@ -2376,7 +2624,7 @@ var TelemetriaComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/components/telemetria/telemetria.component.html"),
             styles: [__webpack_require__("./src/app/components/telemetria/telemetria.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_3__services_telemetria_service__["a" /* TelemetriaService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_3__services_telemetria_service__["a" /* TelemetriaService */], __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */]])
     ], TelemetriaComponent);
     return TelemetriaComponent;
 }());
