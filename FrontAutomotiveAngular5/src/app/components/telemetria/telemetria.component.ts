@@ -47,7 +47,8 @@ throttle_position_array=[];
 engine_oil_temperature_array=[];
 barometric_pressure_array= [];
 engine_fuel_rate_array= [];
-
+lastTelemetria;
+showparameter=0; //What parameter to display
   constructor(private router: Router, private route: ActivatedRoute, private telemetriaService:TelemetriaService,private AmCharts: AmChartsService) { }
 
  
@@ -64,9 +65,11 @@ this.idDispositivo=sessionStorage.getItem('idDispositivo');
     this.telemetriaService.getTelemetria(this.idDispositivo)
       .subscribe(
         response => {
+			this.lastTelemetria=response.datiTelemetria;
 		this.km =response.datiTelemetria.km;	
         this.lat  = response.datiTelemetria.latitudine;
 		this.lng  = response.datiTelemetria.longitudine;
+		
         }
       );
   
@@ -476,6 +479,11 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 	
 	this.amchart.validateData();
   }
+  changeTab(id){
+	  this.showparameter=id;
+  }
+
+  
 ngOnDestroy() {
     if (this.amchart) {
       this.AmCharts.destroyChart(this.amchart);
