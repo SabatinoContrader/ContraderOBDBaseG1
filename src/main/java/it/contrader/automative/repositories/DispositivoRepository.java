@@ -19,6 +19,8 @@ public interface DispositivoRepository extends CrudRepository<Dispositivo, Long>
 	
 	Dispositivo findByAuto(Auto a);
 	
+	Dispositivo findByCodice(String a);
+	
 	List<Dispositivo> findByOfficina(Officina o);
 	
 	List<Dispositivo> findAll();

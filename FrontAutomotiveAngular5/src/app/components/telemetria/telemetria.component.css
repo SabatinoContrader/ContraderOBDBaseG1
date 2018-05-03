@@ -2,3 +2,23 @@ agm-map {
     width: 100%;
     height: 250px;
 }
+
+
+.amcharts-chart-div>svg>a{display:none !important;}
+.toprow{margin-top:50px;margin-left:5%;margin-right:5%;}
+.card-deck{width:100%;margin:auto;}
+.bg-tab{background-color:#99bee6 !important;}
+#row00{margin-top:20px;}
+.container>.row>.col-sm-4>.card{
+	    text-align: center;
+    font-weight: bold;
+	margin-top:20px;
+}
+.container>.row>.col-sm-4>.card>.card-header{font-size:16px;}
+.container>.row>.col-sm-4>.card>.card-body,.container>.row>.col-sm-4>.card>.card-footer{font-size:24px;}
+.container>.row>.col-sm-4>.card>.card-footer{
+background-color: transparent;
+    border-top: none;
+    color: #a2a2a2;
+	
+}

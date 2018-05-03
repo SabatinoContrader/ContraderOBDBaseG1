@@ -3,16 +3,10 @@ package it.contrader.automative.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +22,6 @@ import it.contrader.automative.model.MessaggioTicket;
 import it.contrader.automative.model.Noleggio;
 import it.contrader.automative.model.Officina;
 import it.contrader.automative.model.Preventivo;
-import it.contrader.automative.model.Telemetria;
 import it.contrader.automative.model.Ticket;
 import it.contrader.automative.model.Utente;
 import it.contrader.automative.repositories.AppuntamentoRepository;
@@ -40,18 +33,17 @@ import it.contrader.automative.repositories.MessaggioTicketRepository;
 import it.contrader.automative.repositories.NoleggioRepository;
 import it.contrader.automative.repositories.OfficinaRepository;
 import it.contrader.automative.repositories.PreventivoRepository;
-import it.contrader.automative.repositories.UtenteRepository;
 import it.contrader.automative.repositories.TicketRepository;
+import it.contrader.automative.repositories.UtenteRepository;
 import it.contrader.automative.serviceInterfaces.IAppuntamento;
 import it.contrader.automative.serviceInterfaces.IAuto;
+import it.contrader.automative.serviceInterfaces.IAzienda;
 import it.contrader.automative.serviceInterfaces.IDispositivo;
 import it.contrader.automative.serviceInterfaces.IMessaggioTicket;
 import it.contrader.automative.serviceInterfaces.INoleggio;
 import it.contrader.automative.serviceInterfaces.IPreventivo;
 import it.contrader.automative.serviceInterfaces.IUtente;
-import it.contrader.automative.serviceInterfaces.IAzienda;
 import it.contrader.automative.utils.Alerts;
-import it.contrader.automative.utils.AutoLocation;
 import it.contrader.automative.utils.AutoScadenze;
 import it.contrader.automative.utils.GenericResponse;
 import it.contrader.automative.utils.LogInUtente;
@@ -61,7 +53,7 @@ import it.contrader.automative.utils.TicketDTO;
 
 @RestController
 @CrossOrigin(value = "*")
-// @RequestMapping("/login")
+//@RequestMapping("/automotive")
 public class Controller {
 
 	private IUtente IUtente;
@@ -121,6 +113,7 @@ public class Controller {
 	// '?' : Saltato per ora
 	// '?!' : Saltato per ora ma dovrebbe funzionare
 
+	
 	// + Conta tutte le auto
 	@RequestMapping(value = "/countAllAuto", method = RequestMethod.POST)
 	public int countAllAuto() {
@@ -987,7 +980,7 @@ public class Controller {
 
 	}
 
-	// ?! Inserimento Utente Amministratore Azienda (colui che controllerà l'account
+	// ?! Inserimento Utente Amministratore Azienda (colui che controllerï¿½ l'account
 	// aziendale)
 	@RequestMapping(value = "/inserisciUtenteAzienda", method = RequestMethod.POST)
 	public void inserisciUtenteAzienda(@RequestParam("idAzienda") int idAzienda,
@@ -1177,7 +1170,7 @@ public class Controller {
 
 		List<Auto> lista = new ArrayList();
 
-		// Auto non noleggiabili (già a noleggio)
+		// Auto non noleggiabili (giï¿½ a noleggio)
 
 		List<Noleggio> tempNoleggiate = noleggioRepository.findByOfficina(officinaRepository.findById(idOfficina));
 

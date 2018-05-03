@@ -85,6 +85,21 @@ export class HomeOfficinaComponent implements OnInit {
 		console.log(response.statoAuto);
 
 		swal("Complimenti", "Auto inserita correttamente", "success");
+this.marcaautoadd=null;
+this.modelloautoadd=null;
+this.targaautoadd=null;
+this.telaioautoadd=null;
+this.cilindrataautoadd=null;
+this.tipologiaautoadd=null;
+this.alimentazioneautoadd=null;
+this.numeroporteautoadd=null;
+this.kmattualiautoadd=null;
+this.cambio=null;
+this.potenza=null;
+this.scadenzaAssicurazioneadd=null;
+this.scadenzaBolloadd=null;
+this.scadenzaTagliandoadd=null;
+this.scadenzaRevisioneadd=null;
 
            $('#modaladdauto').modal("hide");
 
@@ -100,6 +115,9 @@ export class HomeOfficinaComponent implements OnInit {
 
 gotoTelemetria(auto:Auto,idDispositivo:number): void {
 	this.telemetriaService.setAuto(auto,idDispositivo);
+	sessionStorage.setItem('auto', JSON.stringify(this.telemetriaService.getAuto()));
+	sessionStorage.setItem('idDispositivo', idDispositivo.toString());
+	
 	this.router.navigate(['telemetria']);
 }
 

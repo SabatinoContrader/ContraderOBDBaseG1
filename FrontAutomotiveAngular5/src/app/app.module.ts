@@ -44,7 +44,7 @@ import { HomeAdminComponent } from './components/home-admin/home-admin.component
 import { AllAutoComponent } from './components/all-auto/all-auto.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { AllOfficineComponent } from './components/all-officine/all-officine.component';
-
+import { AmChartsModule } from "@amcharts/amcharts3-angular";
 
 @NgModule({
   declarations: [
@@ -83,7 +83,8 @@ import { AllOfficineComponent } from './components/all-officine/all-officine.com
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDpcHsNE3KygLr1IibNCgDgWJREv5v1hzc'
     }),
-    DataTablesModule
+    DataTablesModule,
+	 AmChartsModule
   ],
 
   providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService,TelemetriaService, { provide: APP_BASE_HREF, useValue : '/' }],

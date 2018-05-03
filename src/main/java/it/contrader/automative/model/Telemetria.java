@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "telemetria", indexes = {@Index(columnList = "iddispositivo, iddatitelemetria")})
+@Table(name = "telemetria", indexes = {@Index(columnList = "iddispositivo, iddatitelemetria, decimazione")})
 public class Telemetria implements Serializable {
 
 	@Id
@@ -42,4 +42,7 @@ public class Telemetria implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "iddatitelemetria")
 	private DatiTelemetria datiTelemetria;
+	
+	@Column
+	private int decimazione;
 }

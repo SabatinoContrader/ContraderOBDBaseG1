@@ -44,6 +44,11 @@ listaClienti:any;
       (response) => {
 		 this.getListaClienti();
       swal("Complimenti", "Cliente inserito correttamente", "success");
+this.nomecliente=null;
+this.cognomecliente=null;
+this.emailcliente=null;
+this.passwordcliente=null;
+this.telefonocliente=null;
 
            $('#modaladdcliente').modal("hide");
       

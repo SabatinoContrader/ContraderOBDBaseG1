@@ -81,7 +81,7 @@ clickedMarker(label: string, infoWindow, marker, index: number) {
       (response) => {
 		 this.getListaDispositivi();
       swal("Complimenti", "Dispositivo inserito correttamente", "success");
-
+this.codice=null;
            $('#modaladddispositivo').modal("hide");
       
       },
