@@ -3,6 +3,7 @@ package it.contrader.automative.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,7 +47,8 @@ public class TelemetriaController {
 	@Autowired
 	public TelemetriaController(AutoRepository autoRepository, OfficinaRepository officinaRepository,
 			IDatiTelemetria IDatiTelemetria, IDispositivo IDispositivo, ITelemetria ITelemetria,
-			DispositivoRepository dispositivoRepository, TelemetriaRepository telemetriaRepository, IDatiDispositivo IDatiDispositivo) {
+			DispositivoRepository dispositivoRepository, TelemetriaRepository telemetriaRepository,
+			IDatiDispositivo IDatiDispositivo) {
 
 		this.IDispositivo = IDispositivo;
 		this.ITelemetria = ITelemetria;
@@ -175,47 +177,95 @@ public class TelemetriaController {
 
 	}
 
-	
 	@RequestMapping(value = "/inviaTelemetria", method = RequestMethod.POST)
 	public int inviaTelemetria(@RequestParam("telemetria") String dati) {
 
 		Telemetria telemetria = new Telemetria();
-		
+
 		try {
 			telemetria = IDatiDispositivo.getTelemetria(dati);
-			
+
 			IDatiTelemetria.insert(telemetria.getDatiTelemetria());
 			ITelemetria.insert(telemetria);
-		} catch(Exception e){ 
+		} catch (Exception e) {
 			System.out.println("Invio Telemetria Fallito!");
-			return 0; 
-			}
-		
-		
-		
-		if(telemetria == null) return 0;
-		else return 1;
+			return 0;
+		}
+
+		if (telemetria == null)
+			return 0;
+		else
+			return 1;
 	}
-	
+
 	@RequestMapping(value = "/riceviFinestra", method = RequestMethod.POST)
-	public List<Telemetria> riceviFinestra(@RequestParam("dataInizio") String dataInizio, @RequestParam("dataFine") String dataFine, @RequestParam("idDispositivo") int idDispositivo){
-		
+	public List<Telemetria> riceviFinestra(@RequestParam("dataInizio") String dataInizio,
+			@RequestParam("dataFine") String dataFine, @RequestParam("idDispositivo") int idDispositivo) {
+
 		List<Telemetria> lista = new ArrayList();
-		
+
 		int decimazioneInizio = telemetriaRepository.primoDellaFinestra(dataInizio, dataFine, idDispositivo);
 		int decimazioneFine = telemetriaRepository.ultimoDellaFinestra(dataInizio, dataFine, idDispositivo);
-		
-		System.out.println("\n\nDecimazione Inizio: "+decimazioneInizio+"\nDecimazione Fine: "+decimazioneFine+"\n\n");
-		
+
+		System.out.println(
+				"\n\nDecimazione Inizio: " + decimazioneInizio + "\nDecimazione Fine: " + decimazioneFine + "\n\n");
+
 		int numeroDati = (decimazioneFine - decimazioneInizio) + 1;
-		
-		for(int i = 0; i<numeroDati; i++) 
-		{
+
+		for (int i = 0; i < numeroDati; i++) {
 			lista.add(telemetriaRepository.ritornaDatoDecimazione(decimazioneInizio, idDispositivo));
-			decimazioneInizio ++;
+			decimazioneInizio++;
 		}
-		
+
 		return lista;
 	}
-	
+
+	@RequestMapping(value = "/telemetriaDecimata", method = RequestMethod.POST)
+	public List<Telemetria> TelemetriaDecimata(@RequestParam("inizio") String inizio, @RequestParam("fine") String fine,
+			@RequestParam("id") int id) {
+
+		int dec_rate;
+		double dec_rest;
+		int max_data = 100; // Numero di dati richiesti nell'intervallo
+
+		int start = telemetriaRepository.primoDellaFinestra(inizio, fine, id);
+		int stop = telemetriaRepository.ultimoDellaFinestra(inizio, fine, id);
+
+		List<Integer> n_array = new ArrayList<Integer>();
+
+		int total_data = stop - start;
+
+		dec_rate = total_data / (max_data - 1);
+		int rest = total_data % (max_data - 1);
+		dec_rest = (double) rest / (max_data - 1);
+
+		int next = start;
+		double resto = 0;
+
+		for (int i = 0; i < max_data; i++) {
+			if (i == max_data - 1) {
+				n_array.add(stop);
+			} else {
+				n_array.add(next);
+				resto = resto + dec_rest;
+				if (resto >= 1) {
+					next = next + dec_rate + 1;
+					resto = resto - 1;
+				} else {
+					next = next + dec_rate;
+				}
+			}
+		}
+
+		List<Telemetria> dati = new ArrayList<Telemetria>();
+
+		for (int decimazione : n_array) {
+			Telemetria telemetria = telemetriaRepository.ritornaDatoDecimazione(decimazione, id);
+			dati.add(telemetria);
+		}
+
+		return dati;
+
+	}
+
 }
