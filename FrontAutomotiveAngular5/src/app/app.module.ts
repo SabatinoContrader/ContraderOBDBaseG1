@@ -46,12 +46,8 @@ import { AllAutoComponent } from './components/all-auto/all-auto.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { AllOfficineComponent } from './components/all-officine/all-officine.component';
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
-import {
-  IMqttMessage,
-  MqttModule,
-  MqttService,
-  IMqttServiceOptions
-} from 'ngx-mqtt';
+import {  IMqttMessage,  MqttModule,  MqttService,  IMqttServiceOptions} from 'ngx-mqtt';
+import { SingolaTelemetriaComponent } from './components/singola-telemetria/singola-telemetria.component';
 
 export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: 'broker.mqttdashboard.com',
@@ -84,7 +80,8 @@ export function mqttServiceFactory() {
     TelemetriaComponent,
     HomeAdminComponent,
     AllAutoComponent,
-    AllOfficineComponent
+    AllOfficineComponent,
+    SingolaTelemetriaComponent
     
   ],
   imports: [

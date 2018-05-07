@@ -1,0 +1,112 @@
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page">
+  <!-- begin::Body -->
+  <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+      <div class="m-content">
+
+        <div class="row row-flex">
+          <div class="col-md-4">
+            <div class="card" style="min-height: 250px;">
+              <div class="card-header">
+                <i class="fa fa-automobile"></i>
+               {{auto.marca}} {{auto.modello}}
+              </div>
+              <div class="card-body">
+                <table>
+                  <tr>
+                    <td>Targa:</td>
+                    <td> {{auto.targa}}</td>
+                  </tr>
+                  <tr>
+                    <td>Telaio:</td>
+                    <td> {{auto.numeroTelaio}}</td>
+                  </tr>
+                  <tr>
+                    <td>Cilindrata:</td>
+                    <td> {{auto.cilindrata}} cm
+                      <sup>3</sup>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Potenza:</td>
+                    <td> {{auto.potenza}} kw </td>
+                  </tr>
+                  <tr>
+                    <td>Alimentazione:</td>
+                    <td> {{auto.alimentazione}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card" style="min-height: 250px;">
+              <div class="card-header">
+                Dati
+              </div>
+              <div class="card-body">
+                <table>
+                  <tr>
+                    <td>Km:</td>
+                    <td>{{km}}</td>
+                  </tr>
+                  <tr>
+                    <td>Scadenza revisione:</td>
+                    <td>{{auto.scadenzaRevisione | date:'dd/MM/yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Scadenza bollo:</td>
+                    <td>{{auto.scadenzaBollo | date:'dd/MM/yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Scadenza tagliando: </td>
+                    <td>{{auto.scadenzaTagliando | date:'dd/MM/yyyy'}}</td>
+                  </tr>
+                </table>
+              </div>
+			  <div class="card-footer">
+			  <button class="btn btn-success" (click)="showGrafici()">Grafici</button>
+			  </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body" style="margin: 0; padding: 0;">
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15">
+                  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
+              </div>
+            </div>
+          </div>
+        </div>
+		
+	
+		<!-- ADDING CHARTSW -->
+		
+		
+		        <div class="row mt-3" >
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+              <select class="form-control" id="parameter" [(ngModel)]="parametro" (change)="onItemChange(parametro)">
+				<option selected value="0">Kilometri (km)</option>
+				<option value="1">RPM </option>	
+				<option value="2">Engine Load </option>	
+				<option value="3">Coolant Temp </option>					
+				<option value="4">Fuel Pression </option>
+				<option value="5">Intake Map</option>
+				<option value="6">Throttle</option>
+			  </select>
+              </div>
+              <div class="card-body">
+               <div id="chartdiv" [style.width.%]="100" [style.height.px]="400"></div>
+              </div>
+            </div>
+          </div>
+		  </div>
+		
+      </div>
+    </div>
+  </div>
+</div>

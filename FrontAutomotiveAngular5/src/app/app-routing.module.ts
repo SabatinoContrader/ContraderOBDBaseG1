@@ -16,6 +16,7 @@ import { MessaggiComponent } from './components/messaggi/messaggi.component';
 import { TelemetriaComponent } from './components/telemetria/telemetria.component';
 import { AllAutoComponent } from './components/all-auto/all-auto.component';
 import { AllOfficineComponent } from './components/all-officine/all-officine.component';
+import { SingolaTelemetriaComponent } from './components/singola-telemetria/singola-telemetria.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'allAuto', component: AllAutoComponent },
   { path: 'allOfficine', component: AllOfficineComponent },
   { path: 'telemetria/:auto/idDispositivo', component: TelemetriaComponent },
+  { path: 'singolatelemetria', component: SingolaTelemetriaComponent },
 ];
 
 

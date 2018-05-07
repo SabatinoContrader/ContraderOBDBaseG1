@@ -33,7 +33,7 @@ export class TelemetriaComponent implements OnInit,OnDestroy {
 	 idDispositivo;
 	 telemetria;
   chart = [];
-  
+  showgrafici=false;
 sub;
 km;
 kmarray = [];
@@ -67,7 +67,7 @@ showparameter=0; //What parameter to display
 	*/
 this.auto=JSON.parse(sessionStorage.getItem('auto'));
 this.idDispositivo=sessionStorage.getItem('idDispositivo');
-	console.log("IIIII: "+JSON.parse(sessionStorage.getItem('auto')).marca);
+
     this.telemetriaService.getTelemetria(this.idDispositivo)
       .subscribe(
         response => {
@@ -116,7 +116,8 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
       );
   });
   }
-/*
+  /*
+
  this.amchart = this.AmCharts.makeChart("chartdiv", {
       "type": "serial",
       "theme": "light",
@@ -162,6 +163,8 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 		
 	}     
     });
+	
+}
 	
 	
 	 this.tempchart = this.AmCharts.makeChart("tempchart", {
@@ -502,9 +505,10 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 	else if(event==6)
 		this.amchart.dataProvider = this.throttle_position_array;
 	
-	this.amchart.validateData();
-  }
-  */
+  }*/
+  
+  
+  
   changeTab(id){
 	  this.showparameter=id;
   }
@@ -515,9 +519,10 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
  
 ngOnDestroy() {
     this.subscription.unsubscribe();
- /*   if (this.amchart) {
+   /* if (this.amchart) {
       this.AmCharts.destroyChart(this.amchart);
-    }
+    }*/
+	/*
 	 if(this.tempchart){
 		  this.AmCharts.destroyChart(this.tempchart);
 	 }
