@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Utente } from '../../models/Utente';
 import { Auto } from '../../models/Auto';
 import { Router, ActivatedRoute  } from '@angular/router';
 import { TelemetriaService } from '../../services/telemetria.service';
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
+import { Subscription } from 'rxjs/Subscription';
+import { IMqttMessage, MqttModule, MqttService, IMqttServiceOptions  } from 'ngx-mqtt';
 declare var jquery: any;
 declare var $: any;
 import swal from 'sweetalert2';
@@ -15,7 +17,9 @@ import swal from 'sweetalert2';
   styleUrls: ['./telemetria.component.css']
 })
 
-export class TelemetriaComponent implements OnInit {
+export class TelemetriaComponent implements OnInit,OnDestroy {
+    private subscription: Subscription;
+    public message: string;
 	private amchart: AmChart;
 	private tempchart: AmChart;
 	private first_bottom_chart: AmChart;
@@ -49,9 +53,11 @@ barometric_pressure_array= [];
 engine_fuel_rate_array= [];
 lastTelemetria;
 showparameter=0; //What parameter to display
-  constructor(private router: Router, private route: ActivatedRoute, private telemetriaService:TelemetriaService,private AmCharts: AmChartsService) { }
+  constructor(private _mqttService: MqttService,private router: Router, private route: ActivatedRoute, private telemetriaService:TelemetriaService,private AmCharts: AmChartsService) { 
+   
+  }
 
- 
+  
   ngOnInit() {
 	  
 	   this.utente = JSON.parse(sessionStorage.getItem("loginEntity")).utente;
@@ -93,7 +99,24 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 	this.barometric_pressure_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.barometric_pressure});
 	this.engine_fuel_rate_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.engine_fuel_rate});
 }	 
+});
 
+ this.subscription = this._mqttService.observe('obd/dispositivi/measures').subscribe((message: IMqttMessage) => {
+        this.message = message.payload.toString();
+        console.log("MESSAGGIO DA MQTT: "+this.message);
+		  this.telemetriaService.getTelemetria(this.idDispositivo)
+      .subscribe(
+        response => {
+			this.lastTelemetria=response.datiTelemetria;
+		this.km =response.datiTelemetria.km;	
+        this.lat  = response.datiTelemetria.latitudine;
+		this.lng  = response.datiTelemetria.longitudine;
+		
+        }
+      );
+  });
+  }
+/*
  this.amchart = this.AmCharts.makeChart("chartdiv", {
       "type": "serial",
       "theme": "light",
@@ -454,6 +477,8 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
       }
     });
   });
+  
+      });
   }
   /* zoomChart(){
 	  if(this.tempchart)
@@ -461,7 +486,7 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 }*/
  
   /*FUNCTION TO CHANGE DATA IN GRAFICO*/
-  onItemChange(event){
+/*  onItemChange(event){
 	  if(event==0)
 	 this.amchart.dataProvider = this.kmarray;
     else if(event==1)
@@ -479,18 +504,23 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 	
 	this.amchart.validateData();
   }
+  */
   changeTab(id){
 	  this.showparameter=id;
   }
 
-  
+  public unsafePublish(topic: string, message: string): void {
+    this._mqttService.unsafePublish(topic, message, {qos: 1, retain: true});
+  }
+ 
 ngOnDestroy() {
-    if (this.amchart) {
+    this.subscription.unsubscribe();
+ /*   if (this.amchart) {
       this.AmCharts.destroyChart(this.amchart);
     }
 	 if(this.tempchart){
 		  this.AmCharts.destroyChart(this.tempchart);
 	 }
-	 
+	*/ 
   }
 }

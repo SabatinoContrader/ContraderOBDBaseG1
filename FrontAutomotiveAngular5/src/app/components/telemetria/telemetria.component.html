@@ -82,64 +82,64 @@
 		<!-- BUTTON LIST TO CHANGE LIST OF PARAMETERS -->
 		<div class="row toprow">
 		<div class="card-deck">
-  <div class="card bg-tab" (click)="changeTab(0);">
+  <div class="card bg-tab" (click)="changeTab(0);" [ngClass]="{'bg-tab-selected':showparameter==0}">
     <div class="card-body text-center">
       <p class="card-text">ALL</p>
     </div>
   </div>
-  <div class="card bg-tab" (click)="changeTab(1);">
+  <div class="card bg-tab" (click)="changeTab(1);" [ngClass]="{'bg-tab-selected':showparameter==1}">
     <div class="card-body text-center">
       <p class="card-text">ENGINE</p>
     </div>
   </div>
-  <div class="card bg-tab" (click)="changeTab(2);">
+  <div class="card bg-tab" (click)="changeTab(2);" [ngClass]="{'bg-tab-selected':showparameter==2}">
     <div class="card-body text-center">
       <p class="card-text">THROTTLE</p>
     </div>
   </div>
-  <div class="card bg-tab" (click)="changeTab(3);">
+  <div class="card bg-tab" (click)="changeTab(3);" [ngClass]="{'bg-tab-selected':showparameter==3}">
     <div class="card-body text-center">
       <p class="card-text">AIR/FUEL</p>
     </div>
   </div>
-  <div class="card bg-tab"(click)="changeTab(4);">
+  <div class="card bg-tab"(click)="changeTab(4);" [ngClass]="{'bg-tab-selected':showparameter==4}">
     <div class="card-body text-center">
       <p class="card-text">EXHAUST</p>
     </div>
   </div>
-  <div class="card bg-tab" (click)="changeTab(5);">
+  <div class="card bg-tab" (click)="changeTab(5);" [ngClass]="{'bg-tab-selected':showparameter==5}">
     <div class="card-body text-center">
       <p class="card-text">TEMPERATURE</p>
     </div>
   </div>
-  <div class="card bg-tab" (click)="changeTab(6);">
+  <!--<div class="card bg-tab" (click)="changeTab(6);" [ngClass]="{'bg-tab-selected':showparameter==6}">
     <div class="card-body text-center">
       <p class="card-text">READINESS</p>
     </div>
-  </div> 
+  </div>--> 
 </div>
 		</div>
 		
 		<!-- END BUTTON LIST TO CHANGE LIST OF PARAMETERS -->
 
 <!-- TAB 0 FOR COMMON LIST-->
-<div class="container" id="container0">
+<div class="container" id="container0" *ngIf="lastTelemetria">
 <div class="row" id="row00">
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==1">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==1">
 <div class="card">
   <div class="card-header">ENGINE RPM</div>
   <div class="card-body">{{lastTelemetria.rpm}}</div> 
   <div class="card-footer">rpm</div>
 </div>
 </div>
-<div class="col-sm-4">
+<div class="col-sm-2" *ngIf="showparameter==0">
 <div class="card">
   <div class="card-header">VEHICLE SPEED</div>
   <div class="card-body">{{lastTelemetria.kmh}}</div> 
   <div class="card-footer">km/h</div>
 </div>
 </div>
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==1">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==1">
 <div class="card">
   <div class="card-header">ABSOLUTE LOAD VALUE</div>
   <div class="card-body">{{lastTelemetria.absolute_load_value}}</div> 
@@ -148,21 +148,21 @@
 </div>
 
 
-<div class="col-sm-4">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==5">
 <div class="card">
   <div class="card-header">ENGINE COOLANT TEMPERATURE</div>
   <div class="card-body">{{lastTelemetria.temperature_coolant}}</div> 
   <div class="card-footer">°c</div>
 </div>
 </div>
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==3">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==3">
 <div class="card">
   <div class="card-header">FUEL PRESSURE</div>
   <div class="card-body">{{lastTelemetria.fuel_pressure}}</div> 
   <div class="card-footer">kPa</div>
 </div>  
 </div>
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==3">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==3">
 <div class="card">
   <div class="card-header">INTAKE MAP</div>
   <div class="card-body">{{lastTelemetria.intake_map}}</div> 
@@ -171,21 +171,21 @@
 </div>
 
 
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==1">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==1">
 <div class="card">
   <div class="card-header">IGNITION TIMING ADVANCE</div>
   <div class="card-body">{{lastTelemetria.ignition_timing_advance}}</div> 
     <div class="card-footer">°</div>
 </div>
 </div>
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==3">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==3 ||showparameter==5">
 <div class="card">
   <div class="card-header">INTAKE TEMPERATURE</div>
   <div class="card-body">{{lastTelemetria.temperature}}</div> 
    <div class="card-footer">°c</div>
 </div>
 </div>
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==1||showparameter==2">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==1||showparameter==2">
 <div class="card">
   <div class="card-header">THROTTLE POSITION</div>
   <div class="card-body">{{lastTelemetria.throuttle_position}}</div> 
@@ -193,21 +193,21 @@
 </div>
 </div>
 
-<div class="col-sm-4">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==4">
 <div class="card">
   <div class="card-header">COMMANDED EGR</div>
   <div class="card-body">{{lastTelemetria.commanded_egr}}</div> 
    <div class="card-footer">%</div>
 </div>
 </div>
-<div class="col-sm-4">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==4">
 <div class="card">
   <div class="card-header">COMMANDED EVAPORATIVE PURGE</div>
   <div class="card-body">{{lastTelemetria.commanded_evaporative_purge}}</div> 
    <div class="card-footer">%</div>
 </div>
 </div>
-<div class="col-sm-4">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==4">
 <div class="card">
   <div class="card-header">EGR ERROR</div>
   <div class="card-body">{{lastTelemetria.egr_error}}</div> 
@@ -215,21 +215,21 @@
 </div>
 </div>
 
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==3">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==3">
 <div class="card">
   <div class="card-header">FUEL LEVEL</div>
   <div class="card-body">{{lastTelemetria.fuel_level_input}}</div> 
    <div class="card-footer">%</div>
 </div>
 </div>
-<div class="col-sm-4">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==4">
 <div class="card">
   <div class="card-header">EVAP SYSTEM VAPOR PESSURE</div>
   <div class="card-body">{{lastTelemetria.evap_system_vapor_pressure}}</div> 
    <div class="card-footer">%</div>
 </div>
 </div>
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==3">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==3">
 <div class="card">
   <div class="card-header">BAROMETRIC PRESSURE</div>
   <div class="card-body">{{lastTelemetria.barometric_pressure}}</div> 
@@ -237,24 +237,126 @@
 </div>
 </div>
 
-<div class="col-sm-4">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==5">
 <div class="card">
   <div class="card-header">CATALYST TEMPERATURE BANK 1</div>
   <div class="card-body">{{lastTelemetria.catalyst_temperature_bank_1}}</div> 
    <div class="card-footer">°c</div>
 </div>
 </div>
-<div class="col-sm-4">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==5">
 <div class="card">
   <div class="card-header">CATALYST TEMPERATURE BANK 2</div>
   <div class="card-body">{{lastTelemetria.catalyst_temperature_bank_2}}</div> 
    <div class="card-footer">°c</div>
 </div>
 </div>
-<div class="col-sm-4" *ngIf="showparameter==0||showparameter==3">
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==3">
 <div class="card">
   <div class="card-header">AIR FUEL EQUIV RATIO</div>
   <div class="card-body">{{lastTelemetria.maf_air_flow_rate}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==2">
+<div class="card">
+  <div class="card-header">RELATIVE THROTTLE POSITION</div>
+  <div class="card-body">{{lastTelemetria.relative_throttle_position}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==5">
+<div class="card">
+  <div class="card-header">AMBIENT AIR TEMPERATURE</div>
+  <div class="card-body">{{lastTelemetria.ambiant_air_temperature}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==2">
+<div class="card">
+  <div class="card-header">ABSOLUTE THROTTLE POSITION</div>
+  <div class="card-body">{{lastTelemetria.absolute_throttle_position_B}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==2">
+<div class="card">
+  <div class="card-header">ABSOLUTE PEDAL POSITION</div>
+  <div class="card-body">{{lastTelemetria.asolute_pedal_position_D}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==2">
+<div class="card">
+  <div class="card-header">ABSOLUTE PEDAL POSITION</div>
+  <div class="card-body">{{lastTelemetria.asolute_pedal_position_E}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==2">
+<div class="card">
+  <div class="card-header">ABSOLUTE PEDAL POSITION</div>
+  <div class="card-body">{{lastTelemetria.asolute_pedal_position_F}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==2">
+<div class="card">
+  <div class="card-header">COMMANDED THROTTLE ATTUATOR</div>
+  <div class="card-body">{{lastTelemetria.commanded_throttle_attuator}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==3">
+<div class="card">
+  <div class="card-header">ETHANOL FUEL</div>
+  <div class="card-body">{{lastTelemetria.ethanol_fuel}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==4">
+<div class="card">
+  <div class="card-header">FUEL RAIL PRESSURE INJECTION</div>
+  <div class="card-body">{{lastTelemetria.fuel_rail_pressure_injection}}</div> 
+  <div class="card-footer">kPa</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==1||showparameter==5">
+<div class="card">
+  <div class="card-header">ENGINE OIL TEMPERATURE</div>
+  <div class="card-body">{{lastTelemetria.engine_oil_temperature}}</div> 
+  <div class="card-footer">°c</div>
+</div>
+</div>
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==3">
+<div class="card">
+  <div class="card-header">ENGINE FUEL RATE</div>
+  <div class="card-body">{{lastTelemetria.engine_fuel_rate}}</div> 
+  <div class="card-footer">L/h</div>
+</div>
+</div>
+
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==1">
+<div class="card">
+  <div class="card-header">DEMAND ENGINE TORQUE</div>
+  <div class="card-body">{{lastTelemetria.demand_engine_torque}}</div> 
+  <div class="card-footer">%</div>
+</div>
+</div>
+<div class="col-sm-2" *ngIf="showparameter==0||showparameter==1">
+<div class="card">
+  <div class="card-header">ENGINE REFERENCE TORQUE</div>
+  <div class="card-body">{{lastTelemetria.engine_reference_torque}}</div> 
+  <div class="card-footer">Nm</div>
 </div>
 </div>
 </div>
@@ -266,7 +368,7 @@
 		
 		<!-- ADDING CHARTSW -->
 		
-		
+		<!--
 		        <div class="row mt-3">
           <div class="col-md-12">
             <div class="card">
@@ -298,7 +400,7 @@
           </div>
 		  </div>
 		<!-- ENDING CHART -->
-	
+<!--
         <div class="row mt-3 mb-3">
           <div class="col-md-4">
             <div class="card">
@@ -331,7 +433,7 @@
             </div>
           </div>
         </div>
-
+-->
       </div>
     </div>
   </div>

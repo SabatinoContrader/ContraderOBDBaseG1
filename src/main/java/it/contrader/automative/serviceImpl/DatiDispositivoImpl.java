@@ -37,6 +37,8 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 
 	private Telemetria tokenizzazioneStringa(String dati) {
 		
+		if(dati.contains(",")) dati = dati.substring(1, dati.length()); 
+		
 		StringTokenizer Tokenizer = new StringTokenizer(dati, "$");
 		String[] obd_array = new String[Tokenizer.countTokens()];
 		int k = 0;
@@ -74,6 +76,9 @@ public class DatiDispositivoImpl implements IDatiDispositivo {
 		//datiTelemetria.setLongitudine(longitudine);
 		datiTelemetria.setLatitudine(Double.parseDouble(obd_array[3]));
 		datiTelemetria.setLongitudine(Double.parseDouble(obd_array[4]));
+		
+		//Aggiunte Dati
+		datiTelemetria.setKmh(Integer.parseInt(obd_array[15]));
 		
 		datiTelemetria.setRpm(Integer.parseInt(obd_array[14]));
 		datiTelemetria.setThrottle_position(Integer.parseInt(obd_array[19]));	

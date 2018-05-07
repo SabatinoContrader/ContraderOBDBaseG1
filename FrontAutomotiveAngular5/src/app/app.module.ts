@@ -6,6 +6,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { AgmCoreModule } from '@agm/core';
+import { Observable } from 'rxjs/Observable';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -45,6 +46,22 @@ import { AllAutoComponent } from './components/all-auto/all-auto.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { AllOfficineComponent } from './components/all-officine/all-officine.component';
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
+import {
+  IMqttMessage,
+  MqttModule,
+  MqttService,
+  IMqttServiceOptions
+} from 'ngx-mqtt';
+
+export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: 'broker.mqttdashboard.com',
+  port: 8000,
+  path: '/mqtt'
+};
+ 
+export function mqttServiceFactory() {
+  return new MqttService(MQTT_SERVICE_OPTIONS);
+}
 
 @NgModule({
   declarations: [
@@ -84,7 +101,11 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
       apiKey: 'AIzaSyDpcHsNE3KygLr1IibNCgDgWJREv5v1hzc'
     }),
     DataTablesModule,
-	 AmChartsModule
+   AmChartsModule,
+   MqttModule.forRoot({
+    provide: MqttService,
+    useFactory: mqttServiceFactory
+  })
   ],
 
   providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService,TelemetriaService, { provide: APP_BASE_HREF, useValue : '/' }],
