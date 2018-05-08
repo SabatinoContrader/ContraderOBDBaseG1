@@ -108,6 +108,7 @@ this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
 		
         }
       );
+
 	  this.telemetriaService.getUltimeTelemetria(this.idDispositivo)
       .subscribe(
         response => {
@@ -146,7 +147,7 @@ this.onItemChange(this.par);
 });
   });
   
-
+let that =this;
  this.amchart = this.AmCharts.makeChart("chartdiv", {
       "type": "serial",
       "theme": "light",
@@ -197,12 +198,76 @@ this.onItemChange(this.par);
   },
  "listeners": [{
       "event": "zoomed",
-      "method": handleZoom
+      "method": function (event) {
+    let startDate = event.startDate;
+    let endDate = event.endDate;
+	
+	
+
+startDate = AmCharts.formatDate(startDate, "YYYY-MM-DD HH:MM:SS");
+	endDate=AmCharts.formatDate(endDate, "YYYY-MM-DD HH:MM:SS");
+	if(startDate>endDate){
+		var temp= startDate;
+		startDate=endDate;
+		endDate=temp;
+	
+	
+	}
+
+	 that.updateGraph(startDate,endDate,that.idDispositivo);
+	  
+}
+
    }]
     },2000);
 	 this.amchart.dataProvider = this.kmarray;
 	 this.amchart.validateData();
 }
+
+
+
+
+public updateGraph(startDate,endDate,idDispositivo){
+	  this.telemetriaService.getIntervalTelemetrie(startDate,endDate,idDispositivo)
+      .subscribe(
+        response => {
+			
+		this.telemetria = response;
+		//this.test+='[';
+		
+this.kmarray=[];
+this.temp_array=[];	
+this.rpm_array=[];
+this.engine_load_array = [];
+this.coolant_temp_array= [];
+this.fuel_pressure_array=[];
+this.intake_map_array=[];
+this.throttle_position_array=[];
+this.engine_oil_temperature_array=[];
+this.barometric_pressure_array= [];
+this.engine_fuel_rate_array= [];
+			for(var i =this.telemetria.length-1;i>=0;i--){
+			
+	this.kmarray.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.km});
+	this.temp_array.push({"timestamp":this.telemetria[i].data,"engine_oil_temperature":this.telemetria[i].datiTelemetria.engine_oil_temperature,"temperature_coolant":this.telemetria[i].datiTelemetria.temperature_coolant});
+	this.rpm_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.rpm});
+	this.engine_load_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.calculated_engine_load});
+	this.coolant_temp_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.temperature_coolant});
+	this.fuel_pressure_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.fuel_pressure});
+	this.intake_map_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.intake_map});
+	this.throttle_position_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.throttle_position});
+	this.engine_oil_temperature_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.engine_oil_temperature});
+	this.barometric_pressure_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.barometric_pressure});
+	this.engine_fuel_rate_array.push({"timestamp":this.telemetria[i].data,"value":this.telemetria[i].datiTelemetria.engine_fuel_rate});
+
+}
+
+this.onItemChange(this.par);
+});
+}
+
+	 
+
  onItemChange(event){
 	 this.par=event;
 	  if(event==0)
@@ -224,19 +289,20 @@ this.onItemChange(this.par);
    public unsafePublish(topic: string, message: string): void {
     this._mqttService.unsafePublish(topic, message, {qos: 1, retain: true});
   }
-  
-  function handleZoom(event) {
-    var startDate = event.startDate;
-    var endDate = event.endDate;
-	console.log("START: "+AmCharts.formatDate(startDate, "YYYY-MM-DD HH:MM:SS"));
-	console.log("END: "+AmCharts.formatDate(endDate, "YYYY-MM-DD HH:MM:SS"));
-  /*  document.getElementById("startDate").value = AmCharts.formatDate(startDate, "DD/MM/YYYY");
-    document.getElementById("endDate").value = AmCharts.formatDate(endDate, "DD/MM/YYYY");
-*/
-    // as we also want to change graph type depending on the selected period, we call this method
-   // changeGraphType(event);
+  /*	  function handleZoom(event) {
+    let startDate = event.startDate;
+    let endDate = event.endDate;
+startDate = AmCharts.formatDate(startDate, "YYYY-MM-DD HH:MM:SS");
+	endDate=AmCharts.formatDate(endDate, "YYYY-MM-DD HH:MM:SS");
+	 this.updateGraph(startDate,endDate,this.idDispositivo);
+	  
 }
+*/
 
+  
+ 
+
+  
 
 /* 
 ngOnDestroy() {

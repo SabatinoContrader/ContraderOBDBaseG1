@@ -63,20 +63,20 @@ getIdDispositivo(): number{
         catchError(this.handleError("notifiche error", {})))
     );
   }
-/*
+
   getIntervalTelemetrie(inizio:any,fine:any,id:any): Observable<any> {
     var formdata = new FormData();
 	formdata.append("inizio", inizio);
 	formdata.append("fine", fine);
     formdata.append("id", id);
 
-    return this.http.post<any>(`${this.urlBase}ultimeTelemetria`, formdata).pipe(
+    return this.http.post<any>(`${this.urlBase}telemetriaDecimata`, formdata).pipe(
       tap((response) => { console.log("Fetched lista ultime teleemetria");},
         catchError(this.handleError("notifiche error", {})))
     );
   }
   
-  */
+  
   getAutoLocation():Observable<AutoLocation[]> {
     return this.http.post<any>(`${this.urlBase}autoLocation`, null).pipe(
       tap((response) => { console.log("Fetched lista autoLocation");},
