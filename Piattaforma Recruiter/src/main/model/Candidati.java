@@ -2,16 +2,16 @@ package main.model;
 
 public class Candidati {
 
-	public String nome;
-    public String cognome;
+	private String nome;
+    private String cognome;
     private String codice_fiscale;
-    public String indirizzo;
-    public String email;
-    public String telefono;
+    private String indirizzo;
+    private String email;
+    private String telefono;
     
     
     
-    public Candidati(String nome,String cognome,String codice_fiscale,String indirizzo,String email,String telefono ) {
+    public Candidati(String nome,String cognome,String codice_fiscale,String indirizzo,String email,String telefono) {
     	
     	this.nome = nome;
     	this.cognome = cognome;

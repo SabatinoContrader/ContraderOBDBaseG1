@@ -8,7 +8,7 @@ public class Utenti {
 	public String posizione;
 	
 	
-	public Utenti(String nome, String cognome, int id, String poszione) {
+	public Utenti(String nome, String cognome, int id, String posizione) {
 		
 		this.nome = nome;
 		this.cognome = cognome;
