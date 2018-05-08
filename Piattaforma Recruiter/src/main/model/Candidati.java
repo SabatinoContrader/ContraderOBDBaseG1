@@ -11,7 +11,7 @@ public class Candidati {
     
     
     
-    public Candidati(String nome,String cognome,String codice_fiscale,String indirizzo,String email,String telefono ) {
+    public Candidati(String nome,String cognome,String codice_fiscale,String indirizzo,String email,String telefono) {
     	
     	this.nome = nome;
     	this.cognome = cognome;
