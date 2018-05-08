@@ -1,5 +1,6 @@
 package it.contrader.automative.controller;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -228,8 +229,20 @@ public class TelemetriaController {
 		double dec_rest;
 		int max_data = 100; // Numero di dati richiesti nell'intervallo
 
-		int start = telemetriaRepository.primoDellaFinestra(inizio, fine, id);
-		int stop = telemetriaRepository.ultimoDellaFinestra(inizio, fine, id);
+		ResultSet rs = telemetriaRepository.limitiDecimazione(inizio, fine, id);
+		// int start = telemetriaRepository.primoDellaFinestra(inizio, fine, id);
+		// int stop = telemetriaRepository.ultimoDellaFinestra(inizio, fine, id);
+
+		int start = 0;
+		int stop = 0;
+
+		try {
+			if (rs.next()) {
+				start = rs.getInt(0);
+				stop = rs.getInt(1);
+			}
+		} catch (Exception e) {
+		}
 
 		List<Integer> n_array = new ArrayList<Integer>();
 
