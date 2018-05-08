@@ -2,10 +2,10 @@ package main.model;
 
 public class Utenti {
 
-	public String nome;
-    public String cognome;
-	public int id;
-	public String posizione;
+	private String nome;
+    private String cognome;
+	private int id;
+	private String posizione;
 	
 	
 	public Utenti(String nome, String cognome, int id, String poszione) {
