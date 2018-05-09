@@ -49,6 +49,7 @@ import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import {  IMqttMessage,  MqttModule,  MqttService,  IMqttServiceOptions} from 'ngx-mqtt';
 import { SingolaTelemetriaComponent } from './components/singola-telemetria/singola-telemetria.component';
 import { ChartModule } from 'angular-highcharts';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: 'broker.mqttdashboard.com',
@@ -104,7 +105,8 @@ export function mqttServiceFactory() {
     provide: MqttService,
     useFactory: mqttServiceFactory
   }),
-  ChartModule
+  ChartModule,
+   NgxSpinnerModule
   ],
 
   providers: [LoginService, OfficinaService, AutoService, AppuntamentoService, ClientiService, PreventivoService, GuastiService, DispositiviService,NoleggiService,MessaggiService,ScadenzenoleggiService,ScadenzeService,TelemetriaService, { provide: APP_BASE_HREF, useValue : '/' }],
