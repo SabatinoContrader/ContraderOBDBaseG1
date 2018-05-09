@@ -199,7 +199,7 @@ public class TelemetriaController {
 			return 1;
 	}
 
-	@RequestMapping(value = "/riceviFinestra", method = RequestMethod.POST)
+/*	@RequestMapping(value = "/riceviFinestra", method = RequestMethod.POST)
 	public List<Telemetria> riceviFinestra(@RequestParam("dataInizio") String dataInizio,
 			@RequestParam("dataFine") String dataFine, @RequestParam("idDispositivo") int idDispositivo) {
 
@@ -219,7 +219,7 @@ public class TelemetriaController {
 		}
 
 		return lista;
-	}
+	} */
 
 	@RequestMapping(value = "/telemetriaDecimata", method = RequestMethod.POST)
 	public List<Telemetria> TelemetriaDecimata(@RequestParam("inizio") String inizio, @RequestParam("fine") String fine,
