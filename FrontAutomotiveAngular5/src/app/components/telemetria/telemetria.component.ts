@@ -126,6 +126,7 @@ export class TelemetriaComponent implements OnInit, OnDestroy {
 		this._mqttService.unsafePublish(topic, message, { qos: 1, retain: true });
 	}
 
+<<<<<<< HEAD
 	ngOnDestroy() {
 		this.subscription.unsubscribe();
 		/* if (this.amchart) {
@@ -138,3 +139,6 @@ export class TelemetriaComponent implements OnInit, OnDestroy {
 		*/
 	}
 }
+=======
+
+>>>>>>> f571e866d098a099fca190112096050a161b9439

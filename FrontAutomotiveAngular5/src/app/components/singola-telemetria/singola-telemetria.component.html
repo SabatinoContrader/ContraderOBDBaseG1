@@ -89,7 +89,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-              <select class="form-control" id="parameter" [(ngModel)]="parametro" (change)="onItemChange(parametro)">
+              <select class="form-control" id="parameter" [(ngModel)]="parametro" (change)="onItemChange(parametro,0)">
 				<option selected value="0">Kilometri (km)</option>
 				<option value="1">RPM </option>	
 				<option value="2">Engine Load </option>	
@@ -100,7 +100,7 @@
 			  </select>
               </div>
               <div class="card-body">
-               <div id="chartdiv" [style.width.%]="100" [style.height.px]="400"></div>
+              <div [chart]="chart"></div>
               </div>
             </div>
           </div>

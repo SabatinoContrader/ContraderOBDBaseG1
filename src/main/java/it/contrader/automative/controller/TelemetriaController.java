@@ -4,8 +4,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.hibernate.mapping.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -199,7 +201,7 @@ public class TelemetriaController {
 			return 1;
 	}
 
-/*	@RequestMapping(value = "/riceviFinestra", method = RequestMethod.POST)
+/* 	@RequestMapping(value = "/riceviFinestra", method = RequestMethod.POST)
 	public List<Telemetria> riceviFinestra(@RequestParam("dataInizio") String dataInizio,
 			@RequestParam("dataFine") String dataFine, @RequestParam("idDispositivo") int idDispositivo) {
 
@@ -229,20 +231,19 @@ public class TelemetriaController {
 		double dec_rest;
 		int max_data = 100; // Numero di dati richiesti nell'intervallo
 
-		ResultSet rs = telemetriaRepository.limitiDecimazione(inizio, fine, id);
-		// int start = telemetriaRepository.primoDellaFinestra(inizio, fine, id);
-		// int stop = telemetriaRepository.ultimoDellaFinestra(inizio, fine, id);
-
-		int start = 0;
-		int stop = 0;
-
+		int start;
+		int stop;
+		
 		try {
-			if (rs.next()) {
-				start = rs.getInt(0);
-				stop = rs.getInt(1);
-			}
-		} catch (Exception e) {
-		}
+		
+//		Integer[] minmax = telemetriaRepository.limitiDecimazione(inizio, fine, id);
+		 start = telemetriaRepository.primoDellaFinestra(inizio, fine, id);
+		 stop = telemetriaRepository.ultimoDellaFinestra(inizio, fine, id);
+		} catch(Exception e) {return new ArrayList<Telemetria>();}
+		
+		
+//		Integer start = minmax[0];
+//		Integer stop = minmax[1];
 
 		List<Integer> n_array = new ArrayList<Integer>();
 
