@@ -192,15 +192,15 @@ loading:{
 	     else if(event==1)
 		this.initChart(this.rpm_array);
 	else if(event==2)
-		this.initChart(this.engine_load_array;
+		this.initChart(this.engine_load_array);
 	else if(event==3)
-		this.initChart(this.coolant_temp_array;
+		this.initChart(this.coolant_temp_array);
 	else if(event==4)
-		this.initChart(this.fuel_pressure_array;
+		this.initChart(this.fuel_pressure_array);
 	else if(event==5)
-		this.initChart(this.intake_map_array;
+		this.initChart(this.intake_map_array);
 	else if(event==6)
-		this.initChart(this.throttle_position_array;
+		this.initChart(this.throttle_position_array);
 
   }
 getUltimeTelemetrie(tipo=1){
