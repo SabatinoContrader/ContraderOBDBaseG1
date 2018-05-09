@@ -42,6 +42,9 @@ public interface TelemetriaRepository extends CrudRepository<Telemetria, Long>{
 	@Query (value = "select * from telemetria where decimazione = ?1 && iddispositivo = ?2 limit 1", nativeQuery = true)
 	Telemetria ritornaDatoDecimazione(int decimazione, int idDispositivo);
 	
+	@Query (value = "select * from telemetria where decimazione IN ?1 && iddispositivo = ?2 limit 1", nativeQuery = true)
+	List<Telemetria> ritornaListaDatiDecimati(String array, int idDispositivo);
+	
 	@Query (value = "select max(decimazione) from telemetria where iddispositivo = ?1", nativeQuery = true)
 	int ultimaDecimazione(int idDispositivo);
 }

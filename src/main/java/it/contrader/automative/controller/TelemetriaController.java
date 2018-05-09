@@ -277,13 +277,24 @@ public class TelemetriaController {
 				}
 			}
 		}
-
-		List<Telemetria> dati = new ArrayList<Telemetria>();
-
-		for (int decimazione : n_array) {
-			Telemetria telemetria = telemetriaRepository.ritornaDatoDecimazione(decimazione, id);
-			dati.add(telemetria);
+		
+		StringBuilder decString = new StringBuilder();
+		decString.append("(");
+		for (int i=0; i<n_array.size(); i++) {
+			decString.append(n_array.get(i));
+			if(i<n_array.size()-1)
+				decString.append(",");
 		}
+		decString.append(")");
+		
+		List<Telemetria> dati = new ArrayList<Telemetria>();
+		
+		dati = telemetriaRepository.ritornaListaDatiDecimati(decString.toString(), id);
+
+//		for (int decimazione : n_array) {
+//			Telemetria telemetria = telemetriaRepository.ritornaDatoDecimazione(decimazione, id);
+//			dati.add(telemetria);
+//		}
 
 		return dati;
 
