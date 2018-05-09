@@ -241,17 +241,24 @@ public class TelemetriaController {
 		 stop = telemetriaRepository.ultimoDellaFinestra(inizio, fine, id);
 		} catch(Exception e) {return new ArrayList<Telemetria>();}
 		
-		
 //		Integer start = minmax[0];
 //		Integer stop = minmax[1];
 
 		List<Integer> n_array = new ArrayList<Integer>();
 
 		int total_data = stop - start;
-
+		
+		if(total_data > max_data) {
 		dec_rate = total_data / (max_data - 1);
 		int rest = total_data % (max_data - 1);
 		dec_rest = (double) rest / (max_data - 1);
+		}
+		else
+		{
+			max_data = total_data;
+			dec_rate = 1;
+			dec_rest = 0;
+		}
 
 		int next = start;
 		double resto = 0;
