@@ -2,10 +2,15 @@ package it.contrader.automative.controller;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import org.hibernate.mapping.Value;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -201,27 +206,32 @@ public class TelemetriaController {
 			return 1;
 	}
 
-/* 	@RequestMapping(value = "/riceviFinestra", method = RequestMethod.POST)
-	public List<Telemetria> riceviFinestra(@RequestParam("dataInizio") String dataInizio,
-			@RequestParam("dataFine") String dataFine, @RequestParam("idDispositivo") int idDispositivo) {
-
-		List<Telemetria> lista = new ArrayList();
-
-		int decimazioneInizio = telemetriaRepository.primoDellaFinestra(dataInizio, dataFine, idDispositivo);
-		int decimazioneFine = telemetriaRepository.ultimoDellaFinestra(dataInizio, dataFine, idDispositivo);
-
-		System.out.println(
-				"\n\nDecimazione Inizio: " + decimazioneInizio + "\nDecimazione Fine: " + decimazioneFine + "\n\n");
-
-		int numeroDati = (decimazioneFine - decimazioneInizio) + 1;
-
-		for (int i = 0; i < numeroDati; i++) {
-			lista.add(telemetriaRepository.ritornaDatoDecimazione(decimazioneInizio, idDispositivo));
-			decimazioneInizio++;
-		}
-
-		return lista;
-	} */
+	/*
+	 * @RequestMapping(value = "/riceviFinestra", method = RequestMethod.POST)
+	 * public List<Telemetria> riceviFinestra(@RequestParam("dataInizio") String
+	 * dataInizio,
+	 * 
+	 * @RequestParam("dataFine") String dataFine, @RequestParam("idDispositivo") int
+	 * idDispositivo) {
+	 * 
+	 * List<Telemetria> lista = new ArrayList();
+	 * 
+	 * int decimazioneInizio = telemetriaRepository.primoDellaFinestra(dataInizio,
+	 * dataFine, idDispositivo); int decimazioneFine =
+	 * telemetriaRepository.ultimoDellaFinestra(dataInizio, dataFine,
+	 * idDispositivo);
+	 * 
+	 * System.out.println( "\n\nDecimazione Inizio: " + decimazioneInizio +
+	 * "\nDecimazione Fine: " + decimazioneFine + "\n\n");
+	 * 
+	 * int numeroDati = (decimazioneFine - decimazioneInizio) + 1;
+	 * 
+	 * for (int i = 0; i < numeroDati; i++) {
+	 * lista.add(telemetriaRepository.ritornaDatoDecimazione(decimazioneInizio,
+	 * idDispositivo)); decimazioneInizio++; }
+	 * 
+	 * return lista; }
+	 */
 
 	@RequestMapping(value = "/telemetriaDecimata", method = RequestMethod.POST)
 	public List<Telemetria> TelemetriaDecimata(@RequestParam("inizio") String inizio, @RequestParam("fine") String fine,
@@ -233,28 +243,28 @@ public class TelemetriaController {
 
 		int start;
 		int stop;
-		
-		try {
-		
-//		Integer[] minmax = telemetriaRepository.limitiDecimazione(inizio, fine, id);
-		 start = telemetriaRepository.primoDellaFinestra(inizio, fine, id);
-		 stop = telemetriaRepository.ultimoDellaFinestra(inizio, fine, id);
-		} catch(Exception e) {return new ArrayList<Telemetria>();}
-		
-//		Integer start = minmax[0];
-//		Integer stop = minmax[1];
 
-		List<Integer> n_array = new ArrayList<Integer>();
+		try {
+
+			// Integer[] minmax = telemetriaRepository.limitiDecimazione(inizio, fine, id);
+			start = telemetriaRepository.primoDellaFinestra(inizio, fine, id);
+			stop = telemetriaRepository.ultimoDellaFinestra(inizio, fine, id);
+		} catch (Exception e) {
+			return new ArrayList<Telemetria>();
+		}
+
+		// Integer start = minmax[0];
+		// Integer stop = minmax[1];
+
+		Set<Integer> n_array = new HashSet<Integer>();
 
 		int total_data = stop - start;
-		
-		if(total_data > max_data) {
-		dec_rate = total_data / (max_data - 1);
-		int rest = total_data % (max_data - 1);
-		dec_rest = (double) rest / (max_data - 1);
-		}
-		else
-		{
+
+		if (total_data > max_data) {
+			dec_rate = total_data / (max_data - 1);
+			int rest = total_data % (max_data - 1);
+			dec_rest = (double) rest / (max_data - 1);
+		} else {
 			max_data = total_data;
 			dec_rate = 1;
 			dec_rest = 0;
@@ -277,25 +287,14 @@ public class TelemetriaController {
 				}
 			}
 		}
-		
-		StringBuilder decString = new StringBuilder();
-		decString.append("(");
-		for (int i=0; i<n_array.size(); i++) {
-			decString.append(n_array.get(i));
-			if(i<n_array.size()-1)
-				decString.append(",");
-		}
-		decString.append(")");
-		
+
 		List<Telemetria> dati = new ArrayList<Telemetria>();
-		
-		dati = telemetriaRepository.ritornaListaDatiDecimati(decString.toString(), id);
+		if (n_array.isEmpty()) {
+			return dati;
+		} else
+			dati = telemetriaRepository.ritornaListaDatiDecimati(n_array, id);
 
-//		for (int decimazione : n_array) {
-//			Telemetria telemetria = telemetriaRepository.ritornaDatoDecimazione(decimazione, id);
-//			dati.add(telemetria);
-//		}
-
+		System.out.println(dati.size());
 		return dati;
 
 	}

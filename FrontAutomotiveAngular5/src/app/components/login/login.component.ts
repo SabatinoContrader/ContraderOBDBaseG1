@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HomeOfficinaComponent } from '../../components/home-officina/home-officina.component';
 import { AppRoutingModule } from '../../app-routing.module';
 import swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   loginEntity: LoginEntity;
 
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private spinner: NgxSpinnerService) { }
 
 
   ngOnInit() {
@@ -33,8 +34,10 @@ export class LoginComponent implements OnInit {
 
 
   login(): void {
+    this.spinner.show();
     this.loginService.login(this.email, this.password).subscribe(
       (response) => {
+        this.spinner.hide();
         if (response.utente != null) {
           this.loginEntity = response;
           console.log(response);
