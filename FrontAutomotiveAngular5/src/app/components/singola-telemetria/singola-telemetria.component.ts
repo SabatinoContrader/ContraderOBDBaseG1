@@ -153,20 +153,7 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 		console.log(arr.length);
 		let arr_a = [];
 		let arr_b = [];
-		for (var i = 0; i < arr.length; i++) {
-			console.log(arr[i]['timestamp']);
-			console.log(arr[i]['value']);
-
-			var date = new Date(arr[i]['timestamp']); // Or the date you'd like converted.
-			var isoDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
-			if (i == 3)
-				console.log(isoDate);
-			arr_a[i] = isoDate.replace("T", " ").split('.')[0];
-			arr_b[i] = arr[i]['value'];
-
-		}
-		console.log("LENGTH A " + arr_a.length);
-		console.log("LENGTH B " + arr_b.length);
+		let ar = arr;
 		let chart = new Chart({
 			chart: {
 				type: 'spline',
@@ -183,19 +170,28 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 			credits: {
 				enabled: false
 			},
-
 			xAxis: {
-				categories: arr_a,
+			//	categories: arr_a,
+			type:'datetime',
 				events: {
 					setExtremes: function (event) {
 						event.preventDefault();
-						let mi = arr_a[Math.round(event.min)];
-						let ma = arr_a[Math.round(event.max)];
-
-						that.updateGraph(mi, ma, that.idDispositivo);
-						console.log("MIN: " + mi);
+						/*console.log(event);
+						let mi = ar[Math.round(event.min)][x];
+						let ma = ar[Math.round(event.max)][x];
+*/
+						var datemin = new Date(Math.round(event.min)); // Or the date you'd like converted.
+						var isoDatemin = new Date(datemin.getTime() - (datemin.getTimezoneOffset() * 60000)).toISOString();
+						var parisoDatemin = isoDatemin.replace("T", " ").split('.')[0];
+						var datemax = new Date(Math.round(event.max)); // Or the date you'd like converted.
+						var isoDatemax = new Date(datemax.getTime() - (datemax.getTimezoneOffset() * 60000)).toISOString();
+						var parisoDatemax = isoDatemax.replace("T", " ").split('.')[0];
+					
+			
+						that.updateGraph(parisoDatemin,parisoDatemax, that.idDispositivo);
+						/*console.log("MIN: " + mi);
 						console.log("MAX: " + ma);
-
+*/
 
 					}
 				}
@@ -204,7 +200,7 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 				hideDuration: 2000
 			},
 			series: [{
-				data: arr_b
+				data: arr
 			}]
 		});
 		// chart.addPoint(4);
@@ -308,6 +304,8 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 					this.telemetria = response;
 					//this.test+='[';
 
+						
+						
 					this.kmarray = [];
 					this.temp_array = [];
 					this.rpm_array = [];
@@ -320,45 +318,44 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 					this.barometric_pressure_array = [];
 					this.engine_fuel_rate_array = [];
 					for (var i = this.telemetria.length - 1; i >= 0; i--) {
-						console.log("INDEX : " + i + "----VALUE : " + this.telemetria[i].data);
-						this.kmarray.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.km });
-						this.temp_array.push({ "timestamp": this.telemetria[i].data, "engine_oil_temperature": this.telemetria[i].datiTelemetria.engine_oil_temperature, "temperature_coolant": this.telemetria[i].datiTelemetria.temperature_coolant });
-						this.rpm_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.rpm });
-						this.engine_load_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.calculated_engine_load });
-						this.coolant_temp_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.temperature_coolant });
-						this.fuel_pressure_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.fuel_pressure });
-						this.intake_map_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.intake_map });
-						this.throttle_position_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.throttle_position });
-						this.engine_oil_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_oil_temperature });
-						this.barometric_pressure_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.barometric_pressure });
-						this.engine_fuel_rate_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_fuel_rate });
-						this.absolute_load_value_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_load_value });
-						this.engine_coolant_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_coolant_temperature });
-						this.ignition_timing_advance_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.ignition_timing_advance });
-						this.intake_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.intake_temperature });
-						this.commanded_egr_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.commanded_egr });
-						this.commanded_evaporative_purge_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.commanded_evaporative_purge });
-						this.egr_error_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.egr_error });
-						this.fuel_level_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.fuel_level });
-						this.evap_system_vapor_pressure_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.evap_system_vapoer });
-						this.catalyst_temperature_bank_1_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.catalyst_temperature_bank_1 });
-						this.catalyst_temperature_bank_2_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.catalyst_temperature_bank_2 });
-						this.air_fuel_equiv_ratio_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.air_fuel_equiv_ratio });
-						this.relative_throttle_position_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.relative_throttle_position });
-						this.ambient_air_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.ambient_air_temperature });
-						this.absolute_throttle_position_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_throttle_position });
-						this.absolute_pedal_position_d_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_pedal_position_d });
-						this.absolute_pedal_position_e_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_pedal_position_e });
-						this.absolute_pedal_position_f_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_pedal_position_f });
-						this.commanded_throttle_attuator_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.commanded_throttle_attuator });
-						this.ethanol_fuel_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.ethanol_fuel });
-						this.fuel_rail_pressure_injection_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.fuel_rail_pressure_injection });
-						this.engine_oil_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_oil_temperature });
-						this.engine_fuel_rate_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_fuel_rate });
-						this.demand_engine_torque_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.demand_engine_torque });
-						this.engine_reference_torque_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_reference_torque });
-
-
+						var dat = new Date(this.telemetria[i].data); // Or the date you'd like converted.
+						var parisoDat = new Date(dat.getTime() - (dat.getTimezoneOffset() * 60000)).getTime();
+						this.kmarray.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.km });
+						this.temp_array.push({ x: parisoDat, "engine_oil_temperature": this.telemetria[i].datiTelemetria.engine_oil_temperature, "temperature_coolant":this.telemetria[i].datiTelemetria.temperature_coolant });
+						this.rpm_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.rpm });
+						this.engine_load_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.calculated_engine_load });
+						this.coolant_temp_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.temperature_coolant });
+						this.fuel_pressure_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.fuel_pressure });
+						this.intake_map_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.intake_map });
+						this.throttle_position_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.throttle_position });
+						this.engine_oil_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_oil_temperature });
+						this.barometric_pressure_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.barometric_pressure });
+						this.engine_fuel_rate_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_fuel_rate });
+						this.absolute_load_value_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_load_value });
+						this.engine_coolant_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_coolant_temperature });
+						this.ignition_timing_advance_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.ignition_timing_advance });
+						this.intake_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.intake_temperature });
+						this.commanded_egr_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.commanded_egr });
+						this.commanded_evaporative_purge_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.commanded_evaporative_purge });
+						this.egr_error_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.egr_error });
+						this.fuel_level_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.fuel_level });
+						this.evap_system_vapor_pressure_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.evap_system_vapoer });
+						this.catalyst_temperature_bank_1_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.catalyst_temperature_bank_1 });
+						this.catalyst_temperature_bank_2_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.catalyst_temperature_bank_2 });
+						this.air_fuel_equiv_ratio_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.air_fuel_equiv_ratio });
+						this.relative_throttle_position_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.relative_throttle_position });
+						this.ambient_air_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.ambient_air_temperature });
+						this.absolute_throttle_position_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_throttle_position });
+						this.absolute_pedal_position_d_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_pedal_position_d });
+						this.absolute_pedal_position_e_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_pedal_position_e });
+						this.absolute_pedal_position_f_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_pedal_position_f });
+						this.commanded_throttle_attuator_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.commanded_throttle_attuator });
+						this.ethanol_fuel_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.ethanol_fuel });
+						this.fuel_rail_pressure_injection_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.fuel_rail_pressure_injection });
+						this.engine_oil_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_oil_temperature });
+						this.engine_fuel_rate_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_fuel_rate });
+						this.demand_engine_torque_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.demand_engine_torque });
+						this.engine_reference_torque_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_reference_torque });
 
 					}
 
@@ -386,7 +383,9 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 			var temp = endDate;
 			endDate = startDate;
 			startDate = temp;
-		}/*
+		}
+		
+		/*
 console.log("INIZIO: "+startDate);
 	  console.log("FINE: "+endDate);*/
 		this.spinner.show();
@@ -420,42 +419,45 @@ console.log("INIZIO: "+startDate);
 						//for(var i =this.telemetria.length-1;i>=0;i--){
 						for (var i = 0; i < this.telemetria.length; i++) {
 							//console.log("INDEX : "+i+"----VALUE : "+this.telemetria[i].data);
-							this.kmarray.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.km });
-							this.temp_array.push({ "timestamp": this.telemetria[i].data, "engine_oil_temperature": this.telemetria[i].datiTelemetria.engine_oil_temperature, "temperature_coolant": this.telemetria[i].datiTelemetria.temperature_coolant });
-							this.rpm_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.rpm });
-							this.engine_load_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.calculated_engine_load });
-							this.coolant_temp_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.temperature_coolant });
-							this.fuel_pressure_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.fuel_pressure });
-							this.intake_map_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.intake_map });
-							this.throttle_position_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.throttle_position });
-							this.engine_oil_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_oil_temperature });
-							this.barometric_pressure_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.barometric_pressure });
-							this.engine_fuel_rate_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_fuel_rate });
-							this.absolute_load_value_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_load_value });
-							this.engine_coolant_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_coolant_temperature });
-							this.ignition_timing_advance_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.ignition_timing_advance });
-							this.intake_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.intake_temperature });
-							this.commanded_egr_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.commanded_egr });
-							this.commanded_evaporative_purge_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.commanded_evaporative_purge });
-							this.egr_error_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.egr_error });
-							this.fuel_level_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.fuel_level });
-							this.evap_system_vapor_pressure_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.evap_system_vapoer });
-							this.catalyst_temperature_bank_1_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.catalyst_temperature_bank_1 });
-							this.catalyst_temperature_bank_2_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.catalyst_temperature_bank_2 });
-							this.air_fuel_equiv_ratio_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.air_fuel_equiv_ratio });
-							this.relative_throttle_position_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.relative_throttle_position });
-							this.ambient_air_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.ambient_air_temperature });
-							this.absolute_throttle_position_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_throttle_position });
-							this.absolute_pedal_position_d_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_pedal_position_d });
-							this.absolute_pedal_position_e_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_pedal_position_e });
-							this.absolute_pedal_position_f_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.absolute_pedal_position_f });
-							this.commanded_throttle_attuator_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.commanded_throttle_attuator });
-							this.ethanol_fuel_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.ethanol_fuel });
-							this.fuel_rail_pressure_injection_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.fuel_rail_pressure_injection });
-							this.engine_oil_temperature_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_oil_temperature });
-							this.engine_fuel_rate_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_fuel_rate });
-							this.demand_engine_torque_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.demand_engine_torque });
-							this.engine_reference_torque_array.push({ "timestamp": this.telemetria[i].data, "value": this.telemetria[i].datiTelemetria.engine_reference_torque });
+						var dat = new Date(this.telemetria[i].data); // Or the date you'd like converted.
+						var parisoDat = new Date(dat.getTime() - (dat.getTimezoneOffset() * 60000)).getTime();
+						
+						this.kmarray.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.km });
+						this.temp_array.push({ x: parisoDat, "engine_oil_temperature": this.telemetria[i].datiTelemetria.engine_oil_temperature, "temperature_coolant":this.telemetria[i].datiTelemetria.temperature_coolant });
+						this.rpm_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.rpm });
+						this.engine_load_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.calculated_engine_load });
+						this.coolant_temp_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.temperature_coolant });
+						this.fuel_pressure_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.fuel_pressure });
+						this.intake_map_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.intake_map });
+						this.throttle_position_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.throttle_position });
+						this.engine_oil_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_oil_temperature });
+						this.barometric_pressure_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.barometric_pressure });
+						this.engine_fuel_rate_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_fuel_rate });
+						this.absolute_load_value_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_load_value });
+						this.engine_coolant_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_coolant_temperature });
+						this.ignition_timing_advance_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.ignition_timing_advance });
+						this.intake_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.intake_temperature });
+						this.commanded_egr_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.commanded_egr });
+						this.commanded_evaporative_purge_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.commanded_evaporative_purge });
+						this.egr_error_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.egr_error });
+						this.fuel_level_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.fuel_level });
+						this.evap_system_vapor_pressure_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.evap_system_vapoer });
+						this.catalyst_temperature_bank_1_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.catalyst_temperature_bank_1 });
+						this.catalyst_temperature_bank_2_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.catalyst_temperature_bank_2 });
+						this.air_fuel_equiv_ratio_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.air_fuel_equiv_ratio });
+						this.relative_throttle_position_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.relative_throttle_position });
+						this.ambient_air_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.ambient_air_temperature });
+						this.absolute_throttle_position_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_throttle_position });
+						this.absolute_pedal_position_d_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_pedal_position_d });
+						this.absolute_pedal_position_e_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_pedal_position_e });
+						this.absolute_pedal_position_f_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.absolute_pedal_position_f });
+						this.commanded_throttle_attuator_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.commanded_throttle_attuator });
+						this.ethanol_fuel_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.ethanol_fuel });
+						this.fuel_rail_pressure_injection_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.fuel_rail_pressure_injection });
+						this.engine_oil_temperature_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_oil_temperature });
+						this.engine_fuel_rate_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_fuel_rate });
+						this.demand_engine_torque_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.demand_engine_torque });
+						this.engine_reference_torque_array.push({ x: parisoDat, y: this.telemetria[i].datiTelemetria.engine_reference_torque });
 						}
 
 						this.onItemChange(this.par, 1);
