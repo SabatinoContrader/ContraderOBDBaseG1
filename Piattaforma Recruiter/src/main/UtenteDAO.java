@@ -11,7 +11,7 @@ public class UtenteDAO {
 
 	
 
-	public static List<Utente> ritornaTuttiUtenti(){
+	public static List<Utente> ritornaTuttiUtenti() throws SQLException{
 		
 		
 		String Query = "select * from utente";
@@ -49,9 +49,9 @@ public class UtenteDAO {
     	
         int id = resultSet.getInt("id");
         String username = resultSet.getString("username");
-        String password = resultSet.getString("password");
-        
+        String password = resultSet.getString("password"); 
         utenti.add(new Utente(id, username, password));
+      
     }
  }
  catch (SQLException e) {

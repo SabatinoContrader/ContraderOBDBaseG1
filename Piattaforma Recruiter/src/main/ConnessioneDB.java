@@ -18,7 +18,7 @@ public class ConnessioneDB {
 	
 	protected static int istanze = 0;
 	
-	public static Connection getInstance() {
+	public static Connection getInstance() throws SQLException {
 		
 		if(istanze == 0) {
 			

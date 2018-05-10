@@ -8,6 +8,7 @@ public class Utente {
 		this.id = id;
 		this.username = username;
 		this.password = password;
+
 	}
 	
 	
@@ -42,18 +43,6 @@ public class Utente {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getCognome() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getNome() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getcodice_fiscale() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-		
+	
 	
 }

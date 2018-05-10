@@ -1,12 +1,13 @@
 package main;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
 
 public class mainprova {
 
-	public static void main (String[] args) {
+	public static void main (String[] args) throws SQLException {
 		
 		List<Utente> lista = UtenteDAO.ritornaTuttiUtenti();
 		
@@ -15,7 +16,7 @@ public class mainprova {
 		
 		List<Candidati> list = CandidatiDAO.ritornaTuttiCandidati();
 		
-		for(int i = 0; i < list.size(); i++) System.out.println("Tupla "+i+": "+list.get(i).getNome()+" "+list.get(i).getCognome()+" "+list.get(i).getCodice_fiscale());
+		for(int i = 0; i < list.size(); i++) System.out.println("Tupla "+i+": "+list.get(i).getNome()+" "+list.get(i).getCognome());
 		
 
 

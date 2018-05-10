@@ -12,19 +12,27 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class CandidatiDAO {
 
-   //private final String QUERY_ALL = "select * from candidati";
-  // private final String QUERY_INSERT = "insert into candidati (nome, cognome, codice_fiscale, indirizzo, email, telefono) values (?,?,?)";
+
+
+// private final String QUERY_ALL = "select * from candidati";
+  //private final String QUERY_INSERT = "insert into candidati (nome, cognome, codice_fiscale, indirizzo, email, telefono) values (?,?,?)";
 
 	
-   //public CandidatiDAO() {
+  // public CandidatiDAO() {
 	
-	public static List<Candidati> ritornaTuttiCandidati(){
+	public static List<Candidati> ritornaTuttiCandidati() {
 		
 		String Query = "select * from candidati";
 		
 		List<Candidati> candidati= new ArrayList<>();
 		
-		Connection connection = ConnessioneDB.getInstance();
+		Connection connection = null;
+		try {
+			connection = ConnessioneDB.getInstance();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		try {
 			PreparedStatement ps = (PreparedStatement) connection.prepareStatement(Query);	
@@ -38,15 +46,14 @@ public class CandidatiDAO {
 			String nome = resulset.getString("nome");
 			String cognome = resulset.getString("cognome");
 			String indirizzo = resulset.getString("indirizzo");
-			String codice_fiscale = resulset.getString("codice_fiscale");
 			String email = resulset.getString("email");
 			String telefono = resulset.getString("telefono");
 			
-			candidati.add(new Candidati(nome, cognome,indirizzo,codice_fiscale,email,telefono));
+			candidati.add(new Candidati(nome, cognome,indirizzo,email,telefono));
 		}
 	}	
-	catch (SQLException e)	{
-		e.printStackTrace();
+	catch (SQLException k)	{
+		k.printStackTrace();
 	}
 		
 return candidati;
