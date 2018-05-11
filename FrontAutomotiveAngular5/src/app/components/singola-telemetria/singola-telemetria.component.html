@@ -95,6 +95,7 @@ type = "pacman"
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
+			<!--  <button type=button (click)="testPoint();">test</button>-->
               <select class="form-control" id="parameter" [(ngModel)]="parametro" (change)="onItemChange(parametro,0)">
 				<option selected value="0">Kilometri (km)</option>
 				<option value="1">RPM </option>	
@@ -104,7 +105,6 @@ type = "pacman"
 				<option value="5">INTAKE MAP</option>
 				<option value="6">THROTTLE POSITION</option>
 				<option value="7">ABSOLUTE LOAD VALUE</option>
-				<option value="8">ENGINE COOLANT TEMPERATURE</option>
 				<option value="9">IGNITION TIMING ADVANCE</option>
 				<option value="10">INTAKE TEMPERATURE</option>
 				<option value="11">COMMANDED EGR</option>
@@ -115,10 +115,11 @@ type = "pacman"
 				<option value="16">BAROMETRIC PRESSURE</option>
 				<option value="17">CATALYST TEMPERATURE BANK 1</option>
 				<option value="18">CATALYST TEMPERATURE BANK 2</option>
-				<option value="19">AIR FUEL EQUIV RATIO</option>
+			
 				<option value="20">RELATIVE THROTTLE POSITION</option>
 				<option value="21">AMBIENT AIR TEMPERATURE</option>
-				<option value="22">ABSOLUTE THROTTLE POSITION</option>
+				<option value="22">ABSOLUTE THROTTLE POSITION B</option>
+				<option value="33">ABSOLUTE THROTTLE POSITION C</option>
 				<option value="23">ABSOLUTE PEDAL POSITION D</option>
 				<option value="24">ABSOLUTE PEDAL POSITION E</option>
 				<option value="25">ABSOLUTE PEDAL POSITION F</option>
@@ -131,6 +132,7 @@ type = "pacman"
 				<option value="32">ENGINE REFERENCE TORQUE</option>
 			  </select>
               </div>
+			  <button type="button" id="resetzoom" class="btn btn-info" (click)="resetZoom();" *ngIf="isZoomed">Reset Zoom</button>
               <div class="card-body">
               <div [chart]="chart"></div>
               </div>

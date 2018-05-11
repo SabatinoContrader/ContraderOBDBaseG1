@@ -31,3 +31,7 @@ background-color: transparent;
 .bg-tab-selected{
 	background-color:red !important;color:white !important;
 }
+#resetzoom{
+	width:25%;
+	margin:20px;
+}
