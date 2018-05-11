@@ -11,13 +11,19 @@ public class UtenteDAO {
 
 	
 
-	public static List<Utente> ritornaTuttiUtenti() throws SQLException{
+	public static List<Utente> ritornaTuttiUtenti() {
 		
 		
 		String Query = "select * from utente";
 		
 		List<Utente> utenti = new ArrayList<>();
-	     Connection connection = ConnessioneDB.getInstance();
+	     Connection connection = null;
+		try {
+			connection = ConnessioneDB.getInstance();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	     try {
 	    	
 	    	PreparedStatement ps = (PreparedStatement) connection.prepareStatement(Query);

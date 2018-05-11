@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-//CONNESSIONE A DB SINGLETON
+//CONNESSIONE A DB prova
 
 public class ConnessioneDB {
 	
