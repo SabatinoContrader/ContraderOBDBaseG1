@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/stefano/Desktop/Prova/mysql-connector-java-5.1.46-bin.jar"/>
+	<classpathentry kind="src" path="/ContraderFrameworkTerminal"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

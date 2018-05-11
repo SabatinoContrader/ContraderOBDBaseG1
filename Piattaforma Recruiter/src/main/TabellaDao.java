@@ -22,7 +22,7 @@ public class TabellaDao {
 			connection = ConnessioneDB.getInstance();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("COnnessione non avvenuta");
+			System.out.println("COnnessione non avvenuta ");
 		}
 		
 		try {
