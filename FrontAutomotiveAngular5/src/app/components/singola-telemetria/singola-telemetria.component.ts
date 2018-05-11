@@ -28,6 +28,7 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 	utente: Utente;
 	idDispositivo;
 	telemetria;
+	point:any=[];
 	//chart = [];
 
 	sub;
@@ -116,7 +117,7 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 				this.km =response.datiTelemetria.km;	
 				this.lat  = response.datiTelemetria.latitudine;
 				this.lng  = response.datiTelemetria.longitudine;
-				if(this.isZoomed==0);
+				if(!this.isZoomed)
 				this.addPoint(response.datiTelemetria,response.data);
 				}
 			  );
@@ -127,115 +128,112 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 
 	}
 
-	testPoint(){
-		this.addPoint(
-	}
 	
 	public addPoint(dati,data){
 		
 		var b = new Date(data);
-		//	var point =[dati,data];
+		//	this.point =[dati,data];
 		var d = b.getTime() - (b.getTimezoneOffset() * 60000);
-		//var point =[d,2000];
+		//this.point =[d,2000];
 		if(this.par==0){
-				var point =[d,dati.km];
+				this.point =[d,dati.km];
 			}
 		else if(this.par==1){
-				var point =[d,dati.rpm];
+				this.point =[d,dati.rpm];
 			}
 		else if(this.par==2){
-				var point =[d,dati.engine_load];
+				this.point =[d,dati.engine_load];
 			}
 		else if(this.par==3){
-				var point =[d,dati.coolant_temp];
+				this.point =[d,dati.coolant_temp];
 			}
 		else if(this.par==4){
-				var point =[d,dati.fuel_pressure];
+				this.point =[d,dati.fuel_pressure];
 			}
 		else if(this.par==5){
-				var point =[d,dati.intake_map];
+				this.point =[d,dati.intake_map];
 			}
 		else if(this.par==6){
-				var point =[d,dati.throttle_position];
+				this.point =[d,dati.throttle_position];
 			}
 		else if(this.par==7){
-				var point =[d,dati.absolute_load_value];
+				this.point =[d,dati.absolute_load_value];
 		}
 		else if(this.par==9){
-				var point =[d,dati.ignition_timing_advance];
+				this.point =[d,dati.ignition_timing_advance];
 		}
 		else if(this.par==10){
-				var point =[d,dati.intake_temperature];
+				this.point =[d,dati.intake_temperature];
 		}
 		else if(this.par==11){
-				var point =[d,dati.commanded_egr];
+				this.point =[d,dati.commanded_egr];
 		}
 		else if(this.par==12){
-				var point =[d,dati.commanded_evaporative_purge];
+				this.point =[d,dati.commanded_evaporative_purge];
 		}
 		else if(this.par==13){
-				var point =[d,dati.egr_error];
+				this.point =[d,dati.egr_error];
 		}
 		else if(this.par==14){
-				var point =[d,dati.fuel_level];
+				this.point =[d,dati.fuel_level];
 		}
 		else if(this.par==15){
-				var point =[d,dati.evap_system_vapor_pressure];
+				this.point =[d,dati.evap_system_vapor_pressure];
 		}
 		else if(this.par==16){
-				var point =[d,dati.barometric_pressure];
+				this.point =[d,dati.barometric_pressure];
 		}
 		else if(this.par==17){
-				var point =[d,dati.catalyst_temperature_bank_1];
+				this.point =[d,dati.catalyst_temperature_bank_1];
 		}
 		else if(this.par==18){
-				var point =[d,dati.catalyst_temperature_bank_2];
+				this.point =[d,dati.catalyst_temperature_bank_2];
 		}
 		else if(this.par==20){
-				var point =[d,dati.relative_throttle_position];
+				this.point =[d,dati.relative_throttle_position];
 		}
 		else if(this.par==21){
-				var point =[d,dati.ambiant_air_temperaturent];
+				this.point =[d,dati.ambiant_air_temperaturent];
 		}
 		else if(this.par==22){
-				var point =[d,dati.absolute_throttle_position_B];
+				this.point =[d,dati.absolute_throttle_position_B];
 		}
 		else if(this.par==23){
-				var point =[d,dati.asolute_pedal_position_D];
+				this.point =[d,dati.asolute_pedal_position_D];
 		}
 		else if(this.par==24){
-				var point =[d,dati.asolute_pedal_position_E];
+				this.point =[d,dati.asolute_pedal_position_E];
 		}
 		else if(this.par==25){
-				var point =[d,dati.asolute_pedal_position_F];
+				this.point =[d,dati.asolute_pedal_position_F];
 		}
 		else if(this.par==26){
-				var point =[d,dati.commanded_throttle_attuator];
+				this.point =[d,dati.commanded_throttle_attuator];
 		}
 		else if(this.par==27){
-				var point =[d,dati.ethanol_fuel];
+				this.point =[d,dati.ethanol_fuel];
 		}
 		else if(this.par==28){
-				var point =[d,dati.fuel_rail_pressure_injection];
+				this.point =[d,dati.fuel_rail_pressure_injection];
 		}
 		else if(this.par==29){
-				var point =[d,dati.engine_oil_temperature];
+				this.point =[d,dati.engine_oil_temperature];
 		}
 		else if(this.par==30){
-				var point =[d,dati.engine_fuel_rate];
+				this.point =[d,dati.engine_fuel_rate];
 		}
 		else if(this.par==31){
-				var point =[d,dati.demand_engine_torque];
+				this.point =[d,dati.demand_engine_torque];
 		}
 		else if(this.par==32){
-				var point =[d,dati.engine_reference_torque];
+				this.point =[d,dati.engine_reference_torque];
 		}
 		else if(this.par==33){
-				var point =[d,dati.absolute_throttle_position_C];
+				this.point =[d,dati.absolute_throttle_position_C];
 		}
 		
 	
-				this.chart.addPoint(point);
+				this.chart.addPoint(this.point);
 			}
 	
 	
@@ -274,22 +272,10 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 		let chart = new Chart({
 			chart: {
 				type: 'spline',
-				zoomType: 'x',
-				resetZoomButton: {
-					theme: {
-						display: 'none'
-					},
-					 position: {
-                // align: 'right', // by default
-                // verticalAlign: 'top', // by default
-                x: -10,
-                y: 10
-            },
-            relativeTo: 'chart'
-				}
-			},
+				zoomType: 'x'
+				},
 			tooltip:{
-				pointFormat:'Valore: {point.y} '+unit
+				pointFormat:'Valore: {point.y} '+unit,
 				xDateFormat:'%Y-%m-%d %H:%M:%S'
 			},
 			title: {
@@ -358,7 +344,7 @@ export class SingolaTelemetriaComponent implements OnInit, OnDestroy {
 			},
 			
 			series: [{
-				showInLegend: false,
+			//	showInLegend: false,
 				data: arr
 			}]
 		});
