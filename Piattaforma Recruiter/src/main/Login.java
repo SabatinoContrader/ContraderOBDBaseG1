@@ -25,6 +25,7 @@ public class Login {
 
 	    	System.out.println("Welcome ");
 	    	System.out.println("ID: "+tab.getId()+" Username: "+ tab.getUsername()+" Nome: "+tab.getNome()+" Cognome:"+ tab.getCognome()+" Posizione: "+tab.getPosizione());
+
 	    	
 	    	} else System.out.println("Login fallito");
 //	    
