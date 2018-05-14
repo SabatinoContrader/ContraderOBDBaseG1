@@ -5,11 +5,7 @@ import java.util.Scanner;
 public class Login {
 
 	public static void main(String[] args) {
-		String Username;
-	    String Password;
-	    String Nome;
-	    String Cognome;
-	    String Posizione;
+	
 	    System.out.println("LOGIN");
 	    
 	    Scanner input1 = new Scanner(System.in);
@@ -26,7 +22,7 @@ public class Login {
 	    	{
 	    	
 	    	System.out.println("Login effettuato!");
-	    	System.out.println("ID: "+tab.getId()+" Username: "+ tab.getUsername()+"Nome: "+tab.getNome()+"Cognome:"+ tab.getCognome()+"Posizione: "+tab.getPosizione());
+	    	System.out.println("ID: "+tab.getId()+" Username: "+ tab.getUsername()+" Nome: "+tab.getNome()+" Cognome:"+ tab.getCognome()+" Posizione: "+tab.getPosizione());
 	    	
 	    	} else System.out.println("Log in fallito");
 //	    
