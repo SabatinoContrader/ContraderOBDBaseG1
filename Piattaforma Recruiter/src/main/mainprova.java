@@ -11,16 +11,16 @@ public class mainprova
 	public static void main (String[] args) 
 	{
 		
+		boolean loggato = false;
 		
-		Login.login();
-		
+		while(!loggato) if(Login.login() != null) loggato = true;
 		
 		
 		while(true) {
 			
 			System.out.println("Premi 1 per la lista degli utenti");
 			System.out.println("Premi 2 per la lista dei candidati ");
-			System.out.println("Premi 3 per carcare un candidato");
+			System.out.println("Premi 3 per cercare un candidato");
 			Scanner input = new Scanner(System.in);
 			
 			
