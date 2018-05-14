@@ -1,6 +1,7 @@
 package main;
 
 import java.util.List;
+import java.util.Scanner;
 
 
 
@@ -10,25 +11,65 @@ public class mainprova
 	public static void main (String[] args) 
 	{
 		
+		
+		Login.login();
+		
+		
+		
+		while(true) {
+			
+			System.out.println("Premi 1 per la lista degli utenti");
+			System.out.println("Premi 2 per la lista dei candidati ");
+			System.out.println("Premi 3 per carcare un candidato");
+			Scanner input = new Scanner(System.in);
+			
+			
+			
+			switch(input.nextInt()) {
+			
+			case 1 : stampaUtenti();
+			break;
+			
+			case 2 : stampaCandidati();
+			break;		
+			
+			case 3 : ricerca.Ricerca();
+			}
+		}
+	
+	}
+	private static void stampaUtenti() {
+		
 		List<Utente> lista = UtenteDAO.ritornaTuttiUtenti();
 		
+		System.out.println("Lista Utenti");
 		for(int i = 0; i < lista.size(); i++) 
 		{
-			System.out.println("Tupla "+i+": "+lista.get(i).getId()+" "+lista.get(i).getUsername()+" "+lista.get(i).getPassword());
+			System.out.println("Utente "+i+": ID "+lista.get(i).getId()+" - Nome: "+lista.get(i).getNome()+" - Cognome: "+lista.get(i).getCognome()+" - Posizione: "+lista.get(i).getPosizione() );
 		}
-			
-	List<Candidati> list = CandidatiDAO.ritornaTuttiCandidati();
 		
-		for(int i = 0; i < list.size(); i++)
-			{
-				System.out.println("Tupla "+i+": "+list.get(i).getNome()+" "+list.get(i).getCognome());
-			}
 		
-		List<Tabella> liste = TabellaDao.ritornaTuttiTabella();
-	
-	for(int i = 0; i < liste.size(); i++) System.out.println("Tupla 1: "+liste.get(i).getID()+" "+liste.get(i).getUsername()+" "+liste.get(i).getPassword());
-
 	}
-
+	
+	
+	private static void stampaCandidati() {
+		System.out.println("Lista Candidati");
+		
+		List<Candidati> list = CandidatiDAO.ritornaTuttiCandidati();
+			
+			for(int i = 0; i < list.size(); i++)
+				{
+					System.out.println("Candidato "+i+": Nome: "+list.get(i).getNome()+" - Cognome: "+list.get(i).getCognome()+" - Indirizzo: "+list.get(i).getIndirizzo()+" - Email: "+list.get(i).getTelefono()+" - Tel. "+list.get(i).getEmail());
+			}
+	
+			
+				
+				
+				
+	
+	
+	
+	}
+	
 
 }

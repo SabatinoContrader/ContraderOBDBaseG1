@@ -33,7 +33,7 @@ public class UtenteDAO {
 	    	
 	    	
 //	        Statement statement = connection.createStatement();
-//	        ResultSet resultSet = statement.executeQuery(Query);
+//	        resultSet resultSet = statement.executeQuery(Query);
 //	        
 //	        while (resultSet.next()) {
 //	        	
@@ -53,10 +53,14 @@ public class UtenteDAO {
 	
 	 while (resultSet.next()) {
     	
-        int id = resultSet.getInt("id");
-        String username = resultSet.getString("username");
-        String password = resultSet.getString("password"); 
-        utenti.add(new Utente(id, username, password));
+		 int ID = resultSet.getInt("ID");
+			String Username = resultSet.getString("Username");
+			String Password = resultSet.getString("Password");
+			String Nome = resultSet.getString("Nome");
+			String Cognome = resultSet.getString("Cognome");
+			String Posizione = resultSet.getString("Posizione");
+			
+        utenti.add(new Utente(ID,Username,Password,Nome,Cognome,Posizione));
       
     }
  }

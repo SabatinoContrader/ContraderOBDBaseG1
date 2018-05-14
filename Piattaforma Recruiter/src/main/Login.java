@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class Login {
 
-	public static void main(String[] args) {
+	public static Utente login() {
 	
 	    System.out.println("LOGIN");
 	    
 	    Scanner input1 = new Scanner(System.in);
-	    System.out.println(" inserisci Username : ");
+	    System.out.println("Username : ");
 	    
 	    String username = input1.next();
 
@@ -17,14 +17,16 @@ public class Login {
 	    System.out.println("Password : ");
 	    String password = input2.next();
 
-	    Utente tab = loginquery.login(username ,password);
+	    Utente tab = new Utente();
+	    		
+	    tab = loginquery.login(username ,password);
 	    if(tab != null) 
 	    	{
 	    	
-	    	System.out.println("Login effettuato!");
+	    	System.out.println("Welcome ");
 	    	System.out.println("ID: "+tab.getId()+" Username: "+ tab.getUsername()+" Nome: "+tab.getNome()+" Cognome:"+ tab.getCognome()+" Posizione: "+tab.getPosizione());
 	    	
-	    	} else System.out.println("Log in fallito");
+	    	} else System.out.println("Login fallito");
 //	    
 //	    if (username.equals(Username) && password.equals(Password)) {
 //
@@ -41,7 +43,7 @@ public class Login {
 	
 		
 		
-
+	    return tab;
 	}
 
 

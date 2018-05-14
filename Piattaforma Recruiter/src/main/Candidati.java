@@ -6,6 +6,9 @@ public class Candidati
 {
 
 	
+	public Candidati() {
+		super();
+	}
 	private String nome;
 	private String cognome;
 	private String indirizzo;

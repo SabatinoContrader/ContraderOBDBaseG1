@@ -30,7 +30,7 @@ public class CandidatiDAO {
 		try {
 			connection = ConnessioneDB.getInstance();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		

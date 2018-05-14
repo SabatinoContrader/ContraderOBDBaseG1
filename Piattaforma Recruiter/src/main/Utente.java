@@ -3,6 +3,9 @@ package main;
 public class Utente {
 
 	
+	public Utente() {
+		super();
+	}
 	public Utente(int id, String username, String password, String nome, String cognome, String posizione) {
 		super();
 		this.id = id;

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import main.controller.GestoreEccezioni;
 
-public class loginquery  {
+public class loginquery  {								
 
 	
 	 static private final String QUERY = "select * from Utente where username = ? and password = ?";
