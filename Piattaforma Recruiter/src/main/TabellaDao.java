@@ -13,6 +13,7 @@ public class TabellaDao {
 
    public static List<Tabella> ritornaTuttiTabella() {
 		
+	   
 		String Query = "select * from Tabella";
 		
 		List<Tabella> Tabella= new ArrayList<>();

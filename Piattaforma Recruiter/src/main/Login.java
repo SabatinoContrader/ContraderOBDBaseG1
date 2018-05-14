@@ -8,14 +8,10 @@ public class Login {
 		String Username;
 	    String Password;
 	    
-	    
-	    Username = "nicola";
-	    Password = "123456";
-	    
 	    System.out.println("LOGIN");
 	    
 	    Scanner input1 = new Scanner(System.in);
-	    System.out.println("Username : ");
+	    System.out.println(" inserisci Username : ");
 	    
 	    String username = input1.next();
 
@@ -23,20 +19,25 @@ public class Login {
 	    System.out.println("Password : ");
 	    String password = input2.next();
 
-	
-	    
-	    if (username.equals(Username) && password.equals(Password)) {
-
-	        System.out.println("Welcome!");
-	    }
-
-	    else if (username.equals(Username)) {
-	        System.out.println("Invalid Password!");
-	    } else if (password.equals(Password)) {
-	        System.out.println("Invalid Username!");
-	    } else {
-	        System.out.println("Invalid Username & Password!");
-	    }
+	    Tabella tab = loginquery.login(username, password);
+	    if(tab != null) 
+	    	{
+	    	System.out.println("Login effettuato!");
+	    	System.out.println("ID: "+tab.getID()+" Username: "+ tab.getUsername());
+	    	} else System.out.println("Log in fallito");
+//	    
+//	    if (username.equals(Username) && password.equals(Password)) {
+//
+//	        System.out.println("Welcome!");
+//	    }
+//
+//	    else if (username.equals(Username)) {
+//	        System.out.println("Invalid Password!");
+//	    } else if (password.equals(Password)) {
+//	        System.out.println("Invalid Username!");
+//	    } else {
+//	        System.out.println("Invalid Username & Password!");
+//	    }
 	
 		
 		
