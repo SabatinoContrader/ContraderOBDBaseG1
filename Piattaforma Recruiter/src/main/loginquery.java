@@ -10,9 +10,9 @@ import main.controller.GestoreEccezioni;
 public class loginquery  {
 
 	
-	 static private final String QUERY = "select * from Tabella where username = ? and password = ?";
+	 static private final String QUERY = "select * from Utente where username = ? and password = ?";
 
-	   static public Tabella login(String username, String password) {
+	   static public Utente login(String username, String password) {
 
 	        
 	        try {
@@ -29,12 +29,14 @@ public class loginquery  {
 	    		
 	        	while (resulset.next()) {
 	        			
-	        			String ID = resulset.getString("ID");
+	        			int ID = resulset.getInt("ID");
 	        			String Username = resulset.getString("Username");
 	        			String Password = resulset.getString("Password");
-	        	
+	        			String Nome = resulset.getString("Nome");
+	        			String Cognome = resulset.getString("Cognome");
+	        			String Posizione = resulset.getString("Posizione");
 	        			
-	        			return new Tabella(ID,Username,Password);
+	        			return new Utente(ID,Username,Password,Nome,Cognome,Posizione);
 	        		}
 	            
 	            
