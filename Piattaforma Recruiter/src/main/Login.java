@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Login {
 
 	public static Utente login() {
-	
+
 	    System.out.println("LOGIN");
 	    
 	    Scanner input1 = new Scanner(System.in);
@@ -22,7 +22,7 @@ public class Login {
 	    tab = loginquery.login(username ,password);
 	    if(tab != null) 
 	    	{
-	    	
+
 	    	System.out.println("Welcome ");
 	    	System.out.println("ID: "+tab.getId()+" Username: "+ tab.getUsername()+" Nome: "+tab.getNome()+" Cognome:"+ tab.getCognome()+" Posizione: "+tab.getPosizione());
 	    	
