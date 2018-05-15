@@ -19,7 +19,7 @@ public class Candidati
 		super();
 		this.nome= nome;
 		this.cognome = cognome;
-		this.indirizzo= indirizzo;
+		this.indirizzo= indirizzo;     
 		this.telefono=telefono;
 		this.email=email;
 		
