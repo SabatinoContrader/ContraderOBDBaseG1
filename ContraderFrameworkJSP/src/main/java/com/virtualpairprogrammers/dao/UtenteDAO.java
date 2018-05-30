@@ -22,6 +22,7 @@ public class UtenteDAO {
             ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String Username = resultSet.getString("Username");
                 String Password = resultSet.getString("Password");
                 String Nome = resultSet.getString("Nome");
@@ -31,7 +32,7 @@ public class UtenteDAO {
                 String Telefono = resultSet.getString("Telefono");
                 String Email = resultSet.getString("Email");
                 String Ruolo = resultSet.getString("Ruolo");
-                utenti.add(new Utente(Username, Password, Nome, Cognome, Indirizzo, Codice_fiscale, Telefono, Email, Ruolo, null, null));
+                utenti.add(new Utente(id, Username, Password, Nome, Cognome, Indirizzo, Codice_fiscale, Telefono, Email, Ruolo, null, null));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,6 +48,7 @@ public class UtenteDAO {
             PreparedStatement ps = (PreparedStatement) connection.prepareStatement(Query);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
+                int Id = resultSet.getInt("Id");
                 String Username = resultSet.getString("Username");
                 String Password = resultSet.getString("Password");
                 String Nome = resultSet.getString("Nome");
@@ -58,7 +60,7 @@ public class UtenteDAO {
                 String Ruolo = resultSet.getString("Ruolo");
                 String Valutazione = resultSet.getString("valutazione");
                 String Commenti = resultSet.getString("commenti");
-                utenti.add(new Utente(Username, Password, Nome, Cognome, Indirizzo, Codice_fiscale, Email, Telefono, Ruolo, Valutazione,Commenti));
+                utenti.add(new Utente(Id,Username, Password, Nome, Cognome, Indirizzo, Codice_fiscale, Email, Telefono, Ruolo, Valutazione,Commenti));
 
             }
         } catch (SQLException e) {

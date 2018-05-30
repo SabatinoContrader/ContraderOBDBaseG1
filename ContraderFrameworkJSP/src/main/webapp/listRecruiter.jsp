@@ -12,6 +12,10 @@
 <table>
 <tr>
     <th>
+    Id
+    </th>
+
+    <th>
     Nome
     </th>
     <th>
@@ -33,6 +37,11 @@
 
 <%for (Utente recruiter : recruiters){ %>
 <tr>
+
+<td>
+<%= recruiter.getId()%>
+</td>
+
 
 <td>
 <%= recruiter.getNome()%>

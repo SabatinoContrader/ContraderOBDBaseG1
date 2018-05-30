@@ -12,7 +12,7 @@
 <table>
 <tr>
     <th>
-    ID
+    Id
     </th>
     <th>
     Titolo

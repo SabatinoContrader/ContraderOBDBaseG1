@@ -40,6 +40,13 @@ public class RecruiterServlet extends HttpServlet {
                 annunci = this.annunciService.ritornaTuttiAnnunci();
                 session.setAttribute("listAnnunci", annunci);
                 response.sendRedirect("listAnnunci.jsp");
+                break;
+            case "Commenta e valuta candidato" :
+                String valutazione = request.getParameter("valutazione");
+                String commento = request.getParameter("commento");
+                int id = Integer.parseInt(request.getParameter("id"));
+                this.utenteService.valutacommentaCandidati(valutazione, commento, id);
+                response.sendRedirect("homeRecruiter.jsp");
         }
 
     }}

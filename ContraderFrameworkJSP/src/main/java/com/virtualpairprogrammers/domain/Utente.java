@@ -15,7 +15,8 @@ public class Utente {
     private String valutazione;
     private String commenti;
 
-    public Utente(String username, String password, String nome, String cognome, String indirizzo, String codice_fiscale, String telefono, String email, String ruolo, String valutazione, String commenti) {
+    public Utente(int id, String username, String password, String nome, String cognome, String indirizzo, String codice_fiscale, String telefono, String email, String ruolo, String valutazione, String commenti) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.nome = nome;
@@ -27,6 +28,9 @@ public class Utente {
         this.ruolo = ruolo;
         this.valutazione = valutazione;
         this.commenti = commenti;
+    }
+
+    public Utente(String username, String password, String nome, String cognome, String indirizzo, String codice_fiscale, String telefono, String email, String candidato, Object o, Object o1) {
     }
 
     public int getId() {

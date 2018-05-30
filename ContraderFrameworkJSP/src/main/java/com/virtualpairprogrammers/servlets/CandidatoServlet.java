@@ -30,6 +30,7 @@ public class CandidatoServlet extends HttpServlet {
 
         switch (scelta) {
             case "Registrati":
+
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
                 String nome = request.getParameter("nome");

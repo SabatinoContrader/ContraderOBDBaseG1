@@ -10,6 +10,11 @@
 <body>
 <table>
 <tr>
+
+    <th>
+    Id
+    </th>
+
     <th>
     Nome
     </th>
@@ -39,6 +44,11 @@
 
 <%for (Utente candidato : candidati){ %>
 <tr>
+
+<td>
+<%= candidato.getId()%>
+</td>
+
 <td>
 <%= candidato.getNome()%>
 </td>
@@ -64,13 +74,13 @@
 <%= candidato.getTelefono()%>
 </td>
 
-        <td>
-        <%= candidato.getValutazione()%>
-        </td>
+<td>
+<%= candidato.getValutazione()%>
+</td>
 
-        <td>
-        <%= candidato.getCommenti()%>
-        </td>
+<td>
+<%= candidato.getCommenti()%>
+</td>
 
 
 </tr>
