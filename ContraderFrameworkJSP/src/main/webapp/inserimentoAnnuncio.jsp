@@ -6,8 +6,6 @@
 <head>
 </head>
 <body>
-
-nicola o mast
 <form action="GestoreServlet" method="post">
 Titolo<input type="text"  name="titolo">
 Luogo<input type="text"  name="luogo">
