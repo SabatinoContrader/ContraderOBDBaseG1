@@ -7,6 +7,7 @@
 </head>
 <body>
 <form action="GestoreServlet" method="post">
+Saluti a tutti
     Titolo<input type="text"  name="titolo">
     Luogo<input type="text"  name="luogo">
     Categoria<input type="text" name="categoria">
