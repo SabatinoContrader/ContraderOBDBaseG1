@@ -61,6 +61,10 @@
 		<servlet-class>com.virtualpairprogrammers.servlets.RecruiterServlet</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>CancellaAnnuncioServlet</servlet-name>
+		<servlet-class>com.virtualpairprogrammers.servlets.CancellaAnnuncioServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>HelloWorldServlet</servlet-name>
@@ -119,6 +123,11 @@
 		<url-pattern>/RecruiterServlet</url-pattern>
 	</servlet-mapping>
 
+
+	<servlet-mapping>
+		<servlet-name>CancellaAnnuncioServlet</servlet-name>
+		<url-pattern>/CancellaAnnuncioServlet</url-pattern>
+	</servlet-mapping>
 
 	<session-config>
 		<session-timeout>4000</session-timeout>

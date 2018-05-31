@@ -37,8 +37,7 @@ public class UtenteService{
 
     public boolean registrazioneCandidato(Utente candidato){ return this.utenteDAO.registrazioneCandidato(candidato); }
 
-    public boolean valutacommentaCandidati(String valutazione, String commenti, int id) {
-        return this.utenteDAO.valutacommentaCandidati(valutazione, commenti, id);
+    public boolean valutacommentaCandidati(String valutazione, String commenti, int id) {return this.utenteDAO.valutacommentaCandidati(valutazione, commenti, id);
     }
 
 }

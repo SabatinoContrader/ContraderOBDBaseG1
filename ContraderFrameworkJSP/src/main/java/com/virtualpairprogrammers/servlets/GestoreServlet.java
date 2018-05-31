@@ -71,10 +71,7 @@ public class GestoreServlet extends HttpServlet
                 this.annunciService.inserisciAnnuncio(newAnnuncio);
                 response.sendRedirect("homeGestore.jsp");
                 break;
-            case "Cancella Annuncio":
-                int deleteid = request.getIntHeader("id");
-                this.annunciService.cancellaAnnuncio(deleteid);
-                response.sendRedirect("homeGestore.jsp");
+
 
         }
     }

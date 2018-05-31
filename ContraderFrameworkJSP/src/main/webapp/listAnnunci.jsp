@@ -26,6 +26,7 @@
     <th>
     Contratto
     </th>
+
 </tr>
 
 <%for (Annunci annuncio : annunci){ %>
@@ -49,6 +50,13 @@
 
 <td>
 <%= annuncio.getContratto()%>
+</td>
+
+
+<td>
+<%if (ruolo.equals("gestore")){%>
+<a href="CancellaAnnuncioServlet?id=<%= annuncio.getId()%>">Cancella Annuncio</a>
+<%}%>
 </td>
 
 </tr>
