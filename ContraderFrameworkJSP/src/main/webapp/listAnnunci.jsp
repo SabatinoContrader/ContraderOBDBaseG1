@@ -4,7 +4,8 @@
 <html>
 <head>
  <% List<Annunci> annunci = (List<Annunci>) session.getAttribute("listAnnunci");
- String ruolo =((String) session.getAttribute("ruolo"));%>
+ String ruolo =((String) session.getAttribute("ruolo"));
+ Integer idcandidato = ((Integer) session.getAttribute("id"));%>
 
 
 </head>
@@ -58,6 +59,13 @@
 <a href="CancellaAnnuncioServlet?id=<%= annuncio.getId()%>">Cancella Annuncio</a>
 <%}%>
 </td>
+
+<td>
+<%if (ruolo.equals("candidato")){%>
+<a href="IscrizioneAnnuncioServlet?id=<%= annuncio.getId()%>&idca=<%= idcandidato%>">Candidati</a>
+<%}%>
+
+
 
 </tr>
 <% }%>

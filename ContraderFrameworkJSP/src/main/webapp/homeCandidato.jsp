@@ -10,7 +10,8 @@
 <head>
     <%String nome =((String) session.getAttribute("nome"));
     String cognome =((String) session.getAttribute("cognome"));
-    String ruolo =((String) session.getAttribute("ruolo"));%>
+    String ruolo =((String) session.getAttribute("ruolo"));
+    Integer id = ((Integer) session.getAttribute("id"));%>
     <title>Piattaforma di Recruitment</title>
 </head>
 <body>

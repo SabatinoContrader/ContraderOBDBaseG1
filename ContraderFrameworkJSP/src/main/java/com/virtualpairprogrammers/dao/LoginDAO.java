@@ -26,9 +26,11 @@ public class LoginDAO {
                 String nome = resulset.getString("nome");
                 String cognome = resulset.getString("cognome");
                 String ruolo = resulset.getString("ruolo");
+                Integer id = resulset.getInt("id");
                 dati.add(nome);
                 dati.add(cognome);
                 dati.add(ruolo);
+                dati.add(id);
                 return dati;
             }
 

@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet
                 session.setAttribute("nome", result.get(0));
                 session.setAttribute("cognome", result.get(1));
                 session.setAttribute("ruolo", result.get(2));
+                session.setAttribute("id",result.get(3));
                 String ruolo=result.get(2);
                 switch(ruolo) {
                     case("gestore"):

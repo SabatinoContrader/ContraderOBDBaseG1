@@ -66,6 +66,12 @@
 		<servlet-class>com.virtualpairprogrammers.servlets.CancellaAnnuncioServlet</servlet-class>
 	</servlet>
 
+
+	<servlet>
+		<servlet-name>IscrizioneAnnuncioServlet</servlet-name>
+		<servlet-class>com.virtualpairprogrammers.servlets.IscrizioneAnnuncioServlet</servlet-class>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>HelloWorldServlet</servlet-name>
 		<url-pattern>/hello-everyone.html</url-pattern>
@@ -128,6 +134,13 @@
 		<servlet-name>CancellaAnnuncioServlet</servlet-name>
 		<url-pattern>/CancellaAnnuncioServlet</url-pattern>
 	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>IscrizioneAnnuncioServlet</servlet-name>
+		<url-pattern>/IscrizioneAnnuncioServlet</url-pattern>
+	</servlet-mapping>
+
 
 	<session-config>
 		<session-timeout>4000</session-timeout>
