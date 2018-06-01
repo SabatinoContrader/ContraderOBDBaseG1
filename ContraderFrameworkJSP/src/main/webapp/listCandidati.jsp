@@ -91,5 +91,8 @@
                 <%} else if (ruolo.equals("recruiter")){%>
                 <a href="homeRecruiter.jsp">Home</a>
   <%}%>
+<%if (ruolo.equals("recruiter")){%>
+  <a href="inserimentoValutazioneCommento.jsp">Commenta e valuta candidato</a>
+ <%}%>
 </body>
 </html>

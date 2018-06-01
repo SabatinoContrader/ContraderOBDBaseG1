@@ -22,14 +22,15 @@
 <input type="submit" value="Lista Candidati" name="richiesta">
 <input type="submit" value="Lista annunci" name="richiesta">
 </form>
+
+
+
 <a href="inserimentoRecruiter.jsp">Inserisci Recruiter</a>
-<button type="submit" formaction="/inserimentoRecruiter.jsp">Inserisci Recruiter</button>
 
 <a href="inserimentoAnnuncio.jsp">Inserisci Annuncio</a>
-<button type="submit" formaction="/inserimentoAnnuncio.jsp">Inserisci Annuncio</button>
 
 <form action="LogoutServlet" method="post">
-<input type="submit" value="Logout" name="Logout">
+<br><input type="submit" value="Logout" name="Logout">
 </form>
 </body>
 </html>

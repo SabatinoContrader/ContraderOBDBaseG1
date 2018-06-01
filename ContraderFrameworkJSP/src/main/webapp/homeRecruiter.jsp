@@ -21,8 +21,6 @@
 <input type="submit" value="Lista Candidati" name="richiesta">
 <input type="submit" value="Lista annunci" name="richiesta">
 </form>
-<a href="inserimentoValutazioneCommento.jsp">Commenta e valuta candidato</a>
-<button type="submit" formaction="/inserimentoValutazioneCommento.jsp">Commenta e valuta candidato</button>
 <form action="LogoutServlet" method="post">
 <input type="submit" value="Logout" name="Logout">
 </form>
