@@ -11,9 +11,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!--indica le librerie che sto utilizzando per bootstrap(con relativo CSS) e JQuery />-->
 
-    <%
-        String esito=(String) session.getAttribute("esitoLogin");
-    %>
 
 <!-- inizio linguaggio CSS-->
 <style>
@@ -51,9 +48,10 @@
 
     #frasetre{
     color:#2A1E70;
-    padding-left:235px;
+    padding-left:295px;
     padding-top:10px;
     font-size:28pt;
+    font-family: impact;
     }
 
     #username{
@@ -109,8 +107,11 @@
 
 	@media screen and (min-width: 992px) {
 	#frasedue {
-	font-size: 80px;
+	font-size:610%;
     color:#2A1E70;
+    font-family: impact;
+    margin-left: 115px;
+
 	}
 	}
 
@@ -135,6 +136,7 @@
     #frasefascia{
     color:#2A1E70;
     padding-left:25px;
+    font-family: impact;
     }
 
      </style>
@@ -154,8 +156,7 @@
 <!--inizio fascialta con immagine in background quando lo schermo passa da lg a md />-->
 <div class="row" id="top">
     <div class="col-md-12" style="background-image:url('fascialta.jpg')">
-		    <div id="frasefascia">ISCRIVITI e scopri i nostri vantaggi. </div>
-		<div></div>
+		<div id="frasefascia">ISCRIVITI e scopri i nostri vantaggi. </div>
     </div>
 </div>
 <!--fine fascialta con immagine in background quando lo schermo passa da lg a md />-->
@@ -178,14 +179,14 @@
 <div class="row">
     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
         </div>
-        <%if (esito=="errato"){%>
-            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
-                <div class="alert alert-danger alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Login errato!</strong>
-                </div>
-            </div>
-         <%}%>
+            <%if (esito=="errato"){%>
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+                            <div class="alert alert-danger alert-dismissible fade in">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Login errato!</strong>
+                            </div>
+                        </div>
+                     <%}%>
         <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
     </div>
 </div>
@@ -240,18 +241,16 @@
 <!--inizio della riga al di sotto del login con recupero della password dell'utente />-->
 <div class="row uno">
     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-    </div>
-        <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
-            <div>
-                <label><input type="checkbox"> Remember me</label>
-            </div>
         </div>
-        <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4" style="text-align:right">
-            <div class="link">
-                <label><a id="m_login_forget_password" class="m-link">Forget Password</a></label>
+            <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
+                <div><label><input type="checkbox"> Remember me</label></div>
+                    </div>
+                        <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4" style="text-align:right">
+                        <div class="link">
+                    <label><a id="m_login_forget_password" class="m-link">Forget Password</a></label>
+                </div>
             </div>
-        </div>
-    <div class="col-lg-1 col-md-1 col-sm-2 col-xs 2">
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs 2">
     </div>
 </div>
 <!--fine della riga al di sotto del login con recupero della password dell'utente />-->
