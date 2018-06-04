@@ -3,8 +3,6 @@ package com.virtualpairprogrammers.services;
 
 import com.virtualpairprogrammers.dao.AnnunciDAO;
 import com.virtualpairprogrammers.domain.Annunci;
-
-import java.sql.SQLException;
 import java.util.List;
 
     public class AnnunciService {
@@ -19,13 +17,20 @@ import java.util.List;
         return reference;
     }
 
-    public AnnunciService() { this.annunciDAO = new AnnunciDAO();
+    public AnnunciService() {
+        this.annunciDAO = new AnnunciDAO();
     }
 
-    public List<Annunci> ritornaTuttiAnnunci () {return this.annunciDAO.ritornaTuttiAnnunci();}
+    public List<Annunci> ritornaTuttiAnnunci () {
+        return this.annunciDAO.ritornaTuttiAnnunci();
+    }
 
-    public boolean inserisciAnnuncio (Annunci annunci) {return this.annunciDAO.inserisciAnnuncio(annunci);}
+    public boolean inserisciAnnuncio (Annunci annunci) {
+        return this.annunciDAO.inserisciAnnuncio(annunci);
+    }
 
-    public boolean cancellaAnnuncio(int id) {return this.annunciDAO.cancellaAnnuncio(id);}
+    public boolean cancellaAnnuncio(Integer id) {
+        return this.annunciDAO.cancellaAnnuncio(id);
+    }
 
 }

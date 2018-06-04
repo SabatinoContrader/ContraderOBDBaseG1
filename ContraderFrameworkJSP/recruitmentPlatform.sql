@@ -17,7 +17,6 @@ commenti varchar(128),
 primary key (id)
 );
 
-
 insert into recruitmentplatform.utente(username,password,nome,cognome,indirizzo,codice_fiscale,telefono,email,ruolo) 
 value ('nicola','123456','nicola','lombardi','via benevento','f43t3453','3334567894','nicola@gmail.com','gestore');
 insert into recruitmentplatform.utente(username,password,nome,cognome,indirizzo,codice_fiscale,telefono,email,ruolo) 
@@ -47,10 +46,10 @@ value ('programmatore','roma','ht','stage');
 insert into recruitmentplatform.annunci(titolo,luogo,categoria,contratto) 
 value ('programmatore','genoa','ht','stage');
 
-
+drop table recruitmentplatform.candidature;			 
 create table recruitmentplatform.candidature(
-ID_Annunci int,
-ID_Candidati int,
-foreign key (ID_Annunci) references annunci (id),
-foreign key (ID_Candidati) references utente (id)
+ID_Annunci int(11),
+ID_Candidati int(11),
+foreign key (ID_Annunci) references recruitmentplatform.annunci (id),
+foreign key (ID_Candidati) references recruitmentplatform.utente (id)
 );

@@ -7,11 +7,11 @@
 </head>
 <body>
 <form action="RecruiterServlet" method="post">
-    Valutazione<input type="text"  name="valutazione">
-    Commento<input type="text"  name="commento">
+    Valutazione<input type="text" name="valutazione">
+    Commento<input type="text" name="commento">
     Id<input type="text" name="id">
     <input type="submit" value="Commenta e valuta candidato" name="richiesta">
-    </form>
-    <a href="homeRecruiter.jsp">Home</a>
+</form>
+<a href="homeRecruiter.jsp">Home</a>
 </body>
 </html>

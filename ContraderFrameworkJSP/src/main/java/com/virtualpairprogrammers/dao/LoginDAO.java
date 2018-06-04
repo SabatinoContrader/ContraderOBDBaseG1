@@ -14,10 +14,9 @@ public class LoginDAO {
     private final String QUERY = "select * from Utente where username = ? and password = ?";
 
     public List<String> loginUtente(String username, String password) {
-            List dati = new ArrayList<String>();
-
+        List dati = new ArrayList<String>();
+        Connection connection = ConnectionSingleton.getInstance();
         try {
-            Connection connection = ConnectionSingleton.getInstance();
             PreparedStatement statement = connection.prepareStatement(QUERY);
             statement.setString(1, username);
             statement.setString(2, password);
@@ -33,12 +32,10 @@ public class LoginDAO {
                 dati.add(id);
                 return dati;
             }
-
         } catch (SQLException e) {
             System.out.println("Query fallita");
             return dati;
         }
         return dati;
     }
-
 }

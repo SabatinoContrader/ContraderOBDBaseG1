@@ -2,17 +2,13 @@ package com.virtualpairprogrammers.domain;
 
 public class Annunci {
 
-    private int id;
+    private Integer id;
     private String titolo;
     private String luogo;
     private String categoria;
     private String contratto;
 
-    public Annunci() {
-        super();
-    }
-
-    public Annunci(int id, String titolo, String luogo, String categoria, String contratto) {
+    public Annunci(Integer id, String titolo, String luogo, String categoria, String contratto) {
         this.id = id;
         this.titolo = titolo;
         this.luogo = luogo;
@@ -21,12 +17,8 @@ public class Annunci {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitolo() {

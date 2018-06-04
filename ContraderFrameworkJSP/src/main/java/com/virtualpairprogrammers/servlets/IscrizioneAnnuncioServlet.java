@@ -1,6 +1,4 @@
 package com.virtualpairprogrammers.servlets;
-
-
 import com.virtualpairprogrammers.domain.Annunci;
 import com.virtualpairprogrammers.domain.Candidature;
 import com.virtualpairprogrammers.services.CandidatureService;
@@ -16,17 +14,11 @@ public class IscrizioneAnnuncioServlet extends HttpServlet {
     private CandidatureService candidatureService;
 
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        candidatureService =CandidatureService.getService();
-
-        //int ID_Annunci = request.getIntHeader("ID_Annunci");0
-        //int ID_Candidati = request.getIntHeader("ID_Candidati");
-        int ID_Annunci = 11;
-        int ID_Candidati = 3;
+        candidatureService = CandidatureService.getService();
+        Integer ID_Annunci = Integer.parseInt(request.getParameter("id"));
+        Integer ID_Candidati = Integer.parseInt(request.getParameter("idca"));
         Candidature newCandidatura = new Candidature(ID_Annunci, ID_Candidati);
-
         this.candidatureService.iscrizioneAnnuncio(newCandidatura);
         response.sendRedirect("homeCandidato.jsp");
-
     }
 }

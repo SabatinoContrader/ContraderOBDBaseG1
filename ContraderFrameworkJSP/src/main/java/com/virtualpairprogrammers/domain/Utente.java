@@ -2,7 +2,7 @@ package com.virtualpairprogrammers.domain;
 
 public class Utente {
 
-    private int id;
+    private Integer id;
     private String username;
     private String password;
     private String nome;
@@ -15,7 +15,7 @@ public class Utente {
     private String valutazione;
     private String commenti;
 
-    public Utente(int id, String username, String password, String nome, String cognome, String indirizzo, String codice_fiscale, String telefono, String email, String ruolo, String valutazione, String commenti) {
+    public Utente(Integer id, String username, String password, String nome, String cognome, String indirizzo, String codice_fiscale, String telefono, String email, String ruolo, String valutazione, String commenti) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -30,10 +30,7 @@ public class Utente {
         this.commenti = commenti;
     }
 
-    public Utente(String username, String password, String nome, String cognome, String indirizzo, String codice_fiscale, String telefono, String email, String candidato, Object o, Object o1) {
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -2,15 +2,15 @@ package com.virtualpairprogrammers.domain;
 
 public class Candidature {
 
-    private int ID_Annunci;
-    private int ID_Candidati;
+    private Integer ID_Annunci;
+    private Integer ID_Candidati;
 
-    public Candidature(int ID_Annunci, int ID_Candidati) {
+    public Candidature(Integer ID_Annunci, Integer ID_Candidati) {
         this.ID_Annunci = ID_Annunci;
         this.ID_Candidati = ID_Candidati;
     }
 
-    public int getID_Annunci() {
+    public Integer getID_Annunci() {
         return ID_Annunci;
     }
 
@@ -18,7 +18,7 @@ public class Candidature {
         this.ID_Annunci = ID_Annunci;
     }
 
-    public int getID_Candidati() {
+    public Integer getID_Candidati() {
         return ID_Candidati;
     }
 

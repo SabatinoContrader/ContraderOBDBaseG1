@@ -7,7 +7,6 @@ import java.util.List;
 public class LoginService {
 
     private LoginDAO loginDAO;
-
     private static LoginService reference;
 
     public static LoginService getService()

@@ -2,6 +2,7 @@ package com.virtualpairprogrammers.dao;
 
 import com.virtualpairprogrammers.utils.ConnectionSingleton;
 import com.virtualpairprogrammers.domain.Utente;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,20 +10,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class UtenteDAO {
 
-     public List<Utente> ritornaRecruiter() {
-
+    public List<Utente> ritornaRecruiter() {
         String Query = "select * from utente where ruolo = 'recruiter' ";
         List<Utente> utenti = new ArrayList<>();
         try {
             Connection connection = ConnectionSingleton.getInstance();
             PreparedStatement ps = (PreparedStatement) connection.prepareStatement(Query);
             ResultSet resultSet = ps.executeQuery();
-
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                Integer id = resultSet.getInt("id");
                 String Username = resultSet.getString("Username");
                 String Password = resultSet.getString("Password");
                 String Nome = resultSet.getString("Nome");
@@ -48,7 +46,7 @@ public class UtenteDAO {
             PreparedStatement ps = (PreparedStatement) connection.prepareStatement(Query);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                int Id = resultSet.getInt("Id");
+                Integer Id = resultSet.getInt("Id");
                 String Username = resultSet.getString("Username");
                 String Password = resultSet.getString("Password");
                 String Nome = resultSet.getString("Nome");
@@ -60,8 +58,7 @@ public class UtenteDAO {
                 String Ruolo = resultSet.getString("Ruolo");
                 String Valutazione = resultSet.getString("valutazione");
                 String Commenti = resultSet.getString("commenti");
-                utenti.add(new Utente(Id,Username, Password, Nome, Cognome, Indirizzo, Codice_fiscale, Email, Telefono, Ruolo, Valutazione,Commenti));
-
+                utenti.add(new Utente(Id, Username, Password, Nome, Cognome, Indirizzo, Codice_fiscale, Email, Telefono, Ruolo, Valutazione, Commenti));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,7 +66,7 @@ public class UtenteDAO {
         return utenti;
     }
 
-     public boolean inserisciRecruiter(Utente recruiter)  {
+    public boolean inserisciRecruiter(Utente recruiter) {
         String QUERY_INSERT = "INSERT INTO recruitmentplatform.utente (ruolo, nome, cognome, indirizzo, codice_fiscale, telefono, email, username, password) VALUES ('recruiter', ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = ConnectionSingleton.getInstance();
         try {
@@ -92,7 +89,7 @@ public class UtenteDAO {
         }
     }
 
-     public boolean registrazioneCandidato(Utente candidato){
+    public boolean registrazioneCandidato(Utente candidato) {
         String QUERY_INSERT = "INSERT INTO recruitmentplatform.utente (ruolo, nome, cognome, indirizzo, codice_fiscale, telefono, email, username, password) VALUES ('candidato', ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = ConnectionSingleton.getInstance();
         try {
@@ -115,7 +112,7 @@ public class UtenteDAO {
         }
     }
 
-     public boolean valutacommentaCandidati(String valutazione, String commento, int id) {
+    public boolean valutacommentaCandidati(String valutazione, String commento, Integer id) {
         String QUERY_UPDATE = "UPDATE recruitmentplatform.utente SET valutazione = ? ,commenti = ? WHERE id = ?";
         Connection connection = ConnectionSingleton.getInstance();
         try {
@@ -124,10 +121,9 @@ public class UtenteDAO {
             preparedStatement.setString(2, commento);
             preparedStatement.setInt(3, id);
             int a = preparedStatement.executeUpdate();
-            if(a>0)return true;
+            if (a > 0) return true;
             else return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             return false;
         }
     }

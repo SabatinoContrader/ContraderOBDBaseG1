@@ -21,16 +21,12 @@ public class CandidatoServlet extends HttpServlet {
     private AnnunciService annunciService;
 
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-        String scelta=request.getParameter("richiesta");
+        String scelta = request.getParameter("richiesta");
         HttpSession session = request.getSession(true);
-        utenteService =UtenteService.getService();
-        annunciService =AnnunciService.getService();
-
+        utenteService = UtenteService.getService();
+        annunciService = AnnunciService.getService();
         switch (scelta) {
             case "Registrati":
-
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
                 String nome = request.getParameter("nome");
@@ -39,22 +35,16 @@ public class CandidatoServlet extends HttpServlet {
                 String Codice_fiscale = request.getParameter("codice_fiscale");
                 String email = request.getParameter("email");
                 String telefono = request.getParameter("telefono");
-                Utente newCandidato = new Utente(username, password, nome, cognome, indirizzo, Codice_fiscale, telefono, email, "candidato", null, null);
+                Utente newCandidato = new Utente(null, username, password, nome, cognome, indirizzo, Codice_fiscale, telefono, email, "candidato", null, null);
                 this.utenteService.registrazioneCandidato(newCandidato);
                 response.sendRedirect("index.jsp");
                 break;
             case "Lista annunci":
-                List<Annunci> annunci= new ArrayList<Annunci>();
+                List<Annunci> annunci = new ArrayList<Annunci>();
                 annunci = this.annunciService.ritornaTuttiAnnunci();
                 session.setAttribute("listAnnunci", annunci);
                 response.sendRedirect("listAnnunci.jsp");
                 break;
         }
     }
-
-
-
-
-
-
 }

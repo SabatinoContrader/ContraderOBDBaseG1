@@ -8,21 +8,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%String nome =((String) session.getAttribute("nome"));
-    String cognome =((String) session.getAttribute("cognome"));
-    String ruolo =((String) session.getAttribute("ruolo"));%>
+    <%
+        String nome = ((String) session.getAttribute("nome"));
+        String cognome = ((String) session.getAttribute("cognome"));
+        String ruolo = ((String) session.getAttribute("ruolo"));
+    %>
     <title>Piattaforma di Recruitment</title>
 </head>
 <body>
 <h1>Benvenuto nel sito</h1>
 <h2>Menu Gestore</h2>
-<h3><%= nome%></h3>
+<h3><%= nome%>
+</h3>
 <form action="GestoreServlet" method="post">
-<input type="submit" value="Lista Recruiter" name="richiesta">
-<input type="submit" value="Lista Candidati" name="richiesta">
-<input type="submit" value="Lista annunci" name="richiesta">
+    <input type="submit" value="Lista Recruiter" name="richiesta">
+    <input type="submit" value="Lista Candidati" name="richiesta">
+    <input type="submit" value="Lista annunci" name="richiesta">
 </form>
-
 
 
 <a href="inserimentoRecruiter.jsp">Inserisci Recruiter</a>
@@ -30,7 +32,7 @@
 <a href="inserimentoAnnuncio.jsp">Inserisci Annuncio</a>
 
 <form action="LogoutServlet" method="post">
-<br><input type="submit" value="Logout" name="Logout">
+    <br><input type="submit" value="Logout" name="Logout">
 </form>
 </body>
 </html>

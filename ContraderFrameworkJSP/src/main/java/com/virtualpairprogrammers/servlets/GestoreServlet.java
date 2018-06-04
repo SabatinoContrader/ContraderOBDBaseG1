@@ -16,20 +16,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestoreServlet extends HttpServlet
-{
+public class GestoreServlet extends HttpServlet {
     private UtenteService utenteService;
     private AnnunciService annunciService;
 
-    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        String scelta=request.getParameter("richiesta");
+    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String scelta = request.getParameter("richiesta");
         HttpSession session = request.getSession(true);
-        utenteService =UtenteService.getService();
-        annunciService =AnnunciService.getService();
-
+        utenteService = UtenteService.getService();
+        annunciService = AnnunciService.getService();
         switch (scelta) {
-
             case "Lista Recruiter":
                 List<Utente> recruiter = new ArrayList<Utente>();
                 recruiter = this.utenteService.ritornaRecruiter();
@@ -43,36 +39,33 @@ public class GestoreServlet extends HttpServlet
                 response.sendRedirect("listCandidati.jsp");
                 break;
             case "Inserisci Recruiter":
-                String username=request.getParameter("username");
-                String password=request.getParameter("password");
-                String nome=request.getParameter("nome");
-                String cognome=request.getParameter("cognome");
-                String indirizzo=request.getParameter("indirizzo");
-                String Codice_fiscale=request.getParameter("codice_fiscale");
-                String email=request.getParameter("email");
-                String telefono=request.getParameter("telefono");
-                Utente neweRecruiter= new Utente(username, password, nome, cognome, indirizzo, Codice_fiscale, telefono, email, "recruiter", null, null);
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String nome = request.getParameter("nome");
+                String cognome = request.getParameter("cognome");
+                String indirizzo = request.getParameter("indirizzo");
+                String Codice_fiscale = request.getParameter("codice_fiscale");
+                String email = request.getParameter("email");
+                String telefono = request.getParameter("telefono");
+                Utente neweRecruiter = new Utente(null, username, password, nome, cognome, indirizzo, Codice_fiscale, telefono, email, "recruiter", null, null);
                 this.utenteService.inserisciRecruiter(neweRecruiter);
                 response.sendRedirect("homeGestore.jsp");
                 break;
             case "Lista annunci":
-                List<Annunci> annunci= new ArrayList<Annunci>();
+                List<Annunci> annunci = new ArrayList<Annunci>();
                 annunci = this.annunciService.ritornaTuttiAnnunci();
                 session.setAttribute("listAnnunci", annunci);
                 response.sendRedirect("listAnnunci.jsp");
                 break;
             case "Inserisci Annuncio":
-                int id = request.getIntHeader("id");
-                String titolo=request.getParameter("titolo");
-                String luogo=request.getParameter("luogo");
-                String categoria=request.getParameter("categoria");
-                String contratto=request.getParameter("contratto");
-                Annunci newAnnuncio= new Annunci(id,titolo,luogo,categoria,contratto);
+                String titolo = request.getParameter("titolo");
+                String luogo = request.getParameter("luogo");
+                String categoria = request.getParameter("categoria");
+                String contratto = request.getParameter("contratto");
+                Annunci newAnnuncio = new Annunci(null, titolo, luogo, categoria, contratto);
                 this.annunciService.inserisciAnnuncio(newAnnuncio);
                 response.sendRedirect("homeGestore.jsp");
                 break;
-
-
         }
     }
 }

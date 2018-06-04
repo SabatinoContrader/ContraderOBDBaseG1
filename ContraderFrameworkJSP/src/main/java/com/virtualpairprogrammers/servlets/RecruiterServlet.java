@@ -4,8 +4,6 @@ import com.virtualpairprogrammers.domain.Utente;
 import com.virtualpairprogrammers.services.AnnunciService;
 import com.virtualpairprogrammers.services.UtenteService;
 import com.virtualpairprogrammers.domain.Annunci;
-
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class RecruiterServlet extends HttpServlet {
 
@@ -26,7 +23,6 @@ public class RecruiterServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         utenteService = UtenteService.getService();
         annunciService = AnnunciService.getService();
-
         switch (scelta) {
             case "Lista Candidati":
                 List<Utente> candidati = new ArrayList<Utente>();
@@ -34,19 +30,18 @@ public class RecruiterServlet extends HttpServlet {
                 session.setAttribute("listCandidati", candidati);
                 response.sendRedirect("listCandidati.jsp");
                 break;
-
             case "Lista annunci":
-                List<Annunci> annunci= new ArrayList<Annunci>();
+                List<Annunci> annunci = new ArrayList<Annunci>();
                 annunci = this.annunciService.ritornaTuttiAnnunci();
                 session.setAttribute("listAnnunci", annunci);
                 response.sendRedirect("listAnnunci.jsp");
                 break;
-            case "Commenta e valuta candidato" :
+            case "Commenta e valuta candidato":
                 String valutazione = request.getParameter("valutazione");
                 String commento = request.getParameter("commento");
-                int id = Integer.parseInt(request.getParameter("id"));
+                Integer id = Integer.parseInt(request.getParameter("id"));
                 this.utenteService.valutacommentaCandidati(valutazione, commento, id);
                 response.sendRedirect("homeRecruiter.jsp");
         }
-
-    }}
+    }
+}
