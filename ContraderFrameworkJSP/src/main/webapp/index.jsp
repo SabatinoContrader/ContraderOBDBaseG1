@@ -1,179 +1,303 @@
+<!-- inizio linguaggio HTML-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Piattaforma di Recruitment</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!--codice di bootstra />-->
+<title>Piattaforma di Recruitment</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--indica le librerie che sto utilizzando per bootstrap(con relativo CSS) e JQuery />-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--indica le librerie che sto utilizzando per bootstrap(con relativo CSS) e JQuery />-->
 
-    <style>
+    <%
+        String esito=(String) session.getAttribute("esitoLogin");
+    %>
 
-        html, body, .container, .full-height {
-            height: 100%;
-        }
-
-        #logo {
-            width: 100%;
-            height: auto;
-            padding-top: 60px;
-        }
-
-        #linea {
-            width: 100%;
-            height: 9px;
-        }
-
-        #username {
-            margin-top: 90px;
-        }
-
-        #login {
-            margin-top: 80px;
-            margin-left: 20px;
-        }
-
-        #frasedue {
-            color: #ffffff;
-            padding-left: 220px;
-            padding-top: 247px;
-            font-size: 70pt;
-        }
-
-        #frasetre {
-            color: #ffffff;
-            padding-left: 235px;
-            padding-top: 10px;
-            font-size: 28pt;
-        }
-
-        #username {
-            border-color: #ffffff;
-
-        }
-
-        #pwd {
-            border-color: #ffffff;
-        }
+<!-- inizio linguaggio CSS-->
+<style>
 
 
-    </style>
+    html,body, .container,.full-height{
+    height:100%;
+    }
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Documento senza titolo</title>
+    #logo{
+    width: 100%;
+    height: auto;
+    padding-top: 60px;
+	padding-bottom:40px;
+    }
+
+    #linea{
+	width: 100%;
+    height:9px;
+    }
+
+    #username{
+    margin-top:0px;
+    }
+
+    #login{
+    margin-top:80px;
+    margin-left:20px;
+    }
+
+    #frasedue{
+    padding-left:220px;
+    padding-top:247px;
+    }
+
+    #frasetre{
+    color:#2A1E70;
+    padding-left:235px;
+    padding-top:10px;
+    font-size:28pt;
+    }
+
+    #username{
+    border-color:#ffffff;
+    }
+
+    #pwd{
+    border-color:#ffffff;
+    }
+
+	.btn{
+	background-color:#2A1E70;
+	color:#ffffff;
+	margin-top:65px;
+	border-radius:9px;
+	height:36px;
+	width:130px;
+	margin-left:-10px;
+	}
+
+	div.row.uno{
+	padding-top:40px;
+	}
+
+	div.row.due{
+    padding-top:30px;
+	}
+
+    @media screen and (min-width: 992px) {
+	#top {
+	display: none;
+	}
+	}
+
+	@media screen and (max-width: 991px) {
+	#top {
+	display: block;
+	}
+	}
+
+	@media screen and (min-width: 992px) {
+	#fascia {
+	display: block;
+	}
+	}
+
+	@media screen and (max-width: 991px) {
+	#fascia {
+	display: none;
+    width: 100%;
+	}
+	}
+
+	@media screen and (min-width: 992px) {
+	#frasedue {
+	font-size: 80px;
+    color:#2A1E70;
+	}
+	}
+
+	@media screen and (max-width: 991px) {
+	#frasedue {
+	font-size: 50px;
+	}
+	}
+
+    @media screen and (max-width: 490px) {
+    #frasefascia {
+    font-size:28px;
+	}
+	}
+
+    @media screen and (min-width: 491px) {
+    #frasefascia {
+    font-size:38px;
+	}
+	}
+
+    #frasefascia{
+    color:#2A1E70;
+    padding-left:25px;
+    }
+
+     </style>
+ <!-- fine linguaggio CSS-->
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<title>Contreader Recruitment</title>
 </head>
 <body>
-<div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 full-height">
-        <form action="LoginServlet" method="post">
-            <div class="row">
-                <div class="col-lg-1">
-                </div>
-                <div class="col-lg-10">
-                    <img id="logo" src="logoapp.png"/>
-                </div>
-                <div class="col-lg-1">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-1">
-                </div>
-                <div class="col-lg-10">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="username" placeholder="Username" name="user">
-                    </div>
-                </div>
-                <div class="col-lg-1">
-                </div>
-            </div>
+<div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+<!-- sezione bootsrap container generale-->
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 full-height">
+<!-- inizio sezione sinistra con inserimento dati dell'utente-->
+    <form action="LoginServlet" method="post">
 
-            <div class="row">
-                <div class="col-lg-1">
-                </div>
-                <div class="col-lg-10">
-                    <div class="form-group">
-                        <img src="linea.png" id="linea"/>
-                    </div>
-                </div>
-                <div class="col-lg-1">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-1">
-                </div>
-                <div class="col-lg-10">
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="pwd" placeholder="Password" name="pwd">
-                    </div>
-                </div>
-                <div class="col-lg-1">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-1">
-                </div>
-                <div class="col-lg-4">
-                    <div class="checkbox">
-                        <label><input type="checkbox"> Remember me</label>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                </div>
-                <div class="col-lg-4">
-                    <div class="link">
-                        <label><a id="m_login_forget_password" class="m-link">Forgot Password</a></label>
-                    </div>
-                </div>
-                <div class="col-lg-1">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <button type="submit" id="login" value="Login" name="bott">Log In</button>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                </div>
-            </div>
-        </form>
-
-        <a href="registrazioneCandidato.jsp">Registrati</a>
-
-        <button type="submit" formaction="/registrazioneCandidato.jsp">Registrati</button>
+<!--inizio fascialta con immagine in background quando lo schermo passa da lg a md />-->
+<div class="row" id="top">
+    <div class="col-md-12" style="background-image:url('fascialta.jpg')">
+		    <div id="frasefascia">ISCRIVITI e scopri i nostri vantaggi. </div>
+		<div></div>
+    </div>
+</div>
+<!--fine fascialta con immagine in background quando lo schermo passa da lg a md />-->
 
 
-        <div class="row">
-            <div class="col-lg-1">
+<!--inizio inserimento logo piattaforma />-->
+<div class="row">
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+	    </div>
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+                <img id="logo" src="logoapp.png"/>
             </div>
-            <div class="col-lg-10">
-                <%
-                    if (session.getAttribute("esitoLogin") != null) {
-                %>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+    </div>
+</div>
+<!--fine inserimento logo piattaforma />-->
+
+
+<!--inizio del login error quando i dati non vengono compilati nel modo corretto />-->
+<div class="row">
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+        </div>
+        <%if (esito=="errato"){%>
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
                 <div class="alert alert-danger alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Login errato!</strong>
                 </div>
-                <%}%>
             </div>
-            <div class="col-lg-1">
+         <%}%>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+    </div>
+</div>
+<!--fine del login error quando i dati non vengono compilati nel modo corretto />-->
+
+
+<!--inizio del campo login username per l'inserimento dei dati dell'user />-->
+<div class="row">
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+        </div>
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="username" placeholder="Username" name="user">
+                </div>
+            </div>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+     </div>
+</div>
+<!--fine del campo loginusername per l'inserimento dei dati dell'user />-->
+
+
+<!--inizio della linea separatrice tra l'usename e la password />-->
+<div class="row">
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+        </div>
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8" >
+                <div class="form-group">
+                    <img src="linea.png" id="linea"/>
+                </div>
+            </div>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+    </div>
+</div>
+<!--fine della linea separatrice tra l'usename e la password />-->
+
+
+<!--inizio del campo login passowrd per l'inserimento dei dati dell'user />-->
+<div class="row">
+	<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+        </div>
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="pwd" placeholder="Password" name="pwd">
+                </div>
+            </div>
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs 2">
+    </div>
+</div>
+<!--fine del campo login password per l'inserimento dei dati dell'user />-->
+
+
+<!--inizio della riga al di sotto del login con recupero della password dell'utente />-->
+<div class="row uno">
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+    </div>
+        <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
+            <div>
+                <label><input type="checkbox"> Remember me</label>
             </div>
         </div>
+        <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4" style="text-align:right">
+            <div class="link">
+                <label><a id="m_login_forget_password" class="m-link">Forget Password</a></label>
+            </div>
+        </div>
+    <div class="col-lg-1 col-md-1 col-sm-2 col-xs 2">
     </div>
+</div>
+<!--fine della riga al di sotto del login con recupero della password dell'utente />-->
 
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8 full-height" style="background-image:url('fondotre.jpg')">
-        <!-- e responsiv 		in celulare, tablet, laptop e PC
-        <img src="fondotre.jpg" id="fondo" />-->
-
-        <h1 id="frasedue">ISCRIVITI</h1>
-        <h2 id="frasetre">e scopri i nostri vantaggi.</h2>
+<!--inizio inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+<div class="row">
+    <div class="col-lg-4 col-md-3 col-xs-2">
+        </div>
+            <div class="col-lg-4 col-md-6 col-xs-8" style="text-align:center">
+                <div class="form-group">
+                  <button class="btn" type="submit" id="login" value="Login" name="bott">Log In</button>
+                </div>
+            </div>
+        <div class="col-lg-4 col-md-3 col-xs-2" >
     </div>
+</div>
+<!--fine inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+</form>
+
+
+<!--inizio accesso per la registrazione al sito con relativi dati personali  />-->
+<div class="row due">
+    <div class="col-lg-1 col-md-1 col-xs-2">
+        </div>
+            <div class="col-lg-10 col-md-10 col-xs-8" style="text-align:center">
+                <span class="m-login__account-msg">
+                    Don't have an account yet ?</span>
+               <a id="m_login_forget_password" class="m-link">Sign Up</a>
+            </div>
+        <div class="col-lg-1 col-md-1 col-xs-2">
+    </div>
+</div>
+</div>
+<!--fine accesso per la registrazione al sito con relativi dati personali  />-->
+<!--fine sezione sinistra con inserimento dati dell'utente />-->
+
+
+<!--inizio sezione destra con immagine in background />-->
+<div id="fascia" class="col-xs-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 full-height" style="background-image:url('fondotre.jpg')">
+    <div id="frasedue">ISCRIVITI</div>
+    <div id="frasetre">e scopri i nostri vantaggi.</div>
+</div>
+<!--fine sezione destra con immagine in background />-->
+
+
 </div>
 </body>
 </html>
+<!--fine linguaggio HTML />-->
