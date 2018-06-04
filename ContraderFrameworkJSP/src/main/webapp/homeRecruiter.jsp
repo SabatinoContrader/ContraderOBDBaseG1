@@ -24,6 +24,7 @@
     <input type="submit" value="Lista Candidati" name="richiesta">
     <input type="submit" value="Lista annunci" name="richiesta">
 </form>
+
 <form action="LogoutServlet" method="post">
     <input type="submit" value="Logout" name="Logout">
 </form>

@@ -2,6 +2,9 @@ package com.virtualpairprogrammers.services;
 
 import com.virtualpairprogrammers.dao.CandidatureDAO;
         import com.virtualpairprogrammers.domain.Candidature;
+import com.virtualpairprogrammers.domain.Utente;
+
+import java.util.List;
 
 public class CandidatureService {
 
@@ -21,6 +24,9 @@ public class CandidatureService {
 
     public boolean iscrizioneAnnuncio(Candidature candidatura) {
         return this.candidatureDAO.iscrizioneAnnuncio(candidatura);
+    }
+
+    public List<String> visualizzaCandidatureAnnuncio (Integer id) { return this.candidatureDAO.visualizzaCandidatureAnnuncio(id);
     }
 
 }

@@ -3,6 +3,7 @@ package com.virtualpairprogrammers.servlets;
 import com.virtualpairprogrammers.domain.Utente;
 import com.virtualpairprogrammers.services.AnnunciService;
 import com.virtualpairprogrammers.services.UtenteService;
+import com.virtualpairprogrammers.services.CandidatureService;
 import com.virtualpairprogrammers.domain.Annunci;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,12 +18,14 @@ public class RecruiterServlet extends HttpServlet {
 
     private UtenteService utenteService;
     private AnnunciService annunciService;
+    private CandidatureService candidatureService;
 
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String scelta = request.getParameter("richiesta");
         HttpSession session = request.getSession(true);
         utenteService = UtenteService.getService();
         annunciService = AnnunciService.getService();
+        candidatureService = CandidatureService.getService();
         switch (scelta) {
             case "Lista Candidati":
                 List<Utente> candidati = new ArrayList<Utente>();
@@ -42,6 +45,10 @@ public class RecruiterServlet extends HttpServlet {
                 Integer id = Integer.parseInt(request.getParameter("id"));
                 this.utenteService.valutacommentaCandidati(valutazione, commento, id);
                 response.sendRedirect("homeRecruiter.jsp");
+                break;
+
+
+
         }
     }
 }

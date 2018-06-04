@@ -72,6 +72,12 @@
 		<servlet-class>com.virtualpairprogrammers.servlets.IscrizioneAnnuncioServlet</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>VisualizzaCandidatiAnnuncioServlet</servlet-name>
+		<servlet-class>com.virtualpairprogrammers.servlets.VisualizzaCandidatiAnnuncioServlet</servlet-class>
+	</servlet>
+
+
 	<servlet-mapping>
 		<servlet-name>HelloWorldServlet</servlet-name>
 		<url-pattern>/hello-everyone.html</url-pattern>
@@ -140,6 +146,12 @@
 		<servlet-name>IscrizioneAnnuncioServlet</servlet-name>
 		<url-pattern>/IscrizioneAnnuncioServlet</url-pattern>
 	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>VisualizzaCandidatiAnnuncioServlet</servlet-name>
+		<url-pattern>/VisualizzaCandidatiAnnuncioServlet</url-pattern>
+	</servlet-mapping>
+
 
 
 	<session-config>

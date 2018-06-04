@@ -64,6 +64,13 @@
                 <%if (ruolo.equals("candidato")){%>
             <a href="IscrizioneAnnuncioServlet?id=<%= annuncio.getId()%>&idca=<%= idcandidato%>">Candidati</a>
                 <%}%>
+        </td>
+
+         <td>
+                    <%if (ruolo.equals("recruiter")) {%>
+                     <a href="VisualizzaCandidatiAnnuncioServlet?id=<%= annuncio.getId()%>">Visualizza Candidature Annuncio </a>
+                    <%}%>
+                </td>
 
 
     </tr>
