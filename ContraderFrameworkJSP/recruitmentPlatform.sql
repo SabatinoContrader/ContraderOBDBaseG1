@@ -46,10 +46,10 @@ value ('programmatore','roma','ht','stage');
 insert into recruitmentplatform.annunci(titolo,luogo,categoria,contratto) 
 value ('programmatore','genoa','ht','stage');
 
-drop table recruitmentplatform.candidature;			 
+drop table recruitmentplatform.candidature;
 create table recruitmentplatform.candidature(
-ID_Annunci int(11),
-ID_Candidati int(11),
-foreign key (ID_Annunci) references recruitmentplatform.annunci (id),
-foreign key (ID_Candidati) references recruitmentplatform.utente (id)
+ID_Annunci int,
+ID_Candidati int,
+foreign key (ID_Annunci) references annunci (id) ON DELETE CASCADE,
+foreign key (ID_Candidati) references utente (id) ON DELETE CASCADE
 );
