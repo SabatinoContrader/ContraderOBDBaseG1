@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!--indica le librerie che sto utilizzando per bootstrap(con relativo CSS) e JQuery />-->
-    <% String esito = (String) session.getAttribute("esitoLogin");%>
+<% String esito = (String) session.getAttribute("esitoLogin");%>
 
 <!-- inizio linguaggio CSS-->
 <style>
@@ -110,18 +110,17 @@
 	font-size:610%;
     color:#2A1E70;
     font-family: impact;
-    margin-left: 115px;
-
-	}
-	}
-
-	@media screen and (max-width: 991px) {
-	#frasedue {
-	font-size: 50px;
-	}
+    padding-left: 290px;
+    }
 	}
 
-    @media screen and (max-width: 490px) {
+    <@media screen and (max-width: 354px) {
+    #frasefascia {
+    font-size:20px;
+	}
+	}
+
+    @media screen and (min-width: 355px) {
     #frasefascia {
     font-size:28px;
 	}
@@ -129,14 +128,26 @@
 
     @media screen and (min-width: 491px) {
     #frasefascia {
-    font-size:38px;
+    font-size:29px;
 	}
 	}
+
+    @media screen and (min-width: 627px) {
+    #frasefascia {
+    font-size:35px;
+	}
+	}
+
 
     #frasefascia{
     color:#2A1E70;
     padding-left:25px;
+    padding-top: 70px;
     font-family: impact;
+    }
+
+    #fototop{
+    height: 200px;
     }
 
      </style>
@@ -155,8 +166,8 @@
 
 <!--inizio fascialta con immagine in background quando lo schermo passa da lg a md />-->
 <div class="row" id="top">
-    <div class="col-md-12" style="background-image:url('fascialta.jpg')">
-		<div id="frasefascia">ISCRIVITI e scopri i nostri vantaggi. </div>
+    <div id="fototop" class="col-md-12" style="background-image:url('fascialta1.jpg')">
+		<div id="frasefascia">Accedi o registrati e scopri i nostri vantaggi. </div>
     </div>
 </div>
 <!--fine fascialta con immagine in background quando lo schermo passa da lg a md />-->
@@ -179,14 +190,16 @@
 <div class="row">
     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
         </div>
-            <%if(esito=="errato"){%>
-                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
-                            <div class="alert alert-danger alert-dismissible fade in">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Login errato!</strong>
-                            </div>
-                        </div>
-                     <%}%>
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+                <%if(esito=="errato"){%>
+                                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+                                            <div class="alert alert-danger alert-dismissible fade in">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>Login errato!</strong>
+                                            </div>
+                                        </div>
+                                     <%}%>
+            </div>
         <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
     </div>
 </div>
@@ -278,7 +291,7 @@
             <div class="col-lg-10 col-md-10 col-xs-8" style="text-align:center">
                 <span class="m-login__account-msg">
                     Don't have an account yet ?</span>
-               <a class="m-link">Sign Up</a>
+               <a id="m_login_forget_password" class="m-link">Sign Up</a>
             </div>
         <div class="col-lg-1 col-md-1 col-xs-2">
     </div>
@@ -289,9 +302,9 @@
 
 
 <!--inizio sezione destra con immagine in background />-->
-<div id="fascia" class="col-xs-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 full-height" style="background-image:url('fondotre.jpg')">
-    <div id="frasedue">ISCRIVITI</div>
-    <div id="frasetre">e scopri i nostri vantaggi.</div>
+<div id="fascia" class="col-xs-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 full-height" style="background-image:url('fondotre1.jpg')">
+    <div id="frasedue">CHI SIAMO</div>
+    <div id="frasetre">Accedi o registrati <br>e scopri i nostri vantaggi.</div>
 </div>
 <!--fine sezione destra con immagine in background />-->
 
