@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!--indica le librerie che sto utilizzando per bootstrap(con relativo CSS) e JQuery />-->
-
+    <% String esito = (String) session.getAttribute("esitoLogin");%>
 
 <!-- inizio linguaggio CSS-->
 <style>
@@ -179,7 +179,7 @@
 <div class="row">
     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
         </div>
-            <%if (esito=="errato"){%>
+            <%if(esito=="errato"){%>
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
                             <div class="alert alert-danger alert-dismissible fade in">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -278,7 +278,7 @@
             <div class="col-lg-10 col-md-10 col-xs-8" style="text-align:center">
                 <span class="m-login__account-msg">
                     Don't have an account yet ?</span>
-               <a id="m_login_forget_password" class="m-link">Sign Up</a>
+               <a class="m-link">Sign Up</a>
             </div>
         <div class="col-lg-1 col-md-1 col-xs-2">
     </div>
