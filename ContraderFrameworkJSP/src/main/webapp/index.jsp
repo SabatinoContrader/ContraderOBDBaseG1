@@ -47,7 +47,7 @@
     }
 
     #frasetre{
-    color:#2A1E70;
+    color:#5143DD;
     padding-left:295px;
     padding-top:10px;
     font-size:28pt;
@@ -62,16 +62,6 @@
     border-color:#ffffff;
     }
 
-	.btn{
-	background-color:#2A1E70;
-	color:#ffffff;
-	margin-top:65px;
-	border-radius:9px;
-	height:36px;
-	width:130px;
-	margin-left:-10px;
-	}
-
 	div.row.uno{
 	padding-top:40px;
 	}
@@ -79,6 +69,16 @@
 	div.row.due{
     padding-top:30px;
 	}
+
+    .btn{
+    background-color:#5143DD;
+    color:#ffffff;
+    margin-top:65px;
+    border-radius:9px;
+    height:36px;
+    width:130px;
+    margin-left:-10px;
+    }
 
     @media screen and (min-width: 992px) {
 	#top {
@@ -108,7 +108,7 @@
 	@media screen and (min-width: 992px) {
 	#frasedue {
 	font-size:610%;
-    color:#2A1E70;
+    color:#5143DD;
     font-family: impact;
     padding-left: 290px;
     }
@@ -138,9 +138,8 @@
 	}
 	}
 
-
     #frasefascia{
-    color:#2A1E70;
+    color:#5143DD;
     padding-left:25px;
     padding-top: 70px;
     font-family: impact;
@@ -162,7 +161,7 @@
 <!-- sezione bootsrap container generale-->
 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 full-height">
 <!-- inizio sezione sinistra con inserimento dati dell'utente-->
-    <form action="LoginServlet" method="post">
+<form action="LoginServlet" method="post">
 
 <!--inizio fascialta con immagine in background quando lo schermo passa da lg a md />-->
 <div class="row" id="top">
@@ -191,14 +190,14 @@
     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
         </div>
             <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
-                <%if(esito=="errato"){%>
-                                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
-                                            <div class="alert alert-danger alert-dismissible fade in">
-                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                <strong>Login errato!</strong>
-                                            </div>
-                                        </div>
-                                     <%}%>
+                 <%if(esito=="errato"){%>
+                      <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
+                           <div class="alert alert-danger alert-dismissible fade in">
+                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                  <strong>Login errato!</strong>
+                                 </div>
+                             </div>
+                      <%}%>
             </div>
         <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
     </div>
@@ -268,6 +267,7 @@
 </div>
 <!--fine della riga al di sotto del login con recupero della password dell'utente />-->
 
+
 <!--inizio inserimento del botton per il login accedendo alla pagina successiva del sito />-->
 <div class="row">
     <div class="col-lg-4 col-md-3 col-xs-2">
@@ -304,7 +304,7 @@
 <!--inizio sezione destra con immagine in background />-->
 <div id="fascia" class="col-xs-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 full-height" style="background-image:url('fondotre1.jpg')">
     <div id="frasedue">CHI SIAMO</div>
-    <div id="frasetre">Accedi o registrati <br>e scopri i nostri vantaggi.</div>
+    <div id="frasetre">Accedi o registrati e scopri i nostri vantaggi.</div>
 </div>
 <!--fine sezione destra con immagine in background />-->
 
