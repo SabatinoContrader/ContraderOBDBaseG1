@@ -1,6 +1,3 @@
-<%@ page import="com.virtualpairprogrammers.domain.Utente" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- inizio linguaggio HTML-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -50,7 +47,7 @@
     }
 
     #frasetre{
-    color:#5143DD;
+    color:rgb(255, 255, 255);
     padding-left:295px;
     padding-top:10px;
     font-size:28pt;
@@ -101,7 +98,7 @@
 	@media screen and (min-width: 992px) {
 	#frasedue {
 	font-size:610%;
-    color:#5143DD;
+    color:rgb(255, 255, 255);
     font-family: impact;
     padding-left: 290px;
     }
@@ -132,7 +129,7 @@
 	}
 
     #frasefascia{
-    color:#5143DD;
+    color:rgb(255, 255, 255);
     padding-left:25px;
     padding-top: 70px;
     font-family: impact;
@@ -174,6 +171,10 @@
     background-color: #ffffff;
     border-color:#5143DD;
     border-radius: 9px
+    }
+
+    #fascia{
+    background-repeat: no-repeat;
     }
 
      </style>
@@ -219,12 +220,12 @@
         </div>
             <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="username" placeholder="Username" name="username">
+                    <input type="text" class="form-control" id="username" placeholder="Username" name="user">
                         </div>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
                          <div class="form-group">
-                    <input type="text" class="form-control" id="titolo" placeholder="Password" name="password">
+                    <input type="text" class="form-control" id="titolo" placeholder="Password" name="user">
                 </div>
              </div>
         <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
@@ -239,12 +240,12 @@
          </div>
              <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
                  <div class="form-group">
-                     <input type="text" class="form-control" id="username" placeholder="Nome" name="nome">
+                     <input type="text" class="form-control" id="username" placeholder="Nome" name="user">
                          </div>
                              </div>
                              <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
                          <div class="form-group">
-                    <input type="text" class="form-control" id="titolo" placeholder="Cognome" name="cognome">
+                    <input type="text" class="form-control" id="titolo" placeholder="Cognome" name="user">
                  </div>
              </div>
          <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
@@ -259,12 +260,12 @@
         </div>
             <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="username" placeholder="Indirizzo" name="indirizzo">
+                    <input type="text" class="form-control" id="username" placeholder="Indirizzo" name="user">
                         </div>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
                             <div class="form-group">
-                    <input type="text" class="form-control" id="titolo" placeholder="Codice Fiscale" name="codice_fiscale">
+                    <input type="text" class="form-control" id="titolo" placeholder="Codice Fiscale" name="user">
                 </div>
             </div>
         <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
@@ -279,12 +280,12 @@
         </div>
             <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
                  <div class="form-group">
-                     <input type="text" class="form-control" id="username" placeholder="Email" name="telefono">
+                     <input type="text" class="form-control" id="username" placeholder="Email" name="user">
                          </div>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
                         <div class="form-group">
-                    <input type="text" class="form-control" id="titolo" placeholder="Telefono" name="email">
+                    <input type="text" class="form-control" id="titolo" placeholder="Telefono" name="user">
                 </div>
             </div>
         <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
@@ -298,7 +299,7 @@
         </div>
             <div class="col-lg-4 col-md-6 col-xs-8" style="text-align:center">
                 <div class="form-group">
-                  <button type="button" class="btn" value="Registrati" name="richiesta">Conferma</button>
+                  <button type="button" class="btn" value="Login" name="bott">Conferma</button>
                 </div>
             </div>
         <div class="col-lg-4 col-md-3 col-xs-2" >
@@ -311,9 +312,6 @@
 </div>
 <!--fine accesso per la registrazione al sito con relativi dati personali  />-->
 <!--fine sezione sinistra con inserimento dati dell'utente />-->
-
-
-
 
 
 <!--inizio sezione destra con immagine in background />-->

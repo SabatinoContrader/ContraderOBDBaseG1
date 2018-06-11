@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- inizio linguaggio HTML-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,7 +11,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!--indica le librerie che sto utilizzando per bootstrap(con relativo CSS) e JQuery />-->
 
-    <%
+ <%
             String nome = ((String) session.getAttribute("nome"));
             String cognome = ((String) session.getAttribute("cognome"));
             String ruolo = ((String) session.getAttribute("ruolo"));
@@ -53,7 +52,7 @@
     }
 
     #frasetre{
-    color:#5143DD;
+    color:rgb(255, 255, 255);
     padding-left:295px;
     padding-top:10px;
     font-size:28pt;
@@ -104,7 +103,7 @@
 	@media screen and (min-width: 992px) {
 	#frasedue {
 	font-size:610%;
-    color:#5143DD;
+    color:rgb(255, 255, 255);
     font-family: impact;
     padding-left: 290px;
     }
@@ -135,7 +134,7 @@
 	}
 
     #frasefascia{
-    color:#5143DD;
+    color:rgb(255, 255, 255);
     padding-left:25px;
     padding-top: 70px;
     font-family: impact;
@@ -143,6 +142,10 @@
 
     #fototop{
     height: 200px;
+    }
+
+    #fascia{
+    background-repeat: no-repeat;
     }
 
     .btn{
@@ -156,28 +159,64 @@
 
     }
 
-    #titolo{
-    display: block;
-    width: 100%;
-    height: 36px;
-    padding: 6px 12px;
-    font-size: 14px;
-    color: #555;
-    background-color: #ffffff;
+    .btn2{
+    background-color:#ffffff;
+    color:#9C9B9B;
+    margin-top:65px;
+    border-radius:9px;
+    height:36px;
+    width:130px;
+    margin-left:-10px;
     border-color:#5143DD;
-    border-radius: 9px;
+    margin-top:20px;
     }
 
-    #username{
-    display: block;
-    width: 100%;
-    height: 36px;
-    padding: 6px 12px;
-    font-size: 14px;
-    color: #555;
-    background-color: #ffffff;
+    .btn3{
+    background-color:#ffffff;
+    color:#9C9B9B;
+    margin-top:65px;
+    border-radius:9px;
+    height:36px;
+    width:130px;
+    margin-left:-10px;
     border-color:#5143DD;
-    border-radius: 9px
+    margin-top:20px;
+    }
+
+    .btn4{
+    background-color:#ffffff;
+    color:#9C9B9B;
+    margin-top:65px;
+    border-radius:9px;
+    height:36px;
+    width:130px;
+    margin-left:-10px;
+    border-color:#5143DD;
+    margin-top:20px;
+    }
+
+    .btn5{
+    background-color:#ffffff;
+    color:#9C9B9B;
+    margin-top:65px;
+    border-radius:9px;
+    height:36px;
+    width:130px;
+    margin-left:-10px;
+    border-color:#5143DD;
+    margin-top:20px;
+    }
+
+    .btn6{
+    background-color:#ffffff;
+    color:#9C9B9B;
+    margin-top:65px;
+    border-radius:9px;
+    height:36px;
+    width:130px;
+    margin-left:-10px;
+    border-color:#5143DD;
+    margin-top:20px;
     }
 
      </style>
@@ -192,12 +231,12 @@
 <!-- sezione bootsrap container generale-->
 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 full-height">
 <!-- inizio sezione sinistra con inserimento dati dell'utente-->
-<form action="GestoreServlet" method="post">
+<form action="LoginServlet" method="post">
 
 <!--inizio fascialta con immagine in background quando lo schermo passa da lg a md />-->
 <div class="row" id="top">
     <div id="fototop" class="col-md-12" style="background-image:url('fascialta1.jpg')">
-		<div id="frasefascia"> GESTISCI al meglio il tuo materiale.  </div>
+		<div id="frasefascia"> GESTISCI al meglio il tuo personale.</div>
     </div>
 </div>
 <!--fine fascialta con immagine in background quando lo schermo passa da lg a md />-->
@@ -216,63 +255,19 @@
 <!--fine inserimento logo piattaforma />-->
 
 
-<!--inizio del campo di compliazione e per l'inserimento dei dati dell'user />-->
-<!--inizio dei 2 campi di compilazione coppia />-->
+<!--inizio inserimento del botton per il login accedendo alla pagina successiva del sito />-->
 <div class="row">
-    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+    <div class="col-lg-4 col-md-3 col-xs-2">
         </div>
-            <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
+            <div class="col-lg-4 col-md-6 col-xs-8" style="text-align:center">
                 <div class="form-group">
-                    <button type="text" class="form-control" id="username" value="Lista Recruiter" name="richiesta">Lista Recruiter</button>
-                        </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
-                        <div class="form-group">
-                        <a href="inserimentoAnnuncio.jsp">Inserisci Annuncio</a>
-                    <button type="text" class="form-control" id="username" value="button" name="Inserissci annunci" name="user">Inserisci Candidato</button>
-                    </a>
+                  <button type="button" class="btn6" value="Login" name="bott">Lista Candidati</button>
                 </div>
-             </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-     </div>
-</div>
-<!--fine dei 2 campi di compilazione coppia />-->
-
-
-<!--inizio dei 2 campi di compilazione coppia />-->
-<div class="row">
-     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-         </div>
-             <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
-                 <div class="form-group">
-                    <button type="text" class="form-control" id="username" value="button" value="Lista Candidati" name="richiesta">Lista Candidati</button>
-                        </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
-                        <div class="form-group">
-                        <a href="inserimentoRecruiter.jsp">
-                            <button type="text" class="form-control" id="username" value="button" name="inserisci Recruiter" name="user">inserisci Recruiter</button>
-                        </a>
-                 </div>
-             </div>
-         <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-     </div>
-</div>
-<!--fine dei 2 campi di compilazione coppia />-->
-
-
-<!--inizio dei 2 campi di compilazione a coppia />-->
-<div class="row">
-    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-        </div>
-            <div class="col-lg-5 col-md-5 col-sm-4 col-xs-4">
-                <div class="form-group">
-                    <button type="text" class="form-control" id="username" value="button" value="Lista annunci" name="richiesta">Lista Annunci</button>
-        </div>
+            </div>
+        <div class="col-lg-4 col-md-3 col-xs-2" >
     </div>
 </div>
-</form>
-<!--fine dei 2 campi di compilazione a coppia />-->
+<!--fine inserimento del botton per il login accedendo alla pagina successiva del sito />-->
 
 
 <!--inizio inserimento del botton per il login accedendo alla pagina successiva del sito />-->
@@ -281,15 +276,75 @@
         </div>
             <div class="col-lg-4 col-md-6 col-xs-8" style="text-align:center">
                 <div class="form-group">
-                <form action="LogoutServlet" method="post">
-                  <button type="button" class="btn" value="Logout" name="Logout">Logout</button>
-                  </form>
+                  <button type="button" class="btn5" value="Login" name="bott">Lista Recruiter</button>
                 </div>
             </div>
         <div class="col-lg-4 col-md-3 col-xs-2" >
     </div>
 </div>
 <!--fine inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+
+
+<!--inizio inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+<div class="row">
+    <div class="col-lg-4 col-md-3 col-xs-2">
+        </div>
+            <div class="col-lg-4 col-md-6 col-xs-8" style="text-align:center">
+                <div class="form-group">
+                  <button type="button" class="btn4" value="Login" name="bott">Lista annunci</button>
+                </div>
+            </div>
+        <div class="col-lg-4 col-md-3 col-xs-2" >
+    </div>
+</div>
+<!--fine inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+
+
+<!--inizio inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+<div class="row">
+    <div class="col-lg-4 col-md-3 col-xs-2">
+        </div>
+            <div class="col-lg-4 col-md-6 col-xs-8" style="text-align:center">
+                <div class="form-group">
+                  <button type="button" class="btn3" value="Login" name="bott">Inserisci Recruiter</button>
+                </div>
+            </div>
+        <div class="col-lg-4 col-md-3 col-xs-2" >
+    </div>
+</div>
+<!--fine inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+
+
+<!--inizio inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+<div class="row">
+    <div class="col-lg-4 col-md-3 col-xs-2">
+        </div>
+            <div class="col-lg-4 col-md-6 col-xs-8" style="text-align:center">
+                <div class="form-group">
+                  <button type="button" class="btn2" value="Login" name="bott">Inserisci annunci</button>
+                </div>
+            </div>
+        <div class="col-lg-4 col-md-3 col-xs-2" >
+    </div>
+</div>
+<!--fine inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+
+
+<!--inizio inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+<div class="row">
+    <div class="col-lg-4 col-md-3 col-xs-2">
+        </div>
+            <div class="col-lg-4 col-md-6 col-xs-8" style="text-align:center">
+                <div class="form-group">
+                  <button type="button" class="btn" value="Login" name="bott">Logout</button>
+                </div>
+            </div>
+        <div class="col-lg-4 col-md-3 col-xs-2" >
+    </div>
+</div>
+<!--fine inserimento del botton per il login accedendo alla pagina successiva del sito />-->
+
+
 </form>
 <!--fine dei 2 campi di compilazione a coppia />-->
 <!--fine del campo di compilazione per l'inserimento dei dati dell'user />-->
@@ -297,11 +352,10 @@
 <!--fine accesso per la registrazione al sito con relativi dati personali  />-->
 <!--fine sezione sinistra con inserimento dati dell'utente />-->
 
-
 <!--inizio sezione destra con immagine in background />-->
 <div id="fascia" class="col-xs-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 full-height" style="background-image:url('fondotre1.jpg')">
     <div id="frasedue">GESTISCI</div>
-    <div id="frasetre">al meglio il tuo materiale.</div>
+    <div id="frasetre">al meglio il tuo personale.</div>
 </div>
 <!--fine sezione destra con immagine in background />-->
 
