@@ -1,0 +1,10 @@
+{
+  "idDispositivo": 57,
+  "nomeDispositivo": "Pc prova Mario",
+  "cpu": null,
+  "frequenza": 0.0,
+  "ram": 0.0,
+  "hardDisk": 0.0,
+  "stato": "attivato",
+  "username": "user"
+}
