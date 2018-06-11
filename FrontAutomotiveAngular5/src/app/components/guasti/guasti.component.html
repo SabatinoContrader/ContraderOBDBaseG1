@@ -1,0 +1,150 @@
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="5">
+  <agm-marker *ngFor="let device of listaGuasti;  let i = index;"  [latitude]="device.telemetria.latitudine" [longitude]="device.telemetria.longitudine" (markerClick)="clickedMarker(device.label, infoWindow, i)" >
+    <agm-info-window  #infoWindow>
+	<p>ID: {{device.id}}</p>
+	<p>Codice: {{device.tipologiaGuasto.codice}}</p>
+	<p>Descrizione guasto: {{device.tipologiaGuasto.descrizione}}</p>
+     
+    </agm-info-window>
+  </agm-marker>
+</agm-map>
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
+
+  <!-- begin::Body -->
+  <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+      <div class="m-content">
+
+        <!--begin:: section content-->
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
+            <div class="m-portlet m-portlet--mobile ">
+
+              <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                  <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                      <i class="fa fa-wrench fah3"></i>
+                      GUASTI
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div class="m-portlet__body">
+                <!--begin: Datatable -->
+
+                <div class="table-responsive">
+                  <table *ngIf="listaGuasti" datatable class="row-border hover" id="myTable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Data</th>
+                        <th>Codice Guasto</th>
+                        <th>Descrizione</th>
+                        <th>Codice Dispositivo</th>
+                        <th>Auto</th>
+                        <th>Stato</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let guasto of listaGuasti">
+                        <td>{{guasto.id}}</td>
+                        <td>{{guasto.data | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{guasto.tipologiaGuasto.codice}}</td>
+                        <td>{{guasto.tipologiaGuasto.descrizione}}</td>
+                        <td>{{guasto.dispositivo.codice}}</td>
+                        <td>{{guasto.dispositivo.auto.marca}} {{guasto.dispositivo.auto.modello}}
+                          <br>{{guasto.dispositivo.auto.targa}}
+                          <br>{{guasto.dispositivo.auto.numeroTelaio}} </td>
+                        <td>{{guasto.statoRisoluzione}}</td>
+                        <td>
+                          <a class="ali" (click)="openModalTelemetria(guasto.telemetria);">
+                            <i class="fa fa-info" title="Visualizza dati telemetria"></i>
+                          </a>
+                          <a class="ali" *ngIf="guasto.statoRisoluzione == 'Non Risolto'" (click)="openModalRisolviGuasto(guasto.id);">
+                            <i class="fa fa-wrench" title="Conferma risolto il guasto"></i>
+                          </a>
+
+                        </td>
+
+
+                      </tr>
+                    </tbody>
+
+                  </table>
+                </div>
+                <!--end: Datatable -->
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <!--end:: seciont content-->
+
+
+
+
+
+      </div>
+    </div>
+    <!--
+		</div>
+	-->
+  </div>
+</div>
+<!-- end:: Page -->
+<!-- begin::modal dati telemetria -->
+<div class="modal" tabindex="-1" role="dialog" id="modaldatitelemetria">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dati telemetria</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="telemetria">
+          <p>
+            <span class="spanred">RPM:</span>{{telemetria.rpm}}</p>
+          <p>
+            <span class="spanred">Latitudine:</span>{{telemetria.latitudine}}</p>
+          <p>
+            <span class="spanred">Longitudine:</span>{{telemetria.longitudine}}</p>
+        </div>
+
+      </div>
+      <div class="modal-footer " style="text-align:center;">
+
+        <button type="button" class="btn btn-primary savebutton" data-dismiss="modal">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal dati telemetria -->
+<!-- begin::modal risolvi guasto -->
+<div class="modal" tabindex="-1" role="dialog" id="modalrisolviguasto">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confermi il guasto risolto?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+      </div>
+      <div class="modal-footer " style="text-align:center;">
+        <button type="button" class="btn btn-primary savebutton" (click)="risolviGuasto()">Conferma</button>
+        <button type="button" class="btn btn-primary savebutton" data-dismiss="modal">Annulla</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::modal risolvi guasto -->

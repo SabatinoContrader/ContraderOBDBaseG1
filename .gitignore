@@ -1,0 +1,10 @@
+.idea/
+out/
+.DS_Store
+target
+.project
+.tern-project
+.settings
+.classpath
+.externalToolBuilders/
+/bin/

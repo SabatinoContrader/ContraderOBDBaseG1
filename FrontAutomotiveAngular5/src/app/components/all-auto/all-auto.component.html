@@ -1,0 +1,32 @@
+<div>
+  <!-- begin:: Page -->
+  <div class="m-grid m-grid--hor m-grid--root m-page">
+
+    <!-- begin::Body -->
+    <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+      <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+        <div class="m-content">
+          <agm-map [latitude]="lat" [longitude]="lng">
+            <agm-marker *ngFor="let loc of autoLocation; let i =index;" [latitude]="loc.posizione.latitudine" [longitude]="loc.posizione.longitudine" (markerClick)="clickedMarker(device.label, infoWindow, i)">
+              <agm-info-window>
+                <div class="card">
+                  <div class="card-body">
+                    <table>
+                      <tr>
+                        <td>{{loc.auto.marca}} {{loc.auto.modello}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{loc.auto.targa}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </agm-info-window>
+            </agm-marker>
+          </agm-map>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

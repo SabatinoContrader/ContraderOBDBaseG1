@@ -1,0 +1,168 @@
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page" style="margin-top:50px;">
+
+  <!-- begin::Body -->
+  <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+      <div class="m-content">
+
+        <!--begin:: section content-->
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="rightautotable">
+            <div class="m-portlet m-portlet--mobile ">
+              <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                  <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                      <i class="fa fa-calendar fah3"></i>
+NOLEGGI                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div class="m-portlet__body">
+                <!--begin: Datatable -->
+	<button type="button" id="aggiungidispositivo" class="btn btn-default pull-left btnmodal btnuptab" data-toggle="modal" data-target="#modalassegnanoleggio">ASSEGNA NOLEGGIO</button>
+                <div class="table-responsive">
+                  <table *ngIf="listaNoleggi" datatable  class="row-border hover" id="myTable">
+                    <thead>
+                      <tr>
+                        <th>Guidatore</th>
+                        <th>Auto</th>
+                        <th>Data Inizio Noleggio</th>
+                        <th>Data Fine Noleggio</th>
+                        <th>CAP Luogo Di Ritiro</th>
+                      <th>CAP Luogo Di Riconsegna</th>
+					  <th>Max Km Noleggio</th>
+					  <th></th>
+					  </tr>
+                    </thead>
+                    <tbody >
+                      <tr *ngFor="let noleggio of listaNoleggi">
+					  
+					  
+                        <td>{{noleggio.guidatore.nome}} {{noleggio.guidatore.cognome}}</td>
+						<td>{{noleggio.auto.marca}} {{noleggio.auto.modello}}</td>
+						<td>{{noleggio.dataInizioNoleggio | date: 'dd/MM/yyyy'}}</td>
+						<td>{{noleggio.dataFineNoleggio | date: 'dd/MM/yyyy'}}</td>
+						<td>{{noleggio.capLuogoDiRitiro}}</td>
+							<td>{{noleggio.capLuogoDiRiconsegna}}</td>
+								<td>{{noleggio.maxKmNoleggio}}</td>
+                      
+                        <td>        
+                        
+                        </td>
+				
+                      </tr>
+                    </tbody>
+					
+                  </table>
+                </div>
+                <!--end: Datatable -->
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <!--end:: seciont content-->
+
+
+
+
+
+      </div>
+    </div>
+    <!--
+		</div>
+	-->
+  </div>
+</div>
+<!-- end:: Page -->
+
+<!-- begin::modal assegna noleggio -->
+<div class="modal" tabindex="-1" role="dialog" id="modalassegnanoleggio">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Assegna noleggio</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+<div class="form-group">
+				<label for="clientenoleggio">Selezionare cliente</label>
+			<select class="form-control" name="clientenoleggio" [(ngModel)]="clientenoleggio">
+			<option *ngFor="let cliente of listaClienti" value="{{cliente.id}}">{{cliente.nome}} {{cliente.cognome}}</option>
+				
+			</select>
+			</div>
+				
+<div class="form-group">
+				<label for="autonoleggio">Selezionare auto</label>
+			<select class="form-control" name="autonoleggio" [(ngModel)]="autonoleggio">
+			<option *ngFor="let auto of listaAutoNoleggiabili" value="{{auto.id}}">{{auto.marca}} {{auto.modello}}  - {{auto.targa}}</option>
+				
+			</select>
+			</div>			
+			
+			
+					<div class="form-group">
+				<label for="CapLuogoDiRitiro">Inserire CAP luogo ritiro</label>
+				<input class="form-control" type="number" name="CapLuogoDiRitiro" [(ngModel)]="CapLuogoDiRitiro">
+				</div>
+				
+				<div class="form-group">
+				<label for="CapLuogoDiRiconsegna">Inserire CAP luogo consegna</label>
+				<input class="form-control" type="number" name="CapLuogoDiRiconsegna" [(ngModel)]="CapLuogoDiRiconsegna">
+				</div>
+				
+				
+					
+						 <div class="form-group">
+              <label for="DataInizioNoleggio">Inserire Data inizio noleggio</label>
+                <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd" name="DataInizioNoleggio" [(ngModel)]="DataInizioNoleggio" ngbDatepicker #dd="ngbDatepicker">
+                      <button class="btn btn-outline-secondary" (click)="dd.toggle()" type="button">
+                        <i class="fa fa-fw fa-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+			  
+					 <div class="form-group">
+              <label for="DataFineNoleggio">Inserire Data fine noleggio</label>
+                <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd" name="DataFineNoleggio" [(ngModel)]="DataFineNoleggio" ngbDatepicker #d="ngbDatepicker">
+                      <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                        <i class="fa fa-fw fa-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+			  
+			  
+				<div class="form-group">
+				<label for="maxKmNoleggio">Inserire numero massimo km noleggio</label>
+				<input class="form-control" type="number" name="maxKmNoleggio" [(ngModel)]="maxKmNoleggio">
+				</div>
+				
+					
+				</div>
+				<div class="modal-footer " style="text-align:center;" >
+					<button type="button" class="btn btn-primary savebutton" (click)="insertNoleggio();">Salva</button>
+
+				
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end::modal assegna noleggio-->

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="account-wall">
+      <h2 class="text-center login-title">Sign in</h2>
+      <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+        alt="">
+      <form class="form-signin">
+        <input type="text" id="email" class="form-control" placeholder="Nome Utente" autofocus name="email" [(ngModel)]=email required
+          minlength="4" appForbiddenName="bobbb" #emailt="ngModel">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="pwd" [(ngModel)]=password required
+          minlength="6">
+        <div *ngIf="emailt.invalid && (emailt.dirty || emailt.touched)" class="alert alert-danger">
+
+          <div *ngIf="emailt.errors.required">
+            Name is required.
+          </div>
+          <div *ngIf="emailt.errors.minlength">
+            Name must be at least 4 characters long.
+          </div>
+
+          <div *ngIf="emailt.errors.appForbiddenName">
+            Name cannot be Bob.
+          </div>
+
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="login()" value="Login" name="butt">Sign in</button>
+        <label class="checkbox pull-left">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <a href="#" class="pull-right need-help">Need help? </a>
+        <span class="clearfix"></span>
+      </form>
+    </div>
+  </div>
+</div>
+<ngx-spinner
+bdColor = "rgba(141,24,24,0.8)"
+size = "large"
+color = "#fff"
+type = "pacman"
+></ngx-spinner>

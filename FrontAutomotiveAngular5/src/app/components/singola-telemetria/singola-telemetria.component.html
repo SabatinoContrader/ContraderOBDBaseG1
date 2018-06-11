@@ -1,0 +1,146 @@
+<!-- begin:: Page -->
+<div class="m-grid m-grid--hor m-grid--root m-page">
+  <!-- begin::Body -->
+  <div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop 	m-container m-container--responsive m-container--xxl m-page__container m-body">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+      <div class="m-content">
+
+        <div class="row row-flex">
+          <div class="col-md-4">
+            <div class="card" style="min-height: 250px;">
+              <div class="card-header">
+                <i class="fa fa-automobile"></i>
+               {{auto.marca}} {{auto.modello}}
+              </div>
+              <div class="card-body">
+                <table>
+                  <tr>
+                    <td>Targa:</td>
+                    <td> {{auto.targa}}</td>
+                  </tr>
+                  <tr>
+                    <td>Telaio:</td>
+                    <td> {{auto.numeroTelaio}}</td>
+                  </tr>
+                  <tr>
+                    <td>Cilindrata:</td>
+                    <td> {{auto.cilindrata}} cm
+                      <sup>3</sup>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Potenza:</td>
+                    <td> {{auto.potenza}} kw </td>
+                  </tr>
+                  <tr>
+                    <td>Alimentazione:</td>
+                    <td> {{auto.alimentazione}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card" style="min-height: 250px;">
+              <div class="card-header">
+                Dati
+              </div>
+              <div class="card-body">
+                <table>
+                  <tr>
+                    <td>Km:</td>
+                    <td>{{km}}</td>
+                  </tr>
+                  <tr>
+                    <td>Scadenza revisione:</td>
+                    <td>{{auto.scadenzaRevisione | date:'dd/MM/yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Scadenza bollo:</td>
+                    <td>{{auto.scadenzaBollo | date:'dd/MM/yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Scadenza tagliando: </td>
+                    <td>{{auto.scadenzaTagliando | date:'dd/MM/yyyy'}}</td>
+                  </tr>
+                </table>
+              </div>
+			  <div class="card-footer">
+			  <button class="btn btn-success" (click)="gotoTelemetria()">Ultimi dati</button>
+			  </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body" style="margin: 0; padding: 0;">
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15">
+                  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
+              </div>
+            </div>
+          </div>
+        </div>
+		
+	
+		<!-- ADDING CHARTSW -->
+		
+		<ngx-spinner
+bdColor = "rgba(141,24,24,0.8)"
+size = "large"
+color = "#fff"
+type = "pacman"
+></ngx-spinner>
+
+		        <div class="row mt-3" >
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+			<!--  <button type=button (click)="testPoint();">test</button>-->
+              <select class="form-control" id="parameter" [(ngModel)]="parametro" (change)="onItemChange(parametro,0)">
+				<option selected value="0">Kilometri (km)</option>
+				<option value="1">RPM </option>	
+				<option value="2">ENGINE LOAD</option>	
+				<option value="3">COOLANT TEMP</option>					
+				<option value="4">FUEL PRESSION</option>
+				<option value="5">INTAKE MAP</option>
+				<option value="6">THROTTLE POSITION</option>
+				<option value="7">ABSOLUTE LOAD VALUE</option>
+				<option value="9">IGNITION TIMING ADVANCE</option>
+				<option value="10">INTAKE TEMPERATURE</option>
+				<option value="11">COMMANDED EGR</option>
+				<option value="12">COMMANDED EVAPORATIVE PURGE</option>
+				<option value="13">EGR ERROR</option>
+				<option value="14">FUEL LEVEL</option>
+				<option value="15">EVAP SYSTEM VAPOR PRESSURE</option>
+				<option value="16">BAROMETRIC PRESSURE</option>
+				<option value="17">CATALYST TEMPERATURE BANK 1</option>
+				<option value="18">CATALYST TEMPERATURE BANK 2</option>
+			
+				<option value="20">RELATIVE THROTTLE POSITION</option>
+				<option value="21">AMBIENT AIR TEMPERATURE</option>
+				<option value="22">ABSOLUTE THROTTLE POSITION B</option>
+				<option value="33">ABSOLUTE THROTTLE POSITION C</option>
+				<option value="23">ABSOLUTE PEDAL POSITION D</option>
+				<option value="24">ABSOLUTE PEDAL POSITION E</option>
+				<option value="25">ABSOLUTE PEDAL POSITION F</option>
+				<option value="26">COMMANDED THROTTLE ATTUATOR</option>
+				<option value="27">ETHANOL FUEL</option>
+				<option value="28">FUEL RAIL PRESSURE INJECTION</option>
+				<option value="29">ENGINE OIL TEMPERATURE</option>
+				<option value="30">ENGINE FUEL RATE</option>
+				<option value="31">DEMAND ENGINE TORQUE</option>
+				<option value="32">ENGINE REFERENCE TORQUE</option>
+			  </select>
+              </div>
+			  <button type="button" id="resetzoom" class="btn btn-info" (click)="resetZoom();" *ngIf="isZoomed">Reset Zoom</button>
+              <div class="card-body">
+              <div [chart]="chart"></div>
+              </div>
+            </div>
+          </div>
+		  </div>
+		
+      </div>
+    </div>
+  </div>
+</div>
